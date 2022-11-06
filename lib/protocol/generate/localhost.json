@@ -1,0 +1,8 @@
+{
+  "LendingPoolAddressesProviderRegistry": "0x3bb2d790458e5b35b2487e74206ebe0ef7893519",
+  "ReserveLogic": "0x86ed5d5d204f607df9235a8df1efb7ba957cf1ca",
+  "LendingPoolImpl": "0xb71f8ede637ab07efecae9313278159b52e111ee",
+  "USDT": "0x3e225f81dacde6007b06bd79456c9987c3b7042b",
+  "OToken": "0x3aeb90153e27e4d4534600f945fbf3e1441ee771",
+  "LendingPoolConfiguratorImpl": "0x7b67060b9d97cb06f6119fb91c2fa82e014f60d4"
+}

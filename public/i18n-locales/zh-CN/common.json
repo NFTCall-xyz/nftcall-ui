@@ -1,0 +1,51 @@
+{
+  "wallet": {
+    "btn": {
+      "cancel": "取消",
+      "disconnected": "断开",
+      "deposit": "订金",
+      "withdraw": "提取",
+      "details": "细节",
+      "approve": "批准"
+    },
+    "disconnected": {
+      "title": "连接钱包",
+      "subTitle": "开始使用 Onebit"
+    },
+    "connected": {
+      "title": "连接的",
+      "subTitle": "与"
+    },
+    "connecting": {
+      "title": "解锁钱包",
+      "subTitle": "您可能需要单击扩展程序。"
+    },
+    "error": {
+      "title": "连接钱包",
+      "subTitle": "开始使用 Onebit",
+      "ChainUnknownError": "交换网络"
+    },
+    "tips": {
+      "accept": "通过连接，我接受",
+      "term": "Onebit 的服务条款"
+    },
+    "chain": {
+      "title": "选择您的网络",
+      "subTitle": "您当前的网络：",
+      "error": "不支持的网络"
+    }
+  },
+  "project": {
+    "status": {
+      "open": "打开",
+      "lockedUp": "锁上"
+    },
+    "fundraisingProgress": {
+      "title": "筹款进度",
+      "max": "最大限度"
+    }
+  },
+  "table": {
+    "noData": "还没有数据。"
+  }
+}
