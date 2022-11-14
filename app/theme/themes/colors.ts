@@ -12,7 +12,8 @@ declare module '@mui/material/styles' {
   }
 }
 
-const primaryMain = '#002FA7'
+const primaryMain = '#5CE1E6'
+const darkPrimaryMain = '#5CE1E6'
 export const primary = {
   light: '#E5F3FD',
   main: primaryMain,
@@ -23,6 +24,16 @@ export const primary = {
   red: '#FF6B93',
   purple: '#A798FF',
   yellow: '#FF9777',
+}
+
+export const darkPrimary = {
+  ...primary,
+  light: '#E5F3FD',
+  main: darkPrimaryMain,
+  100: alpha(darkPrimaryMain, 0.08),
+  200: alpha(darkPrimaryMain, 0.2),
+  300: alpha(darkPrimaryMain, 0.3),
+  400: alpha(darkPrimaryMain, 0.4),
 }
 
 const secondaryMain = '#23C657'
@@ -38,24 +49,19 @@ export const secondary = {
 }
 
 export const info = {
-  light: '#F4F4FF',
-  main: '#8C8DFF',
-  dark: '#0C53B7',
+  main: '#2499EF',
 }
+
 export const success = {
-  light: '#EAFBF4',
   main: '#27CE88',
-  dark: '#229A16',
 }
+
 export const warning = {
-  light: '#FFFAF2',
   main: '#FFC675',
-  dark: '#B78103',
 }
+
 export const error = {
-  light: '#FFEBF1',
   main: '#FF316F',
-  dark: '#B72136',
 }
 
 // For light theme
@@ -97,7 +103,7 @@ export const textLight = {
 export const textDark = {
   primary: '#ffffff',
   secondary: greyDark[600],
-  disabled: greyDark[400],
+  disabled: greyDark[500],
 }
 
 // For Light theme
@@ -112,6 +118,21 @@ export const actionLight = {
   hover: alpha(greyLight[900], 0.04),
   hoverOpacity: 0.04,
   selected: greyLight[100],
+  selectedOpacity: 0.08,
+}
+
+// For Dark theme
+export const actionDark = {
+  activatedOpacity: 0.12,
+  active: alpha(greyDark[900], 0.54),
+  disabled: greyDark[300],
+  disabledBackground: alpha(greyDark[900], 0.12),
+  disabledOpacity: 0.38,
+  focus: alpha(greyDark[900], 0.12),
+  focusOpacity: 0.12,
+  hover: alpha(greyDark[900], 0.04),
+  hoverOpacity: 0.04,
+  selected: greyDark[100],
   selectedOpacity: 0.08,
 }
 
@@ -137,9 +158,11 @@ export const lightPalette = {
 
 export const darkPalette = {
   ...palette,
-  // primary: Object.defineProperty(Object.create(primary), "main", { value: "#2499EF" }),
+  primary: darkPrimary,
   mode: 'dark',
   grey: greyDark,
   text: textDark,
+  action: actionDark,
+  divider: greyDark[400],
   background: { default: '#171c24', paper: '#222b36' },
 }

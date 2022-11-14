@@ -71,7 +71,7 @@ const withTypography = (options: any) => {
   const returnValue = merge(
     {
       typography: {
-        fontFamily: ['Dosis', 'sans-serif'].join(','),
+        fontFamily: ['Poppins', 'sans-serif'].join(','),
         button: {
           fontWeight: 600,
         },

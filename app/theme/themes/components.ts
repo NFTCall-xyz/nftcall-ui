@@ -270,7 +270,7 @@ const components = (theme: Theme): any => {
     },
     MuiButtonBase: {
       styleOverrides: {
-        root: { fontFamily: "'Dosis', sans-serif" },
+        root: { fontFamily: "'Poppins', sans-serif" },
       },
     },
     MuiLinearProgress: {
