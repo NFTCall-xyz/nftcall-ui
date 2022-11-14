@@ -12,13 +12,13 @@ import Box from '@mui/material/Box'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 import Logo from '../Logo'
-import { useMenu } from './useMenu'
 import { useLinks } from '../../Footer/Links/useLinks'
+import { useApp } from 'app'
 
 const ROOT = styled(Box)``
 
 const MenuMobile = () => {
-  const { menuList, currentMenu } = useMenu()
+  const { menu } = useApp()
   const { links } = useLinks()
   const [openDrawer, setOpenDrawer] = useState(false)
 
@@ -29,11 +29,11 @@ const MenuMobile = () => {
           <Logo />
         </ListItem>
         <Divider />
-        {menuList
+        {menu.list
           .filter((item) => !item.hide)
           .map(({ label, linkTo, key, target }) => (
             <Link href={linkTo} key={linkTo} target={target}>
-              <ListItem button selected={currentMenu.key === key} onClick={() => setOpenDrawer(false)}>
+              <ListItem button selected={menu.current.key === key} onClick={() => setOpenDrawer(false)}>
                 <ListItemText primary={label} style={{ color: 'rgba(0, 0, 0, 0.87)' }} />
               </ListItem>
             </Link>
@@ -53,7 +53,7 @@ const MenuMobile = () => {
         </ListItem>
       </List>
     ),
-    [currentMenu.key, links, menuList]
+    [links, menu]
   )
 
   return (
@@ -67,7 +67,7 @@ const MenuMobile = () => {
         onClick={() => setOpenDrawer(true)}
         endIcon={<KeyboardArrowDownIcon />}
       >
-        {currentMenu.label}
+        {menu.current.label}
       </Button>
       <Drawer anchor="left" open={openDrawer} onClose={() => setOpenDrawer(false)}>
         {list}

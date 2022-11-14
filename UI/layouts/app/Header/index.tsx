@@ -8,7 +8,6 @@ import type { Theme } from '@mui/material'
 import Logo from './Logo'
 import { useMediaQuery } from '@mui/material'
 
-const NProgress = dynamic(() => import('lib/nprogress/components/NProgress'), { ssr: false })
 const Menu = dynamic(() => import('./Menu'), { ssr: false })
 const MenuMobile = dynamic(() => import('./Menu/mobile'), { ssr: false })
 const Actions = dynamic(() => import('./Actions'), { ssr: false })
@@ -42,7 +41,6 @@ const Header: FC = () => {
           </Stack>
           <Actions />
         </BODY>
-        <NProgress />
       </ROOT>
     )
   } else {
@@ -53,7 +51,6 @@ const Header: FC = () => {
           <MenuMobile />
           <ActionsMobile />
         </BODY>
-        <NProgress />
       </ROOT>
     )
   }

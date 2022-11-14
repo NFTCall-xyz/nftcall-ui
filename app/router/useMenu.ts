@@ -6,7 +6,7 @@ import { ChainId } from 'lib/protocol/chain/types'
 
 const MenuList = [
   {
-    key: 'App',
+    key: 'Home',
     linkTo: '/',
     hide: true,
   },
@@ -58,7 +58,7 @@ export function useMenu() {
   const router = useRouter()
   const { chainId } = useWallet()
 
-  const menuList = useMemo(() => {
+  const list = useMemo(() => {
     return MenuList.filter((menu) => {
       if (__DEV__) return true
       if (chainId === ChainId.goerli) {
@@ -68,10 +68,10 @@ export function useMenu() {
     }).map((menu) => ({ ...menu, label: t('router:menu.' + menu.key) }))
   }, [chainId, t])
 
-  const currentMenu = useMemo(() => {
+  const current = useMemo(() => {
     const linkTo = router.route
-    return menuList.find((item) => item.linkTo === linkTo) || ({} as undefined)
-  }, [menuList, router.route])
+    return list.find((item) => item.linkTo === linkTo) || ({} as undefined)
+  }, [list, router.route])
 
-  return { menuList, currentMenu }
+  return { list, current }
 }

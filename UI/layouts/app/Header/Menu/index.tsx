@@ -2,8 +2,7 @@ import { useMemo } from 'react'
 import Link from 'next/link'
 import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
-
-import { useMenu } from './useMenu'
+import { useApp } from 'app'
 
 const ROOT = styled('div')`
   display: flex;
@@ -11,11 +10,11 @@ const ROOT = styled('div')`
 `
 
 const Menu = () => {
-  const { menuList } = useMenu()
+  const { menu } = useApp()
 
   const list = useMemo(
     () =>
-      menuList
+      menu.list
         .filter((item) => !item.hide && !item.onlyMobile)
         .map(({ label, linkTo }) => (
           <Link href={linkTo} key={linkTo} passHref>
@@ -30,7 +29,7 @@ const Menu = () => {
             </Button>
           </Link>
         )),
-    [menuList]
+    [menu.list]
   )
 
   return <ROOT>{list}</ROOT>
