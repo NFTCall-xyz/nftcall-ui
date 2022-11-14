@@ -6,11 +6,15 @@ import { ToastContainer } from 'lib/toastify'
 import ActiveLayout from 'UI/layouts'
 
 import ThemeProvider from './theme'
+
+import { useMenu } from './router/useMenu'
 import type { FCC } from './types'
 
 import { useRouteChange } from 'lib/nprogress/router'
 export function useAppService() {
   useRouteChange()
+  const menu = useMenu()
+  return { menu }
 }
 
 export const { Context, Provider: APP, createUseContext } = createContext(useAppService)
