@@ -84,6 +84,9 @@ const components = (theme: Theme): any => {
             '&:hover': { boxShadow: 'none', backgroundColor: success.main },
           },
           '& .MuiButton-startIcon .MuiSvgIcon-root': { fontSize: 16 },
+          '&.MuiButton-containedPrimary': {
+            color: theme.palette.background.default,
+          },
         },
         outlinedPrimary: { borderColor: divider, color: text.primary },
         containedPrimary: { color: 'white', '&:hover': { boxShadow: 'none' } },
@@ -114,7 +117,6 @@ const components = (theme: Theme): any => {
             color: text.disabled,
           },
         },
-
         {
           props: { variant: 'dashed' },
           style: {

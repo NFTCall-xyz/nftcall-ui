@@ -4,6 +4,7 @@ const locale = {
   explorePortfolios: 'Explore Portfolios',
   transactionHistory: 'Transaction History',
   portfolioDetails: 'Portfolio Details',
+  launchApp: 'Launch App',
 }
 
 export default locale

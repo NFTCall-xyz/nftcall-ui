@@ -132,9 +132,9 @@ export const Paragraph: React.FC<BoxProps & Props> = (props) => {
 
   return (
     <Box
-      fontSize={14}
+      fontSize={16}
       component="p"
-      fontWeight={500}
+      fontWeight={400}
       className={clsx({ [className || '']: true })}
       {...{
         ...(ellipsis ? createEllipsisStyle() : {}),
