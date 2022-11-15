@@ -11,6 +11,7 @@ import { useMediaQuery } from '@mui/material'
 
 const Actions = dynamic(() => import('./Actions'), { ssr: false })
 const ActionsMobile = dynamic(() => import('./Actions/mobile'), { ssr: false })
+const Menu = dynamic(() => import('./Menu'), { ssr: false })
 
 const ROOT = styled('header')`
   position: relative;
@@ -30,10 +31,11 @@ const Header: FC = () => {
       <ROOT>
         <Container component="main" maxWidth="lg">
           <BODY>
+            <Logo />
             <Stack spacing={2} direction="row">
-              <Logo />
+              <Menu />
+              <Actions />
             </Stack>
-            <Actions />
           </BODY>
         </Container>
       </ROOT>
@@ -41,10 +43,12 @@ const Header: FC = () => {
   } else {
     return (
       <ROOT>
-        <BODY>
-          <Logo />
-          <ActionsMobile />
-        </BODY>
+        <Container component="main" maxWidth="lg">
+          <BODY>
+            <Logo />
+            <ActionsMobile />
+          </BODY>
+        </Container>
       </ROOT>
     )
   }

@@ -1,38 +1,33 @@
-import { useMemo } from 'react'
 import Link from 'next/link'
 import { styled } from '@mui/material/styles'
-import Button from '@mui/material/Button'
-import { useApp } from 'app'
+import Stack from '@mui/material/Stack'
 
-const ROOT = styled('div')`
-  display: flex;
-  align-items: center;
+const HeaderLink = styled(Link)`
+  ${({ theme }) => ({
+    color: theme.palette.text.secondary,
+    fontWeight: 'normal',
+    '&:hover': {
+      color: theme.palette.text.primary
+    }
+  })}
 `
 
+const menu = [
+  { label: 'NFTCall Protocol', linkTo: '#'},
+  { label: 'Docs', linkTo: '#'},
+  { label: 'FAQs', linkTo: '#'},
+]
+
 const Menu = () => {
-  const { menu } = useApp()
-
-  const list = useMemo(
-    () =>
-      menu.list
-        .filter((item) => !item.hide && !item.onlyMobile)
-        .map(({ label, linkTo }) => (
-          <Link href={linkTo} key={linkTo} passHref>
-            <Button
-              variant="text"
-              sx={{
-                color: 'primary.contrastText',
-              }}
-              size="large"
-            >
-              {label}
-            </Button>
-          </Link>
-        )),
-    [menu.list]
+  return (
+    <Stack direction={{ xs: 'column', lg: 'row' }} spacing={4} alignItems={{ xs: 'start', lg: 'center' }}>
+      {menu.map(({ label, linkTo }) => (
+        <HeaderLink href={linkTo} key={linkTo} target="_blank">
+          {label}
+        </HeaderLink>
+      ))}
+    </Stack>
   )
-
-  return <ROOT>{list}</ROOT>
 }
 
 export default Menu

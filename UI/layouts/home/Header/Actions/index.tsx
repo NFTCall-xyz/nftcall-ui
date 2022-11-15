@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles'
 import LanuchApp from './LanuchApp'
 
 const ROOT = styled(Stack)`
-  min-width: 300px;
+  min-width: 150px;
   justify-content: right;
 `
 const Actions: FC = () => {

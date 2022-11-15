@@ -80,16 +80,16 @@ export const greyLight = {
 
 // For dark theme
 export const greyDark = {
-  900: '#E9F3F9',
-  800: '#D3E6F3',
-  700: '#B1C9DC',
-  600: '#8CA3BA',
-  500: '#5F748D',
-  400: '#455A79',
-  300: '#2F4365',
-  200: '#1E2E51',
-  100: '#121F43',
-  50: '#111111',
+  900: alpha('#fff', 0.9),
+  800: alpha('#fff', 0.8),
+  700: alpha('#fff', 0.7),
+  600: alpha('#fff', 0.6),
+  500: alpha('#fff', 0.5),
+  400: alpha('#fff', 0.4),
+  300: alpha('#fff', 0.3),
+  200: alpha('#fff', 0.2),
+  100: alpha('#fff', 0.1),
+  50: alpha('#fff', 0.05),
 }
 
 // For Light theme
@@ -103,7 +103,7 @@ export const textLight = {
 export const textDark = {
   primary: '#ffffff',
   secondary: greyDark[600],
-  disabled: greyDark[500],
+  disabled: greyDark[200],
 }
 
 // For Light theme
@@ -163,6 +163,6 @@ export const darkPalette = {
   grey: greyDark,
   text: textDark,
   action: actionDark,
-  divider: greyDark[400],
+  divider: greyDark[50],
   background: { default: '#00040F', paper: 'linear-gradient(110.53deg, #FFFFFF -265.46%, #14101D 96.75%)' },
 }

@@ -1,49 +1,24 @@
-import { styled } from '@mui/material/styles'
-
 import GitHubIcon from '@mui/icons-material/GitHub'
-import MenuBookIcon from '@mui/icons-material/MenuBook'
+// import MenuBookIcon from '@mui/icons-material/MenuBook'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import TwitterIcon from '@mui/icons-material/Twitter'
-import EmailIcon from '@mui/icons-material/Email'
+// import EmailIcon from '@mui/icons-material/Email'
 
-const MediumSVG = () => {
+const MediumIcon = () => {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M2.846 6.887C2.876 6.592 2.763 6.301 2.543 6.103L0.303 3.403V3H7.261L12.639 14.795L17.367 3H24V3.403L22.084 5.24C21.919 5.366 21.837 5.573 21.871 5.778V19.276C21.837 19.48 21.919 19.687 22.084 19.813L23.955 21.65V22.053H14.543V21.65L16.482 19.768C16.672 19.578 16.672 19.522 16.672 19.231V8.321L11.283 22.009H10.555L4.28 8.321V17.495C4.228 17.88 4.356 18.269 4.627 18.547L7.148 21.605V22.009H0V21.605L2.521 18.547C2.791 18.268 2.911 17.877 2.846 17.495V6.887V6.887Z"
-      />
+    <svg width="25" height="24" viewBox="0 0 25 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M4.53934 7.46817C4.56611 7.20495 4.46528 6.94531 4.26899 6.76865L2.27035 4.35958V4H8.47861L13.2771 14.5241L17.4957 4H23.414V4.35958L21.7044 5.99864C21.5572 6.11106 21.484 6.29575 21.5144 6.47866V18.5222C21.484 18.7042 21.5572 18.8889 21.7044 19.0014L23.3738 20.6404V21H14.976V20.6404L16.706 18.9612C16.8756 18.7917 16.8756 18.7417 16.8756 18.4821V8.74765L12.0672 20.9607H11.4177L5.81882 8.74765V16.9331C5.77242 17.2767 5.88663 17.6237 6.12843 17.8718L8.37779 20.6003V20.9607H2V20.6003L4.24936 17.8718C4.49026 17.6228 4.59733 17.274 4.53934 16.9331V7.46817Z" />
     </svg>
   )
 }
 
-const MediumIcon = styled('div')`
-  display: flex;
-  align-items: center;
-  ${({ theme }) => ({
-    color: theme.palette.text.secondary,
-    fontWeight: 'normal',
-    width: '20px',
-    height: '20px',
-  })}
-`
-
 const links = [
-  { label: 'Telegram', linkTo: 'https://t.me/vinciprotocol', icon: <TelegramIcon /> },
-  { label: 'Twitter', linkTo: 'https://twitter.com/vinciprotocol', icon: <TwitterIcon /> },
-  { label: 'Docs', linkTo: 'https://docs.vinci.io', icon: <MenuBookIcon /> },
-  {
-    label: 'Medium',
-    linkTo: 'https://medium.com/@vinciprotoco',
-    icon: (
-      <MediumIcon>
-        <MediumSVG />
-      </MediumIcon>
-    ),
-  },
   { label: 'Github', linkTo: 'https://github.com/vinciprotocol', icon: <GitHubIcon /> },
-  { label: 'Email', linkTo: 'mailto:info@vinci.io', icon: <EmailIcon /> },
+  { label: 'Twitter', linkTo: 'https://twitter.com/vinciprotocol', icon: <TwitterIcon /> },
+  { label: 'Medium', linkTo: 'https://medium.com/@vinciprotoco', icon: <MediumIcon />, },
+  { label: 'Telegram', linkTo: 'https://t.me/vinciprotocol', icon: <TelegramIcon /> },
+  // { label: 'Docs', linkTo: 'https://docs.vinci.io', icon: <MenuBookIcon /> },
+  // { label: 'Email', linkTo: 'mailto:info@vinci.io', icon: <EmailIcon /> },
 ]
 
 export const useLinks = () => {

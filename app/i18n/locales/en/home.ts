@@ -6,6 +6,9 @@ const locale = {
     tradeNow: 'Trade Now',
     NFTOptions: 'NFT Options',
   },
+  footer: {
+    subTitle: 'The first on-chain NFT options trading platform.',
+  },
   stats: {
     NFTsLISTED: 'NFTs LISTED',
     OptionsSold: 'Options Sold',
