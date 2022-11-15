@@ -164,5 +164,5 @@ export const darkPalette = {
   text: textDark,
   action: actionDark,
   divider: greyDark[400],
-  background: { default: '#171c24', paper: '#222b36' },
+  background: { default: '#00040F', paper: 'linear-gradient(110.53deg, #FFFFFF -265.46%, #14101D 96.75%)' },
 }
