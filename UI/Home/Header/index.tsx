@@ -25,7 +25,7 @@ const Header: FC = () => {
               <H3 sx={{ color: 'text.secondary' }}>{t('subTitle')}</H3>
             </Stack>
             <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-              <Button>{t('tradeNow')}</Button>
+              <Button variant='contained'>{t('tradeNow')}</Button>
             </Stack>
           </Stack>
         </Grid>

@@ -18,7 +18,7 @@ const Logo = (props: LogoProps) => {
         router.push(__DEV__ ? '/dev' : '/')
       }}
     >
-      <Image src={props.imgSrc || LogoImg} alt="NFTCall Protocol" />
+      <Image src={props.imgSrc || LogoImg} height={40} alt="NFTCall Protocol" />
     </ROOT>
   )
 }
