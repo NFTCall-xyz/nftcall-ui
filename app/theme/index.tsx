@@ -12,7 +12,7 @@ import { selectData, THEME_MODE_KEY, setMode } from './store'
 import { createThemeOptions, getTheme, themes } from './themes'
 
 export const useThemeService = () => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+  const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)')
   const storeData = useAppSelector(selectData)
   const dispatch = useAppDispatch()
 
@@ -35,7 +35,7 @@ export const useThemeService = () => {
   }, [storeData])
 
   useMount(() => {
-    const defaultMode = prefersDarkMode ? 'dark' : 'light'
+    const defaultMode = prefersLightMode ? 'light' : 'dark'
     const memoryMode = getItem(THEME_MODE_KEY)
     if (memoryMode != storeData.mode) {
       dispatch(setMode(memoryMode || defaultMode))
