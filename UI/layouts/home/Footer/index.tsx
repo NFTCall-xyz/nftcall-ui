@@ -16,12 +16,6 @@ import SocialLinks from './Links'
 import { H3, Paragraph } from 'components/Typography'
 import { useTranslation } from 'next-i18next'
 
-const ROOT = styled(Stack)`
-  ${({ theme }) => ({
-    padding: `${theme.spacing(12)} 0 ${theme.spacing(4)} 0`,
-  })}
-`
-
 const FooterLink = styled(Link)`
   ${({ theme }) => ({
     color: theme.palette.text.secondary,
@@ -103,7 +97,7 @@ const Footer: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'footer' })
 
   return (
-    <ROOT>
+    <Stack component='footer' paddingTop={16} paddingBottom={4}>
       <Container maxWidth="lg">
         <Grid container marginBottom={4} spacing={4}>
           <Grid item sm={12} md={5}>
@@ -141,7 +135,7 @@ const Footer: FC = () => {
           <SocialLinks />
         </Stack>
       </Container>
-    </ROOT>    
+    </Stack>    
   )
 }
 

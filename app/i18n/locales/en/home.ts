@@ -1,5 +1,5 @@
 const locale = {
-  header: {
+  hero: {
     title: 'Speculate, Hedge and Earn Income from <NFTOptions>NFT Options</NFTOptions>',
     subTitle:
       'NFTCall is building the first on-chain NFT options trading platform with both cash and physical settlement, allowing NFT investors to speculate, hedge or sell NFTs in a  more profitable way.',
@@ -10,11 +10,11 @@ const locale = {
     subTitle: 'The first on-chain NFT options trading platform.',
   },
   stats: {
-    NFTsLISTED: 'NFTs LISTED',
-    OptionsSold: 'Options Sold',
-    TradingVolume: 'Trading Volume',
+    nftListed: 'NFTs Listed',
+    optionsSold: 'Options Sold',
+    tradingVolume: 'Trading Volume',
   },
-  tradingExperience: {
+  benefits: {
     title: 'A new NFT trading experience with NFTCall',
     subTitle:
       'NFTCall creates a derivative market where both NFT buyers and sellers can benefit from our hybrid settlement model, cost-effective fee struture and fully secured marketplace. ',
@@ -34,7 +34,7 @@ const locale = {
       },
     },
   },
-  buyAndsell: {
+  buyAndSell: {
     title: 'Buy and sell NFT in a profitable way',
     subTitle:
       'NFT buyers can pay a small premium in advance for the call options and take the NFT when it rises to a profitable price, while NFT sellers can earn passive income from the premium if their NFTs don’t get sold at a desired price.',
@@ -70,7 +70,7 @@ const locale = {
       },
     },
   },
-  start: {
+  cta: {
     title: 'Start Trading Now!',
     subTitle: 'Speculate, hedge and earn income from NFT options.',
     tradeNow: 'Trade Now',

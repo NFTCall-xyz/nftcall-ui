@@ -64,7 +64,7 @@ const components = (theme: Theme): any => {
       styleOverrides: {
         root: {
           textTransform: 'none',
-          borderRadius: '4px',
+          borderRadius: '7px',
           boxShadow: 'none',
           padding: '0.6rem 1.5rem',
           fontSize: 13,
@@ -108,7 +108,6 @@ const components = (theme: Theme): any => {
           props: { variant: 'text' },
           style: { padding: 0, '&:hover': { backgroundColor: 'transparent' } },
         },
-
         {
           props: { variant: 'white' },
           style: {
@@ -130,6 +129,12 @@ const components = (theme: Theme): any => {
             border: `1px dashed ${divider}`,
             borderRadius: '50%',
             overflow: 'hidden',
+          },
+        },
+        {
+          props: { size: 'large' },
+          style: {
+            fontSize: 16,
           },
         },
       ],
