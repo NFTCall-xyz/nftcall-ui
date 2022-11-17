@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
+import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import { H2, Paragraph, Span } from 'components/Typography'
 import { useTheme } from '@mui/material/styles'
@@ -9,7 +10,18 @@ import Avatar from '@mui/material/Avatar'
 import AliceSrc from '../images/Alice.png'
 import BobSrc from '../images/Bob.png'
 import CharlieSrc from '../images/Charlie.png'
+import { styled } from '@mui/material/styles'
 
+const BgGradient = styled(Box)`
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  right: -50%;
+  bottom: 10rem;
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #214d76 100%);
+  filter: blur(123px);
+  border-radius: 9999px;
+`
 
 type UseCaseProps = {
   title: string
@@ -54,7 +66,7 @@ const UseCase: React.FC<UseCaseProps> = ({ title, author, tag }) => {
 const How: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'how' })
   return (
-    <Stack component='section' spacing={10}>
+    <Stack component='section' spacing={10} position='relative'>
       <Stack spacing={{ xs: 2, md: 20 }} direction={{ xs: 'column', md: 'row' }}>
         <H2 fontSize={36} textAlign={{ xs: 'center', md: 'left' }}>
           {t('title')}
@@ -71,6 +83,7 @@ const How: FC = () => {
           />
         ))}
       </Stack>
+      <BgGradient />
     </Stack>
   )
 }
