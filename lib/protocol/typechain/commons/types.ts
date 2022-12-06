@@ -19,3 +19,12 @@ export type transactionType = {
   data?: string
   chainId?: number
 }
+
+export enum eEthereumTxType {
+  APPROVAL = 'APPROVAL',
+}
+
+export type EthereumTransactionTypeExtended = {
+  txType: eEthereumTxType
+  tx: () => Promise<transactionType>
+}
