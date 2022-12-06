@@ -22,9 +22,18 @@ export type transactionType = {
 
 export enum eEthereumTxType {
   APPROVAL = 'APPROVAL',
+  DLP = 'DLP',
 }
 
 export type EthereumTransactionTypeExtended = {
   txType: eEthereumTxType
   tx: () => Promise<transactionType>
+}
+
+export type ApproveType = {
+  user: tEthereumAddress
+  spender: tEthereumAddress
+  token: tEthereumAddress
+  tokenId?: string
+  amount?: string
 }
