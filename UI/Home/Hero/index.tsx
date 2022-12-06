@@ -43,7 +43,7 @@ const BgGradient3 = styled(Box)`
 const Hero: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'hero' })
   return (
-    <Stack component='section' spacing={4}>
+    <Stack component="section" spacing={4}>
       <Stack direction={{ xs: 'column', md: 'row' }}>
         <Stack spacing={4} paddingY={8} alignItems={{ xs: 'center', md: 'start' }} flex={1}>
           <Stack spacing={2}>
@@ -52,30 +52,32 @@ const Hero: FC = () => {
                 i18nKey="title"
                 t={t}
                 components={{
-                  NFTOptions: <Span color='primary.main' fontSize={48} fontWeight={600}>{t('NFTOptions')}</Span>,
+                  NFTOptions: (
+                    <Span color="primary.main" fontSize={48} fontWeight={600}>
+                      {t('NFTOptions')}
+                    </Span>
+                  ),
                 }}
               />
             </H1>
-            <H3 color='text.secondary' fontWeight={400} textAlign={{ xs: 'center', md: 'left' }}>{t('subTitle')}</H3>
+            <H3 color="text.secondary" fontWeight={400} textAlign={{ xs: 'center', md: 'left' }}>
+              {t('subTitle')}
+            </H3>
           </Stack>
           <Box>
-            <Button 
-              variant='contained' 
-              size='large' 
-              endIcon={<ArrowForward />}
-            >
+            <Button variant="contained" size="large" endIcon={<ArrowForward />}>
               {t('tradeNow')}
             </Button>
           </Box>
         </Stack>
-        <Box flex={1} position='relative' textAlign='center'>
-          <Image 
-            src={ImageSrc} 
-            alt={t('title')} 
-            style={{ 
-              width:'70%',
+        <Box flex={1} position="relative" textAlign="center">
+          <Image
+            src={ImageSrc}
+            alt={t('title')}
+            style={{
+              width: '70%',
               objectFit: 'contain',
-            }} 
+            }}
           />
           <BgGradient1 />
           <BgGradient2 />

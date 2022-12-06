@@ -21,72 +21,72 @@ const FooterLink = styled(Link)`
     color: theme.palette.text.secondary,
     fontWeight: 'normal',
     '&:hover': {
-      color: theme.palette.text.primary
-    }
+      color: theme.palette.text.primary,
+    },
   })}
 `
 
 export const footerLinks = [
   {
-    title: "NFTCall Protocol",
+    title: 'NFTCall Protocol',
     links: [
       {
-        name: "Overview",
-        link: "#",
+        name: 'Overview',
+        link: '#',
       },
       {
-        name: "How it Works",
-        link: "#",
+        name: 'How it Works',
+        link: '#',
       },
       {
-        name: "Tokenomics",
-        link: "#",
+        name: 'Tokenomics',
+        link: '#',
       },
       {
-        name: "User Guide",
-        link: "#",
+        name: 'User Guide',
+        link: '#',
       },
     ],
   },
   {
-    title: "Useful Link",
+    title: 'Useful Link',
     links: [
       {
-        name: "FAQ",
-        link: "#",
+        name: 'FAQ',
+        link: '#',
       },
       {
-        name: "Docs",
-        link: "#",
+        name: 'Docs',
+        link: '#',
       },
       {
-        name: "Contact",
-        link: "#",
+        name: 'Contact',
+        link: '#',
       },
       {
-        name: "Terms & Services",
-        link: "#",
+        name: 'Terms & Services',
+        link: '#',
       },
     ],
   },
   {
-    title: "Community",
+    title: 'Community',
     links: [
       {
-        name: "Telegram",
-        link: "#",
+        name: 'Telegram',
+        link: '#',
       },
       {
-        name: "Blog",
-        link: "#",
+        name: 'Blog',
+        link: '#',
       },
       {
-        name: "Twitter",
-        link: "#",
+        name: 'Twitter',
+        link: '#',
       },
       {
-        name: "Github",
-        link: "#",
+        name: 'Github',
+        link: '#',
       },
     ],
   },
@@ -97,45 +97,45 @@ const Footer: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'footer' })
 
   return (
-    <Stack component='footer' paddingTop={16} paddingBottom={4}>
+    <Stack component="footer" paddingTop={16} paddingBottom={4}>
       <Container maxWidth="lg">
         <Grid container marginBottom={4} spacing={4}>
           <Grid item sm={12} md={5}>
             <Stack spacing={2} paddingBottom={4}>
               <Logo imgSrc={theme.palette.mode === 'dark' ? LogoImg : LogoImgDark} />
-              <Paragraph color='text.secondary'>
-                {t('subTitle')}
-              </Paragraph>
+              <Paragraph color="text.secondary">{t('subTitle')}</Paragraph>
             </Stack>
           </Grid>
           {footerLinks.map((footerlink) => (
-            <Grid key={footerlink.title} item sm={6} md={7/3}>
+            <Grid key={footerlink.title} item sm={6} md={7 / 3}>
               <H3 sx={{ marginBottom: 1 }}>{footerlink.title}</H3>
               <List>
                 {footerlink.links.map((link) => (
                   <ListItem key={link.name}>
-                    <FooterLink href={link.link} target='_blank'>{link.name}</FooterLink>
+                    <FooterLink href={link.link} target="_blank">
+                      {link.name}
+                    </FooterLink>
                   </ListItem>
                 ))}
               </List>
             </Grid>
           ))}
         </Grid>
-        <Stack 
-          direction={{ xs: 'column-reverse', sm: 'row' }} 
-          justifyContent='space-between'
-          alignItems='center'
+        <Stack
+          direction={{ xs: 'column-reverse', sm: 'row' }}
+          justifyContent="space-between"
+          alignItems="center"
           paddingTop={4}
           sx={{ borderTop: 'solid 1px', borderColor: theme.palette.divider }}
           spacing={2}
         >
-          <Paragraph color='text.disabled' textAlign='center'>
+          <Paragraph color="text.disabled" textAlign="center">
             Copyright Ⓒ 2022 NFTCall. All Rights Reserved.
           </Paragraph>
           <SocialLinks />
         </Stack>
       </Container>
-    </Stack>    
+    </Stack>
   )
 }
 

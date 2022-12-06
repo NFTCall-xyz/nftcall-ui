@@ -34,8 +34,8 @@ const BgGradient2 = styled(Box)`
 const BuyAndSell: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'buyAndSell' })
   return (
-    <Stack component='section' direction={{ xs: 'column-reverse', md: 'row' }} spacing={8}>
-      <Box flex={1} position='relative'>
+    <Stack component="section" direction={{ xs: 'column-reverse', md: 'row' }} spacing={8}>
+      <Box flex={1} position="relative">
         <Image src={ImageSrc} alt={t('title')} style={{ width: '100%', height: '100%', zIndex: 5 }} />
         <BgGradient1 />
         <BgGradient2 />
@@ -45,13 +45,12 @@ const BuyAndSell: FC = () => {
           <H2 fontSize={36} textAlign={{ xs: 'center', md: 'left' }}>
             {t('title')}
           </H2>
-          <Paragraph color='text.secondary' textAlign={{ xs: 'center', md: 'left' }}>{t('subTitle')}</Paragraph>
+          <Paragraph color="text.secondary" textAlign={{ xs: 'center', md: 'left' }}>
+            {t('subTitle')}
+          </Paragraph>
         </Stack>
         <Box>
-          <Button 
-            variant='contained' 
-            endIcon={<ArrowForward />}
-          >
+          <Button variant="contained" endIcon={<ArrowForward />}>
             {t('tradeNow')}
           </Button>
         </Box>

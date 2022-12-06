@@ -26,7 +26,7 @@ const BgGradient = styled(Box)`
 type UseCaseProps = {
   title: string
   author: string
-  tag: string 
+  tag: string
 }
 
 const UseCase: React.FC<UseCaseProps> = ({ title, author, tag }) => {
@@ -38,25 +38,29 @@ const UseCase: React.FC<UseCaseProps> = ({ title, author, tag }) => {
   }
 
   return (
-    <Stack 
+    <Stack
       padding={6}
       spacing={4}
-      sx={{ 
+      sx={{
         '&:hover': {
           background: theme.palette.background.paper,
         },
         borderRadius: '20px',
       }}
     >
-      <Image src={ImageSrc} alt="Quotes" width={40}/>
-      <Paragraph fontSize={18} lineHeight={1.8}>{title}</Paragraph>
-      <Stack spacing={2} direction='row' alignItems='center'>
+      <Image src={ImageSrc} alt="Quotes" width={40} />
+      <Paragraph fontSize={18} lineHeight={1.8}>
+        {title}
+      </Paragraph>
+      <Stack spacing={2} direction="row" alignItems="center">
         <Avatar alt={author} sx={{ width: 48, height: 48 }}>
           <Image src={avatarSrcs[author]} alt={author} height={52} />
         </Avatar>
         <Stack>
           <Span fontSize={20}>{author}</Span>
-          <Span fontSize={16} color='text.secondary'>{tag}</Span>
+          <Span fontSize={16} color="text.secondary">
+            {tag}
+          </Span>
         </Stack>
       </Stack>
     </Stack>
@@ -66,12 +70,14 @@ const UseCase: React.FC<UseCaseProps> = ({ title, author, tag }) => {
 const How: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'how' })
   return (
-    <Stack component='section' spacing={10} position='relative'>
+    <Stack component="section" spacing={10} position="relative">
       <Stack spacing={{ xs: 2, md: 20 }} direction={{ xs: 'column', md: 'row' }}>
         <H2 fontSize={36} textAlign={{ xs: 'center', md: 'left' }}>
           {t('title')}
         </H2>
-        <Paragraph color='text.secondary' textAlign={{ xs: 'center', md: 'left' }}>{t('subTitle')}</Paragraph>
+        <Paragraph color="text.secondary" textAlign={{ xs: 'center', md: 'left' }}>
+          {t('subTitle')}
+        </Paragraph>
       </Stack>
       <Stack spacing={2} direction={{ xs: 'column', md: 'row' }}>
         {[0, 1, 2].map((index) => (
