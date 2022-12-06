@@ -11,19 +11,18 @@ import ImageSrc from '../images/speculate.png'
 const SpeculateAndHedge: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'speculateAndHedge' })
   return (
-    <Stack component='section' direction={{ xs: 'column', md: 'row' }} spacing={8}>
+    <Stack component="section" direction={{ xs: 'column', md: 'row' }} spacing={8}>
       <Stack spacing={4} paddingY={2} alignItems={{ xs: 'center', md: 'start' }} flex={1}>
         <Stack spacing={2}>
           <H2 fontSize={36} textAlign={{ xs: 'center', md: 'left' }}>
             {t('title')}
           </H2>
-          <Paragraph color='text.secondary' textAlign={{ xs: 'center', md: 'left' }}>{t('subTitle')}</Paragraph>
+          <Paragraph color="text.secondary" textAlign={{ xs: 'center', md: 'left' }}>
+            {t('subTitle')}
+          </Paragraph>
         </Stack>
         <Box>
-          <Button 
-            variant='contained' 
-            endIcon={<ArrowForward />}
-          >
+          <Button variant="contained" endIcon={<ArrowForward />}>
             {t('tradeNow')}
           </Button>
         </Box>

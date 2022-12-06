@@ -7,15 +7,15 @@ const HeaderLink = styled(Link)`
     color: theme.palette.text.secondary,
     fontWeight: 'normal',
     '&:hover': {
-      color: theme.palette.text.primary
-    }
+      color: theme.palette.text.primary,
+    },
   })}
 `
 
 const menu = [
-  { label: 'NFTCall Protocol', linkTo: '#'},
-  { label: 'Docs', linkTo: '#'},
-  { label: 'FAQs', linkTo: '#'},
+  { label: 'NFTCall Protocol', linkTo: '#' },
+  { label: 'Docs', linkTo: '#' },
+  { label: 'FAQs', linkTo: '#' },
 ]
 
 const Menu = () => {
