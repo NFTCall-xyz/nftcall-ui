@@ -21,7 +21,11 @@ export function toBN(amount: BNValue): BigNumber {
   return new BigNumber(value)
 }
 
-export function normalize(n: BNValue, decimals: number): BigNumber {
+export function valueToWei(n: BNValue, decimals = 18): BigNumber {
+  return toBN(toBN(n).shiftedBy(decimals).toFixed(0))
+}
+
+export function weiToValue(n: BNValue, decimals = 18): BigNumber {
   return toBN(n).shiftedBy(decimals * -1)
 }
 

@@ -1,4 +1,4 @@
-import { normalize, toBN } from 'lib/math'
+import { weiToValue, toBN } from 'lib/math'
 import type BigNumber from 'bignumber.js'
 
 export const safeGet = <T>(cb: () => T): T => {
@@ -16,9 +16,9 @@ export const getString = <T, K extends keyof T>(obj: T, keys: K[]) => {
   }, {} as Record<K, string>)
 }
 
-export const getBigNumber = <T, K extends keyof T>(obj: T, keys: K[], decimals: number) => {
+export const getWeiToValueBN = <T, K extends keyof T>(obj: T, keys: K[], decimals: number) => {
   return keys.reduce((o, k) => {
-    o[k] = normalize(obj[k] as any, decimals)
+    o[k] = weiToValue(obj[k] as any, decimals)
     return o
   }, {} as Record<K, BigNumber>)
 }
