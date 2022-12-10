@@ -13,7 +13,7 @@ export const DevForm: FC<DevFormProps> = ({ form, formik }) => {
   if (!form.fields) return null
   return (
     <form onSubmit={form.onSubmit}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} paddingTop={2}>
         {Object.keys(form.fields).map((key) => (
           <Grid item xs={12} key={key}>
             <TextField

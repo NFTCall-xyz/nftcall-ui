@@ -1,3 +1,4 @@
 export type DataFetcherReq = {
-  name: string
+  serviceName: string
+  contractName: string
 }

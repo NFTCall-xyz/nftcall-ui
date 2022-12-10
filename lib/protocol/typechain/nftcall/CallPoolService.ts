@@ -10,19 +10,19 @@ import { DEFAULT_NULL_VALUE_ON_TX } from '../commons/utils'
 import type { CallPool } from './typechain'
 import { CallPool__factory } from './typechain'
 
-type baseCallPoolProps = {
+type BaseCallPoolProps = {
   callPool: tEthereumAddress
 }
 
-export type BalanceOfProps = baseCallPoolProps & {
+export type BalanceOfProps = BaseCallPoolProps & {
   user: tEthereumAddress
 }
 
-export type CheckAvailableProps = baseCallPoolProps & {
+export type CheckAvailableProps = BaseCallPoolProps & {
   tokenId: string
 }
 
-export type DepositProps = baseCallPoolProps & {
+export type DepositProps = BaseCallPoolProps & {
   tokenId: tEthereumAddress
   user: tEthereumAddress
   nft: tEthereumAddress
@@ -34,33 +34,33 @@ export type DepositProps = baseCallPoolProps & {
   }
 }
 
-export type WithdrawProps = baseCallPoolProps & {
+export type WithdrawProps = BaseCallPoolProps & {
   user: tEthereumAddress
   tokenId: string
 }
 
-export type ExerciseCallProps = baseCallPoolProps & {
+export type ExerciseCallProps = BaseCallPoolProps & {
   user: tEthereumAddress
   tokenId: string
   strikePrice: string
 }
 
-export type ClaimProps = baseCallPoolProps & {
+export type ClaimProps = BaseCallPoolProps & {
   user: tEthereumAddress
   amount: string
 }
 
-export type TakeNFTOffMarketProps = baseCallPoolProps & {
+export type TakeNFTOffMarketProps = BaseCallPoolProps & {
   user: tEthereumAddress
   tokenId: string
 }
 
-export type RelistNFTProps = baseCallPoolProps & {
+export type RelistNFTProps = BaseCallPoolProps & {
   user: tEthereumAddress
   tokenId: string
 }
 
-export type PreviewOpenCallProps = baseCallPoolProps & {
+export type PreviewOpenCallProps = BaseCallPoolProps & {
   tokenIds: string[]
   strikePriceGapIdx: number
   durationIdx: number
@@ -79,16 +79,17 @@ export class CallPoolService extends BaseService<CallPool> {
 
     this.balanceOf = this.balanceOf.bind(this)
     this.checkAvailable = this.checkAvailable.bind(this)
+    this.deposit = this.deposit.bind(this)
   }
 
   public balanceOf({ callPool, user }: BalanceOfProps) {
-    const callPoolContractInstance = this.getContractInstance(callPool)
-    return callPoolContractInstance.balanceOf(user)
+    const callPoolContract = this.getContractInstance(callPool)
+    return callPoolContract.balanceOf(user)
   }
 
   public checkAvailable({ callPool, tokenId }: CheckAvailableProps) {
-    const callPoolContractInstance = this.getContractInstance(callPool)
-    return callPoolContractInstance.checkAvailable(tokenId)
+    const callPoolContract = this.getContractInstance(callPool)
+    return callPoolContract.checkAvailable(tokenId)
   }
 
   public async deposit({
@@ -101,7 +102,7 @@ export class CallPoolService extends BaseService<CallPool> {
     upperDurationIdx,
   }: DepositProps) {
     const txs: EthereumTransactionTypeExtended[] = []
-    const callPoolContractInstance = this.getContractInstance(callPool)
+    const callPoolContract = this.getContractInstance(callPool)
     const approveProps = {
       user,
       spender: callPool,
@@ -116,7 +117,7 @@ export class CallPoolService extends BaseService<CallPool> {
 
     if (lowerStrikePriceGapIdx === 1 && upperDurationIdx === 3) {
       const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-        rawTxMethod: async () => callPoolContractInstance.populateTransaction.deposit(user, tokenId),
+        rawTxMethod: async () => callPoolContract.populateTransaction.deposit(user, tokenId),
         from: user,
         value: DEFAULT_NULL_VALUE_ON_TX,
       })
@@ -128,7 +129,7 @@ export class CallPoolService extends BaseService<CallPool> {
     } else {
       const txCallback: () => Promise<transactionType> = this.generateTxCallback({
         rawTxMethod: async () =>
-          callPoolContractInstance.populateTransaction.depositWithPreference(
+          callPoolContract.populateTransaction.depositWithPreference(
             user,
             tokenId,
             lowerStrikePriceGapIdx,
@@ -148,9 +149,9 @@ export class CallPoolService extends BaseService<CallPool> {
   }
 
   public withdraw({ callPool, user, tokenId }: WithdrawProps) {
-    const callPoolContractInstance = this.getContractInstance(callPool)
+    const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContractInstance.populateTransaction.withdraw(user, tokenId),
+      rawTxMethod: async () => callPoolContract.populateTransaction.withdraw(user, tokenId),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
@@ -164,9 +165,9 @@ export class CallPoolService extends BaseService<CallPool> {
     const convertedAmount: string =
       amount === '-1' ? constants.MaxUint256.toString() : valueToWei(amount, 18).toString()
 
-    const callPoolContractInstance = this.getContractInstance(callPool)
+    const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContractInstance.populateTransaction.withdrawETH(user, convertedAmount),
+      rawTxMethod: async () => callPoolContract.populateTransaction.withdrawETH(user, convertedAmount),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
@@ -177,9 +178,9 @@ export class CallPoolService extends BaseService<CallPool> {
   }
 
   public takeNFTOffMarket({ callPool, tokenId, user }: TakeNFTOffMarketProps) {
-    const callPoolContractInstance = this.getContractInstance(callPool)
+    const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContractInstance.populateTransaction.takeNFTOffMarket(tokenId),
+      rawTxMethod: async () => callPoolContract.populateTransaction.takeNFTOffMarket(tokenId),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
@@ -190,9 +191,9 @@ export class CallPoolService extends BaseService<CallPool> {
   }
 
   public relistNFT({ callPool, tokenId, user }: RelistNFTProps) {
-    const callPoolContractInstance = this.getContractInstance(callPool)
+    const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContractInstance.populateTransaction.relistNFT(tokenId),
+      rawTxMethod: async () => callPoolContract.populateTransaction.relistNFT(tokenId),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
@@ -204,8 +205,8 @@ export class CallPoolService extends BaseService<CallPool> {
 
   public async previewOpenCall({ callPool, tokenIds, strikePriceGapIdx, durationIdx }: PreviewOpenCallProps) {
     const tokenId = tokenIds[0]
-    const callPoolContractInstance = this.getContractInstance(callPool)
-    const { strikePrice, premiumToOwner, premiumToReserve } = await callPoolContractInstance.previewOpenCall(
+    const callPoolContract = this.getContractInstance(callPool)
+    const { strikePrice, premiumToOwner, premiumToReserve } = await callPoolContract.previewOpenCall(
       tokenId,
       strikePriceGapIdx,
       durationIdx
@@ -218,7 +219,7 @@ export class CallPoolService extends BaseService<CallPool> {
   }
 
   public async openCall(props: OpenCallProps) {
-    const callPoolContractInstance = this.getContractInstance(props.callPool)
+    const callPoolContract = this.getContractInstance(props.callPool)
     const { premiumToOwner, premiumToReserve } = await this.previewOpenCall(props)
     const { tokenIds, user, strikePriceGapIdx, durationIdx } = props
     let txCallback: () => Promise<transactionType>
@@ -227,7 +228,7 @@ export class CallPoolService extends BaseService<CallPool> {
       const tokenId = tokenIds[0]
       txCallback = this.generateTxCallback({
         rawTxMethod: async () =>
-          callPoolContractInstance.populateTransaction.openCall(tokenId, strikePriceGapIdx, durationIdx),
+          callPoolContract.populateTransaction.openCall(tokenId, strikePriceGapIdx, durationIdx),
         from: user,
         value,
       })
@@ -245,7 +246,7 @@ export class CallPoolService extends BaseService<CallPool> {
       )
       txCallback = this.generateTxCallback({
         rawTxMethod: async () =>
-          callPoolContractInstance.populateTransaction.openCallBatch(tokenIds, strikePriceGapIdxs, durationIdxs),
+          callPoolContract.populateTransaction.openCallBatch(tokenIds, strikePriceGapIdxs, durationIdxs),
         from: user,
         value,
       })
@@ -257,9 +258,9 @@ export class CallPoolService extends BaseService<CallPool> {
   }
 
   public async exerciseCall({ callPool, tokenId, user, strikePrice }: ExerciseCallProps) {
-    const callPoolContractInstance = this.getContractInstance(callPool)
+    const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContractInstance.populateTransaction.exerciseCall(tokenId),
+      rawTxMethod: async () => callPoolContract.populateTransaction.exerciseCall(tokenId),
       from: user,
       value: strikePrice,
     })
