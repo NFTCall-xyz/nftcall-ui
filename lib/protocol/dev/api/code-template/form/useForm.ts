@@ -4,14 +4,19 @@ import { createToastifyPromise } from 'app/utils/promise/toastify'
 
 import { initialValues } from './constant'
 import { useRequest } from './request'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 const validationSchema = yup.object({
-  name: yup
+  serviceName: yup
     .string()
     .trim()
-    .matches(/^[a-zA-Z]*$/, 'name is not valid')
-    .required('Phone is required.'),
+    .matches(/^[a-zA-Z]*$/, 'serviceName is not valid')
+    .required('serviceName is required.'),
+  contractName: yup
+    .string()
+    .trim()
+    .matches(/^[a-zA-Z]*$/, 'serviceName is not valid')
+    .required('serviceName is required.'),
 })
 
 export const useForm = () => {
@@ -35,6 +40,10 @@ export const useForm = () => {
     }),
     [formik]
   )
+
+  useEffect(() => {
+    console.log('formik.values.serviceName', formik.values.serviceName)
+  }, [formik.values.serviceName])
 
   return {
     formik,
