@@ -80,6 +80,12 @@ export class CallPoolService extends BaseService<CallPool> {
     this.balanceOf = this.balanceOf.bind(this)
     this.checkAvailable = this.checkAvailable.bind(this)
     this.deposit = this.deposit.bind(this)
+    this.withdraw = this.withdraw.bind(this)
+    this.takeNFTOffMarket = this.takeNFTOffMarket.bind(this)
+    this.relistNFT = this.relistNFT.bind(this)
+    this.previewOpenCall = this.previewOpenCall.bind(this)
+    this.openCall = this.openCall.bind(this)
+    this.exerciseCall = this.exerciseCall.bind(this)
   }
 
   public balanceOf({ callPool, user }: BalanceOfProps) {
@@ -227,8 +233,7 @@ export class CallPoolService extends BaseService<CallPool> {
     if (tokenIds.length === 1) {
       const tokenId = tokenIds[0]
       txCallback = this.generateTxCallback({
-        rawTxMethod: async () =>
-          callPoolContract.populateTransaction.openCall(tokenId, strikePriceGapIdx, durationIdx),
+        rawTxMethod: async () => callPoolContract.populateTransaction.openCall(tokenId, strikePriceGapIdx, durationIdx),
         from: user,
         value,
       })

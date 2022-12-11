@@ -41,3 +41,5 @@ yarn-error.log*
 # i18n
 googleApplicationCredentials.json
 public/locales
+
+dist
