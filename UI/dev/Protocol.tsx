@@ -11,7 +11,7 @@ import { DevForm } from './components/DevForm'
 import { useForm } from 'lib/protocol/dev/api/code-template/form/useForm'
 
 export const Protocol: FC = () => {
-  const codeTemplateDialog = useDialog()
+  const codeTemplateContractServiceDialog = useDialog()
   const formData = useForm()
   const data = useMemo(() => {
     return [
@@ -29,20 +29,20 @@ export const Protocol: FC = () => {
         ),
       },
       {
-        path: '/api/protocol/code-template',
-        description: '生成模板代码',
+        path: '/api/protocol/code-template/contract-service',
+        description: '生成模板代码 - 合约服务文件',
         action: (
           <Button
             onClick={() => {
-              codeTemplateDialog.open()
+              codeTemplateContractServiceDialog.open()
             }}
           >
-            执行
+            open dialog
           </Button>
         ),
       },
     ]
-  }, [codeTemplateDialog])
+  }, [codeTemplateContractServiceDialog])
 
   return (
     <Fragment>
@@ -54,8 +54,8 @@ export const Protocol: FC = () => {
       />
       <Dialog
         {...{
-          ...codeTemplateDialog,
-          title: ' Code Template',
+          ...codeTemplateContractServiceDialog,
+          title: ' Code Template - ContractService',
         }}
       >
         <DevForm {...formData} />
