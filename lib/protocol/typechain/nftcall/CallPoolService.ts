@@ -28,6 +28,7 @@ export type DepositProps = BaseCallPoolProps & {
   nft: tEthereumAddress
   lowerStrikePriceGapIdx: number
   upperDurationIdx: number
+  lowerLimitOfStrikePrice: string
   approveService: {
     approve: (args: ApproveType) => EthereumTransactionTypeExtended
     isApproved: (args: ApproveType) => Promise<boolean>
@@ -106,6 +107,7 @@ export class CallPoolService extends BaseService<CallPool> {
     approveService: { isApproved, approve },
     lowerStrikePriceGapIdx,
     upperDurationIdx,
+    lowerLimitOfStrikePrice,
   }: DepositProps) {
     const txs: EthereumTransactionTypeExtended[] = []
     const callPoolContract = this.getContractInstance(callPool)
@@ -139,7 +141,8 @@ export class CallPoolService extends BaseService<CallPool> {
             user,
             tokenId,
             lowerStrikePriceGapIdx,
-            upperDurationIdx
+            upperDurationIdx,
+            lowerLimitOfStrikePrice
           ),
         from: user,
         value: DEFAULT_NULL_VALUE_ON_TX,
