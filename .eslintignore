@@ -46,3 +46,5 @@ public/i18n-locales
 
 # router
 app/router/routes.json
+
+dist
