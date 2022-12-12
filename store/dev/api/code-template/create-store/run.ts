@@ -30,15 +30,18 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
   const imports = {
     index: [] as any,
     useStateData: [] as any,
+    useController: [] as any,
   }
   const statements = {
     useStateData: [] as any,
+    useController: [] as any,
   }
 
   methodNameList.forEach((methodName) => {
     const upperCaseMethodName = firstToUpperCase(methodName)
     const reducerName = methodName + 'Reducer'
     const selectName = methodName + 'Select'
+    const useControllerName = 'use' + upperCaseMethodName + 'Controller'
     imports.index.push({
       defaultImport: reducerName,
       moduleSpecifier: './' + methodName,
@@ -47,7 +50,12 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
       namedImports: [selectName],
       moduleSpecifier: './' + methodName,
     })
+    imports.useController.push({
+      namedImports: [useControllerName],
+      moduleSpecifier: './' + methodName,
+    })
     statements.useStateData.push(`const ${methodName} = useAppSelector(${selectName}.selectData)`)
+    statements.useController.push(`const ${methodName}Controller = ${useControllerName}()`)
     const directory = distDirectory.createDirectory(methodName)
     const sourceFile = directory.createSourceFile('index.ts')
     const sliceStateName = upperCaseMethodName + 'SliceState'
@@ -73,7 +81,7 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
       `export default reducer`,
       `export const ${methodName}Reducer = reducer`,
       `export const ${methodName}Select = select`,
-      `export const use${upperCaseMethodName}RequestController = useRequestController`,
+      `export const use${upperCaseMethodName}Controller = useRequestController`,
     ])
     const adapterDirectory = directory.createDirectory('adapter')
     const getAdapterName = `get${upperCaseMethodName}BaseData`
@@ -164,6 +172,34 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
       {
         name: stateDataName,
         initializer: `() => { ${statements.useStateData.join('\n')} \n return { ${methodNameList} } }`,
+      },
+    ],
+  })
+
+  const controllerName = `use${upperCaseStoreName}Controller`
+  const useControllerSourceFile = distDirectory.createSourceFile(controllerName + '.ts')
+  useControllerSourceFile.addImportDeclarations([
+    {
+      namedImports: ['useCallback'],
+      moduleSpecifier: 'react',
+    },
+    ...imports.useController,
+  ])
+
+  useControllerSourceFile.addVariableStatement({
+    isExported: true,
+    declarationKind: VariableDeclarationKind.Const,
+    declarations: [
+      {
+        name: controllerName,
+        initializer: `() => {
+         ${statements.useController.join('\n')}
+         const updateData = useCallback(() => {}, [])
+         return { ${methodNameList
+           .map((methodName) => `${methodName}:  ${methodName + 'Controller'}`)
+           .join(',')}, updateData }
+        }
+        `,
       },
     ],
   })
