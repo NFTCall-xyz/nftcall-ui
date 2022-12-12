@@ -17,6 +17,7 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
   const { storeKey, contractName, contractType, methodNames } = req.body as DataFetcherReq
   const storeKeyList = storeKey.split('.')
   const storeName = storeKeyList[storeKeyList.length - 1]
+  const upperCaseStoreName = firstToUpperCase(storeName)
 
   removeDir(resolve(ROOT_PATH, DIST_PATH))
 
@@ -26,15 +27,27 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
   const methodNameList = (methodNames || '').split(',')
   const interfaces: any[] = []
   const methods: any[] = []
-  const imports: any[] = []
-  const ctorStatements: any[] = []
+  const imports = {
+    index: [] as any,
+    useStateData: [] as any,
+  }
+  const statements = {
+    useStateData: [] as any,
+  }
 
   methodNameList.forEach((methodName) => {
     const upperCaseMethodName = firstToUpperCase(methodName)
-    imports.push({
-      defaultImport: methodName + 'Reducer',
+    const reducerName = methodName + 'Reducer'
+    const selectName = methodName + 'Select'
+    imports.index.push({
+      defaultImport: reducerName,
       moduleSpecifier: './' + methodName,
     })
+    imports.useStateData.push({
+      namedImports: [selectName],
+      moduleSpecifier: './' + methodName,
+    })
+    statements.useStateData.push(`const ${methodName} = useAppSelector(${selectName}.selectData)`)
     const directory = distDirectory.createDirectory(methodName)
     const sourceFile = directory.createSourceFile('index.ts')
     const sliceStateName = upperCaseMethodName + 'SliceState'
@@ -125,7 +138,7 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
       namedImports: ['combineReducers'],
       moduleSpecifier: 'redux',
     },
-    ...imports,
+    ...imports.index,
   ])
   sourceFile.addStatements([
     `const ${storeName}Reducer = combineReducers({${methodNameList
@@ -133,6 +146,27 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
       .join(',')}})`,
     `export default ${storeName}Reducer`,
   ])
+
+  const stateDataName = `use${upperCaseStoreName}StateData`
+  const useStateDataSourceFile = distDirectory.createSourceFile(stateDataName + '.ts')
+  useStateDataSourceFile.addImportDeclarations([
+    {
+      namedImports: ['useAppSelector'],
+      moduleSpecifier: 'store',
+    },
+    ...imports.useStateData,
+  ])
+
+  useStateDataSourceFile.addVariableStatement({
+    isExported: true,
+    declarationKind: VariableDeclarationKind.Const,
+    declarations: [
+      {
+        name: stateDataName,
+        initializer: `() => { ${statements.useStateData.join('\n')} \n return { ${methodNameList} } }`,
+      },
+    ],
+  })
 
   await distDirectory.save()
 
