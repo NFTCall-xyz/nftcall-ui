@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-
+import type { FCC } from 'app/types'
 import { useTheme } from '@mui/material/styles'
 import type { TypographyTypeMap } from '@mui/material'
 import { Stack } from '@mui/material'
