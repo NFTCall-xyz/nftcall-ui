@@ -9,13 +9,18 @@ import { toFixed } from './toFixed'
 const createUSDFormatOptions = () => ({
   style: 'currency',
   maximumFractionDigits: 2,
+  minimumFractionDigits: 0,
   currency: 'USD',
   currencyDisplay: 'narrowSymbol',
 })
 
 const createPercentFormatOptions = () => ({
   style: 'percent',
-  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})
+
+const createSymbolFormatOptions = () => ({
+  maximumFractionDigits: 2,
 })
 
 const getOptions = (fn: any, options: any) => ({
@@ -24,7 +29,7 @@ const getOptions = (fn: any, options: any) => ({
 })
 
 const numberFormatOptions = (
-  type: 'number' | 'USD' | 'percent' = 'number',
+  type: 'number' | 'USD' | 'percent' | 'symbol' = 'number',
   options: Intl.NumberFormatOptions = {}
 ): Intl.NumberFormatOptions => {
   switch (type) {
@@ -34,6 +39,8 @@ const numberFormatOptions = (
       return getOptions(createUSDFormatOptions, options)
     case 'percent':
       return getOptions(createPercentFormatOptions, options)
+    case 'symbol':
+      return getOptions(createSymbolFormatOptions, options)
   }
 }
 

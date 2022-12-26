@@ -11,7 +11,7 @@ export type AbbreviateOptions = {
 
 const defaultOptions = {
   symbols: defaultSymbols,
-  maximumFractionDigits: 1,
+  maximumFractionDigits: 2,
 }
 
 export function abbreviate(value: BNValue, options?: AbbreviateOptions) {
@@ -34,7 +34,7 @@ export function getAbbreviateData(value: BNValue, options?: AbbreviateOptions) {
   const sign = bn.s >= 0
   const num = bn.abs()
 
-  const tier = Math.floor(num.e / 3)
+  const tier = num.e < 0 ? 0 : Math.floor(num.e / 3)
   const suffix = props.symbols[tier]
   if (tier >= props.symbols.length) throw new RangeError()
 
