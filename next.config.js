@@ -7,11 +7,9 @@ const nextConfig = {
   i18n,
   swcMinify: true,
   reactStrictMode: true,
-  experimental: {
-    modularizeImports: {
-      lodash: {
-        transform: 'lodash/{{member}}',
-      },
+  modularizeImports: {
+    lodash: {
+      transform: 'lodash/{{member}}',
     },
   },
   compiler: {
