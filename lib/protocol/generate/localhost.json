@@ -1,8 +1,13 @@
 {
-  "LendingPoolAddressesProviderRegistry": "0x3bb2d790458e5b35b2487e74206ebe0ef7893519",
-  "ReserveLogic": "0x86ed5d5d204f607df9235a8df1efb7ba957cf1ca",
-  "LendingPoolImpl": "0xb71f8ede637ab07efecae9313278159b52e111ee",
-  "USDT": "0x3e225f81dacde6007b06bd79456c9987c3b7042b",
-  "OToken": "0x3aeb90153e27e4d4534600f945fbf3e1441ee771",
-  "LendingPoolConfiguratorImpl": "0x7b67060b9d97cb06f6119fb91c2fa82e014f60d4"
+  "Premium": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
+  "CallFactory": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+  "NTokenFactory": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+  "CallTokenFactory": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+  "MockAzuki": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+  "MockedOracle": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+  "markets": {
+    "Azuki": {
+      "CallPool": "0x41BA333c85070C0F29c9509242F9EbAf6BBB3c1a"
+    }
+  }
 }

@@ -43,3 +43,5 @@ googleApplicationCredentials.json
 public/locales
 
 dist
+
+lib/protocol/src
