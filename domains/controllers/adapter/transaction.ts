@@ -26,11 +26,7 @@ export const transaction = (props: {
       let approveTxData: EthereumTransactionTypeExtended = undefined
       let actionTxData: EthereumTransactionTypeExtended = undefined
       const approvalTx = txs.find((tx) => tx.txType === 'APPROVAL')
-      const actionTx = txs.find((tx) =>
-        ['DLP_ACTION', 'GOVERNANCE_ACTION', 'STAKE_ACTION', 'GOV_DELEGATION_ACTION', 'REWARD_ACTION'].includes(
-          tx.txType
-        )
-      )
+      const actionTx = txs.find((tx) => ['DLP'].includes(tx.txType))
 
       if (approvalTx) {
         approveTxData = approvalTx
