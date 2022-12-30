@@ -11,34 +11,21 @@ const MenuList = [
     hide: true,
   },
   {
-    key: 'Dashboard',
-    linkTo: '/dashboard',
-  },
-  {
-    key: 'Lend',
-    linkTo: '/lend',
-  },
-  {
-    key: 'Borrow',
-    linkTo: '/borrow',
-  },
-  {
-    key: 'BorrowDetail',
-    linkTo: '/borrow/[id]',
+    key: 'App',
+    linkTo: '/app',
     hide: true,
   },
   {
-    key: 'NFTAirdrop',
-    linkTo: '/nft-airdrop',
-    hide: true,
+    key: 'Buy',
+    linkTo: '/app/buy',
   },
   {
-    key: 'NFTOracle',
-    linkTo: '/nft-oracle',
+    key: 'Sell',
+    linkTo: '/app/sell',
   },
   {
-    key: 'NFTOracleDetail',
-    linkTo: '/nft-oracle/[id]',
+    key: 'CallPoolDetail',
+    linkTo: '/callPool/[id]',
     hide: true,
   },
   {
