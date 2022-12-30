@@ -259,10 +259,12 @@ export class CallPoolService extends BaseService<CallPool> {
         value,
       })
     }
-    return {
-      tx: txCallback,
-      txType: eEthereumTxType.DLP,
-    }
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.DLP,
+      },
+    ]
   }
 
   public async exerciseCall({ callPool, tokenId, user, strikePrice }: ExerciseCallProps) {
