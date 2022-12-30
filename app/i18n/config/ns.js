@@ -1,4 +1,4 @@
 module.exports = {
-  ns: ['common', 'router', 'home', 'app-buy'],
+  ns: ['common', 'router', 'home', 'app-buy', 'app-callpool'],
   defaultNS: 'common',
 }
