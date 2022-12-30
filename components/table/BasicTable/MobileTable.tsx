@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { useEffect } from 'react'
 import { useMemo, Fragment, useState } from 'react'
 import clsx from 'clsx'
 import { styled } from '@mui/material/styles'
@@ -41,6 +42,7 @@ const CollapsibleHead: FC<CollapsibleHeadProps> = (props) => {
         style={{
           overflow: 'hidden',
           flex: `0 1 ${EXPAND_WIDTH}`,
+          minWidth: 50,
         }}
       >
         <TableCell align="center" component="div" variant="head">
@@ -79,6 +81,7 @@ const CollapsibleRow: FC<CollapsibleRowProps> = (props) => {
           style={{
             overflow: 'hidden',
             flex: `0 1 ${EXPAND_WIDTH}`,
+            minWidth: 50,
           }}
         >
           <TableCell align="center" component="div">
@@ -153,8 +156,37 @@ const CollapsibleRow: FC<CollapsibleRowProps> = (props) => {
   )
 }
 
+const DataFetcher: FC<{
+  data: any[]
+  rowIndex: any
+  row: any
+  columns: any[]
+  dataFetcher: (data: any) => Promise<any>
+}> = ({ data, rowIndex, dataFetcher, row, columns }) => {
+  const [rowData, setRowData] = useState(row)
+  useEffect(() => {
+    if (!dataFetcher) {
+      setRowData(row)
+      return
+    } else {
+      dataFetcher(row).then((data) => setRowData(data))
+    }
+  }, [dataFetcher, row])
+
+  return (
+    <CollapsibleRow
+      {...{
+        data,
+        row: rowData,
+        rowIndex,
+        columns,
+      }}
+    />
+  )
+}
+
 const MobileTable: FC<BasicTableProps> = (props) => {
-  const { columns, data } = props
+  const { columns, data, dataFetcher } = props
   const { t } = useTranslation()
 
   const table = useMemo(() => {
@@ -163,13 +195,14 @@ const MobileTable: FC<BasicTableProps> = (props) => {
       body:
         data && data.length ? (
           data.map((row, rowIndex) => (
-            <CollapsibleRow
+            <DataFetcher
               key={rowIndex}
               {...{
                 data,
                 row,
                 rowIndex,
                 columns,
+                dataFetcher,
               }}
             />
           ))
@@ -179,7 +212,7 @@ const MobileTable: FC<BasicTableProps> = (props) => {
           </Box>
         ),
     }
-  }, [columns, data, t])
+  }, [columns, data, dataFetcher, t])
 
   return (
     <ROOT className="table basic-table">

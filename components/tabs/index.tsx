@@ -4,7 +4,7 @@ import type { SyntheticEvent } from 'react'
 import { useMemo } from 'react'
 import { useState } from 'react'
 import { styled } from '@mui/material/styles'
-
+import type { FCC } from 'app/types'
 import Grid from '@mui/material/Grid'
 
 import FlexBetween from 'components/flexbox/FlexBetween'
