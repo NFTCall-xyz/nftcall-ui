@@ -6,17 +6,18 @@ import { textCenterEllipsis } from 'app/utils/string/text-center-ellipsis'
 import { useWallet } from 'domains'
 
 type LinkToAddressProps = {
+  name?: string
   address: string
 }
 
-const LinkToAddress: FC<LinkToAddressProps> = ({ address }) => {
+const LinkToAddress: FC<LinkToAddressProps> = ({ address, name }) => {
   const { network } = useWallet()
   const linkTo = useMemo(() => {
     return safeGet(() => `${network.explorerUrl}/search?f=0&q=${address}`) || '#'
   }, [address, network?.explorerUrl])
   return (
     <Button variant="text" href={linkTo} target="_blank" color="primary">
-      {textCenterEllipsis(address)}
+      {name || textCenterEllipsis(address)}
     </Button>
   )
 }

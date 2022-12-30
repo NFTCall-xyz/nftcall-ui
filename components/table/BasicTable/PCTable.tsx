@@ -12,9 +12,6 @@ import type { BasicTableProps } from './types'
 import { getCellData } from './utils'
 import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
-import Box from '@mui/material/Box'
-import { H6 } from 'components/Typography'
-import { useTranslation } from 'next-i18next'
 
 const Tr: typeof Card = (props: any) => <Card component="tr" {...props} />
 const DataFetcher: FC<{
@@ -26,8 +23,12 @@ const DataFetcher: FC<{
 }> = ({ rowIndex, onRowClick, dataFetcher, row, columns }) => {
   const [rowData, setRowData] = useState(row)
   useEffect(() => {
-    if (!dataFetcher) return
-    dataFetcher(row).then((data) => setRowData(data))
+    if (!dataFetcher) {
+      setRowData(row)
+      return
+    } else {
+      dataFetcher(row).then((data) => setRowData(data))
+    }
   }, [dataFetcher, row])
 
   return (
@@ -71,7 +72,6 @@ const DataFetcher: FC<{
 const PCTable: FC<BasicTableProps> = (props) => {
   const { columns, data, dataFetcher } = props
   const { onRowClick } = props.tableProps || {}
-  const { t } = useTranslation()
 
   const table = useMemo(() => {
     return {
@@ -88,18 +88,11 @@ const PCTable: FC<BasicTableProps> = (props) => {
           {column.headerRenderer(column)}
         </td>
       )),
-      body:
-        data && data.length ? (
-          data.map((row, rowIndex) => (
-            <DataFetcher key={rowIndex} {...{ rowIndex, onRowClick, dataFetcher, row, columns }} />
-          ))
-        ) : (
-          <Box display="flex" justifyContent="center" alignItems="center" height={100}>
-            <H6 color="text.disabled">{t('table.noData')}</H6>
-          </Box>
-        ),
+      body: data.map((row, rowIndex) => (
+        <DataFetcher key={rowIndex} {...{ rowIndex, onRowClick, dataFetcher, row, columns }} />
+      )),
     }
-  }, [columns, data, dataFetcher, onRowClick, t])
+  }, [columns, data, dataFetcher, onRowClick])
 
   return (
     <ROOT className="table basic-table">
@@ -141,7 +134,7 @@ export const ROOT = styled('div')`
   .ReactVirtualized__Table__row {
     display: flex;
     will-change: transform;
-    padding: 20px;
+    padding: 20px 0;
     &:hover {
       ${({ theme }) => ({
         backgroundColor: theme.palette.action.hover,

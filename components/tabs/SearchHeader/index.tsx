@@ -1,3 +1,4 @@
+import type { FCC } from 'app/types'
 import FlexBetween from 'components/flexbox/FlexBetween'
 import type { SearchInputProps } from 'components/input-fields/SearchInput'
 import SearchInput from 'components/input-fields/SearchInput'
