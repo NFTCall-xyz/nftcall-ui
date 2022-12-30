@@ -18,13 +18,7 @@ const Menu = () => {
         .filter((item) => !item.hide && !item.onlyMobile)
         .map(({ label, linkTo }) => (
           <Link href={linkTo} key={linkTo} passHref>
-            <Button
-              variant="text"
-              sx={{
-                color: 'primary.contrastText',
-              }}
-              size="large"
-            >
+            <Button variant="text" sx={{}} size="large">
               {label}
             </Button>
           </Link>
