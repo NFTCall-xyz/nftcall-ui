@@ -157,17 +157,19 @@ export class CallPoolService extends BaseService<CallPool> {
     return txs
   }
 
-  public withdraw({ callPool, user, tokenId }: WithdrawProps) {
+  public async withdraw({ callPool, user, tokenId }: WithdrawProps) {
     const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () => callPoolContract.populateTransaction.withdraw(user, tokenId),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
-    return {
-      tx: txCallback,
-      txType: eEthereumTxType.DLP,
-    }
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.DLP,
+      },
+    ]
   }
 
   public claim({ callPool, user, amount }: ClaimProps) {
@@ -186,30 +188,34 @@ export class CallPoolService extends BaseService<CallPool> {
     }
   }
 
-  public takeNFTOffMarket({ callPool, tokenId, user }: TakeNFTOffMarketProps) {
+  public async takeNFTOffMarket({ callPool, tokenId, user }: TakeNFTOffMarketProps) {
     const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () => callPoolContract.populateTransaction.takeNFTOffMarket(tokenId),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
-    return {
-      tx: txCallback,
-      txType: eEthereumTxType.DLP,
-    }
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.DLP,
+      },
+    ]
   }
 
-  public relistNFT({ callPool, tokenId, user }: RelistNFTProps) {
+  public async relistNFT({ callPool, tokenId, user }: RelistNFTProps) {
     const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () => callPoolContract.populateTransaction.relistNFT(tokenId),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
-    return {
-      tx: txCallback,
-      txType: eEthereumTxType.DLP,
-    }
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.DLP,
+      },
+    ]
   }
 
   public async previewOpenCall({ callPool, tokenIds, strikePriceGapIdx, durationIdx }: PreviewOpenCallProps) {

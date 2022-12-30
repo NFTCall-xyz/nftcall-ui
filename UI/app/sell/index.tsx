@@ -7,6 +7,7 @@ import Tabs from 'components/tabs'
 
 import Stats from './Stats'
 import WalletNFTs from './WalletNFTs'
+import DepositedNFTs from './DepositedNFTs'
 
 const Sell: FC = () => {
   const { t } = useTranslation('app-sell')
@@ -19,12 +20,12 @@ const Sell: FC = () => {
           component: WalletNFTs,
         },
       },
-      // {
-      //   title: 'History',
-      //   children: {
-      //     component: History,
-      //   },
-      // },
+      {
+        title: 'DepositedNFTs',
+        children: {
+          component: DepositedNFTs,
+        },
+      },
     ]
     return returnValue.map((i) => {
       i.title = t(`tabs.${i.title}`)
