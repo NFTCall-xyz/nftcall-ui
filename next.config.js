@@ -46,16 +46,7 @@ const nextConfig = {
 
   async rewrites() {
     return {
-      fallback: [
-        {
-          source: '/onebit-api/:path*',
-          destination: 'https://broker.onebit.com/api/:path*',
-        },
-        {
-          source: '/onebit-thegraph',
-          destination: 'https://api.thegraph.com/subgraphs/name/rockgold0911/onebit',
-        },
-      ],
+      fallback: [],
     }
   },
 }
