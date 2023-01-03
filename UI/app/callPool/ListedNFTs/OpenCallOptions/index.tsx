@@ -35,6 +35,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size }) => {
   const sendTransaction = useSendTransaction()
   const fn = useCallback(
     (props: OpenCallProps) => {
+      console.log(props)
       return transaction({
         createTransaction: callPoolService.openCall(props),
         setStatus: () => {},
