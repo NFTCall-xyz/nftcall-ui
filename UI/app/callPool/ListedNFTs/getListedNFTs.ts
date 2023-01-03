@@ -1,16 +1,14 @@
-import type { ChainId } from 'lib/protocol/chain/types'
-
-export type DepositedNFTsProps = { chainId: ChainId; user: string }
-export const getDepositedNFTs = (
-  props: DepositedNFTsProps
+export type ListedNFTsProps = { user: string; nft: string }
+export const getListedNFTs = (
+  props: ListedNFTsProps
 ): Promise<
   Array<{
     underlyingNFT: string
     tokenIds: string[]
   }>
 > => {
-  const { user, chainId } = props
-  if (!user || !chainId) return Promise.reject()
+  const { user, nft } = props
+  if (!user || !nft) return Promise.reject()
 
   const fn = (): Promise<any> =>
     fetch('https://api.thegraph.com/subgraphs/name/rockgold0911/nftcall', {
@@ -27,14 +25,14 @@ export const getDepositedNFTs = (
       },
       referrer: 'https://thegraph.com/',
       referrerPolicy: 'strict-origin-when-cross-origin',
-      body: `{"query":"{\\n  deposits(first: 5, where: {user: \\"${user}\\"}) {\\n  tokenId\\n  }\\n}"}`,
+      body: `{"query":"{ nfts(first: 10, where: {nftAddress: \\"${nft}\\", status: \\"Listed\\"}) { tokenId strikePriceGapIdx durationIdx }}"}`,
       method: 'POST',
       mode: 'cors',
       credentials: 'omit',
     }).then((data) => data.json())
   return fn().then(({ data }) => {
-    return data.deposits
+    return data.nfts
   })
 }
 
-export type DepositedNFTs = Awaited<ReturnType<typeof getDepositedNFTs>>
+export type ListedNFTs = Awaited<ReturnType<typeof getListedNFTs>>
