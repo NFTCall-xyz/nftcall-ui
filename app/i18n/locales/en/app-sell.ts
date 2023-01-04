@@ -6,7 +6,7 @@ const locale = {
     AccumulativePremium: 'Accumulative Premium',
     TotalNFTSales: 'Total NFT Sales',
     TotalDepositedNFTs: 'Total Deposited NFTs',
-    ActiveOptionContracts: 'Active Option Contracts',
+    TotalOptionContracts: 'Total Option Contracts',
   },
   callPools: {
     floorPrice: 'Floor Price',

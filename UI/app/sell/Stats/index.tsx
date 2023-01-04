@@ -12,10 +12,14 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { ClaimProps } from 'lib/protocol/typechain/nftcall'
 
+import type { UserStats } from './adapter'
+import { request as requestStats } from './adapter'
+
 const Stats: FC = () => {
   const {
     contracts: { callPoolService },
   } = useNetwork()
+  const [data, setData] = useState<UserStats>({} as any)
   const [balanceOf, setBalanceOf] = useState(toBN(0))
   const { callPool } = useCallPoolDetails()
   const { networkAccount } = useWallet()
@@ -41,6 +45,10 @@ const Stats: FC = () => {
       .then((data) => {
         setBalanceOf(weiToValue(data, 18))
       })
+
+    requestStats({ userAddress: networkAccount, subgraphName: 'rockgold0911/nftcall' }).then((data) => {
+      if (data[0]) setData(data[0])
+    })
   }, [callPool.address.CallPools, callPoolService, networkAccount])
 
   useEffect(() => {
@@ -73,7 +81,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={'1211.12'} abbreviate={{}} symbol={'ETH'} />
+          <NumberDisplay value={data.accumulativeEarnings} abbreviate={{}} symbol={'ETH'} />
         </div>
       ),
       title: 'AccumulativeEarnings',
