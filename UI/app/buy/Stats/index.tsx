@@ -1,15 +1,22 @@
 import { Grid } from '@mui/material'
 import type { FC } from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 import StatsCard from './StatsCard'
+import type { CallPoolStats } from './adapter'
+import { request } from './adapter'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
+import { useCallPoolDetails } from 'domains/data'
 
 const Stats: FC = () => {
+  const { callPool } = useCallPoolDetails()
+  const [data, setData] = useState<CallPoolStats>({} as any)
   const cardList = [
     {
       price: (
         <div>
-          <NumberDisplay value={'1211.12'} abbreviate={{}} symbol={'ETH'} />
+          <NumberDisplay value={data.accumulativePremium} abbreviate={{}} symbol={'ETH'} />
         </div>
       ),
       title: 'AccumulativePremium',
@@ -17,7 +24,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={'1211.12'} abbreviate={{}} symbol={'ETH'} />
+          <NumberDisplay value={data.totalNFTSales} abbreviate={{}} symbol={'ETH'} />
         </div>
       ),
       title: 'TotalNFTSales',
@@ -25,7 +32,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={'122'} abbreviate={{}} symbol={'ETH'} />
+          <NumberDisplay value={data.totalDepositedNFTs} abbreviate={{}} symbol={'ETH'} />
         </div>
       ),
       title: 'TotalDepositedNFTs',
@@ -33,12 +40,21 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={'22'} abbreviate={{}} symbol={'ETH'} />
+          <NumberDisplay value={data.totalOptionContracts} abbreviate={{}} symbol={'ETH'} />
         </div>
       ),
-      title: 'ActiveOptionContracts',
+      title: 'TotalOptionContracts',
     },
   ]
+
+  useEffect(() => {
+    request({
+      nftAddress: callPool.address.CallPools,
+      subgraphName: 'rockgold0911/nftcall',
+    }).then((data) => {
+      if (data[0]) setData(data[0])
+    })
+  }, [callPool.address.CallPools])
 
   return (
     <div>
