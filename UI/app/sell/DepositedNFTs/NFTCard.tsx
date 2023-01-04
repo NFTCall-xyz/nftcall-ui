@@ -43,7 +43,7 @@ const Root = styled(Card)`
 const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onCheckChange }) => {
   const { t } = useTranslation()
   const [checked, setChecked] = useState(false)
-  const title = useMemo(() => (name ? `${description} ${name}` : description), [description, name])
+  const title = useMemo(() => (name ? name : description), [description, name])
 
   const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
   const actions = useMemo(() => {
@@ -69,10 +69,10 @@ const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onChe
   return (
     <Root>
       {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
-      <CardMedia component="img" height="200" image={image} alt={description} />
+      <CardMedia component="img" height="200" image={image} alt={title} />
       <CardContent>
         <Typography gutterBottom variant="body2" component="div">
-          {title}
+          {description}
         </Typography>
       </CardContent>
       <Divider />
