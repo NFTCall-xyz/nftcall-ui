@@ -8,7 +8,7 @@ import type { Errors, ErrorsInterface } from '../../../contracts/Errors.sol/Erro
 
 const _abi = [
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_ARRAY_LENGTH_UNMATCHED',
     outputs: [
       {
@@ -21,7 +21,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_CALLER_IS_NOT_FACTORY_OWNER',
     outputs: [
       {
@@ -34,7 +34,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_CAN_NOT_OPEN_CALL',
     outputs: [
       {
@@ -47,7 +47,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_DID_NOT_SEND_ENOUGHT_ETH',
     outputs: [
       {
@@ -60,7 +60,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_DURATION_TOO_LONG',
     outputs: [
       {
@@ -73,7 +73,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_GAP_OR_DURATION_OUT_OF_INDEX',
     outputs: [
       {
@@ -86,7 +86,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_INVALID_AMOUNT',
     outputs: [
       {
@@ -99,7 +99,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_INVALID_RECEIVER',
     outputs: [
       {
@@ -112,7 +112,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_NFT_ON_MARKET_OR_UNABAILABLE',
     outputs: [
       {
@@ -125,7 +125,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_NOT_ENOUGH_BALANCE',
     outputs: [
       {
@@ -138,7 +138,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_NOT_IN_THE_EXERCISE_PERIOD',
     outputs: [
       {
@@ -151,7 +151,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_NOT_THE_OWNER',
     outputs: [
       {
@@ -164,7 +164,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_PREMIUM_AND_ETH_UNEQUAL',
     outputs: [
       {
@@ -177,7 +177,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_STRIKE_GAP_TOO_LOW',
     outputs: [
       {
@@ -190,7 +190,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_STRIKE_PRICE_TOO_LOW',
     outputs: [
       {
@@ -203,7 +203,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'CP_TOO_LITTLE_PREMIUM_TO_OWNER',
     outputs: [
       {

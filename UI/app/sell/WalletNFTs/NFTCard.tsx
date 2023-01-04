@@ -57,7 +57,6 @@ const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onChe
     )
   }, [action, id])
 
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.checked
     setChecked(value)

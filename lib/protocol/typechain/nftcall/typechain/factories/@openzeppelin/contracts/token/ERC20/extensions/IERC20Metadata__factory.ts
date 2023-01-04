@@ -128,7 +128,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'decimals',
     outputs: [
       {
@@ -141,7 +141,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'name',
     outputs: [
       {
@@ -154,7 +154,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'symbol',
     outputs: [
       {
@@ -167,7 +167,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'totalSupply',
     outputs: [
       {

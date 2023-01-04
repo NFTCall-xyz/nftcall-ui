@@ -59,7 +59,7 @@ const _abi = [
       },
     ],
     name: 'setAssetPrice',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },

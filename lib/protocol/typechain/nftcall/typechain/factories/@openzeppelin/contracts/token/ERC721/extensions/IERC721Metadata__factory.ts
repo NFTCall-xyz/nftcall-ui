@@ -99,7 +99,7 @@ const _abi = [
       },
     ],
     name: 'approve',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -166,7 +166,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'name',
     outputs: [
       {
@@ -216,7 +216,7 @@ const _abi = [
       },
     ],
     name: 'safeTransferFrom',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -244,7 +244,7 @@ const _abi = [
       },
     ],
     name: 'safeTransferFrom',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -262,7 +262,7 @@ const _abi = [
       },
     ],
     name: 'setApprovalForAll',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -286,7 +286,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'symbol',
     outputs: [
       {
@@ -336,7 +336,7 @@ const _abi = [
       },
     ],
     name: 'transferFrom',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },

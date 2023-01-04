@@ -122,7 +122,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'owner',
     outputs: [
       {
@@ -135,7 +135,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'parameters',
     outputs: [
       {
@@ -173,9 +173,9 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'renounceOwnership',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -188,7 +188,7 @@ const _abi = [
       },
     ],
     name: 'transferOwnership',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },

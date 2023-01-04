@@ -8,7 +8,7 @@ import type { CallPool, CallPoolInterface } from '../../contracts/CallPool'
 
 const _abi = [
   {
-    inputs: [],
+    inputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'constructor',
   },
@@ -337,7 +337,7 @@ const _abi = [
     type: 'event',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'INVALID_PRICE',
     outputs: [
       {
@@ -369,7 +369,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'callToken',
     outputs: [
       {
@@ -405,7 +405,7 @@ const _abi = [
       },
     ],
     name: 'changePreference',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -466,7 +466,7 @@ const _abi = [
       },
     ],
     name: 'deposit',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -499,7 +499,7 @@ const _abi = [
       },
     ],
     name: 'depositWithPreference',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -512,12 +512,12 @@ const _abi = [
       },
     ],
     name: 'exerciseCall',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'exercisePeriodProportion',
     outputs: [
       {
@@ -530,7 +530,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'factory',
     outputs: [
       {
@@ -577,7 +577,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'minimumPremiumToOwner',
     outputs: [
       {
@@ -590,7 +590,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'nToken',
     outputs: [
       {
@@ -603,7 +603,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'nft',
     outputs: [
       {
@@ -634,7 +634,7 @@ const _abi = [
       },
     ],
     name: 'openCall',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
@@ -657,12 +657,12 @@ const _abi = [
       },
     ],
     name: 'openCallBatch',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'oracle',
     outputs: [
       {
@@ -675,14 +675,14 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'pause',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'paused',
     outputs: [
       {
@@ -695,7 +695,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'premium',
     outputs: [
       {
@@ -760,7 +760,7 @@ const _abi = [
       },
     ],
     name: 'relistNFT',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -773,14 +773,14 @@ const _abi = [
       },
     ],
     name: 'takeNFTOffMarket',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'unpause',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -798,7 +798,7 @@ const _abi = [
       },
     ],
     name: 'withdraw',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },

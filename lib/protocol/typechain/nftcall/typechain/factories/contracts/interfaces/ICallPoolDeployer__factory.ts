@@ -8,7 +8,7 @@ import type { ICallPoolDeployer, ICallPoolDeployerInterface } from '../../../con
 
 const _abi = [
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'parameters',
     outputs: [
       {

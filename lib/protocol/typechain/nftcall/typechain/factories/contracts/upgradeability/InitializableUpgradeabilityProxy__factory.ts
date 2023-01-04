@@ -41,7 +41,7 @@ const _abi = [
       },
     ],
     name: 'initialize',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },

@@ -130,7 +130,7 @@ const _abi = [
     type: 'event',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'ORACLE_REVISION',
     outputs: [
       {
@@ -151,7 +151,7 @@ const _abi = [
       },
     ],
     name: 'addAssets',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -186,12 +186,12 @@ const _abi = [
       },
     ],
     name: 'batchSetAssetPrice',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'getAddressList',
     outputs: [
       {
@@ -327,7 +327,7 @@ const _abi = [
       },
     ],
     name: 'initialize',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -351,7 +351,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'operator',
     outputs: [
       {
@@ -364,7 +364,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'owner',
     outputs: [
       {
@@ -377,7 +377,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'paused',
     outputs: [
       {
@@ -390,9 +390,9 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'renounceOwnership',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -410,7 +410,7 @@ const _abi = [
       },
     ],
     name: 'setEmergencyAdmin',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -423,7 +423,7 @@ const _abi = [
       },
     ],
     name: 'setOperator',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -436,7 +436,7 @@ const _abi = [
       },
     ],
     name: 'setPause',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -449,7 +449,7 @@ const _abi = [
       },
     ],
     name: 'transferOwnership',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
