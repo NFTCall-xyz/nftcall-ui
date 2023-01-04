@@ -15,8 +15,8 @@ import { transaction } from 'domains/controllers/adapter/transaction'
 import type { OpenCallProps } from 'lib/protocol/typechain/nftcall'
 import { useWallet } from 'domains'
 
-type OpenCallOptionsProps = { setRef: MutableRefObject<Set<string>>; size: number }
-const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size }) => {
+type OpenCallOptionsProps = { setRef: MutableRefObject<Set<string>>; size: number; request: any }
+const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request }) => {
   const [strikePriceGapIdx, setStrikePriceGapIdx] = useState(0)
   const [durationIdx, setDurationIdx] = useState(0)
   const [premiumToOwner, setPremiumToOwner] = useState(toBN(0))
@@ -107,7 +107,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size }) => {
             strikePriceGapIdx: strikePriceGapIdx,
             durationIdx: durationIdx,
             user: networkAccount,
-          })
+          }).then(() => request())
         }}
       >
         Call

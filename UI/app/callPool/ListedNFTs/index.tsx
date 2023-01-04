@@ -31,7 +31,7 @@ const ListedNFTs = () => {
     })
   }, [NFTs])
 
-  useEffect(() => {
+  const request = useCallback(() => {
     if (!networkAccount) return
     getListedNFTs({
       user: networkAccount,
@@ -40,6 +40,10 @@ const ListedNFTs = () => {
       setNFTs(data)
     })
   }, [networkAccount])
+
+  useEffect(() => {
+    request()
+  }, [request])
 
   return (
     <Grid container spacing={2}>
@@ -51,7 +55,7 @@ const ListedNFTs = () => {
         </Stack>
       </Grid>
       <Grid item xs={4}>
-        <OpenCallOptions {...{ setRef, size }} />
+        <OpenCallOptions {...{ setRef, size, request }} />
       </Grid>
     </Grid>
   )
