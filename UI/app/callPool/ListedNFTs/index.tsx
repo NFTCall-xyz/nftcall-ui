@@ -24,7 +24,8 @@ const ListedNFTs = () => {
     return NFTs.map(({ tokenId, strikePriceGapIdx, durationIdx }) => {
       return {
         id: tokenId,
-        description: '#' + tokenId,
+        name: `# ${tokenId}`,
+        description: `strikePriceGapIdx: ${strikePriceGapIdx}\n durationIdx: ${durationIdx}`,
         minStrikePrice: strikePriceGapIdx,
         maxExpriyTime: durationIdx,
       }

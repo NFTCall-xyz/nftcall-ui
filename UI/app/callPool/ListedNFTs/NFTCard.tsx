@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useMemo, Fragment } from 'react'
+import { useMemo } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { styled } from '@mui/material/styles'
@@ -10,8 +10,8 @@ import CardMedia from '@mui/material/CardMedia'
 import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
 import Divider from '@mui/material/Divider'
-import NumberDisplay from 'lib/math/components/NumberDisplay'
 
 export type NFT = {
   name: string
@@ -23,7 +23,7 @@ export type NFT = {
 
 export type NFTCardProps = Partial<
   NFT & {
-    action: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
+    action: Array<{ name?: string; onClick?: any; disabled?: boolean; tip?: any }>
     onCheckChange: any
     minStrikePrice: number
     maxExpriyTime: number
@@ -31,7 +31,7 @@ export type NFTCardProps = Partial<
 >
 
 const Root = styled(Card)`
-  width: 230px;
+  width: 250px;
   position: relative;
   .checkbox {
     position: absolute;
@@ -43,18 +43,21 @@ const Root = styled(Card)`
 const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onCheckChange }) => {
   const { t } = useTranslation()
   const [checked, setChecked] = useState(false)
-  const title = useMemo(() => (name ? `${description} ${name}` : description), [description, name])
+  const title = useMemo(() => (name ? name : description), [description, name])
 
   const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
   const actions = useMemo(() => {
     if (!action) return null
-    const { tip, disabled, onClick, name } = action
-    if (tip) return tip
-
     return (
-      <Button variant="outlined" disabled={disabled} onClick={() => onClick(id)}>
-        {name}
-      </Button>
+      <Stack spacing={1} direction="row">
+        {action.map(({ disabled, onClick, name }) => {
+          return (
+            <Button key={name} variant="outlined" disabled={disabled} onClick={() => onClick(id)}>
+              {name}
+            </Button>
+          )
+        })}
+      </Stack>
     )
   }, [action, id])
 
@@ -66,10 +69,10 @@ const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onChe
   return (
     <Root>
       {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
-      <CardMedia component="img" height="200" image={image} alt={description} />
+      <CardMedia component="img" height="200" image={image} alt={title} />
       <CardContent>
         <Typography gutterBottom variant="body2" component="div">
-          {title}
+          {description}
         </Typography>
       </CardContent>
       <Divider />
