@@ -5,14 +5,16 @@ import { cellRenderer, headerRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
 import { useCallPoolDetails } from 'domains/data'
 import { usePost } from 'app/hooks/request'
-// import { useMount } from 'app/hooks/useMount'
+import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
+import { numberCellRenderer } from 'components/table/renderer'
+import { accountCellRenderer, expiryDateCellRenderer, NFTCellRenderer, premiumCellRenderer } from './renderer'
 
 const pageSize = 5
 
 export const useTable = (): BasicTableProps => {
-  const { t } = useTranslation('portfolioDetails')
+  const { t } = useTranslation('app-callpool', { keyPrefix: 'history' })
   const { callPool } = useCallPoolDetails()
   const [pageIndex, setPageIndex] = useState(0)
   const dataFetcher = usePost(request)
@@ -27,31 +29,31 @@ export const useTable = (): BasicTableProps => {
             dataKey: 'account',
             width: 450,
             headerRenderer,
-            cellRenderer,
+            cellRenderer: accountCellRenderer,
           },
           {
             dataKey: 'NFT',
             width: 450,
             headerRenderer,
-            cellRenderer,
+            cellRenderer: NFTCellRenderer,
           },
           {
             dataKey: 'strikePrice',
             width: 450,
             headerRenderer,
-            cellRenderer,
+            cellRenderer: numberCellRenderer,
           },
           {
             dataKey: 'expiryDate',
             width: 450,
             headerRenderer,
-            cellRenderer,
+            cellRenderer: expiryDateCellRenderer,
           },
           {
             dataKey: 'premium',
             width: 450,
             headerRenderer,
-            cellRenderer,
+            cellRenderer: premiumCellRenderer,
           },
           {
             dataKey: 'status',
@@ -61,7 +63,7 @@ export const useTable = (): BasicTableProps => {
           },
         ] as TableColumnsProps[]
       ).map((column) => {
-        column.label = t('history.' + column.dataKey)
+        column.label = t(column.dataKey)
         return column
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,7 +92,7 @@ export const useTable = (): BasicTableProps => {
             skip,
             first: pageSize,
             callPoolAddress,
-            subgraphName: 'nftcall',
+            subgraphName: 'rockgold0911/nftcall',
           })
           .then((data) => {
             // const { symbol } = portfolio
@@ -99,16 +101,16 @@ export const useTable = (): BasicTableProps => {
               // vault,
             }))
 
-            if (!rowData.length) setNoMoreSourceData(true)
+            if (rowData.length < pageSize) setNoMoreSourceData(true)
             setSourceData((data) => data.concat(rowData))
           })
       },
     }
   }, [callPool.address.CallPools, dataFetcher, end, noMoreSourceData, pageIndex, skip])
 
-  // useMount(() => {
-  //   loadMore.onLoadMore()
-  // })
+  useMount(() => {
+    loadMore.onLoadMore()
+  })
 
   return {
     columns,
