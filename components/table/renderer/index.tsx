@@ -3,6 +3,7 @@ import TableCell from '@mui/material/TableCell'
 import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined'
 import Tooltip from '@mui/material/Tooltip'
 import Stack from '@mui/material/Stack'
+import NumberDisplay from 'lib/math/components/NumberDisplay'
 
 import type { TableHeaderRenderer } from '../BasicTable/types'
 
@@ -32,6 +33,33 @@ export const cellRenderer: TableCellRenderer = ({ cellData }) => {
   return (
     <TableCell align="center" component="div">
       {cellData || '-'}
+    </TableCell>
+  )
+}
+
+export const symbolCellRenderer: TableCellRenderer = ({ cellData, rowData }) => {
+  return (
+    <TableCell align="center" component="div">
+      <Stack spacing={0.5} direction="row">
+        <NumberDisplay value={cellData} abbreviate={{}} />
+        <span> {rowData.symbol}</span>
+      </Stack>
+    </TableCell>
+  )
+}
+
+export const numberCellRenderer: TableCellRenderer = ({ cellData }) => {
+  return (
+    <TableCell align="center" component="div">
+      <NumberDisplay value={cellData} options="number" />
+    </TableCell>
+  )
+}
+
+export const percentCellRenderer: TableCellRenderer = ({ cellData }) => {
+  return (
+    <TableCell align="center" component="div">
+      <NumberDisplay value={cellData} options="percent" />
     </TableCell>
   )
 }
