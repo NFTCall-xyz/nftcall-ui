@@ -249,7 +249,7 @@ export class CallPoolService extends BaseService<CallPool> {
     } else {
       const { strikePriceGapIdxs, durationIdxs } = tokenIds.reduce(
         (obj) => {
-          obj.strikePriceGapIdxs.push(strikePriceGapIdxs)
+          obj.strikePriceGapIdxs.push(strikePriceGapIdx)
           obj.durationIdxs.push(durationIdx)
           return obj
         },
