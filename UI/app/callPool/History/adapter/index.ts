@@ -90,7 +90,7 @@ export const getPositions = (positions: SliceState) => {
       const now = Date.now()
       if (returnValue.endTime < now) {
         returnValue.status = 'Expired'
-      } else if (returnValue.exerciseTime < now) {
+      } else if (returnValue.exerciseTime > now) {
         returnValue.status = 'Not Exercisible'
       } else {
         returnValue.status = 'Exercisible'
