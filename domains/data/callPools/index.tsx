@@ -19,7 +19,7 @@ const useCallPoolsService = () => {
       floorPrice: toBN('81.12'),
       depositedItems: 15,
       address: {
-        CallPools: '0x2ee8A9E53D4f7871160Dc29442fE3730228F6a59',
+        CallPools: '0xc629d0C48D82dbc9351e7b2c4C272c49F023EB5d',
       },
     } as CallPool,
     // {

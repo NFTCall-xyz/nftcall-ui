@@ -24,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = ({ locales }) => {
 
   locales.forEach((locale) => {
     paths.push({
-      params: { id: '0x2ee8A9E53D4f7871160Dc29442fE3730228F6a59' },
+      params: { id: '0xc629d0C48D82dbc9351e7b2c4C272c49F023EB5d' },
       locale,
     })
   })

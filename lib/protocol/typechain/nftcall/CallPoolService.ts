@@ -280,9 +280,11 @@ export class CallPoolService extends BaseService<CallPool> {
       from: user,
       value: strikePrice,
     })
-    return {
-      tx: txCallback,
-      txType: eEthereumTxType.DLP,
-    }
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.DLP,
+      },
+    ]
   }
 }
