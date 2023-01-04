@@ -34,7 +34,7 @@ const _abi = [
     type: 'event',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'paused',
     outputs: [
       {

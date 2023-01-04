@@ -72,7 +72,7 @@ const _abi = [
       },
     ],
     name: 'burn',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -105,12 +105,12 @@ const _abi = [
       },
     ],
     name: 'mint',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'nft',
     outputs: [
       {
@@ -151,7 +151,7 @@ const _abi = [
       },
     ],
     name: 'reopen',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },

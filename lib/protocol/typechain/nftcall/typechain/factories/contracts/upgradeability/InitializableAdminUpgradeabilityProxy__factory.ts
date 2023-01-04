@@ -47,7 +47,7 @@ const _abi = [
     type: 'fallback',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'admin',
     outputs: [
       {
@@ -68,12 +68,12 @@ const _abi = [
       },
     ],
     name: 'changeAdmin',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'implementation',
     outputs: [
       {
@@ -104,7 +104,7 @@ const _abi = [
       },
     ],
     name: 'initialize',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
@@ -122,7 +122,7 @@ const _abi = [
       },
     ],
     name: 'initialize',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
@@ -135,7 +135,7 @@ const _abi = [
       },
     ],
     name: 'upgradeTo',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -153,7 +153,7 @@ const _abi = [
       },
     ],
     name: 'upgradeToAndCall',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },

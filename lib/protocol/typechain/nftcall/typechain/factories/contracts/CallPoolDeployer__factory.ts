@@ -8,7 +8,7 @@ import type { CallPoolDeployer, CallPoolDeployerInterface } from '../../contract
 
 const _abi = [
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'parameters',
     outputs: [
       {

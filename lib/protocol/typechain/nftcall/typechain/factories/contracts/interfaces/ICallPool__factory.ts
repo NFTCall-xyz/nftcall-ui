@@ -325,7 +325,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'callToken',
     outputs: [
       {
@@ -375,7 +375,7 @@ const _abi = [
       },
     ],
     name: 'deposit',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -408,7 +408,7 @@ const _abi = [
       },
     ],
     name: 'depositWithPreference',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -421,12 +421,12 @@ const _abi = [
       },
     ],
     name: 'exerciseCall',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'factory',
     outputs: [
       {
@@ -473,7 +473,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'nToken',
     outputs: [
       {
@@ -486,7 +486,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'nft',
     outputs: [
       {
@@ -517,7 +517,7 @@ const _abi = [
       },
     ],
     name: 'openCall',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
@@ -540,12 +540,12 @@ const _abi = [
       },
     ],
     name: 'openCallBatch',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'payable',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'oracle',
     outputs: [
       {
@@ -558,7 +558,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'premium',
     outputs: [
       {
@@ -579,7 +579,7 @@ const _abi = [
       },
     ],
     name: 'relistNFT',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -592,7 +592,7 @@ const _abi = [
       },
     ],
     name: 'takeNFTOffMarket',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -610,7 +610,7 @@ const _abi = [
       },
     ],
     name: 'withdraw',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },

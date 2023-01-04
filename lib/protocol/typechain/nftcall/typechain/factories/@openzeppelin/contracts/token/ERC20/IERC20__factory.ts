@@ -125,7 +125,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [] as any,
     name: 'totalSupply',
     outputs: [
       {
