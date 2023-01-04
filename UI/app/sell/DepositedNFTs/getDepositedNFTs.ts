@@ -1,6 +1,6 @@
 import type { ChainId } from 'lib/protocol/chain/types'
 
-export type DepositedNFTsProps = { chainId: ChainId; user: string }
+export type DepositedNFTsProps = { chainId: ChainId; user: string; nft: string }
 export const getDepositedNFTs = (
   props: DepositedNFTsProps
 ): Promise<
@@ -9,7 +9,7 @@ export const getDepositedNFTs = (
     tokenIds: string[]
   }>
 > => {
-  const { user, chainId } = props
+  const { user, chainId, nft } = props
   if (!user || !chainId) return Promise.reject()
 
   const fn = (): Promise<any> =>
@@ -27,13 +27,13 @@ export const getDepositedNFTs = (
       },
       referrer: 'https://thegraph.com/',
       referrerPolicy: 'strict-origin-when-cross-origin',
-      body: `{"query":"{\\n  deposits(first: 5, where: {user: \\"${user}\\"}) {\\n  tokenId\\n  }\\n}"}`,
+      body: `{"query":"{ nfts(first: 10, where: {nftAddress: \\"${nft}\\", userAddress: \\"${user}\\", status_in: [Deposited, Listed] }) { tokenId strikePriceGapIdx durationIdx status }}"}`,
       method: 'POST',
       mode: 'cors',
       credentials: 'omit',
     }).then((data) => data.json())
   return fn().then(({ data }) => {
-    return data.deposits
+    return data.nfts
   })
 }
 

@@ -51,6 +51,17 @@ const DepositedNFTs = () => {
     [callPoolService, sendTransaction]
   )
 
+  const request = useCallback(() => {
+    if (!networkAccount) return
+    getDepositedNFTs({
+      chainId,
+      user: networkAccount,
+      nft: '0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978',
+    }).then((data) => {
+      setNFTs(data)
+    })
+  }, [chainId, networkAccount])
+
   const action = useMemo(() => {
     return [
       {
@@ -60,7 +71,7 @@ const DepositedNFTs = () => {
             callPool: callPool.address.CallPools,
             user: networkAccount,
             tokenId: id,
-          })
+          }).then(() => request())
         },
       },
       {
@@ -70,7 +81,7 @@ const DepositedNFTs = () => {
             callPool: callPool.address.CallPools,
             user: networkAccount,
             tokenId: id,
-          })
+          }).then(() => request())
         },
       },
       {
@@ -80,33 +91,34 @@ const DepositedNFTs = () => {
             callPool: callPool.address.CallPools,
             user: networkAccount,
             tokenId: id,
-          })
+          }).then(() => request())
         },
       },
     ]
-  }, [withdraw, callPool.address.CallPools, networkAccount, relistNFT, takeNFTOffMarket])
+  }, [withdraw, callPool.address.CallPools, networkAccount, request, relistNFT, takeNFTOffMarket])
 
   const nfts = useMemo(() => {
-    return NFTs.map(({ tokenId }) => {
+    return NFTs.map(({ tokenId, strikePriceGapIdx, durationIdx, status }) => {
+      let actions = []
+      if (status === 'Deposited') {
+        actions = [action[0], action[1]]
+      } else {
+        actions = [action[2]]
+      }
       return {
         id: tokenId,
-        description: '#' + tokenId,
-        minStrikePrice: 0,
-        maxExpriyTime: 0,
-        action,
+        name: `# ${tokenId}`,
+        description: `strikePriceGapIdx: ${strikePriceGapIdx}\n durationIdx: ${durationIdx}`,
+        minStrikePrice: strikePriceGapIdx,
+        maxExpriyTime: durationIdx,
+        action: actions,
       }
     })
   }, [NFTs, action])
 
   useEffect(() => {
-    if (!networkAccount) return
-    getDepositedNFTs({
-      chainId,
-      user: networkAccount,
-    }).then((data) => {
-      setNFTs(data)
-    })
-  }, [chainId, networkAccount])
+    request()
+  }, [request])
 
   return (
     <Grid container spacing={2}>

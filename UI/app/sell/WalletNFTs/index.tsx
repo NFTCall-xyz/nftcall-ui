@@ -28,6 +28,20 @@ const WalletNFTs = () => {
     },
     [callPoolService, sendTransaction]
   )
+  const request = useCallback(() => {
+    if (!networkAccount) return
+    getWalletNFT({
+      chainId,
+      user: networkAccount,
+      tokenAddresses: ['0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978'],
+    }).then((values) => {
+      if (values[0]) {
+        setNFTs(values[0].tokenIds)
+      } else {
+        setNFTs([])
+      }
+    })
+  }, [chainId, networkAccount])
 
   const action = useMemo(() => {
     return {
@@ -42,10 +56,10 @@ const WalletNFTs = () => {
           lowerStrikePriceGapIdx: 0,
           upperDurationIdx: 0,
           lowerLimitOfStrikePrice: '0',
-        })
+        }).then(() => request())
       },
     }
-  }, [callPool.address.CallPools, erc721Service, fn, networkAccount])
+  }, [callPool.address.CallPools, erc721Service, fn, networkAccount, request])
 
   const nfts = useMemo(() => {
     return NFTs.map((i) => {
@@ -58,20 +72,10 @@ const WalletNFTs = () => {
       }
     })
   }, [NFTs, action])
+
   useEffect(() => {
-    if (!networkAccount) return
-    getWalletNFT({
-      chainId,
-      user: networkAccount,
-      tokenAddresses: ['0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978'],
-    }).then((values) => {
-      if (values[0]) {
-        setNFTs(values[0].tokenIds)
-      } else {
-        setNFTs([])
-      }
-    })
-  }, [chainId, networkAccount])
+    request()
+  }, [request])
 
   return (
     <Grid container spacing={2}>
