@@ -172,7 +172,7 @@ export class CallPoolService extends BaseService<CallPool> {
     ]
   }
 
-  public claim({ callPool, user, amount }: ClaimProps) {
+  public async claim({ callPool, user, amount }: ClaimProps) {
     const convertedAmount: string =
       amount === '-1' ? constants.MaxUint256.toString() : valueToWei(amount, 18).toString()
 
@@ -182,10 +182,12 @@ export class CallPoolService extends BaseService<CallPool> {
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
-    return {
-      tx: txCallback,
-      txType: eEthereumTxType.DLP,
-    }
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.DLP,
+      },
+    ]
   }
 
   public async takeNFTOffMarket({ callPool, tokenId, user }: TakeNFTOffMarketProps) {
