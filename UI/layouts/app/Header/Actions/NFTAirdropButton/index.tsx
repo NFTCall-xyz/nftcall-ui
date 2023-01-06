@@ -22,7 +22,7 @@ export const NFTAirdropButton: FC = () => {
         })
       }}
     >
-      {t('router:menu.NFTAirdrop')}
+      {t('router:NFTAirdrop')}
     </Button>
   )
 }

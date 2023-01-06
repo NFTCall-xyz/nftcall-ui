@@ -17,7 +17,7 @@ type SliceState = {
 }
 const createInitialState = (): SliceState => ({
   data: {
-    mode: 'light',
+    mode: 'dark',
     theme: 'default',
   },
 })

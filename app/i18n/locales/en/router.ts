@@ -1,9 +1,8 @@
 const locale = {
   menu: 'Menu',
-  dashboard: 'Dashboard',
-  explorePortfolios: 'Explore Portfolios',
-  transactionHistory: 'Transaction History',
-  portfolioDetails: 'Portfolio Details',
+  Buy: 'Buy',
+  Sell: 'Sell',
+  Positions: 'Positions',
   launchApp: 'Launch App',
 }
 

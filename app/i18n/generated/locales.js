@@ -1,6 +1,1 @@
-
-module.exports = [
-  "en",
-  "zh-CN"
-]
-  
+module.exports = ['en']

@@ -27,7 +27,7 @@ const Layout: FCC = ({ children }) => {
   const {
     menu: { current },
   } = useApp()
-  const title = useMemo(() => `NFTCall - ${t('router:menu.' + current.key)}`, [current.key, t])
+  const title = useMemo(() => `NFTCall - ${t('router:' + current.key)}`, [current.key, t])
   return (
     <Fragment>
       <NProgress />
