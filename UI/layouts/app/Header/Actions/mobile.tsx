@@ -11,8 +11,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import ChainButton from 'lib/protocol/components/wallet/ChainButton'
 import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'
 
-import NFTAirdropButton from './NFTAirdropButton'
-
 const ROOT = styled(Stack)``
 
 const ActionsMobile: FC = () => {
@@ -39,9 +37,6 @@ const ActionsMobile: FC = () => {
         onClose={() => setOpenDrawer(false)}
       >
         <List>
-          <ListItem>
-            <NFTAirdropButton />
-          </ListItem>
           <ListItem>
             <ChainButton />
           </ListItem>
