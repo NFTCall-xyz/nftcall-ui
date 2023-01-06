@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import theme from 'app/theme/store'
 import nprogress from 'lib/nprogress/store/nprogress'
 
+import nftcallProtocol from './nftcallProtocol'
+
 export function makeStore() {
   return configureStore({
     reducer: {
       theme,
       nprogress,
+      nftcallProtocol,
     },
   })
 }
