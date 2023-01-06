@@ -8,10 +8,8 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import MenuIcon from '@mui/icons-material/Menu'
 
-import ThemeButton from 'app/theme/components/ThemeButton'
 import ChainButton from 'lib/protocol/components/wallet/ChainButton'
 import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'
-import LanguageMenu from 'app/i18n/components/LanguageMenu'
 
 import NFTAirdropButton from './NFTAirdropButton'
 
@@ -49,12 +47,6 @@ const ActionsMobile: FC = () => {
           </ListItem>
           <ListItem>
             <ConnectButton />
-          </ListItem>
-          <ListItem>
-            <ThemeButton />
-          </ListItem>
-          <ListItem>
-            <LanguageMenu />
           </ListItem>
         </List>
       </Drawer>

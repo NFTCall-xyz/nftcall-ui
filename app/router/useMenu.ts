@@ -38,10 +38,6 @@ const MenuList = [
     target: '_blank',
     onlyMobile: true,
   },
-  // {
-  //   key: 'Liquidation',
-  //   linkTo: '/liquidation-marketplace',
-  // },
 ]
 
 export function useMenu() {
@@ -56,7 +52,7 @@ export function useMenu() {
         return menu.key !== 'NFTAirdrop'
       }
       return true
-    }).map((menu) => ({ ...menu, label: t('router:menu.' + menu.key) }))
+    }).map((menu) => ({ ...menu, label: t('router:' + menu.key) }))
   }, [chainId, t])
 
   const current = useMemo(() => {

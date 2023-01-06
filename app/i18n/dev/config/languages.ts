@@ -4,11 +4,6 @@ export const languages = [
     name: 'English',
     value: 'English',
   },
-  {
-    code: 'zh-CN',
-    name: 'Chinese (Simplified)',
-    value: '简体中文',
-  },
 ]
 
 export const locales = languages.map(({ code }) => code)
