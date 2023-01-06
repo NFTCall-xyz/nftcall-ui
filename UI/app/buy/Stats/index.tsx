@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Grid, Stack } from '@mui/material'
 import type { FC } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -8,6 +8,7 @@ import type { CallPoolStats } from './adapter'
 import { request } from './adapter'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import { useCallPoolDetails } from 'domains/data'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 const Stats: FC = () => {
   const { callPool } = useCallPoolDetails()
@@ -15,24 +16,26 @@ const Stats: FC = () => {
   const cardList = [
     {
       price: (
-        <div>
-          <NumberDisplay value={data.accumulativePremium} abbreviate={{}} symbol={'ETH'} />
-        </div>
+        <Stack spacing={1} direction="row">
+          <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
+          <NumberDisplay value={data.accumulativePremium} abbreviate={{}} />
+        </Stack>
       ),
       title: 'AccumulativePremium',
     },
     {
       price: (
-        <div>
-          <NumberDisplay value={data.totalNFTSales} abbreviate={{}} symbol={'ETH'} />
-        </div>
+        <Stack spacing={1} direction="row">
+          <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
+          <NumberDisplay value={data.totalNFTSales} abbreviate={{}} />
+        </Stack>
       ),
       title: 'TotalNFTSales',
     },
     {
       price: (
         <div>
-          <NumberDisplay value={data.totalDepositedNFTs} abbreviate={{}} symbol={'ETH'} />
+          <NumberDisplay value={data.totalDepositedNFTs} abbreviate={{}} />
         </div>
       ),
       title: 'TotalDepositedNFTs',
@@ -40,7 +43,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={data.totalOptionContracts} abbreviate={{}} symbol={'ETH'} />
+          <NumberDisplay value={data.totalOptionContracts} abbreviate={{}} />
         </div>
       ),
       title: 'TotalOptionContracts',

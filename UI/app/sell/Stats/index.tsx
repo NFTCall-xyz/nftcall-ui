@@ -1,4 +1,4 @@
-import { Grid, Button } from '@mui/material'
+import { Grid, Button, Stack } from '@mui/material'
 import type { FC } from 'react'
 import { useCallback } from 'react'
 import { useEffect, useState } from 'react'
@@ -14,6 +14,7 @@ import type { ClaimProps } from 'lib/protocol/typechain/nftcall'
 
 import type { UserStats } from './adapter'
 import { request as requestStats } from './adapter'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 const Stats: FC = () => {
   const {
@@ -55,11 +56,15 @@ const Stats: FC = () => {
     request()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [networkAccount])
+
   const cardList = [
     {
       price: (
-        <div>
-          <NumberDisplay value={balanceOf} abbreviate={{}} symbol={'ETH'} />
+        <Stack spacing={2} direction="row">
+          <Stack spacing={1} direction="row">
+            <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
+            <NumberDisplay value={balanceOf} abbreviate={{}} />
+          </Stack>
           <Button
             disabled={balanceOf.isZero()}
             onClick={() => {
@@ -74,15 +79,16 @@ const Stats: FC = () => {
           >
             Claim
           </Button>
-        </div>
+        </Stack>
       ),
       title: 'ClaimablePremium',
     },
     {
       price: (
-        <div>
-          <NumberDisplay value={data.accumulativeEarnings} abbreviate={{}} symbol={'ETH'} />
-        </div>
+        <Stack spacing={1} direction="row">
+          <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
+          <NumberDisplay value={data.accumulativeEarnings} abbreviate={{}} />
+        </Stack>
       ),
       title: 'AccumulativeEarnings',
     },
