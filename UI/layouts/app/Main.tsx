@@ -5,6 +5,7 @@ import fadeIn from 'app/utils/style/keyframes/fadeIn'
 
 const ROOT: any = styled(Container)`
   animation: ${fadeIn} 1s ease;
+  padding-top: 16px;
 `
 const Main: FCC = ({ children }) => {
   return (
