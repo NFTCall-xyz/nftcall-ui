@@ -11,7 +11,7 @@ const useNetworkService = () => {
   const provider = useProvider(address)
   const contracts = useContracts(provider)
 
-  return { address, markets, provider, contracts }
+  return { address, markets, provider, contracts, subgraphName: 'rockgold0911/nftcall' }
 }
 const { Provider: NetworkProvider, createUseContext } = createContext(useNetworkService)
 export const createNetworkContext = createUseContext
