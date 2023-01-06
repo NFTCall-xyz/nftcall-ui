@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Button from '@mui/material/Button'
 
-export const NFTAirdropButton: FC = () => {
+export const LanuchApp: FC = () => {
   const { t } = useTranslation()
   const router = useRouter()
   return (
@@ -21,4 +21,4 @@ export const NFTAirdropButton: FC = () => {
   )
 }
 
-export default NFTAirdropButton
+export default LanuchApp

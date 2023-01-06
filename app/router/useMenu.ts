@@ -1,8 +1,6 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useWallet } from 'domains'
-import { ChainId } from 'lib/protocol/chain/types'
 
 const MenuList = [
   {
@@ -43,17 +41,10 @@ const MenuList = [
 export function useMenu() {
   const { t } = useTranslation()
   const router = useRouter()
-  const { chainId } = useWallet()
 
   const list = useMemo(() => {
-    return MenuList.filter((menu) => {
-      if (__DEV__) return true
-      if (chainId === ChainId.goerli) {
-        return menu.key !== 'NFTAirdrop'
-      }
-      return true
-    }).map((menu) => ({ ...menu, label: t('router:' + menu.key) }))
-  }, [chainId, t])
+    return MenuList.map((menu) => ({ ...menu, label: t('router:' + menu.key) }))
+  }, [t])
 
   const current = useMemo(() => {
     const linkTo = router.route
