@@ -38,14 +38,14 @@ const CallPoolDetails: FC = () => {
       return i
     })
   }, [t])
-  const {
-    callPool: { name, floorPrice, symbol, depositedItems },
-  } = useCallPoolDetails()
+  // const {
+  //   callPool: { name, floorPrice, symbol, depositedItems },
+  // } = useCallPoolDetails()
 
   return (
     <>
       <BackButton />
-      <Grid container pt={2}>
+      {/* <Grid container pt={2}>
         <Grid item xs={12}>
           <FlexBetween>
             <H3>{name}</H3>
@@ -79,7 +79,7 @@ const CallPoolDetails: FC = () => {
             }}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
   )
 }

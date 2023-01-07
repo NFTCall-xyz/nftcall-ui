@@ -7,6 +7,7 @@ import theme from 'app/theme/store'
 import nprogress from 'lib/nprogress/store/nprogress'
 
 import oracle from './oracle'
+import nft from './nft'
 
 export function makeStore() {
   return configureStore({
@@ -14,6 +15,7 @@ export function makeStore() {
       theme,
       nprogress,
       oracle,
+      nft,
     },
   })
 }

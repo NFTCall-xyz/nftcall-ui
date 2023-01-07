@@ -1,31 +1,23 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import { useState } from 'react'
-import { useTranslation } from 'next-i18next'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
+import { useNFT } from 'domains/data'
 
 export type NFT = {
-  name: string
-  id: string
-  src: string
-  description?: string
-  image?: string
+  tokenId: string
+  nftAddress: string
 }
 
 export type NFTCardProps = Partial<
   NFT & {
     action: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
-    onCheckChange: any
-    minStrikePrice: number
-    maxExpriyTime: number
   }
 >
 
@@ -39,33 +31,31 @@ const Root = styled(Card)`
   }
 `
 
-const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onCheckChange }) => {
-  const { t } = useTranslation()
-  const [checked, setChecked] = useState(false)
-  const title = useMemo(() => (name ? `${description} ${name}` : description), [description, name])
+const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, action }) => {
+  const {
+    tokenId: { assets },
+  } = useNFT()
+  const nft = useMemo(() => {
+    return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
+  }, [assets, nftAddress, tokenId])
 
-  const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
   const actions = useMemo(() => {
     if (!action) return null
     const { tip, disabled, onClick, name } = action
     if (tip) return tip
 
     return (
-      <Button variant="outlined" disabled={disabled} onClick={() => onClick(id)}>
+      <Button variant="outlined" disabled={disabled} onClick={() => onClick(nft)}>
         {name}
       </Button>
     )
-  }, [action, id])
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.checked
-    setChecked(value)
-    onCheckChange(id, value)
-  }
+  }, [action, nft])
+  if (!nft) return <p>loading</p>
+  const { token_id, image_thumbnail_url } = nft
+  const title = '#' + token_id
   return (
     <Root>
-      {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
-      <CardMedia component="img" height="200" image={image} alt={description} />
+      <CardMedia component="img" height="200" image={image_thumbnail_url} alt={title} />
       <CardContent>
         <Typography gutterBottom variant="body2" component="div">
           {title}
