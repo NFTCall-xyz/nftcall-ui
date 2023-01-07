@@ -6,16 +6,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import theme from 'app/theme/store'
 import nprogress from 'lib/nprogress/store/nprogress'
 
-import nftcallProtocol from './nftcallProtocol'
-import openSea from './openSea'
+import oracle from './oracle'
 
 export function makeStore() {
   return configureStore({
     reducer: {
       theme,
       nprogress,
-      nftcallProtocol,
-      openSea,
+      oracle,
     },
   })
 }

@@ -21,7 +21,7 @@ interface CallPoolCardProps {
 const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool }) => {
   const { t } = useTranslation('app-buy', { keyPrefix: 'callPools' })
   const {
-    oracle: { price: floorPrice },
+    nftOracle: { price: floorPrice },
     collection: { name, bannerImageUrl, imageUrl },
     info: { symbol },
     address,

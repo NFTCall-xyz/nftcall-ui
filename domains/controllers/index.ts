@@ -1,10 +1,10 @@
 import { createContext } from 'app/utils/createContext'
 import { usePageProgressController } from 'lib/nprogress/store/nprogress'
-import { useNFTOracleController } from 'store/nftcallProtocol/nftOracle/useNFTOracleController'
+import { useOracleController } from 'store/oracle/useOracleController'
 
 export const useControllersService = () => {
   const pageProcess = usePageProgressController()
-  const nft = useNFTOracleController()
+  const nft = useOracleController()
   return { pageProcess, nft }
 }
 

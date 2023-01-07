@@ -218,7 +218,7 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
               return `${methodName}: ${getDataName}(${methodName}BaseData)`
             })
             .join(',')}}
-        }, [oracleBaseData])
+        }, [${methodNameList.map((methodName) => `${methodName}BaseData`).join(',')}])
         return returnValue }`,
       },
     ],
