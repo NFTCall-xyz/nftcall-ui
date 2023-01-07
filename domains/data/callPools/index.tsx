@@ -1,7 +1,7 @@
 import { createContext } from 'app/utils/createContext'
 import { log } from 'app/utils/dev'
 import { useMemo } from 'react'
-import type { OracleData } from 'store/nftcallProtocol/nftOracle/oracle/adapter/getOracleData'
+import type { NFTOracleData } from 'store/oracle/nftOracle/adapter/getNFTOracleData'
 import { useNetwork, useNFT } from '..'
 import type { Market } from '../network/adapter/markets'
 import type { BaseCollection } from '../nft/application/collections/adapter/getCollection'
@@ -9,7 +9,7 @@ import type { BaseCollection } from '../nft/application/collections/adapter/getC
 export type CallPool = Market & {
   collection: BaseCollection
   // depositedItems: number
-  oracle: OracleData
+  nftOracle: NFTOracleData
 }
 
 const useCallPoolsService = () => {
@@ -19,13 +19,13 @@ const useCallPoolsService = () => {
   const callPools = useMemo(() => {
     const returnValue = markets.map((market) => {
       const { id, address } = market
-      const oracleData = oracle.oracle.find((i) => i.nft === address.NFT) || ({} as any)
+      const nftOracle = oracle.nftOracle.find((i) => i.nft === address.NFT) || ({} as any)
       const collection = collections[id]
       address.CallPool = address.CallPoolForTest
       return {
         ...market,
         collection,
-        oracle: oracleData,
+        nftOracle,
       } as CallPool
     })
     log('[CallPools]', returnValue)
