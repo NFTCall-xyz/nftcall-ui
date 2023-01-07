@@ -42,6 +42,7 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
     const reducerName = methodName + 'Reducer'
     const selectName = methodName + 'Select'
     const useControllerName = 'use' + upperCaseMethodName + 'Controller'
+    const getDataName = `get${upperCaseMethodName}Data`
     imports.index.push({
       defaultImport: reducerName,
       moduleSpecifier: './' + methodName,
@@ -50,16 +51,20 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
       namedImports: [selectName],
       moduleSpecifier: './' + methodName,
     })
+    imports.useStateData.push({
+      namedImports: [getDataName],
+      moduleSpecifier: `./${methodName}/adapter/${getDataName}`,
+    })
     imports.useController.push({
       namedImports: [useControllerName],
       moduleSpecifier: './' + methodName,
     })
-    statements.useStateData.push(`const ${methodName} = useAppSelector(${selectName}.selectData)`)
+    statements.useStateData.push(`const ${methodName}BaseData = useAppSelector(${selectName}.selectData)`)
     statements.useController.push(`const ${methodName}Controller = ${useControllerName}()`)
     const directory = distDirectory.createDirectory(methodName)
     const sourceFile = directory.createSourceFile('index.ts')
     const sliceStateName = upperCaseMethodName + 'SliceState'
-    const requestName = upperCaseMethodName + 'Request'
+    const requestName = methodName + 'Request'
     sourceFile.addImportDeclarations([
       {
         namedImports: ['createStoreRequest'],
@@ -84,21 +89,50 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
       `export const use${upperCaseMethodName}Controller = useRequestController`,
     ])
     const adapterDirectory = directory.createDirectory('adapter')
-    const getAdapterName = `get${upperCaseMethodName}BaseData`
-    const getAdapterSourceFile = adapterDirectory.createSourceFile(`${getAdapterName}.ts`)
-    const getAdapterType = `${upperCaseMethodName}BaseData`
-    getAdapterSourceFile.addTypeAlias({
-      name: getAdapterType,
+
+    const getBaseDataAdapterName = `get${upperCaseMethodName}BaseData`
+    const getBaseDataAdapterSourceFile = adapterDirectory.createSourceFile(`${getBaseDataAdapterName}.ts`)
+    const getBaseDataAdapterType = `${upperCaseMethodName}BaseData`
+    getBaseDataAdapterSourceFile.addTypeAlias({
+      name: getBaseDataAdapterType,
       type: '{}',
       isExported: true,
     })
-    getAdapterSourceFile.addVariableStatement({
+    getBaseDataAdapterSourceFile.addVariableStatement({
       isExported: true,
       declarationKind: VariableDeclarationKind.Const,
       declarations: [
         {
-          name: getAdapterName,
-          initializer: `():${getAdapterType} => { return {} }`,
+          name: getBaseDataAdapterName,
+          initializer: `():${getBaseDataAdapterType} => { return {} }`,
+        },
+      ],
+    })
+
+    const getDataAdapterName = `get${upperCaseMethodName}Data`
+    const getDataAdapterSourceFile = adapterDirectory.createSourceFile(`${getDataAdapterName}.ts`)
+    const getDataAdapterType = `${upperCaseMethodName}Data`
+    getDataAdapterSourceFile.addImportDeclarations([
+      {
+        isTypeOnly: true,
+        namedImports: [getBaseDataAdapterType],
+        moduleSpecifier: './' + getBaseDataAdapterName,
+      },
+    ])
+    getDataAdapterSourceFile.addTypeAlias({
+      name: getDataAdapterType,
+      type: '{}',
+      isExported: true,
+    })
+    getDataAdapterSourceFile.addVariableStatement({
+      isExported: true,
+      declarationKind: VariableDeclarationKind.Const,
+      declarations: [
+        {
+          name: getDataAdapterName,
+          initializer: `(${methodName}BaseData: ${getBaseDataAdapterType}):${getDataAdapterType} => {
+            if (!${methodName}BaseData) return {}
+            return {} }`,
         },
       ],
     })
@@ -108,12 +142,12 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
     adapterSourceFile.addImportDeclarations([
       {
         isTypeOnly: true,
-        namedImports: [getAdapterType],
-        moduleSpecifier: `./${getAdapterName}`,
+        namedImports: [getBaseDataAdapterType],
+        moduleSpecifier: `./${getBaseDataAdapterName}`,
       },
       {
-        namedImports: [getAdapterName],
-        moduleSpecifier: `./${getAdapterName}`,
+        namedImports: [getBaseDataAdapterName],
+        moduleSpecifier: `./${getBaseDataAdapterName}`,
       },
     ])
     adapterSourceFile.addTypeAlias({
@@ -159,6 +193,10 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
   const useStateDataSourceFile = distDirectory.createSourceFile(stateDataName + '.ts')
   useStateDataSourceFile.addImportDeclarations([
     {
+      namedImports: ['useMemo'],
+      moduleSpecifier: 'react',
+    },
+    {
       namedImports: ['useAppSelector'],
       moduleSpecifier: 'store',
     },
@@ -171,7 +209,17 @@ export const run = async (req: NextApiRequest, res: NextApiResponse) => {
     declarations: [
       {
         name: stateDataName,
-        initializer: `() => { ${statements.useStateData.join('\n')} \n return { ${methodNameList} } }`,
+        initializer: `() => { ${statements.useStateData.join('\n')}
+        const returnValue = useMemo(() => {
+          return {${methodNameList
+            .map((methodName) => {
+              const upperCaseMethodName = firstToUpperCase(methodName)
+              const getDataName = `get${upperCaseMethodName}Data`
+              return `${methodName}: ${getDataName}(${methodName}BaseData)`
+            })
+            .join(',')}}
+        }, [oracleBaseData])
+        return returnValue }`,
       },
     ],
   })

@@ -6,8 +6,8 @@ export type OracleProps = GetAssetsProps & {
   nftOracleService: NFTOracleService
 }
 
-export const OracleRequest = ({ nftOracleService, ...props }: OracleProps) => {
+export const oracleRequest = ({ nftOracleService, ...props }: OracleProps) => {
   return nftOracleService.getAssets(props).then((data) => getOracleBaseData(props.nfts, data))
 }
 
-export type OracleSliceState = Awaited<ReturnType<typeof OracleRequest>>
+export type OracleSliceState = Awaited<ReturnType<typeof oracleRequest>>
