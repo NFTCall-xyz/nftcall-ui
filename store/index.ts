@@ -8,6 +8,7 @@ import nprogress from 'lib/nprogress/store/nprogress'
 
 import oracle from './oracle'
 import nft from './nft'
+import user from './user'
 
 export function makeStore() {
   return configureStore({
@@ -16,6 +17,7 @@ export function makeStore() {
       nprogress,
       oracle,
       nft,
+      user,
     },
   })
 }
