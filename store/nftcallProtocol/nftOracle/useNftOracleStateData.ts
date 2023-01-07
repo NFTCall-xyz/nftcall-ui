@@ -1,7 +1,13 @@
+import { useMemo } from 'react'
 import { useAppSelector } from 'store'
 import { oracleSelect } from './oracle'
+import { getOracleData } from './oracle/adapter/getOracleData'
 
 export const useNftOracleStateData = () => {
-  const oracle = useAppSelector(oracleSelect.selectData)
-  return { oracle }
+  const oracleBaseData = useAppSelector(oracleSelect.selectData)
+
+  const returnValue = useMemo(() => {
+    return getOracleData(oracleBaseData)
+  }, [oracleBaseData])
+  return returnValue
 }

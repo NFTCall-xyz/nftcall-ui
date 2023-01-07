@@ -9,7 +9,7 @@ interface BaseNFTOracleProps {
 }
 
 export interface GetAssetsProps extends BaseNFTOracleProps {
-  nftAddresses: tEthereumAddress[]
+  nfts: tEthereumAddress[]
 }
 
 export class NFTOracleService extends BaseService<NFTOracle> {
@@ -22,7 +22,7 @@ export class NFTOracleService extends BaseService<NFTOracle> {
   }
 
   public async getAssets(props: GetAssetsProps) {
-    const { nftOracle, nftAddresses } = props
+    const { nftOracle, nfts: nftAddresses } = props
     const nftOracleContract = this.getContractInstance(nftOracle)
     return nftOracleContract.getAssets(nftAddresses)
   }

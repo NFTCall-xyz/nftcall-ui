@@ -52,12 +52,12 @@ const Stats: FC = () => {
 
   useEffect(() => {
     request({
-      nftAddress: callPool.address.CallPools,
+      nftAddress: callPool.address.CallPool,
       subgraphName: 'rockgold0911/nftcall',
     }).then((data) => {
       if (data[0]) setData(data[0])
     })
-  }, [callPool.address.CallPools])
+  }, [callPool.address.CallPool])
 
   return (
     <div>

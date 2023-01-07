@@ -164,7 +164,7 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [callPool.address.CallPools, dataFetcher, end, noMoreSourceData, pageIndex, skip])
+  }, [callPool.address.CallPool, dataFetcher, end, noMoreSourceData, pageIndex, skip])
 
   useMount(() => {
     loadMore.onLoadMore()

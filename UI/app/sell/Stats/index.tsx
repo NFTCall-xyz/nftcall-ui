@@ -40,7 +40,7 @@ const Stats: FC = () => {
     if (!networkAccount) return
     callPoolService
       .balanceOf({
-        callPool: callPool.address.CallPools,
+        callPool: callPool.address.CallPool,
         user: networkAccount,
       })
       .then((data) => {
@@ -50,7 +50,7 @@ const Stats: FC = () => {
     requestStats({ userAddress: networkAccount, subgraphName: 'rockgold0911/nftcall' }).then((data) => {
       if (data[0]) setData(data[0])
     })
-  }, [callPool.address.CallPools, callPoolService, networkAccount])
+  }, [callPool.address.CallPool, callPoolService, networkAccount])
 
   useEffect(() => {
     request()
@@ -69,7 +69,7 @@ const Stats: FC = () => {
             disabled={balanceOf.isZero()}
             onClick={() => {
               fn({
-                callPool: callPool.address.CallPools,
+                callPool: callPool.address.CallPool,
                 user: networkAccount,
                 amount: '-1',
               }).then(() => {

@@ -68,7 +68,7 @@ const DepositedNFTs = () => {
         name: 'Withdraw',
         onClick: (id: string) => {
           withdraw({
-            callPool: callPool.address.CallPools,
+            callPool: callPool.address.CallPool,
             user: networkAccount,
             tokenId: id,
           }).then(() => request())
@@ -78,7 +78,7 @@ const DepositedNFTs = () => {
         name: 'RelistNFT',
         onClick: (id: string) => {
           relistNFT({
-            callPool: callPool.address.CallPools,
+            callPool: callPool.address.CallPool,
             user: networkAccount,
             tokenId: id,
           }).then(() => request())
@@ -88,14 +88,14 @@ const DepositedNFTs = () => {
         name: 'TakeNFTOffMarket',
         onClick: (id: string) => {
           takeNFTOffMarket({
-            callPool: callPool.address.CallPools,
+            callPool: callPool.address.CallPool,
             user: networkAccount,
             tokenId: id,
           }).then(() => request())
         },
       },
     ]
-  }, [withdraw, callPool.address.CallPools, networkAccount, request, relistNFT, takeNFTOffMarket])
+  }, [withdraw, callPool.address.CallPool, networkAccount, request, relistNFT, takeNFTOffMarket])
 
   const nfts = useMemo(() => {
     return NFTs.map(({ tokenId, strikePriceGapIdx, durationIdx, status }) => {
