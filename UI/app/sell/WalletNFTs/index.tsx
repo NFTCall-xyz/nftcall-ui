@@ -1,20 +1,28 @@
 import Grid from '@mui/material/Grid'
-import { useWallet } from 'domains'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useControllers, useWallet } from 'domains'
+import { useCallback, useEffect, useMemo } from 'react'
+import type { NFTCardProps } from './NFTCard'
 import NFTCard from './NFTCard'
-import { getWalletNFT } from './getWalletNFT'
-import { useCallPoolDetails, useNetwork } from 'domains/data'
+import { useCallPoolDetails, useNetwork, useNFT } from 'domains/data'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import type { DepositProps } from 'lib/protocol/typechain/nftcall'
 import { transaction } from 'domains/controllers/adapter/transaction'
 
 const WalletNFTs = () => {
-  const [NFTs, setNFTs] = useState([])
   const {
+    address: { chainId },
     contracts: { callPoolService, erc721Service },
   } = useNetwork()
   const { callPool } = useCallPoolDetails()
-  const { chainId, networkAccount } = useWallet()
+  const { networkAccount } = useWallet()
+  const {
+    tokenId: { wallet, updateWallet, assets },
+  } = useNFT()
+  const {
+    tokenId: {
+      assets: { single: assetsSingle },
+    },
+  } = useControllers()
 
   const sendTransaction = useSendTransaction()
   const fn = useCallback(
@@ -28,20 +36,6 @@ const WalletNFTs = () => {
     },
     [callPoolService, sendTransaction]
   )
-  const request = useCallback(() => {
-    if (!networkAccount) return
-    getWalletNFT({
-      chainId,
-      user: networkAccount,
-      tokenAddresses: ['0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978'],
-    }).then((values) => {
-      if (values[0]) {
-        setNFTs(values[0].tokenIds)
-      } else {
-        setNFTs([])
-      }
-    })
-  }, [chainId, networkAccount])
 
   const action = useMemo(() => {
     return {
@@ -56,31 +50,46 @@ const WalletNFTs = () => {
           lowerStrikePriceGapIdx: 0,
           upperDurationIdx: 0,
           lowerLimitOfStrikePrice: '0',
-        }).then(() => request())
+        }).then(() => updateWallet())
       },
     }
-  }, [callPool.address.CallPool, erc721Service, fn, networkAccount, request])
+  }, [callPool.address.CallPool, erc721Service, fn, networkAccount, updateWallet])
 
   const nfts = useMemo(() => {
-    return NFTs.map((i) => {
-      return {
-        id: i,
-        description: '#' + i,
-        minStrikePrice: 0,
-        maxExpriyTime: 0,
-        action,
-      }
+    const returnValue: NFTCardProps[] = []
+    wallet.forEach(({ tokenIds, nftAddress }) => {
+      tokenIds.forEach((tokenId) => {
+        returnValue.push({
+          tokenId,
+          nftAddress,
+          action,
+        })
+      })
     })
-  }, [NFTs, action])
+    return returnValue
+  }, [wallet, action])
+
+  const updateTokenIdAssets = useCallback(async () => {
+    for (let i = 0; i < wallet.length; i++) {
+      const { nftAddress, tokenIds } = wallet[i]
+      await assetsSingle.run({
+        chainId,
+        storeCacheData: assets,
+        nftAddress,
+        tokenIds,
+      })
+    }
+  }, [assets, assetsSingle, chainId, wallet])
 
   useEffect(() => {
-    request()
-  }, [request])
+    updateTokenIdAssets()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nfts.map((i) => i.nftAddress + i.tokenId).join(',')])
 
   return (
     <Grid container spacing={2}>
       {nfts.map((nft) => (
-        <Grid item xs={3} key={nft.id}>
+        <Grid item xs={3} key={nft.nftAddress + nft.tokenId}>
           <NFTCard {...{ ...nft }} />
         </Grid>
       ))}
