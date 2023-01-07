@@ -84,7 +84,7 @@ export const useTable = (): BasicTableProps => {
       end,
       disabled: dataFetcher.loading,
       onLoadMore: () => {
-        const callPoolAddress = callPool.address.CallPools
+        const callPoolAddress = callPool.address.CallPool
         setPageIndex(pageIndex + 1)
         if (noMoreSourceData) return Promise.resolve()
         return dataFetcher
@@ -106,7 +106,7 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [callPool.address.CallPools, dataFetcher, end, noMoreSourceData, pageIndex, skip])
+  }, [callPool.address.CallPool, dataFetcher, end, noMoreSourceData, pageIndex, skip])
 
   useMount(() => {
     loadMore.onLoadMore()

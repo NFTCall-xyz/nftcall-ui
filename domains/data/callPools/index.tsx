@@ -1,34 +1,37 @@
 import { createContext } from 'app/utils/createContext'
-import { toBN } from 'lib/math'
+import { log } from 'app/utils/dev'
+import { useMemo } from 'react'
+import type { OracleData } from 'store/nftcallProtocol/nftOracle/oracle/adapter/getOracleData'
+import { useNetwork, useNFT } from '..'
+import type { Market } from '../network/adapter/markets'
+import type { BaseCollection } from '../nft/application/collections/adapter/getCollection'
 
-export type CallPool = {
-  name: string
-  symbol: string
-  floorPrice: BN
-  depositedItems: number
-  address: {
-    CallPools: string
-  }
+export type CallPool = Market & {
+  collection: BaseCollection
+  // depositedItems: number
+  oracle: OracleData
 }
 
 const useCallPoolsService = () => {
-  return [
-    {
-      name: 'Bored Ape Yacht Club',
-      symbol: 'ETH',
-      floorPrice: toBN('81.12'),
-      depositedItems: 15,
-      address: {
-        CallPools: '0xc629d0C48D82dbc9351e7b2c4C272c49F023EB5d',
-      },
-    } as CallPool,
-    // {
-    //   name: 'Bored Ape Yacht Club',
-    //   symbol: 'ETH',
-    //   floorPrice: toBN('30.12'),
-    //   depositedItems: 10,
-    // } as CallPool,
-  ]
+  const { markets } = useNetwork()
+  const { oracle, collections } = useNFT()
+
+  const callPools = useMemo(() => {
+    const returnValue = markets.map((market) => {
+      const { id, address } = market
+      const oracleData = oracle.find((i) => i.nft === address.NFT) || ({} as any)
+      const collection = collections[id]
+      return {
+        ...market,
+        collection,
+        oracle: oracleData,
+      } as CallPool
+    })
+    log('[CallPools]', returnValue)
+    return returnValue
+  }, [collections, markets, oracle])
+
+  return callPools
 }
 const { Provider: CallPoolsProvider, createUseContext } = createContext(useCallPoolsService)
 export const createCallPoolsContext = createUseContext

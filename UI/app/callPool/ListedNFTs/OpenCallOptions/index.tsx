@@ -85,7 +85,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request }) =>
         onClick={() => {
           callPoolService
             .previewOpenCall({
-              callPool: callPool.address.CallPools,
+              callPool: callPool.address.CallPool,
               tokenIds: ids,
               strikePriceGapIdx: strikePriceGapIdx,
               durationIdx: durationIdx,
@@ -102,7 +102,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request }) =>
       <Button
         onClick={() => {
           fn({
-            callPool: callPool.address.CallPools,
+            callPool: callPool.address.CallPool,
             tokenIds: ids,
             strikePriceGapIdx: strikePriceGapIdx,
             durationIdx: durationIdx,

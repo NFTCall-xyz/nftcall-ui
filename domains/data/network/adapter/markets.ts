@@ -2,17 +2,29 @@ import type { AddressData } from 'lib/protocol/market'
 
 export type MarketId = 'MAYC' | 'BAYC'
 
-export type MarketInfo = {}
+export type MarketInfo = {
+  symbol: string
+}
 
 const getMarketInfo = (id: MarketId): MarketInfo => {
   switch (id) {
     default:
-      return {}
+      return {
+        symbol: 'ETH',
+      }
   }
 }
 
 export type ContractsAddress = {
   CallPool: string
+  CallPoolForTest: string
+  NFT: string
+}
+
+export type Market = {
+  id: MarketId
+  info: MarketInfo
+  address: ContractsAddress
 }
 
 export const getMarkets = (address: AddressData) => {

@@ -48,7 +48,7 @@ const WalletNFTs = () => {
       name: 'Deposit',
       onClick: (id: string) => {
         fn({
-          callPool: callPool.address.CallPools,
+          callPool: callPool.address.CallPool,
           user: networkAccount,
           nft: '0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978',
           tokenId: id,
@@ -59,7 +59,7 @@ const WalletNFTs = () => {
         }).then(() => request())
       },
     }
-  }, [callPool.address.CallPools, erc721Service, fn, networkAccount, request])
+  }, [callPool.address.CallPool, erc721Service, fn, networkAccount, request])
 
   const nfts = useMemo(() => {
     return NFTs.map((i) => {
