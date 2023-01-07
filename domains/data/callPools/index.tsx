@@ -19,8 +19,9 @@ const useCallPoolsService = () => {
   const callPools = useMemo(() => {
     const returnValue = markets.map((market) => {
       const { id, address } = market
-      const oracleData = oracle.find((i) => i.nft === address.NFT) || ({} as any)
+      const oracleData = oracle.oracle.find((i) => i.nft === address.NFT) || ({} as any)
       const collection = collections[id]
+      address.CallPool = address.CallPoolForTest
       return {
         ...market,
         collection,

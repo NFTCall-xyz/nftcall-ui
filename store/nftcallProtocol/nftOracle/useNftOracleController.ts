@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useOracleController } from './oracle'
 
-export const useNftOracleController = () => {
+export const useNFTOracleController = () => {
   const oracleController = useOracleController()
   const updateData = useCallback(() => {}, [])
   return { oracle: oracleController, updateData }

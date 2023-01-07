@@ -1,10 +1,10 @@
 import { useControllers } from 'domains'
 import { useNetwork } from 'domains/data'
 import { useMemo } from 'react'
-import { useNftOracleStateData } from 'store/nftcallProtocol/nftOracle/useNftOracleStateData'
+import { useNFTOracleStateData } from 'store/nftcallProtocol/nftOracle/useNFTOracleStateData'
 
 export const useOracle = () => {
-  const returnValue = useNftOracleStateData()
+  const returnValue = useNFTOracleStateData()
   const {
     address,
     markets,
