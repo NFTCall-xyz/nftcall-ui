@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import theme from 'app/theme/store'
 import nprogress from 'lib/nprogress/store/nprogress'
 
+import callPool from './callPool'
 import oracle from './oracle'
 import nft from './nft'
 import user from './user'
@@ -15,6 +16,7 @@ export function makeStore() {
     reducer: {
       theme,
       nprogress,
+      callPool,
       oracle,
       nft,
       user,
