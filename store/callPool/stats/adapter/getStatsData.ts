@@ -3,7 +3,7 @@ import { toBN } from 'lib/math'
 import type { StatsBaseData } from './getStatsBaseData'
 
 export type Stats = {
-  callPools?: string
+  callPool?: string
   accumulativePremium: BN
   totalNFTSales: BN
   totalDepositedNFTs: number

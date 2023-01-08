@@ -1,13 +1,14 @@
-import { getWeiToValueBN } from 'app/utils/get'
+import { getWeiToValueBN, safeGet } from 'app/utils/get'
 import type { UserStatsBaseData } from './getUserStatsBaseData'
 
 export type UserStatsData = {
   accumulativeEarnings: BN
 }
 
-export const getUserStatsData = (userStatsBaseData: UserStatsBaseData): UserStatsData => {
-  if (!userStatsBaseData) return {} as undefined
+export const getUserStatsData = (userStatsBaseData: UserStatsBaseData[]): UserStatsData => {
+  const baseData = safeGet(() => userStatsBaseData[0])
+  if (!baseData) return {} as undefined
   return {
-    ...getWeiToValueBN(userStatsBaseData, ['accumulativeEarnings'], 18),
+    ...getWeiToValueBN(baseData, ['accumulativeEarnings'], 18),
   }
 }

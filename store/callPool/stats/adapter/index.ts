@@ -1,4 +1,3 @@
-import type { StatsBaseData } from './getStatsBaseData'
 import { getStatsBaseData } from './getStatsBaseData'
 
 export type StatsProps = {

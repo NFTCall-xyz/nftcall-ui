@@ -1,8 +1,8 @@
-import type { CallPoolService, BalanceOfProps as BalanceOfRequestProps } from 'lib/protocol/typechain/nftcall'
+import type { CallPoolService } from 'lib/protocol/typechain/nftcall'
 import type { BalanceOfBaseData } from './getBalanceOfBaseData'
 import { getBalanceOfBaseData } from './getBalanceOfBaseData'
 
-export type BalanceOfProps = BalanceOfRequestProps & {
+export type BalanceOfProps = {
   callPoolService: CallPoolService
   user: string
   callPools: string[]
