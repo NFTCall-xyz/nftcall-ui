@@ -22,7 +22,7 @@ const Menu = () => {
   return (
     <Stack direction={{ xs: 'column', lg: 'row' }} spacing={4} alignItems={{ xs: 'start', lg: 'center' }}>
       {menu.map(({ label, linkTo }) => (
-        <HeaderLink href={linkTo} key={linkTo} target="_blank">
+        <HeaderLink href={linkTo} key={label} target="_blank">
           {label}
         </HeaderLink>
       ))}
