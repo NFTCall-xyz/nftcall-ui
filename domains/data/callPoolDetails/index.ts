@@ -2,7 +2,7 @@ import { createContext } from 'app/utils/createContext'
 import { useCallPools } from '..'
 
 const useCallPoolDetailsService = () => {
-  const callPools = useCallPools()
+  const { callPools } = useCallPools()
   const callPool = callPools[0]
   return {
     callPool,

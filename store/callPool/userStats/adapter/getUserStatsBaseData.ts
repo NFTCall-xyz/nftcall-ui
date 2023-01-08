@@ -3,6 +3,6 @@ export type UserStatsBaseData = {
   accumulativeEarnings: string
 }
 
-export const getUserStatsBaseData = (userStats: any): UserStatsBaseData => {
+export const getUserStatsBaseData = (userStats: any): UserStatsBaseData[] => {
   return userStats
 }
