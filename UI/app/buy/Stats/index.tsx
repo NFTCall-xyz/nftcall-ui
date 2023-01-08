@@ -1,24 +1,19 @@
 import { Grid, Stack } from '@mui/material'
 import type { FC } from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
 
 import StatsCard from './StatsCard'
-import type { CallPoolStats } from './adapter'
-import { request } from './adapter'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
-import { useCallPoolDetails } from 'domains/data'
+import { useCallPools } from 'domains/data'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 const Stats: FC = () => {
-  const { callPool } = useCallPoolDetails()
-  const [data, setData] = useState<CallPoolStats>({} as any)
+  const { allCallPool } = useCallPools()
   const cardList = [
     {
       price: (
         <Stack spacing={1} direction="row">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-          <NumberDisplay value={data.accumulativePremium} abbreviate={{}} />
+          <NumberDisplay value={allCallPool.stats.accumulativePremium} abbreviate={{}} />
         </Stack>
       ),
       title: 'AccumulativePremium',
@@ -27,7 +22,7 @@ const Stats: FC = () => {
       price: (
         <Stack spacing={1} direction="row">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-          <NumberDisplay value={data.totalNFTSales} abbreviate={{}} />
+          <NumberDisplay value={allCallPool.stats.totalNFTSales} abbreviate={{}} />
         </Stack>
       ),
       title: 'TotalNFTSales',
@@ -35,7 +30,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={data.totalDepositedNFTs} abbreviate={{}} />
+          <NumberDisplay value={allCallPool.stats.totalDepositedNFTs} abbreviate={{}} />
         </div>
       ),
       title: 'TotalDepositedNFTs',
@@ -43,21 +38,12 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={data.totalOptionContracts} abbreviate={{}} />
+          <NumberDisplay value={allCallPool.stats.totalOptionContracts} abbreviate={{}} />
         </div>
       ),
       title: 'TotalOptionContracts',
     },
   ]
-
-  useEffect(() => {
-    request({
-      nftAddress: callPool.address.CallPool,
-      subgraphName: 'rockgold0911/nftcall',
-    }).then((data) => {
-      if (data[0]) setData(data[0])
-    })
-  }, [callPool.address.CallPool])
 
   return (
     <div>
