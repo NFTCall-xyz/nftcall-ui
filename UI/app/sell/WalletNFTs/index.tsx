@@ -7,6 +7,7 @@ import { useCallPoolDetails, useNetwork, useNFT } from 'domains/data'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import type { DepositProps } from 'lib/protocol/typechain/nftcall'
 import { transaction } from 'domains/controllers/adapter/transaction'
+import { getStoreCacheData } from 'store/nft/tokenId/assets/adapter'
 
 const WalletNFTs = () => {
   const {
@@ -16,7 +17,7 @@ const WalletNFTs = () => {
   const { callPool } = useCallPoolDetails()
   const { networkAccount } = useWallet()
   const {
-    tokenId: { wallet, updateWallet, assets },
+    tokenId: { wallet, updateWallet },
   } = useNFT()
   const {
     tokenId: {
@@ -74,12 +75,12 @@ const WalletNFTs = () => {
       const { nftAddress, tokenIds } = wallet[i]
       await assetsSingle.run({
         chainId,
-        storeCacheData: assets,
+        getStoreCacheData,
         nftAddress,
         tokenIds,
       })
     }
-  }, [assets, assetsSingle, chainId, wallet])
+  }, [assetsSingle, chainId, wallet])
 
   useEffect(() => {
     updateTokenIdAssets()
