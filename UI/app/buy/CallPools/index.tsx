@@ -5,7 +5,7 @@ import type { FC } from 'react'
 import CallPoolCard from './CallPoolCard'
 
 const Stats: FC = () => {
-  const callPools = useCallPools()
+  const { callPools } = useCallPools()
   return (
     <div>
       <Grid container spacing={2}>

@@ -1,10 +1,9 @@
 import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Avatar from '@mui/material/Avatar'
 import CardMedia from '@mui/material/CardMedia'
-import { H3, H5 } from 'components/Typography'
+import { H3 } from 'components/Typography'
 import type { CallPool } from 'domains/data/callPools'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -24,6 +23,7 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
     nftOracle: { price: floorPrice },
     collection: { name, bannerImageUrl, imageUrl },
     info: { symbol },
+    stats: { totalDepositedNFTs },
     address,
   } = callPool
   const router = useRouter()
@@ -52,7 +52,7 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
             </Stack>
             <Stack spacing={1}>
               <span>{t('depositedItems')}</span>
-              <NumberDisplay value={0} />
+              <NumberDisplay value={totalDepositedNFTs} />
             </Stack>
           </FlexBetween>
         </Stack>
