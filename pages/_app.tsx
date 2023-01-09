@@ -9,7 +9,6 @@ import { appWithTranslation, useI18nHMR } from 'app/i18n'
 import { initChartjs } from 'lib/chartjs'
 
 import 'lib/toastify/styles.css'
-import 'simplebar-react/dist/simplebar.min.css'
 import 'rc-image/assets/index.css'
 import 'styles/global.css'
 
