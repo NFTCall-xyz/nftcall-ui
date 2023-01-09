@@ -8,7 +8,7 @@ import { useContracts } from './application/contracts'
 const useNetworkService = () => {
   const address = useAddress()
   const markets = useMemo(() => getMarkets(address), [address])
-  const provider = useProvider(address)
+  const provider = useProvider()
   const contracts = useContracts(provider)
 
   return { address, markets, provider, contracts, subgraphName: 'rockgold0911/nftcall' }
