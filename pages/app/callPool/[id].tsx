@@ -3,6 +3,7 @@ import UI from 'UI/app/callPool'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import type { FC } from 'react'
 import { withStaticTranslations } from 'app/i18n/hoc'
+import { MARKETS } from 'lib/protocol/market'
 // import { usePagePropsEffect } from 'domains/data/portfolioDetails/application/portfolioId'
 
 export const getStaticProps: GetStaticProps = withStaticTranslations(
@@ -19,13 +20,22 @@ export const getStaticProps: GetStaticProps = withStaticTranslations(
     namespaces: ['app-callpool'],
   }
 )
+
 export const getStaticPaths: GetStaticPaths = ({ locales }) => {
   const paths = [] as any
+  const ids: string[] = []
+  Object.values(MARKETS).forEach((market) => {
+    Object.values(market.markets).forEach((callPool) => {
+      ids.push(callPool.CallPoolForTest)
+    })
+  })
 
   locales.forEach((locale) => {
-    paths.push({
-      params: { id: '0xc629d0C48D82dbc9351e7b2c4C272c49F023EB5d' },
-      locale,
+    ids.forEach((id) => {
+      paths.push({
+        params: { id },
+        locale,
+      })
     })
   })
 

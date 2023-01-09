@@ -22,7 +22,7 @@ const getMarketsData = (chainId: ChainId): AddressData => {
   }
 }
 
-const MARKETS: Record<number, AddressData> = {
+export const MARKETS: Record<number, AddressData> = {
   [ChainId.goerli]: getMarketsData(ChainId.goerli),
 }
 

@@ -41,7 +41,7 @@ export default function SelectOtherProps() {
           value={age}
           label="Age"
           onChange={handleChange}
-          renderValue={(value) => `⚠️  - ${value}`}
+          renderValue={(value: any) => `⚠️  - ${value}`}
         >
           <MenuItem value="">
             <em>None</em>
