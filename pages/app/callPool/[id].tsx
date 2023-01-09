@@ -4,7 +4,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 import type { FC } from 'react'
 import { withStaticTranslations } from 'app/i18n/hoc'
 import { MARKETS } from 'lib/protocol/market'
-// import { usePagePropsEffect } from 'domains/data/portfolioDetails/application/portfolioId'
+import { useCallPoolIdEffect } from 'domains/data/callPoolDetails/application/callPoolId'
 
 export const getStaticProps: GetStaticProps = withStaticTranslations(
   (props) => {
@@ -46,7 +46,7 @@ export const getStaticPaths: GetStaticPaths = ({ locales }) => {
 }
 
 const Page: FC = (props) => {
-  // usePagePropsEffect(props)
+  useCallPoolIdEffect(props)
   return <UI />
 }
 
