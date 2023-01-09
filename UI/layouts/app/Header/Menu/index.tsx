@@ -22,7 +22,7 @@ const Menu = () => {
   const Content = useMemo(
     () =>
       list
-        .filter((item) => !item.hide && !item.onlyMobile)
+        .filter((item) => !item.hide)
         .map(({ label, linkTo }, index) => (
           <HeaderLink
             href={linkTo}
