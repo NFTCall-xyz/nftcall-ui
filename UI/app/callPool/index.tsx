@@ -14,6 +14,7 @@ import FlexBetween from 'components/flexbox/FlexBetween'
 import { useCallPoolDetails } from 'domains/data'
 import { H3, H5 } from 'components/Typography'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 const CallPoolDetails: FC = () => {
   const { t } = useTranslation('app-callpool')
@@ -38,25 +39,35 @@ const CallPoolDetails: FC = () => {
       return i
     })
   }, [t])
-  // const {
-  //   callPool: { name, floorPrice, symbol, depositedItems },
-  // } = useCallPoolDetails()
+  const { callPool } = useCallPoolDetails()
+
+  if (!callPool) return null
+
+  const {
+    collection: { name },
+    nftOracle: { price },
+    info: { symbol },
+    stats: { totalDepositedNFTs },
+  } = callPool
 
   return (
     <>
       <BackButton />
-      {/* <Grid container pt={2}>
+      <Grid container pt={2}>
         <Grid item xs={12}>
           <FlexBetween>
             <H3>{name}</H3>
             <Stack spacing={2} direction="row">
               <Stack spacing={1}>
                 <H5>{t('floorPrice')}</H5>
-                <NumberDisplay value={floorPrice} symbol={symbol} />
+                <Stack spacing={1} direction="row">
+                  <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
+                  <NumberDisplay value={price} />
+                </Stack>
               </Stack>
               <Stack spacing={1}>
                 <H5>{t('depositedItems')}</H5>
-                <NumberDisplay value={depositedItems} />
+                <NumberDisplay value={totalDepositedNFTs} />
               </Stack>
             </Stack>
           </FlexBetween>
@@ -79,7 +90,7 @@ const CallPoolDetails: FC = () => {
             }}
           />
         </Grid>
-      </Grid> */}
+      </Grid>
     </>
   )
 }
