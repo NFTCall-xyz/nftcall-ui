@@ -1,17 +1,23 @@
-export type ListedNFTsProps = { user: string; nft: string }
+import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
+import type { NFTStatus } from 'domains/data/nft/types'
+
+export type ListedNFTsProps = { subgraphName: string; nft: string } & GetQueryProps
+
 export const getListedNFTs = (
   props: ListedNFTsProps
 ): Promise<
   Array<{
-    underlyingNFT: string
-    tokenIds: string[]
+    tokenId: string
+    strikePriceGapIdx: number
+    durationIdx: number
+    status: NFTStatus
+    nftAddress: string
   }>
 > => {
-  const { user, nft } = props
-  if (!user || !nft) return Promise.reject()
+  const { subgraphName, nft, first, skip } = props
 
   const fn = (): Promise<any> =>
-    fetch('https://api.thegraph.com/subgraphs/name/rockgold0911/nftcall', {
+    fetch('https://api.thegraph.com/subgraphs/name/' + subgraphName, {
       headers: {
         accept: 'application/json, multipart/mixed',
         'accept-language': 'zh-CN,zh;q=0.9',
@@ -25,14 +31,12 @@ export const getListedNFTs = (
       },
       referrer: 'https://thegraph.com/',
       referrerPolicy: 'strict-origin-when-cross-origin',
-      body: `{"query":"{ nfts(first: 10, where: {nftAddress: \\"${nft}\\", status: \\"Listed\\"}) { tokenId strikePriceGapIdx durationIdx }}"}`,
+      body: `{"query":"{ nfts(first: ${first},skip: ${skip}, where: {nftAddress: \\"${nft.toLowerCase()}\\", status: \\"Listed\\" }) { tokenId strikePriceGapIdx durationIdx status nftAddress }}"}`,
       method: 'POST',
       mode: 'cors',
       credentials: 'omit',
     }).then((data) => data.json())
-  return fn().then(({ data }) => {
-    return data.nfts
-  })
+  return fn().then(({ data }) => data.nfts)
 }
 
 export type ListedNFTs = Awaited<ReturnType<typeof getListedNFTs>>

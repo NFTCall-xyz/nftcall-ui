@@ -1,7 +1,7 @@
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
+import type { NFTStatus } from 'domains/data/nft/types'
 
 export type DepositedNFTsProps = { subgraphName: string; user: string; nfts: string[] } & GetQueryProps
-export type DepositedNFTStatus = 'Deposited' | 'Listed' | 'Removed'
 export const getDepositedNFTs = (
   props: DepositedNFTsProps
 ): Promise<
@@ -9,7 +9,7 @@ export const getDepositedNFTs = (
     tokenId: string
     strikePriceGapIdx: number
     durationIdx: number
-    status: DepositedNFTStatus
+    status: NFTStatus
     nftAddress: string
   }>
 > => {

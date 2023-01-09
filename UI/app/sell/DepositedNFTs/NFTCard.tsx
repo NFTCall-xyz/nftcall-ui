@@ -17,19 +17,15 @@ import type { RelistNFTProps, TakeNFTOffMarketProps, WithdrawProps } from 'lib/p
 import Stack from '@mui/material/Stack'
 import FlexBetween from 'components/flexbox/FlexBetween'
 import Switch from '@mui/material/Switch'
-import type { DepositedNFTStatus } from './useDepositedNFTs/request'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
 
-export type DepositedNFT = {
+export type DepositedNFT = BaseNFT & {
   minStrikePrice: number
   maxExpriyTime: number
-  nftAddress: string
-  tokenId: string
-  status: DepositedNFTStatus
+  status: NFTStatus
 }
-
-export type NFTCardProps = Partial<DepositedNFT>
 
 const Root = styled(Card)`
   width: 230px;
@@ -41,7 +37,7 @@ const Root = styled(Card)`
   }
 `
 
-const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, status: sourceStatus }) => {
+const NFTCard: FC<DepositedNFT> = ({ tokenId, nftAddress, status: sourceStatus }) => {
   const [status, setStatus] = useState(sourceStatus)
   const [loading, setLoading] = useState(false)
   const {

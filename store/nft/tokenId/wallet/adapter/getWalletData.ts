@@ -1,9 +1,6 @@
+import type { BaseNFT } from 'domains/data/nft/types'
 import type { WalletBaseData } from './getWalletBaseData'
 
-export type NFT = {
-  tokenId: string
-  nftAddress: string
-}
 export type WalletData = {
   nftAddress: string
   tokenIds: string[]
@@ -14,7 +11,7 @@ export const getWalletData = (walletBaseData: WalletBaseData[]): WalletData[] =>
   return walletBaseData
 }
 
-export const getWalletDataByNFTs = (nfts: NFT[]) => {
+export const getWalletDataByNFTs = (nfts: BaseNFT[]) => {
   const wallet: WalletData[] = []
   let key = ''
   nfts.forEach(({ tokenId, nftAddress }) => {
@@ -29,7 +26,7 @@ export const getWalletDataByNFTs = (nfts: NFT[]) => {
   return { wallet, key }
 }
 
-export const getWalletDataKeyByNFTs = (nfts: NFT[]) => {
+export const getWalletDataKeyByNFTs = (nfts: BaseNFT[]) => {
   let key = ''
   nfts.forEach(({ tokenId, nftAddress }) => {
     key += nftAddress + tokenId

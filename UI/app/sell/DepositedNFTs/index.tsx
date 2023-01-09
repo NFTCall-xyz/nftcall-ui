@@ -26,13 +26,15 @@ const DepositedNFTs = () => {
           <NFTCard {...{ ...nft }} />
         </Grid>
       ))}
-      <LoadMoreButton
-        {...{
-          onLoadMore,
-          end: noMoreData,
-          disabled,
-        }}
-      />
+      <Grid item xs={12}>
+        <LoadMoreButton
+          {...{
+            onLoadMore,
+            end: noMoreData,
+            disabled,
+          }}
+        />
+      </Grid>
     </Grid>
   )
 }
