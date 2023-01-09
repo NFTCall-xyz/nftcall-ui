@@ -1,23 +1,25 @@
 import Grid from '@mui/material/Grid'
 import { useWallet } from 'domains'
 import { useCallback, useEffect, useMemo } from 'react'
-import type { NFTCardProps } from './NFTCard'
+import type { WalletNFT, NFTCardProps } from './NFTCard'
 import NFTCard from './NFTCard'
-import { useCallPoolDetails, useNetwork, useNFT } from 'domains/data'
+import { useCallPools, useNetwork, useNFT } from 'domains/data'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import type { DepositProps } from 'lib/protocol/typechain/nftcall'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import { getWalletDataKeyByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
+import { safeGet } from 'app/utils/get'
+import { log } from 'app/utils/dev'
 
 const WalletNFTs = () => {
   const {
     contracts: { callPoolService, erc721Service },
   } = useNetwork()
-  const { callPool } = useCallPoolDetails()
   const { networkAccount } = useWallet()
   const {
     tokenId: { wallet, updateWallet, updateAssets },
   } = useNFT()
+  const { callPools } = useCallPools()
 
   const sendTransaction = useSendTransaction()
   const fn = useCallback(
@@ -35,12 +37,12 @@ const WalletNFTs = () => {
   const action = useMemo(() => {
     return {
       name: 'Deposit',
-      onClick: (id: string) => {
+      onClick: ({ callPoolAddress, nftAddress, tokenId }: WalletNFT) => {
         fn({
-          callPool: callPool.address.CallPool,
+          callPool: callPoolAddress,
           user: networkAccount,
-          nft: '0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978',
-          tokenId: id,
+          nft: nftAddress,
+          tokenId,
           approveService: erc721Service as any,
           lowerStrikePriceGapIdx: 0,
           upperDurationIdx: 0,
@@ -48,25 +50,28 @@ const WalletNFTs = () => {
         }).then(() => updateWallet())
       },
     }
-  }, [callPool.address.CallPool, erc721Service, fn, networkAccount, updateWallet])
+  }, [erc721Service, fn, networkAccount, updateWallet])
 
   const { nfts, key } = useMemo(() => {
     const nfts: NFTCardProps[] = []
     wallet.forEach(({ tokenIds, nftAddress }) => {
+      const callPool = callPools.find((callPool) => callPool.address.NFT.toLowerCase() === nftAddress)
       tokenIds.forEach((tokenId) => {
         nfts.push({
           tokenId,
           nftAddress,
           action,
+          callPoolAddress: safeGet(() => callPool.address.CallPool),
         })
       })
     })
     const key = getWalletDataKeyByNFTs(nfts)
+    log('[WalletNFTs]', nfts)
     return {
       key,
       nfts,
     }
-  }, [wallet, action])
+  }, [wallet, callPools, action])
 
   useEffect(() => {
     updateAssets(wallet)

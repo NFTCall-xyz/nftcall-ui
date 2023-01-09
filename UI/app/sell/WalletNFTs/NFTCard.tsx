@@ -15,7 +15,11 @@ export type NFT = {
   nftAddress: string
 }
 
-export type NFTCardProps = NFT &
+export type WalletNFT = NFT & {
+  callPoolAddress: string
+}
+
+export type NFTCardProps = WalletNFT &
   Partial<{
     action: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
   }>
@@ -30,7 +34,8 @@ const Root = styled(Card)`
   }
 `
 
-const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, action }) => {
+const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
+  const { tokenId, nftAddress, action } = props
   const {
     tokenId: { assets },
   } = useNFT()
@@ -44,11 +49,11 @@ const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, action }) => {
     if (tip) return tip
 
     return (
-      <Button variant="outlined" disabled={disabled} onClick={() => onClick(nft)}>
+      <Button variant="outlined" disabled={disabled} onClick={() => onClick(props)}>
         {name}
       </Button>
     )
-  }, [action, nft])
+  }, [action, props])
   if (!nft) return <p>loading</p>
   const { token_id, image_thumbnail_url } = nft
   const title = '#' + token_id
