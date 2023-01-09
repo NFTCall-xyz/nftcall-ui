@@ -1,9 +1,9 @@
 import { styled } from '@mui/material/styles'
 import Container from '@mui/material/Container'
 
-
 const ROOT: any = styled(Container)`
-  padding-top: 16px;
+  padding-top: 40px;
+  min-height: calc(100vh - 85px - 168px);
 `
 const Main: FCC = ({ children }) => {
   return (

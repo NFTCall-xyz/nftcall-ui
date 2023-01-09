@@ -17,12 +17,12 @@ const MediumIcon = () => {
 }
 
 const links = [
-  { label: 'Github', linkTo: 'https://github.com/vinciprotocol', icon: <GitHubIcon /> },
-  { label: 'Twitter', linkTo: 'https://twitter.com/vinciprotocol', icon: <TwitterIcon /> },
-  { label: 'Medium', linkTo: 'https://medium.com/@vinciprotoco', icon: <MediumIcon /> },
-  { label: 'Telegram', linkTo: 'https://t.me/vinciprotocol', icon: <TelegramIcon /> },
-  // { label: 'Docs', linkTo: 'https://docs.vinci.io', icon: <MenuBookIcon /> },
-  // { label: 'Email', linkTo: 'mailto:info@vinci.io', icon: <EmailIcon /> },
+  { label: 'Github', linkTo: 'https://github.com/#', icon: <GitHubIcon /> },
+  { label: 'Twitter', linkTo: 'https://twitter.com/#', icon: <TwitterIcon /> },
+  { label: 'Medium', linkTo: 'https://medium.com/#', icon: <MediumIcon /> },
+  { label: 'Telegram', linkTo: 'https://t.me/#', icon: <TelegramIcon /> },
+  // { label: 'Docs', linkTo: '#', icon: <MenuBookIcon /> },
+  // { label: 'Email', linkTo: 'mailto:#', icon: <EmailIcon /> },
 ]
 
 export const useLinks = () => {

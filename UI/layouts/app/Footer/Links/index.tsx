@@ -1,6 +1,6 @@
 import Link from '@mui/material/Link'
 import { styled } from '@mui/material/styles'
-import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
 
 import { useLinks } from './useLinks'
 
@@ -12,18 +12,16 @@ const ROOT = styled('div')`
 const Links = () => {
   const { links } = useLinks()
 
-  const list = links.map(({ label, linkTo, icon }) => (
+  const list = links.map(({ linkTo, icon }) => (
     <Link href={linkTo} key={linkTo} target="_blank" underline="none" sx={{ padding: '0 10px' }}>
-      <Button
-        variant="text"
+      <IconButton
         sx={{
-          color: 'grey.500',
+          color: 'grey.400',
         }}
-        startIcon={icon}
-        size="large"
+        size="small"
       >
-        {label}
-      </Button>
+        {icon}
+      </IconButton>
     </Link>
   ))
 
