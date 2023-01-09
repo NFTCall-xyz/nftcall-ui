@@ -1,11 +1,18 @@
 import { useMemo } from 'react'
 import { styled } from '@mui/material/styles'
-import Button from '@mui/material/Button'
 import { useApp } from 'app'
+import Stack from '@mui/material/Stack'
+import Link from '@mui/material/Link'
 
-const ROOT = styled('div')`
-  display: flex;
-  align-items: center;
+const HeaderLink = styled(Link)`
+  ${({ theme }) => ({
+    textDecoration: 'none',
+    color: theme.palette.text.secondary,
+    fontWeight: 'normal',
+    '&:hover': {
+      color: theme.palette.text.primary,
+    },
+  })}
 `
 
 const Menu = () => {
@@ -17,13 +24,10 @@ const Menu = () => {
       list
         .filter((item) => !item.hide && !item.onlyMobile)
         .map(({ label, linkTo }, index) => (
-          <Button
-            component="a"
+          <HeaderLink
             href={linkTo}
             key={index}
-            variant="text"
             sx={{}}
-            size="large"
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
@@ -31,12 +35,12 @@ const Menu = () => {
             }}
           >
             {label}
-          </Button>
+          </HeaderLink>
         )),
     [changeMenu, list]
   )
 
-  return <ROOT>{Content}</ROOT>
+  return <Stack direction={{ xs: 'column', lg: 'row' }} spacing={4} alignItems={{ xs: 'start', lg: 'center' }}>{Content}</Stack>
 }
 
 export default Menu

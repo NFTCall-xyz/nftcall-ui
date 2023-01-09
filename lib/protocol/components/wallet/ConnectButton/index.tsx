@@ -51,7 +51,7 @@ const WalletDisconnected: FC = () => {
   const { t } = useTranslation()
   const { open } = useConnectButton()
   return (
-    <Button key="wallet-btn" variant="contained" onClick={open} sx={{ borderRadius: 30, marginLeft: 1 }}>
+    <Button key="wallet-btn" variant="contained" onClick={open} sx={{ marginLeft: 1 }}>
       {t('wallet.disconnected.title')}
     </Button>
   )

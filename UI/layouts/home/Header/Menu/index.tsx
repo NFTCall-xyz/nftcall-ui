@@ -13,9 +13,9 @@ const HeaderLink = styled(Link)`
 `
 
 const menu = [
-  { label: 'NFTCall Protocol', linkTo: '#' },
-  { label: 'Docs', linkTo: '#' },
-  { label: 'FAQs', linkTo: '#' },
+  { label: 'NFTCall Protocol', linkTo: '#'},
+  { label: 'Docs', linkTo: '#Docs'},
+  { label: 'FAQs', linkTo: '#FAQs'},
 ]
 
 const Menu = () => {

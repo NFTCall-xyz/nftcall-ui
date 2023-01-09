@@ -17,7 +17,7 @@ const locale = {
   benefits: {
     title: 'A new NFT trading experience with NFTCall',
     subTitle:
-      'NFTCall creates a derivative market where both NFT buyers and sellers can benefit from our hybrid settlement model, cost-effective fee struture and fully secured marketplace. ',
+      'NFTCall creates a derivative market where both NFT buyers and sellers can benefit from our hybrid settlement model, cost-effective fee structure and fully secured marketplace. ',
     tradeNow: 'Trade Now',
     list: {
       0: {
@@ -30,7 +30,7 @@ const locale = {
       },
       2: {
         title: '100% Secured',
-        subTitle: 'We built an on-chain permissonless marketplace to secure every transactions.',
+        subTitle: 'We built an on-chain permissionless marketplace to secure every transactions.',
       },
     },
   },
@@ -52,13 +52,13 @@ const locale = {
     list: {
       0: {
         title:
-          'Pay a premium in advance for the right to buy NFTs at a specific floor price and expiry date. If the market price goes higher than the pre-set price, you will make a profit.',
+          'Pay a premium in advance for the right to buy NFTs at a specified floor price and expiry date. If the market price goes higher than the specified price, you will make a profit.',
         author: 'Alice',
         tag: 'NFT Buyer',
       },
       1: {
         title:
-          'Sell NFTs with a specific floor price and expiry date limit, while having chance to earn income from the premium before the NFTs get sold on the pre-set conditions.',
+          'Sell NFTs with a specified floor price and expiry date limit, while having chance to earn income from the premium before the NFTs get sold under the specified conditions.',
         author: 'Bob',
         tag: 'NFT Seller',
       },
