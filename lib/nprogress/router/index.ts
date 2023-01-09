@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useControllers } from 'domains'
+import { safeGet } from 'app/utils/get'
 
 export const useRouteChange = () => {
   const router = useRouter()
@@ -13,18 +14,25 @@ export const useRouteChange = () => {
     }
 
     const handleRouteChangeDone = (url: string, { shallow }: any) => {
-      if (!shallow) {
+      if (!safeGet(() => shallow)) {
         pageProcess.done()
+      }
+    }
+
+    const handleRouteChangeError = (error: any, url: string) => {
+      pageProcess.done()
+      if (error.cancelled) {
+        return safeGet(() => (window.location.pathname = url))
       }
     }
 
     router.events.on('routeChangeStart', handleRouteChangeStart)
     router.events.on('routeChangeComplete', handleRouteChangeDone)
-    router.events.on('routeChangeError', handleRouteChangeDone)
+    router.events.on('routeChangeError', handleRouteChangeError)
     return () => {
       router.events.off('routeChangeStart', handleRouteChangeStart)
       router.events.off('routeChangeComplete', handleRouteChangeDone)
-      router.events.off('routeChangeError', handleRouteChangeDone)
+      router.events.off('routeChangeError', handleRouteChangeError)
     }
   }, [pageProcess, router])
 }
