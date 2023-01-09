@@ -33,7 +33,7 @@ const components = (theme: Theme): any => {
           MozOsxFontSmoothing: 'grayscale',
           WebkitFontSmoothing: 'antialiased',
         },
-        body: { width: '100%', height: '100%' },
+        body: { minWidth: '100%', minHeight: '100%' },
         a: { textDecoration: 'none', color: primary.main },
         input: {
           '&[type=number]': {
