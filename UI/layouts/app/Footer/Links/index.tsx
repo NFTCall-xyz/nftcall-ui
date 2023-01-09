@@ -12,8 +12,8 @@ const ROOT = styled('div')`
 const Links = () => {
   const { links } = useLinks()
 
-  const list = links.map(({ linkTo, icon }) => (
-    <Link href={linkTo} key={linkTo} target="_blank" underline="none" sx={{ padding: '0 10px' }}>
+  const list = links.map(({ linkTo, icon }, index) => (
+    <Link href={linkTo} key={index} target="_blank" underline="none" sx={{ padding: '0 10px' }}>
       <IconButton
         sx={{
           color: 'grey.400',
