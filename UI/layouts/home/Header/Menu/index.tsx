@@ -13,16 +13,16 @@ const HeaderLink = styled(Link)`
 `
 
 const menu = [
-  { label: 'NFTCall Protocol', linkTo: '#'},
-  { label: 'Docs', linkTo: '#Docs'},
-  { label: 'FAQs', linkTo: '#FAQs'},
+  { label: 'NFTCall Protocol', linkTo: '#' },
+  { label: 'Docs', linkTo: '#Docs' },
+  { label: 'FAQs', linkTo: '#FAQs' },
 ]
 
 const Menu = () => {
   return (
     <Stack direction={{ xs: 'column', lg: 'row' }} spacing={4} alignItems={{ xs: 'start', lg: 'center' }}>
-      {menu.map(({ label, linkTo }) => (
-        <HeaderLink href={linkTo} key={label} target="_blank">
+      {menu.map(({ label, linkTo }, index) => (
+        <HeaderLink href={linkTo} key={index} target="_blank">
           {label}
         </HeaderLink>
       ))}

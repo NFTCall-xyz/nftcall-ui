@@ -36,7 +36,7 @@ const BgGradient3 = styled(Box)`
   height: 514px;
   right: 15%;
   top: -55%;
-  background: linear-gradient(90deg, #F4C4F3 0%, #FC67FA 100%);
+  background: linear-gradient(90deg, #f4c4f3 0%, #fc67fa 100%);
   filter: blur(450px);
   border-radius: 200px;
   transform: rotate(-20.01deg);

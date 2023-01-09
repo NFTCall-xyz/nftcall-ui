@@ -339,9 +339,9 @@ const components = (theme: Theme): any => {
         paper: {
           borderRadius: 10,
           border: `solid 1px ${theme.palette.divider}`,
-        }
-      }
-    }
+        },
+      },
+    },
   }
 }
 

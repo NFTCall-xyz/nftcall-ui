@@ -40,7 +40,11 @@ const Menu = () => {
     [changeMenu, list]
   )
 
-  return <Stack direction={{ xs: 'column', lg: 'row' }} spacing={4} alignItems={{ xs: 'start', lg: 'center' }}>{Content}</Stack>
+  return (
+    <Stack direction={{ xs: 'column', lg: 'row' }} spacing={4} alignItems={{ xs: 'start', lg: 'center' }}>
+      {Content}
+    </Stack>
+  )
 }
 
 export default Menu
