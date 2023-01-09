@@ -9,6 +9,7 @@ export type AssetsData = {
   nftAddress: string
   token_id: string
   token_metadata: string
+  contractName: string
 }
 
 export const getAssetsData = (assetsBaseData: AssetsBaseData[]): AssetsData[] => {

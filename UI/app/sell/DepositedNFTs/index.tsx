@@ -1,132 +1,74 @@
 import Grid from '@mui/material/Grid'
-import { useWallet } from 'domains'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useControllers } from 'domains'
+import { useCallback, useEffect, useMemo } from 'react'
 import NFTCard from './NFTCard'
-import { useCallPoolDetails, useNetwork } from 'domains/data'
-import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
-import type { RelistNFTProps, TakeNFTOffMarketProps, WithdrawProps } from 'lib/protocol/typechain/nftcall'
-import { transaction } from 'domains/controllers/adapter/transaction'
-import { getDepositedNFTs } from './getDepositedNFTs'
+import { useNetwork } from 'domains/data'
+import { getStoreCacheData } from 'store/nft/tokenId/assets/adapter'
+import type { WalletData } from 'store/nft/tokenId/wallet/adapter/getWalletData'
+import { useDepositedNFTs } from './useDepositedNFTs'
+import { LoadMoreButton } from 'components/btn/LoadMoreButton'
 
 const DepositedNFTs = () => {
-  const [NFTs, setNFTs] = useState([])
+  const { data, onLoadMore, noMoreData, disabled } = useDepositedNFTs()
   const {
-    contracts: { callPoolService },
+    address: { chainId },
   } = useNetwork()
-  const { callPool } = useCallPoolDetails()
-  const { chainId, networkAccount } = useWallet()
 
-  const sendTransaction = useSendTransaction()
-  const relistNFT = useCallback(
-    (props: RelistNFTProps) => {
-      return transaction({
-        createTransaction: callPoolService.relistNFT(props),
-        setStatus: () => {},
-        sendTransaction,
-        isOnlyApprove: false,
-      })
+  const {
+    tokenId: {
+      assets: { single: assetsSingle },
     },
-    [callPoolService, sendTransaction]
-  )
-  const takeNFTOffMarket = useCallback(
-    (props: TakeNFTOffMarketProps) => {
-      return transaction({
-        createTransaction: callPoolService.takeNFTOffMarket(props),
-        setStatus: () => {},
-        sendTransaction,
-        isOnlyApprove: false,
-      })
-    },
-    [callPoolService, sendTransaction]
-  )
-  const withdraw = useCallback(
-    (props: WithdrawProps) => {
-      return transaction({
-        createTransaction: callPoolService.withdraw(props),
-        setStatus: () => {},
-        sendTransaction,
-        isOnlyApprove: false,
-      })
-    },
-    [callPoolService, sendTransaction]
-  )
+  } = useControllers()
 
-  const request = useCallback(() => {
-    if (!networkAccount) return
-    getDepositedNFTs({
-      chainId,
-      user: networkAccount,
-      nft: '0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978',
-    }).then((data) => {
-      setNFTs(data)
-    })
-  }, [chainId, networkAccount])
-
-  const action = useMemo(() => {
-    return [
-      {
-        name: 'Withdraw',
-        onClick: (id: string) => {
-          withdraw({
-            callPool: callPool.address.CallPool,
-            user: networkAccount,
-            tokenId: id,
-          }).then(() => request())
-        },
-      },
-      {
-        name: 'RelistNFT',
-        onClick: (id: string) => {
-          relistNFT({
-            callPool: callPool.address.CallPool,
-            user: networkAccount,
-            tokenId: id,
-          }).then(() => request())
-        },
-      },
-      {
-        name: 'TakeNFTOffMarket',
-        onClick: (id: string) => {
-          takeNFTOffMarket({
-            callPool: callPool.address.CallPool,
-            user: networkAccount,
-            tokenId: id,
-          }).then(() => request())
-        },
-      },
-    ]
-  }, [withdraw, callPool.address.CallPool, networkAccount, request, relistNFT, takeNFTOffMarket])
-
-  const nfts = useMemo(() => {
-    return NFTs.map(({ tokenId, strikePriceGapIdx, durationIdx, status }) => {
-      let actions = []
-      if (status === 'Deposited') {
-        actions = [action[0], action[1]]
-      } else {
-        actions = [action[2]]
+  const wallet = useMemo(() => {
+    const wallet: WalletData[] = []
+    data.forEach(({ tokenId, nftAddress }) => {
+      let walletData = wallet.find((i) => i.nftAddress === nftAddress)
+      if (!walletData) {
+        walletData = { nftAddress, tokenIds: [] }
+        wallet.push(walletData)
       }
-      return {
-        id: tokenId,
-        name: `# ${tokenId}`,
-        description: `strikePriceGapIdx: ${strikePriceGapIdx}\n durationIdx: ${durationIdx}`,
-        minStrikePrice: strikePriceGapIdx,
-        maxExpriyTime: durationIdx,
-        action: actions,
-      }
+      walletData.tokenIds.push(tokenId)
+
+      // nfts.push({
+      //   title: `minStrikePrice: ${minStrikePrice}\n maxExpriyTime: ${maxExpriyTime}`,
+      //   action: null,
+      // })
     })
-  }, [NFTs, action])
+    return wallet
+  }, [data])
+
+  const updateTokenIdAssets = useCallback(async () => {
+    for (let i = 0; i < wallet.length; i++) {
+      const { nftAddress, tokenIds } = wallet[i]
+      await assetsSingle.run({
+        chainId,
+        getStoreCacheData,
+        nftAddress,
+        tokenIds,
+      })
+    }
+  }, [assetsSingle, chainId, wallet])
 
   useEffect(() => {
-    request()
-  }, [request])
+    updateTokenIdAssets()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.map((i) => i.nftAddress + i.tokenId).join(',')])
 
   return (
     <Grid container spacing={2}>
-      {nfts.map((nft) => (
-        <Grid item xs={3} key={nft.id}>
+      {data.map((nft) => (
+        <Grid item xs={3} key={nft.nftAddress + nft.tokenId}>
           <NFTCard {...{ ...nft }} />
         </Grid>
       ))}
+      <LoadMoreButton
+        {...{
+          onLoadMore,
+          end: noMoreData,
+          disabled,
+        }}
+      />
     </Grid>
   )
 }

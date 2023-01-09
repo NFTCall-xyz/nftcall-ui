@@ -1,37 +1,38 @@
 import type { FC } from 'react'
-import { useMemo } from 'react'
 import { useState } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useCallback } from 'react'
+import { useMemo } from 'react'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Checkbox from '@mui/material/Checkbox'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
 import Divider from '@mui/material/Divider'
+import { useCallPools, useNetwork, useNFT } from 'domains/data'
+import { useWallet } from 'domains'
+import { transaction } from 'domains/controllers/adapter/transaction'
+import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
+import type { RelistNFTProps, TakeNFTOffMarketProps, WithdrawProps } from 'lib/protocol/typechain/nftcall'
+import Stack from '@mui/material/Stack'
+import FlexBetween from 'components/flexbox/FlexBetween'
+import Switch from '@mui/material/Switch'
+import type { DepositedNFTStatus } from './useDepositedNFTs/request'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 
-export type NFT = {
-  name: string
-  id: string
-  src: string
-  description?: string
-  image?: string
+export type DepositedNFT = {
+  minStrikePrice: number
+  maxExpriyTime: number
+  nftAddress: string
+  tokenId: string
+  status: DepositedNFTStatus
 }
 
-export type NFTCardProps = Partial<
-  NFT & {
-    action: Array<{ name?: string; onClick?: any; disabled?: boolean; tip?: any }>
-    onCheckChange: any
-    minStrikePrice: number
-    maxExpriyTime: number
-  }
->
+export type NFTCardProps = Partial<DepositedNFT>
 
 const Root = styled(Card)`
-  width: 250px;
+  width: 230px;
   position: relative;
   .checkbox {
     position: absolute;
@@ -40,39 +41,80 @@ const Root = styled(Card)`
   }
 `
 
-const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onCheckChange }) => {
-  const { t } = useTranslation()
-  const [checked, setChecked] = useState(false)
-  const title = useMemo(() => (name ? name : description), [description, name])
+const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, status: sourceStatus }) => {
+  const [status, setStatus] = useState(sourceStatus)
+  const [loading, setLoading] = useState(false)
+  const {
+    tokenId: { assets },
+  } = useNFT()
+  const nft = useMemo(() => {
+    return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
+  }, [assets, nftAddress, tokenId])
+  const {
+    contracts: { callPoolService },
+  } = useNetwork()
+  const { callPools } = useCallPools()
+  const callPool = useMemo(() => {
+    return callPools.find((callPool) => callPool.address.NFT.toLowerCase() === nftAddress)
+  }, [callPools, nftAddress])
+  const { networkAccount } = useWallet()
 
-  const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
-  const actions = useMemo(() => {
-    if (!action) return null
-    return (
-      <Stack spacing={1} direction="row">
-        {action.map(({ disabled, onClick, name }) => {
-          return (
-            <Button key={name} variant="outlined" disabled={disabled} onClick={() => onClick(id)}>
-              {name}
-            </Button>
-          )
-        })}
-      </Stack>
-    )
-  }, [action, id])
+  const sendTransaction = useSendTransaction()
+  const relistNFT = useCallback(
+    (props: RelistNFTProps) => {
+      setLoading(true)
+      return transaction({
+        createTransaction: callPoolService.relistNFT(props),
+        setStatus: () => {},
+        sendTransaction,
+        isOnlyApprove: false,
+      })
+        .then(() => setStatus('Listed'))
+        .finally(() => setLoading(false))
+    },
+    [callPoolService, sendTransaction]
+  )
+  const takeNFTOffMarket = useCallback(
+    (props: TakeNFTOffMarketProps) => {
+      setLoading(true)
+      return transaction({
+        createTransaction: callPoolService.takeNFTOffMarket(props),
+        setStatus: () => {},
+        sendTransaction,
+        isOnlyApprove: false,
+      })
+        .then(() => setStatus('Deposited'))
+        .finally(() => setLoading(false))
+    },
+    [callPoolService, sendTransaction]
+  )
+  const withdraw = useCallback(
+    (props: WithdrawProps) => {
+      setLoading(true)
+      return transaction({
+        createTransaction: callPoolService.withdraw(props),
+        setStatus: () => {},
+        sendTransaction,
+        isOnlyApprove: false,
+      })
+        .then(() => setStatus('Removed'))
+        .finally(() => setLoading(false))
+    },
+    [callPoolService, sendTransaction]
+  )
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.checked
-    setChecked(value)
-    onCheckChange(id, value)
-  }
+  if (status === 'Removed') return null
+  if (!nft) return <p>loading</p>
+  const { token_id, image_thumbnail_url, contractName } = nft
+  const title = `${contractName} #${token_id}`
+  const isListed = status === 'Listed'
+
   return (
     <Root>
-      {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
-      <CardMedia component="img" height="200" image={image} alt={title} />
+      <CardMedia component="img" height="200" image={image_thumbnail_url} alt={`#${token_id}`} />
       <CardContent>
         <Typography gutterBottom variant="body2" component="div">
-          {description}
+          {title}
         </Typography>
       </CardContent>
       <Divider />
@@ -82,7 +124,46 @@ const NFTCard: FC<NFTCardProps> = ({ id, name, description, image, action, onChe
           padding: 2,
         }}
       >
-        {actions}
+        <FlexBetween>
+          <Stack spacing={1}>
+            <p>List on Market</p>
+            <Switch
+              checked={isListed}
+              disabled={loading}
+              onChange={() => {
+                if (isListed) {
+                  takeNFTOffMarket({
+                    callPool: callPool.address.CallPool,
+                    user: networkAccount,
+                    tokenId,
+                  })
+                } else {
+                  relistNFT({
+                    callPool: callPool.address.CallPool,
+                    user: networkAccount,
+                    tokenId,
+                  })
+                }
+              }}
+            />
+          </Stack>
+          <Box>
+            {!isListed && (
+              <Button
+                disabled={loading}
+                onClick={() => {
+                  withdraw({
+                    callPool: callPool.address.CallPool,
+                    user: networkAccount,
+                    tokenId,
+                  })
+                }}
+              >
+                Withdraw
+              </Button>
+            )}
+          </Box>
+        </FlexBetween>
       </CardActions>
     </Root>
   )

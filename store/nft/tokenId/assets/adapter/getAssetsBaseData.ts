@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { safeGet } from 'app/utils/get'
 import type { AssetsData } from './getAssetsData'
 
 export type AssetsBaseData = {
@@ -8,6 +8,7 @@ export type AssetsBaseData = {
   image_url: string
   permalink: string
   nftAddress: string
+  contractName: string
   token_id: string
   token_metadata: string
 }
@@ -25,6 +26,7 @@ export const getAssetsBaseData = (storeCacheData: AssetsData[], nftAddress: stri
       image_url,
       permalink,
       token_metadata,
+      asset_contract,
     }) => {
       const assetsData: AssetsBaseData = {
         nftAddress,
@@ -35,6 +37,7 @@ export const getAssetsBaseData = (storeCacheData: AssetsData[], nftAddress: stri
         image_url,
         permalink,
         token_metadata,
+        contractName: safeGet(() => asset_contract.name),
       }
       returnValue.push(assetsData)
     },
