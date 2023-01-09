@@ -8,9 +8,9 @@ const useCallPoolDetailsService = () => {
   const { callPools } = useCallPools()
   const callPoolId = useCallPoolId()
   const callPool = useMemo(() => {
-    const returnValue = callPools.find(
-      (callPool) => callPool.address.CallPool.toLowerCase() === callPoolId.value.toLowerCase()
-    )
+    const returnValue = callPoolId.value
+      ? callPools.find((callPool) => callPool.address.CallPool.toLowerCase() === callPoolId.value.toLowerCase())
+      : undefined
     log('[CallPoolDetailsService]', returnValue)
     return returnValue
   }, [callPoolId.value, callPools])
