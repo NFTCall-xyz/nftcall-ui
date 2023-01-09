@@ -82,6 +82,9 @@ const WalletDisconnected: FC = () => {
     width: '100%',
     border: `1px solid ${theme.palette.divider}`,
     padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    }
   }))
   const ROOT = styled('div')`
     display: flex;

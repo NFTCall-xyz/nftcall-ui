@@ -334,6 +334,14 @@ const components = (theme: Theme): any => {
     MuiSvgIcon: {
       styleOverrides: { root: { '& .secondary': { opacity: 0.4 } } },
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 10,
+          border: `solid 1px ${theme.palette.divider}`,
+        }
+      }
+    }
   }
 }
 

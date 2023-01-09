@@ -26,7 +26,6 @@ export const ChainButton: FC = () => {
           startIcon={<ChainErrorIcon />}
           onClick={open}
           sx={{
-            borderRadius: 30,
             border: `1px solid ${theme.palette.error.main}`,
             '&:hover': {
               backgroundColor: theme.palette.error.light,
@@ -45,11 +44,11 @@ export const ChainButton: FC = () => {
         startIcon={<ChainIcon chainName={network.name} />}
         onClick={open}
         sx={{
-          borderRadius: 30,
           border: `1px solid ${theme.palette.divider}`,
           '&:hover': {
             backgroundColor: theme.palette.action.hover,
-            border: `1px solid ${theme.palette.divider}`,
+            border: `1px solid ${theme.palette.primary.main}`,
+            color: theme.palette.text.primary,
           },
           color: theme.palette.text.secondary,
         }}
@@ -66,6 +65,8 @@ export const ChainButton: FC = () => {
     theme.palette.error.light,
     theme.palette.error.main,
     theme.palette.text.secondary,
+    theme.palette.primary.main,
+    theme.palette.text.primary,
     downSm,
   ])
 

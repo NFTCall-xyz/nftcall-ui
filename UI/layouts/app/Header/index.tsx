@@ -7,6 +7,7 @@ import type { Theme } from '@mui/material'
 
 import Logo from './Logo'
 import { useMediaQuery } from '@mui/material'
+import Container from '@mui/material/Container'
 
 const Menu = dynamic(() => import('./Menu'), { ssr: false })
 const MenuMobile = dynamic(() => import('./Menu/mobile'), { ssr: false })
@@ -21,11 +22,6 @@ const BODY = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${({ theme }) => ({
-    background: '#1C0200',
-    padding: `0 ${theme.spacing(3)}`,
-    boxShadow: theme.palette.mode === 'dark' ? `0 -1px 20px ${theme.palette.secondary.dark}` : 'none',
-  })}
 `
 
 const Header: FC = () => {
@@ -34,23 +30,27 @@ const Header: FC = () => {
   if (!downLg) {
     return (
       <ROOT>
-        <BODY>
-          <Stack spacing={2} direction="row">
+        <Container component="main" maxWidth="lg">
+          <BODY>
             <Logo />
-            <Menu />
-          </Stack>
-          <Actions />
-        </BODY>
+            <Stack spacing={2} direction="row">
+              <Menu />
+              <Actions />
+            </Stack>
+          </BODY>
+        </Container>
       </ROOT>
     )
   } else {
     return (
       <ROOT>
-        <BODY>
-          <Logo />
-          <MenuMobile />
-          <ActionsMobile />
-        </BODY>
+        <Container component="main" maxWidth="lg">
+          <BODY>
+            <Logo />
+            <MenuMobile />
+            <ActionsMobile />
+          </BODY>
+        </Container>
       </ROOT>
     )
   }
