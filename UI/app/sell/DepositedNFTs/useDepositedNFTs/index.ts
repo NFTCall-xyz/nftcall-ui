@@ -40,7 +40,6 @@ export const useDepositedNFTs = () => {
   }, [])
 
   const isNoValidQuery = useCallback(({ user, subgraphName, nfts }: DepositedNFTsProps) => {
-    console.log('[isNoValidQuery]', { user, subgraphName, nfts })
     return !user || !subgraphName || !nfts || !nfts.length
   }, [])
 

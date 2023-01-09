@@ -1,13 +1,14 @@
-import { Stack, Grid } from '@mui/material'
-import { useWallet } from 'domains'
+import { Grid } from '@mui/material'
+import { LoadMoreButton } from 'components/btn/LoadMoreButton'
+import { useNFT } from 'domains/data'
 import { useRef, useState, useCallback, useEffect, useMemo } from 'react'
-import { getListedNFTs } from './getListedNFTs'
+import { getWalletDataByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 import NFTCard from './NFTCard'
 import OpenCallOptions from './OpenCallOptions'
+import { useListedNFTs } from './useListedNFTs'
 
 const ListedNFTs = () => {
-  const [NFTs, setNFTs] = useState([])
-  const { networkAccount } = useWallet()
+  const { data, onLoadMore, noMoreData, disabled, restart } = useListedNFTs()
   const setRef = useRef<Set<string>>(new Set())
   const [size, setSize] = useState(0)
   const onCheckChange = useCallback((id: string, value: boolean) => {
@@ -20,43 +21,39 @@ const ListedNFTs = () => {
     setSize(s.size)
   }, [])
 
-  const nfts = useMemo(() => {
-    return NFTs.map(({ tokenId, strikePriceGapIdx, durationIdx }) => {
-      return {
-        id: tokenId,
-        name: `# ${tokenId}`,
-        description: `strikePriceGapIdx: ${strikePriceGapIdx}\n durationIdx: ${durationIdx}`,
-        minStrikePrice: strikePriceGapIdx,
-        maxExpriyTime: durationIdx,
-      }
-    })
-  }, [NFTs])
+  const {
+    tokenId: { updateAssets },
+  } = useNFT()
 
-  const request = useCallback(() => {
-    if (!networkAccount) return
-    getListedNFTs({
-      user: networkAccount,
-      nft: '0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978',
-    }).then((data) => {
-      setNFTs(data)
-    })
-  }, [networkAccount])
+  const { wallet, key } = useMemo(() => getWalletDataByNFTs(data), [data])
 
   useEffect(() => {
-    request()
-  }, [request])
+    updateAssets(wallet)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={8}>
-        <Stack spacing={2} direction="row">
-          {nfts.map((nft) => (
-            <NFTCard key={nft.id} {...{ ...nft, onCheckChange }} />
+        <Grid container spacing={2}>
+          {data.map((nft) => (
+            <Grid item xs={3} key={nft.nftAddress + nft.tokenId}>
+              <NFTCard {...{ ...nft, onCheckChange }} />
+            </Grid>
           ))}
-        </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <LoadMoreButton
+            {...{
+              onLoadMore,
+              end: noMoreData,
+              disabled,
+            }}
+          />
+        </Grid>
       </Grid>
       <Grid item xs={4}>
-        <OpenCallOptions {...{ setRef, size, request }} />
+        <OpenCallOptions {...{ setRef, size, request: restart }} />
       </Grid>
     </Grid>
   )

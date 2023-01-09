@@ -9,13 +9,9 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import { useNFT } from 'domains/data'
+import type { BaseNFT } from 'domains/data/nft/types'
 
-export type NFT = {
-  tokenId: string
-  nftAddress: string
-}
-
-export type WalletNFT = NFT & {
+export type WalletNFT = BaseNFT & {
   callPoolAddress: string
 }
 
