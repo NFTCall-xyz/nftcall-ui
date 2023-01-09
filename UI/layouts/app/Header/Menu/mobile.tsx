@@ -49,7 +49,7 @@ const MenuMobile = () => {
         ))}
         <Divider />
         <ListItem>
-          <ListItemText primary=" © 2022, VINCI. All Rights Reserved" />
+          <ListItemText primary=" © 2022, NFTCall. All Rights Reserved" />
         </ListItem>
       </List>
     ),

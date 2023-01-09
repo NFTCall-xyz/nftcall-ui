@@ -4,41 +4,48 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 
-import { useTheme } from '@mui/material/styles'
-
 import Logo from '../Header/Logo'
 import LogoImgDark from './images/logo-black.svg'
-import LogoImg from '../Header/Logo/images/logo.svg'
 import Links from './Links'
+import Stack from '@mui/material/Stack'
 
 const ROOT = styled(Box)`
   ${({ theme }) => ({
-    padding: `${theme.spacing(12)} 0 ${theme.spacing(4)} 0`,
+    padding: `${theme.spacing(8)} 0 ${theme.spacing(4)} 0`,
+    color: theme.palette.text.secondary,
   })}
 `
+
 const Content = styled(Container)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${({ theme }) => ({
+    paddingTop: '32px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  })}
 `
 
 const CopyRight = styled(Typography)`
   ${({ theme }) => ({
-    color: theme.palette.text.secondary,
     fontWeight: 'normal',
-    marginLeft: theme.spacing(1),
+    fontSize: theme.typography.pxToRem(16),
   })}
 `
 
 const Footer: FC = () => {
-  const theme = useTheme()
-
   return (
     <ROOT component="footer">
       <Content>
-        <Logo imgSrc={theme.palette.mode === 'dark' ? LogoImg : LogoImgDark} />
-        <Links />
-        <CopyRight variant="caption">© 2022, VINCI. All Rights Reserved</CopyRight>
+        <Stack spacing={4} direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+          <Logo imgSrc={LogoImgDark} />
+          <Links />
+        </Stack>
+        <CopyRight variant="caption" color="grey.400">
+          © 2023, NFTCall. All Rights Reserved
+        </CopyRight>
       </Content>
     </ROOT>
   )

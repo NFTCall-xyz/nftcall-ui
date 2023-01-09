@@ -30,12 +30,6 @@ const MenuList = [
     linkTo: '/callPool/[id]',
     hide: true,
   },
-  {
-    key: 'Audit',
-    linkTo: 'https://www.certik.com/projects/vinci-protocol',
-    target: '_blank',
-    onlyMobile: true,
-  },
 ]
 
 export function useMenu() {

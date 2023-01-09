@@ -10,7 +10,7 @@
     },
     "disconnected": {
       "title": "Connect Wallet",
-      "subTitle": "To start using Onebit"
+      "subTitle": "To start using NFTCall"
     },
     "connected": {
       "title": "Connected",
@@ -22,12 +22,12 @@
     },
     "error": {
       "title": "Connect Wallet",
-      "subTitle": "To start using Onebit",
+      "subTitle": "To start using NFTCall",
       "ChainUnknownError": "Switch Network"
     },
     "tips": {
       "accept": "By connecting, I accept ",
-      "term": "Onebit’s Terms of Service"
+      "term": "NFTCall’s Terms of Service"
     },
     "chain": {
       "title": "Select Your Network",
