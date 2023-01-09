@@ -1,0 +1,24 @@
+import { useTranslation } from 'next-i18next'
+import Button from '@mui/material/Button'
+import FlexRowAlign from 'components/flexbox/FlexRowAlign'
+import { Paragraph } from 'components/Typography'
+
+export type LoadMoreButtonProps = {
+  end: boolean
+  disabled: boolean
+  onLoadMore: () => void
+}
+export const LoadMoreButton: FC<LoadMoreButtonProps> = ({ end, disabled, onLoadMore }) => {
+  const { t } = useTranslation()
+  return (
+    <FlexRowAlign paddingTop={2}>
+      {end ? (
+        <Paragraph color="text.secondary">{t('table.noMoreData')}</Paragraph>
+      ) : (
+        <Button disabled={disabled} onClick={onLoadMore}>
+          {t('table.loadMore')}
+        </Button>
+      )}
+    </FlexRowAlign>
+  )
+}
