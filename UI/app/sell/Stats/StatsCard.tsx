@@ -10,7 +10,7 @@ interface StatsCardProps {
 
 const StatsCard: FC<React.PropsWithChildren<StatsCardProps>> = ({ card }) => {
   const { title, price } = card
-  const { t } = useTranslation('app-buy', { keyPrefix: 'stats' })
+  const { t } = useTranslation('app-sell', { keyPrefix: 'stats' })
 
   return (
     <Stack>
