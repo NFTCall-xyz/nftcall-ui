@@ -4,7 +4,7 @@ import type { TableCellRenderer } from 'react-virtualized'
 
 import { cellRenderer, headerRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
-import { useCallPoolDetails, useNetwork } from 'domains/data'
+import { useNetwork } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
@@ -23,7 +23,6 @@ const pageSize = 5
 
 export const useTable = (): BasicTableProps => {
   const { t } = useTranslation('app-positions', { keyPrefix: 'table' })
-  const { callPool } = useCallPoolDetails()
   const [pageIndex, setPageIndex] = useState(0)
   const dataFetcher = usePost(request)
   const [noMoreSourceData, setNoMoreSourceData] = useState(false)
@@ -164,7 +163,7 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [callPool.address.CallPool, dataFetcher, end, noMoreSourceData, pageIndex, skip])
+  }, [dataFetcher, end, networkAccount, noMoreSourceData, pageIndex, skip])
 
   useMount(() => {
     loadMore.onLoadMore()
