@@ -3,12 +3,17 @@ import { useCallback, useState, useRef } from 'react'
 import { useObjectMemo } from 'app/hooks/useValues'
 
 export function usePost<T, A extends Array<any>>(fn: (...args: A) => Promise<T>) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setInternalLoading] = useState(false)
+  const loadingRef = useRef(loading)
+  const setLoading = useCallback((value: boolean) => {
+    setInternalLoading(value)
+    loadingRef.current = value
+  }, [])
   const isCanceledRef = useRef(false)
 
   const post = useCallback(
     (...args: A) => {
-      if (loading) return Promise.reject()
+      if (loadingRef.current) return Promise.reject()
       setLoading(true)
       isCanceledRef.current = false
       return fn(...args)
@@ -18,7 +23,7 @@ export function usePost<T, A extends Array<any>>(fn: (...args: A) => Promise<T>)
         })
         .finally(() => setLoading(false))
     },
-    [fn, loading]
+    [fn, setLoading]
   )
 
   const cancel = useCallback(() => (isCanceledRef.current = false), [])
