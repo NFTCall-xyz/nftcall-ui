@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
@@ -51,5 +51,13 @@ export function useMenu() {
     return list.find((item) => item.linkTo === linkTo) || ({} as undefined)
   }, [list, router.route])
 
-  return { list, current }
+  const changeMenu = useCallback(
+    (linkTo: string) => {
+      if (current.linkTo === linkTo) return
+      router.push(linkTo)
+    },
+    [current.linkTo, router]
+  )
+
+  return { list, current, changeMenu }
 }
