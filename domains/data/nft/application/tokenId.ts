@@ -2,6 +2,8 @@ import { useControllers, useWallet } from 'domains'
 import { useNetwork } from 'domains/data'
 import { useCallback, useEffect } from 'react'
 import { useTokenIdStateData } from 'store/nft/tokenId/useTokenIdStateData'
+import type { WalletData } from 'store/nft/tokenId/wallet/adapter/getWalletData'
+import { getStoreCacheData } from 'store/nft/tokenId/assets/adapter'
 
 export const useTokendId = () => {
   const returnValue = useTokenIdStateData()
@@ -19,6 +21,21 @@ export const useTokendId = () => {
     })
   }, [address.chainId, markets, networkAccount, tokenId.wallet.single])
 
+  const updateAssets = useCallback(
+    async (wallet: WalletData[]) => {
+      for (let i = 0; i < wallet.length; i++) {
+        const { nftAddress, tokenIds } = wallet[i]
+        await tokenId.assets.single.run({
+          chainId: address.chainId,
+          getStoreCacheData,
+          nftAddress,
+          tokenIds,
+        })
+      }
+    },
+    [address.chainId, tokenId.assets.single]
+  )
+
   useEffect(() => {
     updateWallet()
   }, [updateWallet])
@@ -26,5 +43,6 @@ export const useTokendId = () => {
   return {
     ...returnValue,
     updateWallet,
+    updateAssets,
   }
 }
