@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid'
-import { useControllers, useWallet } from 'domains'
+import { useWallet } from 'domains'
 import { useCallback, useEffect, useMemo } from 'react'
 import type { NFTCardProps } from './NFTCard'
 import NFTCard from './NFTCard'
@@ -7,23 +7,17 @@ import { useCallPoolDetails, useNetwork, useNFT } from 'domains/data'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import type { DepositProps } from 'lib/protocol/typechain/nftcall'
 import { transaction } from 'domains/controllers/adapter/transaction'
-import { getStoreCacheData } from 'store/nft/tokenId/assets/adapter'
+import { getWalletDataKeyByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 
 const WalletNFTs = () => {
   const {
-    address: { chainId },
     contracts: { callPoolService, erc721Service },
   } = useNetwork()
   const { callPool } = useCallPoolDetails()
   const { networkAccount } = useWallet()
   const {
-    tokenId: { wallet, updateWallet },
+    tokenId: { wallet, updateWallet, updateAssets },
   } = useNFT()
-  const {
-    tokenId: {
-      assets: { single: assetsSingle },
-    },
-  } = useControllers()
 
   const sendTransaction = useSendTransaction()
   const fn = useCallback(
@@ -56,36 +50,28 @@ const WalletNFTs = () => {
     }
   }, [callPool.address.CallPool, erc721Service, fn, networkAccount, updateWallet])
 
-  const nfts = useMemo(() => {
-    const returnValue: NFTCardProps[] = []
+  const { nfts, key } = useMemo(() => {
+    const nfts: NFTCardProps[] = []
     wallet.forEach(({ tokenIds, nftAddress }) => {
       tokenIds.forEach((tokenId) => {
-        returnValue.push({
+        nfts.push({
           tokenId,
           nftAddress,
           action,
         })
       })
     })
-    return returnValue
+    const key = getWalletDataKeyByNFTs(nfts)
+    return {
+      key,
+      nfts,
+    }
   }, [wallet, action])
 
-  const updateTokenIdAssets = useCallback(async () => {
-    for (let i = 0; i < wallet.length; i++) {
-      const { nftAddress, tokenIds } = wallet[i]
-      await assetsSingle.run({
-        chainId,
-        getStoreCacheData,
-        nftAddress,
-        tokenIds,
-      })
-    }
-  }, [assetsSingle, chainId, wallet])
-
   useEffect(() => {
-    updateTokenIdAssets()
+    updateAssets(wallet)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nfts.map((i) => i.nftAddress + i.tokenId).join(',')])
+  }, [key])
 
   return (
     <Grid container spacing={2}>

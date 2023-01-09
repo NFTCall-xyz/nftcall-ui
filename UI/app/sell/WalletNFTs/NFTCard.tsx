@@ -15,11 +15,10 @@ export type NFT = {
   nftAddress: string
 }
 
-export type NFTCardProps = Partial<
-  NFT & {
+export type NFTCardProps = NFT &
+  Partial<{
     action: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
-  }
->
+  }>
 
 const Root = styled(Card)`
   width: 230px;
