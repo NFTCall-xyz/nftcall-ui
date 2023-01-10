@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack'
-import { H3, H5 } from 'components/Typography'
+import { H1, Paragraph } from 'components/Typography'
 import { useTranslation } from 'next-i18next'
 import type { TabsProps } from 'components/tabs'
 import { useMemo } from 'react'
@@ -16,19 +16,19 @@ const Sell: FC = () => {
   const tabs = useMemo(() => {
     const returnValue: TabsProps['tabs'] = [
       {
-        title: 'WalletNFTs',
+        title: 'walletNFTs',
         children: {
           component: WalletNFTs,
         },
       },
       {
-        title: 'DepositedNFTs',
+        title: 'depositedNFTs',
         children: {
           component: DepositedNFTs,
         },
       },
       {
-        title: 'Sold',
+        title: 'sold',
         children: {
           component: Sold,
         },
@@ -43,8 +43,8 @@ const Sell: FC = () => {
   return (
     <Stack spacing={4}>
       <Stack spacing={2}>
-        <H3>{t('title')}</H3>
-        <H5>{t('subTitle')}</H5>
+        <H1>{t('title')}</H1>
+        <Paragraph color='text.secondary'>{t('subTitle')}</Paragraph>
       </Stack>
       <Stats />
       <Tabs tabs={tabs} />
