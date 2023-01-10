@@ -4,6 +4,7 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { H3 } from 'components/Typography'
 import type { MutableRefObject } from 'react'
+import { useEffect } from 'react'
 import { useCallback } from 'react'
 import { useState } from 'react'
 import { useMemo } from 'react'
@@ -13,7 +14,7 @@ import NumberDisplay from 'lib/math/components/NumberDisplay'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { OpenCallProps } from 'lib/protocol/typechain/nftcall'
-import { useWallet } from 'domains'
+import { useControllers, useWallet } from 'domains'
 import { MIN_STRIKE_PRICE_MAP, MAX_EXPRIY_TIME_MAP } from 'app/constant/callPools'
 import type { ListedNFT } from '../NFTCard'
 import Stack from '@mui/material/Stack'
@@ -26,7 +27,13 @@ type OpenCallOptionsProps = {
   data: ListedNFT[]
   onCheckChange: any
 }
-const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request, data, onCheckChange }) => {
+const OpenCallOptions: FC<OpenCallOptionsProps> = ({
+  setRef,
+  size,
+  request: updateListedData,
+  data,
+  onCheckChange,
+}) => {
   const [strikePriceGapIdx, setStrikePriceGapIdx] = useState(0)
   const [durationIdx, setDurationIdx] = useState(0)
   const [premiumToOwner, setPremiumToOwner] = useState(toBN(0))
@@ -37,7 +44,9 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request, data
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size])
 
-  const { callPool } = useCallPoolDetails()
+  const {
+    callPool: { address, nftOracle },
+  } = useCallPoolDetails()
   const { networkAccount } = useWallet()
   const {
     contracts: { callPoolService },
@@ -55,6 +64,20 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request, data
     },
     [callPoolService, sendTransaction]
   )
+  const {
+    callPool: { previewOpenCall },
+  } = useControllers()
+  const request = useCallback(() => {
+    if (!nftOracle || !ids.length) return
+    previewOpenCall.single.run({
+      tokenIds: ids,
+      nftOracle,
+    })
+  }, [ids, nftOracle, previewOpenCall.single])
+  useEffect(() => {
+    request()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ids])
 
   return (
     <Card>
@@ -99,7 +122,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request, data
         onClick={() => {
           callPoolService
             .previewOpenCall({
-              callPool: callPool.address.CallPool,
+              callPool: address.CallPool,
               tokenIds: ids,
               strikePriceGapIdx: strikePriceGapIdx,
               durationIdx: durationIdx,
@@ -116,12 +139,12 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request, data
       <Button
         onClick={() => {
           fn({
-            callPool: callPool.address.CallPool,
+            callPool: address.CallPool,
             tokenIds: ids,
             strikePriceGapIdx: strikePriceGapIdx,
             durationIdx: durationIdx,
             user: networkAccount,
-          }).then(() => request())
+          }).then(() => updateListedData())
         }}
       >
         Call
