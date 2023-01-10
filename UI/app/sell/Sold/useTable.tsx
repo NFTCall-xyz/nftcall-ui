@@ -14,7 +14,7 @@ import { useWallet } from 'domains'
 const pageSize = 5
 
 export const useTable = (): BasicTableProps => {
-  const { t } = useTranslation('app-callpool', { keyPrefix: 'history' })
+  const { t } = useTranslation('app-sell', { keyPrefix: 'history' })
   const [pageIndex, setPageIndex] = useState(0)
   const dataFetcher = usePost(request)
   const [noMoreSourceData, setNoMoreSourceData] = useState(false)

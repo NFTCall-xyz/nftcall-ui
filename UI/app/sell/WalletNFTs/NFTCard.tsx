@@ -6,10 +6,11 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import { useNFT } from 'domains/data'
 import type { BaseNFT } from 'domains/data/nft/types'
+import { Paragraph } from 'components/Typography'
+import Stack from '@mui/material/Stack'
 
 export type WalletNFT = BaseNFT & {
   callPoolAddress: string
@@ -20,15 +21,20 @@ export type NFTCardProps = WalletNFT &
     action: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
   }>
 
-const Root = styled(Card)`
-  width: 230px;
-  position: relative;
-  .checkbox {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-`
+const Root = styled(Card)(({ theme }) => ({
+  position: 'relative',
+  border: 'solid 1px',
+  borderColor: theme.palette.divider,
+  '&:hover': {
+    borderColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary[200],
+  },
+  '& .checkbox': {
+    position: 'absolute',
+    right: '0.5rem',
+    top: '0.5rem',
+  },
+}))
 
 const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
   const { tokenId, nftAddress, action } = props
@@ -45,7 +51,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
     if (tip) return tip
 
     return (
-      <Button variant="outlined" disabled={disabled} onClick={() => onClick(props)}>
+      <Button variant="contained" size='small' disabled={disabled} onClick={() => onClick(props)}>
         {name}
       </Button>
     )
@@ -55,11 +61,11 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
   const title = '#' + token_id
   return (
     <Root>
-      <CardMedia component="img" height="200" image={image_thumbnail_url} alt={title} />
-      <CardContent>
-        <Typography gutterBottom variant="body2" component="div">
-          {title}
-        </Typography>
+      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={title} sx={{ padding: 1.5 }}/>
+      <CardContent sx={{ padding: 2, paddingTop: 0 }}>
+        <Stack spacing={1}>
+          <Paragraph>{title}</Paragraph>
+        </Stack>
       </CardContent>
       <Divider />
       <CardActions

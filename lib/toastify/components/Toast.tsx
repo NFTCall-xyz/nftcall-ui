@@ -9,6 +9,7 @@ import { Icons } from './Icons'
 import type { ToastProps } from '../types'
 import { useToast } from '../hooks'
 import { CloseButton } from './CloseButton'
+import { useTheme } from '@mui/material'
 
 export const Toast: React.FC<ToastProps> = (props) => {
   const { isRunning, preventExitTransition, toastRef, eventHandlers } = useToast(props)
@@ -41,6 +42,7 @@ export const Toast: React.FC<ToastProps> = (props) => {
       return maybeIcon && maybeIcon(iconProps)
     }
   }, [isLoading, type])
+  const theme = useTheme()
 
   return (
     <Transition
@@ -56,7 +58,7 @@ export const Toast: React.FC<ToastProps> = (props) => {
         className={cssClasses}
         {...eventHandlers}
         ref={toastRef}
-        sx={{ width: 320 }}
+        sx={{ width: 320, border: 'solid 1px', borderColor: theme.palette.divider }}
         role={role}
       >
         <CardHeader

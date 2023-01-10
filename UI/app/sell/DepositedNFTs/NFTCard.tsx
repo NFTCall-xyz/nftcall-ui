@@ -7,7 +7,6 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import { useCallPools, useNetwork, useNFT } from 'domains/data'
 import { useWallet } from 'domains'
@@ -20,6 +19,7 @@ import Switch from '@mui/material/Switch'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
+import { Paragraph } from 'components/Typography'
 
 export type DepositedNFT = BaseNFT & {
   minStrikePrice: number
@@ -27,15 +27,20 @@ export type DepositedNFT = BaseNFT & {
   status: NFTStatus
 }
 
-const Root = styled(Card)`
-  width: 230px;
-  position: relative;
-  .checkbox {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-`
+const Root = styled(Card)(({ theme }) => ({
+  position: 'relative',
+  border: 'solid 1px',
+  borderColor: theme.palette.divider,
+  '&:hover': {
+    borderColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary[200],
+  },
+  '& .checkbox': {
+    position: 'absolute',
+    right: '0.5rem',
+    top: '0.5rem',
+  },
+}))
 
 const NFTCard: FC<DepositedNFT> = ({ tokenId, nftAddress, status: sourceStatus }) => {
   const [status, setStatus] = useState(sourceStatus)
@@ -107,11 +112,11 @@ const NFTCard: FC<DepositedNFT> = ({ tokenId, nftAddress, status: sourceStatus }
 
   return (
     <Root>
-      <CardMedia component="img" height="200" image={image_thumbnail_url} alt={`#${token_id}`} />
+      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={`#${token_id}`} sx={{ padding: 1.5 }} />
       <CardContent>
-        <Typography gutterBottom variant="body2" component="div">
-          {title}
-        </Typography>
+        <Stack spacing={1}>
+          <Paragraph>{title}</Paragraph>
+        </Stack>
       </CardContent>
       <Divider />
       <CardActions

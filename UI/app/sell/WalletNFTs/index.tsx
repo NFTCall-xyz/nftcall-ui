@@ -56,7 +56,7 @@ const WalletNFTs = () => {
   return (
     <Grid container spacing={2}>
       {nfts.map((nft) => (
-        <Grid item xs={3} key={nft.nftAddress + nft.tokenId}>
+        <Grid item xs={6} sm={3} md={2.4} key={nft.nftAddress + nft.tokenId}>
           <NFTCard {...{ ...nft }} />
         </Grid>
       ))}
