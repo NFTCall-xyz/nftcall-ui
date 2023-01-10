@@ -9,6 +9,10 @@ const locale = {
     status: 'Status',
     strikePrice: 'Strike Price',
   },
+  tabs: {
+    listedNFTs: 'Listed NFTs',
+    history: 'History',
+  },
 }
 
 export default locale

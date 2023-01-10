@@ -36,7 +36,6 @@ const WalletConnected: FC = () => {
       variant="outlined"
       sx={{
         marginLeft: 1,
-        borderRadius: 30,
         border: `1px solid ${theme.palette.divider}`,
         '&:hover': { backgroundColor: theme.palette.action.hover },
         color: theme.palette.text.secondary,

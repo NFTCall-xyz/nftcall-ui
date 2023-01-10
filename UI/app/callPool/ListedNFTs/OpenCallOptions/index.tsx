@@ -1,8 +1,9 @@
 import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { H3 } from 'components/Typography'
+import { H3, Span } from 'components/Typography'
 import type { MutableRefObject } from 'react'
 import { useEffect } from 'react'
 import { useCallback } from 'react'
@@ -15,9 +16,11 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { OpenCallProps } from 'lib/protocol/typechain/nftcall'
 import { useControllers, useWallet } from 'domains'
+import { useTheme } from '@mui/material'
+import Stack from '@mui/material/Stack'
+import FlexBetween from 'components/flexbox/FlexBetween'
 import { MIN_STRIKE_PRICE_MAP, MAX_EXPRIY_TIME_MAP } from 'app/constant/callPools'
 import type { ListedNFT } from '../NFTCard'
-import Stack from '@mui/material/Stack'
 import NFTCard from './NFTCard'
 
 type OpenCallOptionsProps = {
@@ -78,77 +81,88 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     request()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids])
+  const theme = useTheme()
 
   return (
-    <Card>
-      <H3>Open Call Options</H3>
-      <Stack spacing={1}>
-        {ids.map((tokenId) => (
-          <NFTCard key={tokenId} tokenId={tokenId} data={data} onCheckChange={onCheckChange} />
-        ))}
-      </Stack>
-      <Select
-        value={strikePriceGapIdx}
-        onChange={(e) => {
-          setStrikePriceGapIdx(parseInt(e.target.value as any))
-        }}
-      >
-        {MIN_STRIKE_PRICE_MAP.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-      <Select
-        value={durationIdx}
-        onChange={(e) => {
-          setDurationIdx(parseInt(e.target.value as any))
-        }}
-      >
-        {MAX_EXPRIY_TIME_MAP.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-      <p>
-        Total Premium <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />
-      </p>
-      <p>
-        Strike Price <NumberDisplay value={strikePrice} />
-      </p>
-      <p>Your Balance</p>
-      <Button
-        onClick={() => {
-          callPoolService
-            .previewOpenCall({
-              callPool: address.CallPool,
-              tokenIds: ids,
-              strikePriceGapIdx: strikePriceGapIdx,
-              durationIdx: durationIdx,
-            })
-            .then(({ premiumToOwner, premiumToReserve, strikePrice }) => {
-              setPremiumToOwner(premiumToOwner)
-              setPremiumToReserve(premiumToReserve)
-              setStrikePrice(strikePrice)
-            })
-        }}
-      >
-        previewOpenCall
-      </Button>
-      <Button
-        onClick={() => {
-          fn({
-            callPool: address.CallPool,
-            tokenIds: ids,
-            strikePriceGapIdx: strikePriceGapIdx,
-            durationIdx: durationIdx,
-            user: networkAccount,
-          }).then(() => updateListedData())
-        }}
-      >
-        Call
-      </Button>
+    <Card sx={{ border: 'solid 1px', borderColor: theme.palette.divider }}>
+      <CardContent>
+        <Stack spacing={2}>
+          <H3>Open Call Options</H3>
+          <Stack spacing={1}>
+            {ids.map((tokenId) => (
+              <NFTCard key={tokenId} tokenId={tokenId} data={data} onCheckChange={onCheckChange} />
+            ))}
+          </Stack>
+          <Select
+            value={strikePriceGapIdx}
+            onChange={(e) => {
+              setStrikePriceGapIdx(parseInt(e.target.value as any))
+            }}
+          >
+            {MIN_STRIKE_PRICE_MAP.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            value={durationIdx}
+            onChange={(e) => {
+              setDurationIdx(parseInt(e.target.value as any))
+            }}
+          >
+            {MAX_EXPRIY_TIME_MAP.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          <FlexBetween>
+            <Span>Total Premium</Span>
+            <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />
+          </FlexBetween>
+          <FlexBetween>
+            <Span>Strike Price</Span>
+            <NumberDisplay value={strikePrice} />
+          </FlexBetween>
+          <FlexBetween>
+            <Span>Your Balance</Span>
+          </FlexBetween>
+          <Button
+            variant="contained"
+            onClick={() => {
+              callPoolService
+                .previewOpenCall({
+                  callPool: address.CallPool,
+                  tokenIds: ids,
+                  strikePriceGapIdx: strikePriceGapIdx,
+                  durationIdx: durationIdx,
+                })
+                .then(({ premiumToOwner, premiumToReserve, strikePrice }) => {
+                  setPremiumToOwner(premiumToOwner)
+                  setPremiumToReserve(premiumToReserve)
+                  setStrikePrice(strikePrice)
+                })
+            }}
+          >
+            Preview
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              fn({
+                callPool: address.CallPool,
+                tokenIds: ids,
+                strikePriceGapIdx: strikePriceGapIdx,
+                durationIdx: durationIdx,
+                user: networkAccount,
+              }).then(() => updateListedData())
+            }}
+          >
+            Open
+          </Button>
+        </Stack>
+      </CardContent>
     </Card>
   )
 }

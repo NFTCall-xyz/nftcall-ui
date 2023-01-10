@@ -11,11 +11,11 @@ export type LoadMoreButtonProps = {
 export const LoadMoreButton: FC<LoadMoreButtonProps> = ({ end, disabled, onLoadMore }) => {
   const { t } = useTranslation()
   return (
-    <FlexRowAlign paddingTop={2}>
+    <FlexRowAlign paddingTop={4}>
       {end ? (
-        <Paragraph color="text.secondary">{t('table.noMoreData')}</Paragraph>
+        <Paragraph color="text.disabled">{t('table.noMoreData')}</Paragraph>
       ) : (
-        <Button disabled={disabled} onClick={onLoadMore}>
+        <Button disabled={disabled} onClick={onLoadMore} variant='outlined'>
           {t('table.loadMore')}
         </Button>
       )}

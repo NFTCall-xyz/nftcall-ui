@@ -42,7 +42,7 @@ const BasicTable: FC<BasicTableProps> = (props) => {
       {!noData && !props.pagination && props.loadMore && (
         <FlexRowAlign paddingTop={2}>
           {props.loadMore.end ? (
-            <Paragraph color="text.secondary">{t('table.noMoreData')}</Paragraph>
+            <Paragraph color="text.disabled">{t('table.noMoreData')}</Paragraph>
           ) : (
             <Button disabled={props.loadMore.disabled} onClick={props.loadMore.onLoadMore}>
               {t('table.loadMore')}

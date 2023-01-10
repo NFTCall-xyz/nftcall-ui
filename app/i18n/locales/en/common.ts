@@ -47,7 +47,14 @@ const locale = {
   },
   table: {
     noData: 'No data yet.',
+    noMoreData: 'No more data.',
+    loadMore: 'Load More'
   },
+  btn: {
+    cancel: 'Cancel',
+    back: 'Back',
+    confirm: 'Confirm',
+  }
 }
 
 export default locale

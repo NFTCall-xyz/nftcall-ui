@@ -48,7 +48,7 @@ const Tabs: FCC<TabsProps> = ({ tabs, Header, sx }) => {
   }
   const tabList = useMemo(
     () => (
-      <FlexBetween flexWrap="wrap" padding="0 2rem">
+      <FlexBetween flexWrap="wrap">
         <StyledTabList onChange={handleChange} sx={sx}>
           {tabs.map(({ title }, index) => {
             return <StyledTab key={title} label={title} value={index.toString()} />
