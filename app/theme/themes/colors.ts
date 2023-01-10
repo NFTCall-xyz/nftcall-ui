@@ -15,7 +15,7 @@ declare module '@mui/material/styles' {
 const primaryMain = '#5CE1E6'
 const darkPrimaryMain = '#5CE1E6'
 export const primary = {
-  light: '#E5F3FD',
+  light: '#A7EFF1',
   main: primaryMain,
   100: alpha(primaryMain, 0.08),
   200: alpha(primaryMain, 0.2),
