@@ -10,6 +10,7 @@ import type { Market } from '../network/adapter/markets'
 import type { BaseCollection } from '../nft/application/collections/adapter/getCollection'
 import { useBalanceOf } from './application/balanceOf'
 import { useStats } from './application/stats'
+import { useCallPoolsDialogs } from './application/dialogs'
 
 export type CallPool = Market & {
   collection: BaseCollection
@@ -24,6 +25,7 @@ const useCallPoolsService = () => {
   const storeData = useCallPoolStateData()
   const { markets } = useNetwork()
   const { oracle, collections } = useNFT()
+  const dialogs = useCallPoolsDialogs()
 
   const callPools = useMemo(() => {
     const returnValue = markets.map((market) => {
@@ -69,7 +71,7 @@ const useCallPoolsService = () => {
   const balanceOf = useBalanceOf(callPools)
   const stats = useStats(callPools)
 
-  return { callPools, allCallPool, balanceOf, stats }
+  return { callPools, allCallPool, balanceOf, stats, dialogs }
 }
 const { Provider: CallPoolsProvider, createUseContext } = createContext(useCallPoolsService)
 export const createCallPoolsContext = createUseContext
