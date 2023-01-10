@@ -135,6 +135,10 @@ export const ROOT = styled('div')`
     display: flex;
     will-change: transform;
     padding: 20px 0;
+    border: solid 1px;
+    ${({ theme }) => ({
+      borderColor: theme.palette.divider,
+    })}
     &:hover {
       ${({ theme }) => ({
         backgroundColor: theme.palette.action.hover,

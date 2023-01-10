@@ -12,9 +12,10 @@ import ListedNFTs from './ListedNFTs'
 import History from './History'
 import FlexBetween from 'components/flexbox/FlexBetween'
 import { useCallPoolDetails } from 'domains/data'
-import { H3, H5 } from 'components/Typography'
+import { H2, Paragraph } from 'components/Typography'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
+import Avatar from '@mui/material/Avatar'
 
 const CallPoolDetails: FC = () => {
   const { t } = useTranslation('app-callpool')
@@ -22,13 +23,13 @@ const CallPoolDetails: FC = () => {
   const tabs = useMemo(() => {
     const returnValue: TabsProps['tabs'] = [
       {
-        title: 'ListedNFTs',
+        title: 'listedNFTs',
         children: {
           component: ListedNFTs,
         },
       },
       {
-        title: 'History',
+        title: 'history',
         children: {
           component: History,
         },
@@ -44,7 +45,7 @@ const CallPoolDetails: FC = () => {
   if (!callPool) return null
 
   const {
-    collection: { name },
+    collection: { name, imageUrl },
     nftOracle: { price },
     info: { symbol },
     stats: { totalDepositedNFTs },
@@ -56,18 +57,23 @@ const CallPoolDetails: FC = () => {
       <Grid container pt={2}>
         <Grid item xs={12}>
           <FlexBetween>
-            <H3>{name}</H3>
+            <Stack direction='row' alignItems='center'>
+              <Avatar alt={name} src={imageUrl} sx={{ marginRight: 2, width: 60, height: 60, border: '' }}>
+                {name}
+              </Avatar>
+              <H2>{name}</H2>
+            </Stack>
             <Stack spacing={2} direction="row">
               <Stack spacing={1}>
-                <H5>{t('floorPrice')}</H5>
-                <Stack spacing={1} direction="row">
+                <Paragraph color='text.secondary'>{t('floorPrice')}</Paragraph>
+                <Stack spacing={1} direction="row" alignItems='center'>
                   <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
-                  <NumberDisplay value={price} />
+                  <H2><NumberDisplay value={price} /></H2>
                 </Stack>
               </Stack>
               <Stack spacing={1}>
-                <H5>{t('depositedItems')}</H5>
-                <NumberDisplay value={totalDepositedNFTs} />
+                <Paragraph color='text.secondary'>{t('depositedItems')}</Paragraph>
+                <H2><NumberDisplay value={totalDepositedNFTs} /></H2>
               </Stack>
             </Stack>
           </FlexBetween>
@@ -79,7 +85,7 @@ const CallPoolDetails: FC = () => {
               [theme.breakpoints.up('sm')]: {
                 flex: 1,
                 '.MuiTabs-scroller': {
-                  justifyContent: 'center',
+                  justifyContent: { xs: 'center', sm: 'start' },
                   alignItems: 'center',
                   display: 'flex',
                 },

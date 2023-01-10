@@ -132,6 +132,14 @@ const components = (theme: Theme): any => {
           },
         },
         {
+          props: { variant: 'outlined' },
+          style: {
+            '&:hover': {
+              color: theme.palette.primary.main,
+            }
+          },
+        },
+        {
           props: { size: 'large' },
           style: {
             fontSize: 16,

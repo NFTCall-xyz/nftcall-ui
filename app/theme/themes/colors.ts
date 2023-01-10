@@ -130,8 +130,8 @@ export const actionDark = {
   disabledOpacity: 0.38,
   focus: alpha(greyDark[900], 0.12),
   focusOpacity: 0.12,
-  hover: alpha(greyDark[900], 0.04),
-  hoverOpacity: 0.04,
+  hover: alpha(greyDark[900], 0.12),
+  hoverOpacity: 0.12,
   selected: greyDark[100],
   selectedOpacity: 0.08,
 }

@@ -13,6 +13,8 @@ import { useNFT } from 'domains/data'
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 import { safeGet } from 'app/utils/get'
 import FlexBetween from 'components/flexbox/FlexBetween'
+import CircularProgress from '@mui/material/CircularProgress'
+import { Paragraph } from 'components/Typography'
 
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
@@ -25,15 +27,21 @@ export type NFTCardProps = ListedNFT &
     onCheckChange: any
   }>
 
-const ROOT = styled(Card)`
-  width: 100%;
-  position: relative;
-  .checkbox {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-`
+const ROOT = styled(Card)(({ theme }) => ({
+  width: '100%',
+  position: 'relative',
+  border: 'solid 1px',
+  borderColor: theme.palette.divider,
+  '&:hover': {
+    borderColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary[200],
+  },
+  '& .checkbox': {
+    position: 'absolute',
+    right: '0.5rem',
+    top: '0.5rem',
+  },
+}))
 
 const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange, maxExpriyTime, minStrikePrice }) => {
   const { t } = useTranslation()
@@ -61,17 +69,17 @@ const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange, maxExpr
     setChecked(value)
     onCheckChange(tokenId, value)
   }
-  if (!nft) return <p>loading</p>
+  if (!nft) return <CircularProgress />
   const { token_id, image_thumbnail_url } = nft
   const title = `#${token_id}`
 
   return (
     <ROOT>
       {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
-      <CardMedia component="img" height="200" image={image_thumbnail_url} alt={title} />
-      <CardContent>
+      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={title} sx={{ padding: 1.5 }} />
+      <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack spacing={1}>
-          <p>{title}</p>
+          <Paragraph>{title}</Paragraph>
           <FlexBetween>
             <p>{`Min. strike price:`}</p>
             <p>{minStrikePriceLabel}</p>

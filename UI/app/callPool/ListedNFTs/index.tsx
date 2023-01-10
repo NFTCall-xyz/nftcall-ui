@@ -42,7 +42,7 @@ const ListedNFTs = () => {
             </Grid>
           ))}
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} paddingTop={2}>
           <LoadMoreButton
             {...{
               onLoadMore,
