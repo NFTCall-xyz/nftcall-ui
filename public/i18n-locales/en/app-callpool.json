@@ -8,5 +8,9 @@
     "premium": "Premium",
     "status": "Status",
     "strikePrice": "Strike Price"
+  },
+  "tabs": {
+    "listedNFTs": "Listed NFTs",
+    "history": "History"
   }
 }

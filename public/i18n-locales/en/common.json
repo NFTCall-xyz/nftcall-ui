@@ -46,6 +46,13 @@
     }
   },
   "table": {
-    "noData": "No data yet."
+    "noData": "No data yet.",
+    "noMoreData": "No more data.",
+    "loadMore": "Load More"
+  },
+  "btn": {
+    "cancel": "Cancel",
+    "back": "Back",
+    "confirm": "Confirm"
   }
 }
