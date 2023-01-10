@@ -1,56 +1,31 @@
 import Grid from '@mui/material/Grid'
-import { useWallet } from 'domains'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import type { WalletNFT, NFTCardProps } from './NFTCard'
 import NFTCard from './NFTCard'
-import { useCallPools, useNetwork, useNFT } from 'domains/data'
-import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
-import type { DepositProps } from 'lib/protocol/typechain/nftcall'
-import { transaction } from 'domains/controllers/adapter/transaction'
+import { useCallPools, useNFT } from 'domains/data'
 import { getWalletDataKeyByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 import { safeGet } from 'app/utils/get'
 import { log } from 'app/utils/dev'
 
 const WalletNFTs = () => {
   const {
-    contracts: { callPoolService, erc721Service },
-  } = useNetwork()
-  const { networkAccount } = useWallet()
-  const {
-    tokenId: { wallet, updateWallet, updateAssets },
+    tokenId: { wallet, updateAssets },
   } = useNFT()
-  const { callPools } = useCallPools()
-
-  const sendTransaction = useSendTransaction()
-  const fn = useCallback(
-    (props: DepositProps) => {
-      return transaction({
-        createTransaction: callPoolService.deposit(props),
-        setStatus: () => {},
-        sendTransaction,
-        isOnlyApprove: false,
-      })
+  const {
+    callPools,
+    dialogs: {
+      nftDeposit: { open },
     },
-    [callPoolService, sendTransaction]
-  )
+  } = useCallPools()
 
   const action = useMemo(() => {
     return {
       name: 'Deposit',
-      onClick: ({ callPoolAddress, nftAddress, tokenId }: WalletNFT) => {
-        fn({
-          callPool: callPoolAddress,
-          user: networkAccount,
-          nft: nftAddress,
-          tokenId,
-          approveService: erc721Service as any,
-          lowerStrikePriceGapIdx: 0,
-          upperDurationIdx: 0,
-          lowerLimitOfStrikePrice: '0',
-        }).then(() => updateWallet())
+      onClick: (nft: WalletNFT) => {
+        open(nft)
       },
     }
-  }, [erc721Service, fn, networkAccount, updateWallet])
+  }, [open])
 
   const { nfts, key } = useMemo(() => {
     const nfts: NFTCardProps[] = []
