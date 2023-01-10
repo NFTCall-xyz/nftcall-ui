@@ -1,4 +1,5 @@
 import type { TextFieldProps } from '@mui/material/TextField'
+import { safeGet } from 'app/utils/get'
 import AppTextField from 'components/input-fields/AppTextField'
 
 type FormTextFieldProps = {
@@ -22,8 +23,8 @@ const FormTextField: FCC<FormTextFieldProps> = ({
       onBlur={handleBlur}
       onChange={handleChange}
       value={values[fieldKey]}
-      helperText={touched[fieldKey] && errors[fieldKey]}
-      error={Boolean(touched[fieldKey] && errors[fieldKey])}
+      helperText={safeGet(() => touched[fieldKey] && errors[fieldKey])}
+      error={!!safeGet(() => touched[fieldKey] && errors[fieldKey])}
       label={label}
       {...textFieldProps}
     >

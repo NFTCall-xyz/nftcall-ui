@@ -5,6 +5,7 @@ export type BaseNFT = {
 }
 export type NFT = BaseNFT &
   Partial<{
+    callPoolAddress: string
     status: NFTStatus
     minStrikePrice: number
     maxExpriyTime: number
