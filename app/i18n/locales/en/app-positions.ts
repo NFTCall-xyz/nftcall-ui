@@ -15,7 +15,7 @@ const locale = {
   tabs: {
     activePositions: 'Active Positions',
     history: 'History',
-  }
+  },
 }
 
 export default locale

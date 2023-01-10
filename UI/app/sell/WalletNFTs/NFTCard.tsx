@@ -51,7 +51,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
     if (tip) return tip
 
     return (
-      <Button variant="contained" size='small' disabled={disabled} onClick={() => onClick(props)}>
+      <Button variant="contained" size="small" disabled={disabled} onClick={() => onClick(props)}>
         {name}
       </Button>
     )
@@ -61,7 +61,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
   const title = '#' + token_id
   return (
     <Root>
-      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={title} sx={{ padding: 1.5 }}/>
+      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={title} sx={{ padding: 1.5 }} />
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>

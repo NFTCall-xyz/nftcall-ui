@@ -32,8 +32,8 @@ const Stats: FC = () => {
   const cardList = [
     {
       price: (
-        <Stack spacing={2} direction="row" justifyContent='space-between'>
-          <Stack spacing={1} direction="row" alignItems='center'>
+        <Stack spacing={2} direction="row" justifyContent="space-between">
+          <Stack spacing={1} direction="row" alignItems="center">
             <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
             <NumberDisplay value={allCallPool.balanceOf} abbreviate={{}} />
           </Stack>
@@ -57,7 +57,7 @@ const Stats: FC = () => {
     },
     {
       price: (
-        <Stack spacing={1} direction="row" alignItems='center'>
+        <Stack spacing={1} direction="row" alignItems="center">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
           <NumberDisplay value={allCallPool.userStats.accumulativeEarnings} abbreviate={{}} />
         </Stack>

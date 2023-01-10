@@ -15,7 +15,7 @@ export const LoadMoreButton: FC<LoadMoreButtonProps> = ({ end, disabled, onLoadM
       {end ? (
         <Paragraph color="text.disabled">{t('table.noMoreData')}</Paragraph>
       ) : (
-        <Button disabled={disabled} onClick={onLoadMore} variant='outlined'>
+        <Button disabled={disabled} onClick={onLoadMore} variant="outlined">
           {t('table.loadMore')}
         </Button>
       )}
