@@ -5,6 +5,8 @@ import { useApp } from 'app'
 import NProgress from 'lib/nprogress/components/NProgress'
 import ChainDialog from 'lib/protocol/components/wallet/ChainDialog'
 import ConnectDialog from 'lib/protocol/components/wallet/ConnectDialog'
+import NFTDepositDialog from 'domains/data/callPools/components/NFTDepositDialog'
+import NFTSettingDialog from 'domains/data/callPools/components/NFTSettingDialog'
 
 import HomeLayout from './home'
 import AppLayout from './app'
@@ -52,6 +54,8 @@ const Layout: FCC = ({ children }) => {
         {children}
         <ChainDialog />
         <ConnectDialog />
+        <NFTDepositDialog />
+        <NFTSettingDialog />
       </ActiveLayout>
     </Fragment>
   )
