@@ -7,7 +7,8 @@ import type { TabsProps } from 'components/tabs'
 import Tabs from 'components/tabs'
 
 import Positions from './Positions'
-import { H3 } from 'components/Typography'
+import { H1, Paragraph } from 'components/Typography'
+import Stack from '@mui/material/Stack'
 
 const CallPoolDetails: FC = () => {
   const { t } = useTranslation('app-positions')
@@ -15,13 +16,13 @@ const CallPoolDetails: FC = () => {
   const tabs = useMemo(() => {
     const returnValue: TabsProps['tabs'] = [
       {
-        title: 'ActivePositions',
+        title: 'activePositions',
         children: {
           component: Positions,
         },
       },
       {
-        title: 'History',
+        title: 'history',
         children: {
           component: Positions,
         },
@@ -34,9 +35,11 @@ const CallPoolDetails: FC = () => {
   }, [t])
 
   return (
-    <>
-      <H3>{t('title')}</H3>
-      <H3>{t('subTitle')}</H3>
+    <Stack spacing={4}>
+      <Stack spacing={2}>
+        <H1>{t('title')}</H1>
+        <Paragraph color='text.secondary'>{t('subTitle')}</Paragraph>
+      </Stack>
       <Grid container pt={2}>
         <Grid item xs={12}>
           <Tabs
@@ -45,7 +48,7 @@ const CallPoolDetails: FC = () => {
               [theme.breakpoints.up('sm')]: {
                 flex: 1,
                 '.MuiTabs-scroller': {
-                  justifyContent: 'center',
+                  justifyContent: { xs: 'center', sm: 'start' },
                   alignItems: 'center',
                   display: 'flex',
                 },
@@ -57,7 +60,7 @@ const CallPoolDetails: FC = () => {
           />
         </Grid>
       </Grid>
-    </>
+    </Stack>
   )
 }
 

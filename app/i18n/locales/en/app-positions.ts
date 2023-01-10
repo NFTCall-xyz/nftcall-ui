@@ -12,6 +12,10 @@ const locale = {
     action: 'Action',
     exercise: 'Exercise',
   },
+  tabs: {
+    activePositions: 'Active Positions',
+    history: 'History',
+  }
 }
 
 export default locale

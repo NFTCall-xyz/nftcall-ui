@@ -33,7 +33,7 @@ const Header: FC = () => {
         <Container component="main" maxWidth="lg">
           <BODY>
             <Logo />
-            <Stack spacing={2} direction="row">
+            <Stack spacing={4} direction="row">
               <Menu />
               <Actions />
             </Stack>
