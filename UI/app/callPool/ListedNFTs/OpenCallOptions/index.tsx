@@ -14,9 +14,19 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { OpenCallProps } from 'lib/protocol/typechain/nftcall'
 import { useWallet } from 'domains'
+import { MIN_STRIKE_PRICE_MAP, MAX_EXPRIY_TIME_MAP } from 'app/constant/callPools'
+import type { ListedNFT } from '../NFTCard'
+import Stack from '@mui/material/Stack'
+import NFTCard from './NFTCard'
 
-type OpenCallOptionsProps = { setRef: MutableRefObject<Set<string>>; size: number; request: any }
-const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request }) => {
+type OpenCallOptionsProps = {
+  setRef: MutableRefObject<Set<string>>
+  size: number
+  request: any
+  data: ListedNFT[]
+  onCheckChange: any
+}
+const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request, data, onCheckChange }) => {
   const [strikePriceGapIdx, setStrikePriceGapIdx] = useState(0)
   const [durationIdx, setDurationIdx] = useState(0)
   const [premiumToOwner, setPremiumToOwner] = useState(toBN(0))
@@ -49,19 +59,22 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request }) =>
   return (
     <Card>
       <H3>Open Call Options</H3>
-      <p>{JSON.stringify(ids)}</p>
+      <Stack spacing={1}>
+        {ids.map((tokenId) => (
+          <NFTCard key={tokenId} tokenId={tokenId} data={data} onCheckChange={onCheckChange} />
+        ))}
+      </Stack>
       <Select
         value={strikePriceGapIdx}
         onChange={(e) => {
           setStrikePriceGapIdx(parseInt(e.target.value as any))
         }}
       >
-        <MenuItem value={0}>0%</MenuItem>
-        <MenuItem value={1}>10%</MenuItem>
-        <MenuItem value={2}>20%</MenuItem>
-        <MenuItem value={3}>30%</MenuItem>
-        <MenuItem value={4}>50%</MenuItem>
-        <MenuItem value={5}>100%</MenuItem>
+        {MIN_STRIKE_PRICE_MAP.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
       </Select>
       <Select
         value={durationIdx}
@@ -69,10 +82,11 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({ setRef, size, request }) =>
           setDurationIdx(parseInt(e.target.value as any))
         }}
       >
-        <MenuItem value={0}>3 days</MenuItem>
-        <MenuItem value={1}>7 days</MenuItem>
-        <MenuItem value={2}>14 days</MenuItem>
-        <MenuItem value={3}>28 days</MenuItem>
+        {MAX_EXPRIY_TIME_MAP.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
       </Select>
       <p>
         Total Premium <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />

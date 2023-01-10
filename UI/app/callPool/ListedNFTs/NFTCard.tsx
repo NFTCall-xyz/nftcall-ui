@@ -10,6 +10,9 @@ import Checkbox from '@mui/material/Checkbox'
 import Stack from '@mui/material/Stack'
 import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
 import { useNFT } from 'domains/data'
+import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
+import { safeGet } from 'app/utils/get'
+import FlexBetween from 'components/flexbox/FlexBetween'
 
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
@@ -22,8 +25,8 @@ export type NFTCardProps = ListedNFT &
     onCheckChange: any
   }>
 
-const Root = styled(Card)`
-  width: 250px;
+const ROOT = styled(Card)`
+  width: 100%;
   position: relative;
   .checkbox {
     position: absolute;
@@ -32,7 +35,7 @@ const Root = styled(Card)`
   }
 `
 
-const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange }) => {
+const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange, maxExpriyTime, minStrikePrice }) => {
   const { t } = useTranslation()
   const [checked, setChecked] = useState(false)
   const {
@@ -44,6 +47,15 @@ const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange }) => {
 
   const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
 
+  const minStrikePriceLabel = useMemo(
+    () => safeGet(() => MIN_STRIKE_PRICE_MAP.find((option) => option.value === minStrikePrice).label),
+    [minStrikePrice]
+  )
+  const maxExpriyTimeMapLabel = useMemo(
+    () => safeGet(() => MAX_EXPRIY_TIME_MAP.find((option) => option.value === maxExpriyTime).label),
+    [maxExpriyTime]
+  )
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.checked
     setChecked(value)
@@ -52,18 +64,25 @@ const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange }) => {
   if (!nft) return <p>loading</p>
   const { token_id, image_thumbnail_url } = nft
   const title = `#${token_id}`
+
   return (
-    <Root>
+    <ROOT>
       {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
       <CardMedia component="img" height="200" image={image_thumbnail_url} alt={title} />
       <CardContent>
         <Stack spacing={1}>
           <p>{title}</p>
-          <p>{title}</p>
-          <p>{title}</p>
+          <FlexBetween>
+            <p>{`Min. strike price:`}</p>
+            <p>{minStrikePriceLabel}</p>
+          </FlexBetween>
+          <FlexBetween>
+            <p>{`Max. expriy time:`}</p>
+            <p>{maxExpriyTimeMapLabel}</p>
+          </FlexBetween>
         </Stack>
       </CardContent>
-    </Root>
+    </ROOT>
   )
 }
 
