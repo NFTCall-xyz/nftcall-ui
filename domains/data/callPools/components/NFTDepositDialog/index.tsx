@@ -7,6 +7,7 @@ import Dialog from 'components/dialog/Dialog'
 import FormTextField from 'components/form/FormTextField'
 import SubmitBotton from 'components/form/SubmitBotton'
 import { useCallPools } from 'domains/data'
+import { Fragment } from 'react'
 import NFTCard from './NFTCard'
 import { useForm } from './useForm'
 
@@ -23,12 +24,12 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
     <Dialog
       {...{ ...nftDeposit, title: 'Deposit' }}
       actions={
-        <>
+        <Fragment>
           <Button onClick={close}>Cancel</Button>
           <SubmitBotton onClick={() => handleSubmit()} isSubmitting={isSubmitting}>
             Deposit
           </SubmitBotton>
-        </>
+        </Fragment>
       }
     >
       <form onSubmit={handleSubmit}>

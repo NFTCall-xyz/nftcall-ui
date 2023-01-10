@@ -16,7 +16,7 @@ const validationSchema = yup.object({
 })
 const initialValues: Pick<NFT, 'minStrikePrice' | 'maxExpriyTime'> = {
   minStrikePrice: 0,
-  maxExpriyTime: 0,
+  maxExpriyTime: 3,
 }
 
 export const useForm = () => {
