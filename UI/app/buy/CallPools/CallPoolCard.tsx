@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Avatar from '@mui/material/Avatar'
 import CardMedia from '@mui/material/CardMedia'
-import { H3 } from 'components/Typography'
+import { H3, Tiny } from 'components/Typography'
 import type { CallPool } from 'domains/data/callPools'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +11,7 @@ import NumberDisplay from 'lib/math/components/NumberDisplay'
 import { useRouter } from 'next/router'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import FlexBetween from 'components/flexbox/FlexBetween'
+import { useTheme } from '@mui/material'
 
 // root component interface
 interface CallPoolCardProps {
@@ -27,13 +28,21 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
     address,
   } = callPool
   const router = useRouter()
+  const theme = useTheme()
 
   return (
     <Card
       onClick={() => {
         router.push('/app/callPool/' + address.CallPool)
       }}
-      sx={{ cursor: 'pointer' }}
+      sx={{ 
+        cursor: 'pointer', 
+        border: `solid 1px ${theme.palette.divider}`,
+        '&:hover': {
+          borderColor: theme.palette.primary.main,
+          backgroundColor: 'primary.200',
+        }
+      }}
     >
       <CardMedia sx={{ height: 140 }} image={bannerImageUrl} title={name} />
       <Avatar alt={name} src={imageUrl} sx={{ marginTop: '-35px', marginLeft: 2, width: 70, height: 70, border: '' }}>
@@ -44,14 +53,14 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
           <H3>{name}</H3>
           <FlexBetween>
             <Stack spacing={1}>
-              <span>{t('floorPrice')}</span>
-              <Stack spacing={1} direction="row">
-                <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
+              <Tiny>{t('floorPrice')}</Tiny>
+              <Stack spacing={1} direction="row" alignItems='center'>
+                <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
                 <NumberDisplay value={floorPrice} />
               </Stack>
             </Stack>
             <Stack spacing={1}>
-              <span>{t('depositedItems')}</span>
+              <Tiny>{t('depositedItems')}</Tiny>
               <NumberDisplay value={totalDepositedNFTs} />
             </Stack>
           </FlexBetween>

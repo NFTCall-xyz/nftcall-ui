@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack'
-import { H3, H5 } from 'components/Typography'
+import { H1, Paragraph } from 'components/Typography'
 import { useTranslation } from 'next-i18next'
 
 import Stats from './Stats'
@@ -10,8 +10,8 @@ const Buy: FC = () => {
   return (
     <Stack spacing={4}>
       <Stack spacing={2}>
-        <H3>{t('title')}</H3>
-        <H5>{t('subTitle')}</H5>
+        <H1>{t('title')}</H1>
+        <Paragraph color='text.secondary'>{t('subTitle')}</Paragraph>
       </Stack>
       <Stats />
       <CallPools />
