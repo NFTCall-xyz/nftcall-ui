@@ -16,6 +16,7 @@ const BgGradient1 = styled(Box)`
   filter: blur(325px);
   border-radius: 200px;
   transform: rotate(-0.33deg);
+  pointer-events: none;
 `
 
 const BgGradient2 = styled(Box)`
@@ -28,6 +29,7 @@ const BgGradient2 = styled(Box)`
   filter: blur(325px);
   border-radius: 200px;
   transform: rotate(-67.37deg);
+  pointer-events: none;
 `
 
 const BgGradient3 = styled(Box)`
@@ -40,6 +42,7 @@ const BgGradient3 = styled(Box)`
   filter: blur(450px);
   border-radius: 200px;
   transform: rotate(-20.01deg);
+  pointer-events: none;
 `
 
 const Layout: FCC = ({ children }) => {
