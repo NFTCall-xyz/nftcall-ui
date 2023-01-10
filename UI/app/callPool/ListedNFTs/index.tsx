@@ -37,7 +37,7 @@ const ListedNFTs = () => {
       <Grid item xs={8}>
         <Grid container spacing={2}>
           {data.map((nft) => (
-            <Grid item xs={3} key={nft.nftAddress + nft.tokenId}>
+            <Grid item xs={4} key={nft.nftAddress + nft.tokenId}>
               <NFTCard {...{ ...nft, onCheckChange }} />
             </Grid>
           ))}
@@ -53,7 +53,7 @@ const ListedNFTs = () => {
         </Grid>
       </Grid>
       <Grid item xs={4}>
-        <OpenCallOptions {...{ setRef, size, request: restart }} />
+        <OpenCallOptions {...{ setRef, size, request: restart, data, onCheckChange }} />
       </Grid>
     </Grid>
   )
