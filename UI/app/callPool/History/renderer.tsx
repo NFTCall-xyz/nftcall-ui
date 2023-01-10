@@ -36,7 +36,9 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
 export const expiryDateCellRenderer = ({ rowData: { endTime } }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
-      <Paragraph fontSize={14} color="text.secondary">{format(endTime, 'MMM dd hh:mm')}</Paragraph>
+      <Paragraph fontSize={14} color="text.secondary">
+        {format(endTime, 'MMM dd hh:mm')}
+      </Paragraph>
     </TableCell>
   )
 }

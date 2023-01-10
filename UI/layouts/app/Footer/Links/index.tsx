@@ -19,7 +19,7 @@ const Links = () => {
           color: 'grey.400',
           '&:hover': {
             color: 'grey.700',
-          }
+          },
         }}
         size="small"
       >

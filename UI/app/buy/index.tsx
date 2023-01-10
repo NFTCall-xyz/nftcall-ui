@@ -11,7 +11,7 @@ const Buy: FC = () => {
     <Stack spacing={4}>
       <Stack spacing={2}>
         <H1>{t('title')}</H1>
-        <Paragraph color='text.secondary'>{t('subTitle')}</Paragraph>
+        <Paragraph color="text.secondary">{t('subTitle')}</Paragraph>
       </Stack>
       <Stats />
       <CallPools />

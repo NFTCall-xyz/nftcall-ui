@@ -136,7 +136,7 @@ const components = (theme: Theme): any => {
           style: {
             '&:hover': {
               color: theme.palette.primary.main,
-            }
+            },
           },
         },
         {

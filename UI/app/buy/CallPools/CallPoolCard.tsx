@@ -35,13 +35,13 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
       onClick={() => {
         router.push('/app/callPool/' + address.CallPool)
       }}
-      sx={{ 
-        cursor: 'pointer', 
+      sx={{
+        cursor: 'pointer',
         border: `solid 1px ${theme.palette.divider}`,
         '&:hover': {
           borderColor: theme.palette.primary.main,
           backgroundColor: 'primary.200',
-        }
+        },
       }}
     >
       <CardMedia sx={{ height: 140 }} image={bannerImageUrl} title={name} />
@@ -54,7 +54,7 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
           <FlexBetween>
             <Stack spacing={1}>
               <Tiny>{t('floorPrice')}</Tiny>
-              <Stack spacing={1} direction="row" alignItems='center'>
+              <Stack spacing={1} direction="row" alignItems="center">
                 <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
                 <NumberDisplay value={floorPrice} />
               </Stack>

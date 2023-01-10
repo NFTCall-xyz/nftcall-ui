@@ -57,7 +57,7 @@ const CallPoolDetails: FC = () => {
       <Grid container pt={2}>
         <Grid item xs={12}>
           <FlexBetween>
-            <Stack direction='row' alignItems='center'>
+            <Stack direction="row" alignItems="center">
               <Avatar alt={name} src={imageUrl} sx={{ marginRight: 2, width: 60, height: 60, border: '' }}>
                 {name}
               </Avatar>
@@ -65,15 +65,19 @@ const CallPoolDetails: FC = () => {
             </Stack>
             <Stack spacing={2} direction="row">
               <Stack spacing={1}>
-                <Paragraph color='text.secondary'>{t('floorPrice')}</Paragraph>
-                <Stack spacing={1} direction="row" alignItems='center'>
+                <Paragraph color="text.secondary">{t('floorPrice')}</Paragraph>
+                <Stack spacing={1} direction="row" alignItems="center">
                   <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
-                  <H2><NumberDisplay value={price} /></H2>
+                  <H2>
+                    <NumberDisplay value={price} />
+                  </H2>
                 </Stack>
               </Stack>
               <Stack spacing={1}>
-                <Paragraph color='text.secondary'>{t('depositedItems')}</Paragraph>
-                <H2><NumberDisplay value={totalDepositedNFTs} /></H2>
+                <Paragraph color="text.secondary">{t('depositedItems')}</Paragraph>
+                <H2>
+                  <NumberDisplay value={totalDepositedNFTs} />
+                </H2>
               </Stack>
             </Stack>
           </FlexBetween>
