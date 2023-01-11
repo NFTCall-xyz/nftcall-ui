@@ -5,16 +5,15 @@ import { useTranslation } from 'next-i18next'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
 import Checkbox from '@mui/material/Checkbox'
 import Stack from '@mui/material/Stack'
 import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 import { safeGet } from 'app/utils/get'
 import FlexBetween from 'components/flexbox/FlexBetween'
-import CircularProgress from '@mui/material/CircularProgress'
 import { Paragraph } from 'components/Typography'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
+import NFTIcon from 'domains/data/nft/components/NFTIcon'
 
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
@@ -38,8 +37,9 @@ const ROOT = styled(Card)(({ theme }) => ({
   },
   '& .checkbox': {
     position: 'absolute',
-    right: '0.5rem',
-    top: '0.5rem',
+    zIndex: 1,
+    right: '0.75rem',
+    top: '0.75rem',
   },
 }))
 
@@ -47,11 +47,8 @@ const NFTCard: FC<NFTCardProps> = (props) => {
   const { tokenId, onCheckChange, maxExpriyTime, minStrikePrice } = props
   const { t } = useTranslation()
   const [checked, setChecked] = useState(false)
-
   const { nftAssetsData } = useNFTAssetsData(props)
-
   const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
-
   const minStrikePriceLabel = useMemo(
     () => safeGet(() => MIN_STRIKE_PRICE_MAP.find((option) => option.value === minStrikePrice).label),
     [minStrikePrice]
@@ -60,20 +57,17 @@ const NFTCard: FC<NFTCardProps> = (props) => {
     () => safeGet(() => MAX_EXPRIY_TIME_MAP.find((option) => option.value === maxExpriyTime).label),
     [maxExpriyTime]
   )
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.checked
     setChecked(value)
     onCheckChange(tokenId, value)
   }
-  if (!nftAssetsData) return <CircularProgress />
-  const { image_thumbnail_url } = nftAssetsData
   const title = `#${tokenId}`
 
   return (
     <ROOT>
       {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
-      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={title} sx={{ padding: 1.5 }} />
+      <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>
