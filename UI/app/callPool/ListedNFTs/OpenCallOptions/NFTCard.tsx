@@ -4,13 +4,13 @@ import { useTranslation } from 'next-i18next'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import Stack from '@mui/material/Stack'
-import { useNFT } from 'domains/data'
 import type { ListedNFT } from '../NFTCard'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
 import { H3, Paragraph } from 'components/Typography'
+import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 
 export type NFTCardProps = {
   tokenId: string
@@ -25,17 +25,11 @@ const ROOT = styled(Card)`
 const NFTCard: FC<NFTCardProps> = ({ data, tokenId, onCheckChange }) => {
   const { t } = useTranslation()
   const listedNFT = useMemo(() => data.find((nft) => nft.tokenId === tokenId), [data, tokenId])
-  const { nftAddress } = listedNFT
-  const {
-    tokenId: { assets },
-  } = useNFT()
-  const nft = useMemo(() => {
-    return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
-  }, [assets, nftAddress, tokenId])
+  const { nftAssetsData } = useNFTAssetsData(listedNFT)
 
-  if (!nft) return <p>loading</p>
-  const { token_id, image_thumbnail_url, contractName } = nft
-  const title = `#${token_id}`
+  if (!nftAssetsData) return <p>loading</p>
+  const { image_thumbnail_url, contractName } = nftAssetsData
+  const title = `#${tokenId}`
 
   return (
     <ROOT>
