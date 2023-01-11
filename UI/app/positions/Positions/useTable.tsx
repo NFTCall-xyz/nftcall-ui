@@ -35,7 +35,6 @@ export const useTable = (): BasicTableProps => {
   const sendTransaction = useSendTransaction()
   const fn = useCallback(
     (props: ExerciseCallProps) => {
-      console.log(props)
       return transaction({
         createTransaction: callPoolService.exerciseCall(props),
         setStatus: () => {},
