@@ -26,6 +26,11 @@ const MenuList = [
     linkTo: '/app/positions',
   },
   {
+    key: 'Claim',
+    linkTo: '/app/claim',
+    hide: true,
+  },
+  {
     key: 'CallPoolDetail',
     linkTo: '/callPool/[id]',
     hide: true,

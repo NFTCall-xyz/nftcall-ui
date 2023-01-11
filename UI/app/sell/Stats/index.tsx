@@ -7,27 +7,12 @@ import { useCallPools } from 'domains/data'
 
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import { useUserStats } from './hooks/useUserStats'
+import { useRouter } from 'next/router'
 
 const Stats: FC = () => {
   useUserStats()
   const { allCallPool } = useCallPools()
-
-  // const {
-  //   contracts: { callPoolService },
-  // } = useNetwork()
-  // const { networkAccount } = useWallet()
-  // const sendTransaction = useSendTransaction()
-  // const fn = useCallback(
-  //   (props: ClaimProps) => {
-  //     return transaction({
-  //       createTransaction: callPoolService.claim(props),
-  //       setStatus: () => {},
-  //       sendTransaction,
-  //       isOnlyApprove: false,
-  //     })
-  //   },
-  //   [callPoolService, sendTransaction]
-  // )
+  const router = useRouter()
 
   const cardList = [
     {
@@ -40,13 +25,7 @@ const Stats: FC = () => {
           <Button
             disabled={allCallPool.balanceOf.isZero()}
             onClick={() => {
-              // fn({
-              //   callPool: callPool.address.CallPool,
-              //   user: networkAccount,
-              //   amount: '-1',
-              // }).then(() => {
-              //   request()
-              // })
+              router.push('/app/claim')
             }}
           >
             Claim

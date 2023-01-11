@@ -3,6 +3,7 @@ const locale = {
   Buy: 'Buy',
   Sell: 'Sell',
   Positions: 'Positions',
+  Claim: 'Claim',
   launchApp: 'Launch App',
 }
 
