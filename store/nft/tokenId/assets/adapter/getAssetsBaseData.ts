@@ -13,6 +13,8 @@ export type AssetsBaseData = {
   token_metadata: string
 }
 
+const imagePlaceholder = 'https://opensea.io/static/images/placeholder.png'
+
 export const getAssetsBaseData = (storeCacheData: AssetsData[], nftAddress: string, data: any[]): AssetsBaseData[] => {
   if (!data) return storeCacheData || []
   const returnValue: AssetsBaseData[] = []
@@ -31,9 +33,9 @@ export const getAssetsBaseData = (storeCacheData: AssetsData[], nftAddress: stri
       const assetsData: AssetsBaseData = {
         nftAddress,
         token_id,
-        image_thumbnail_url,
-        image_preview_url,
-        image_original_url,
+        image_thumbnail_url: image_thumbnail_url || imagePlaceholder,
+        image_preview_url: image_preview_url || imagePlaceholder,
+        image_original_url: image_original_url || imagePlaceholder,
         image_url,
         permalink,
         token_metadata,
