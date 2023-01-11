@@ -1,15 +1,16 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { cellRenderer, headerRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
-import { useCallPoolDetails } from 'domains/data'
+import { useCallPoolDetails, useNFT } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
 import { numberCellRenderer } from 'components/table/renderer'
 import { accountCellRenderer, expiryDateCellRenderer, NFTCellRenderer, premiumCellRenderer } from './renderer'
+import { getWalletDataByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 
 const pageSize = 5
 
@@ -111,6 +112,17 @@ export const useTable = (): BasicTableProps => {
   useMount(() => {
     loadMore.onLoadMore()
   })
+
+  const {
+    tokenId: { updateAssets },
+  } = useNFT()
+
+  const { wallet, key } = useMemo(() => getWalletDataByNFTs(data), [data])
+
+  useEffect(() => {
+    updateAssets(wallet)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
 
   return {
     columns,

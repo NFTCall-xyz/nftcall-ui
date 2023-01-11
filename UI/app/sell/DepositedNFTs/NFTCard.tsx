@@ -6,7 +6,6 @@ import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
 import Divider from '@mui/material/Divider'
 import { useCallPools, useNetwork } from 'domains/data'
 import { useWallet } from 'domains'
@@ -21,6 +20,8 @@ import Button from '@mui/material/Button'
 import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
 import { Paragraph } from 'components/Typography'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
+import NFTIcon from 'domains/data/nft/components/NFTIcon'
+import { safeGet } from 'app/utils/get'
 
 export type DepositedNFT = BaseNFT & {
   minStrikePrice: number
@@ -102,14 +103,12 @@ const NFTCard: FC<DepositedNFT> = (props) => {
   )
 
   if (status === 'Removed') return null
-  if (!nftAssetsData) return <p>loading</p>
-  const { token_id, image_thumbnail_url, contractName } = nftAssetsData
-  const title = `${contractName} #${token_id}`
+  const title = `${safeGet(() => nftAssetsData.contractName) || ''} #${tokenId}`
   const isListed = status === 'Listed'
 
   return (
     <Root>
-      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={`#${token_id}`} sx={{ padding: 1.5 }} />
+      <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent>
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>
