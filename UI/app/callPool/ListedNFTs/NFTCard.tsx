@@ -9,12 +9,12 @@ import CardMedia from '@mui/material/CardMedia'
 import Checkbox from '@mui/material/Checkbox'
 import Stack from '@mui/material/Stack'
 import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
-import { useNFT } from 'domains/data'
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 import { safeGet } from 'app/utils/get'
 import FlexBetween from 'components/flexbox/FlexBetween'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Paragraph } from 'components/Typography'
+import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
@@ -43,15 +43,12 @@ const ROOT = styled(Card)(({ theme }) => ({
   },
 }))
 
-const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange, maxExpriyTime, minStrikePrice }) => {
+const NFTCard: FC<NFTCardProps> = (props) => {
+  const { tokenId, onCheckChange, maxExpriyTime, minStrikePrice } = props
   const { t } = useTranslation()
   const [checked, setChecked] = useState(false)
-  const {
-    tokenId: { assets },
-  } = useNFT()
-  const nft = useMemo(() => {
-    return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
-  }, [assets, nftAddress, tokenId])
+
+  const { nftAssetsData } = useNFTAssetsData(props)
 
   const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
 
@@ -69,9 +66,9 @@ const NFTCard: FC<NFTCardProps> = ({ tokenId, nftAddress, onCheckChange, maxExpr
     setChecked(value)
     onCheckChange(tokenId, value)
   }
-  if (!nft) return <CircularProgress />
-  const { token_id, image_thumbnail_url } = nft
-  const title = `#${token_id}`
+  if (!nftAssetsData) return <CircularProgress />
+  const { image_thumbnail_url } = nftAssetsData
+  const title = `#${tokenId}`
 
   return (
     <ROOT>

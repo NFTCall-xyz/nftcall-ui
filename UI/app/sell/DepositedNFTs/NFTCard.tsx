@@ -8,7 +8,7 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Divider from '@mui/material/Divider'
-import { useCallPools, useNetwork, useNFT } from 'domains/data'
+import { useCallPools, useNetwork } from 'domains/data'
 import { useWallet } from 'domains'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
@@ -20,6 +20,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
 import { Paragraph } from 'components/Typography'
+import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 
 export type DepositedNFT = BaseNFT & {
   minStrikePrice: number
@@ -42,15 +43,11 @@ const Root = styled(Card)(({ theme }) => ({
   },
 }))
 
-const NFTCard: FC<DepositedNFT> = ({ tokenId, nftAddress, status: sourceStatus }) => {
+const NFTCard: FC<DepositedNFT> = (props) => {
+  const { tokenId, nftAddress, status: sourceStatus } = props
   const [status, setStatus] = useState(sourceStatus)
   const [loading, setLoading] = useState(false)
-  const {
-    tokenId: { assets },
-  } = useNFT()
-  const nft = useMemo(() => {
-    return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
-  }, [assets, nftAddress, tokenId])
+  const { nftAssetsData } = useNFTAssetsData(props)
   const {
     contracts: { callPoolService },
   } = useNetwork()
@@ -105,8 +102,8 @@ const NFTCard: FC<DepositedNFT> = ({ tokenId, nftAddress, status: sourceStatus }
   )
 
   if (status === 'Removed') return null
-  if (!nft) return <p>loading</p>
-  const { token_id, image_thumbnail_url, contractName } = nft
+  if (!nftAssetsData) return <p>loading</p>
+  const { token_id, image_thumbnail_url, contractName } = nftAssetsData
   const title = `${contractName} #${token_id}`
   const isListed = status === 'Listed'
 

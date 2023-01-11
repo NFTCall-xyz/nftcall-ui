@@ -1,13 +1,12 @@
 import type { FC } from 'react'
-import { useMemo } from 'react'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import { useNFT } from 'domains/data'
 import type { BaseNFT } from 'domains/data/nft/types'
 import { H3, Paragraph } from 'components/Typography'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
+import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 
 export type NFTCardProps = BaseNFT
 
@@ -16,17 +15,11 @@ const ROOT = styled(Card)`
 `
 
 const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
-  const { tokenId, nftAddress } = props
-  const {
-    tokenId: { assets },
-  } = useNFT()
-  const nft = useMemo(() => {
-    return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
-  }, [assets, nftAddress, tokenId])
+  const { nftAssetsData } = useNFTAssetsData(props)
 
-  if (!nft) return <p>loading</p>
-  const { token_id, image_thumbnail_url, contractName } = nft
-  const title = '#' + token_id
+  if (!nftAssetsData) return <p>loading</p>
+  const { image_thumbnail_url, contractName } = nftAssetsData
+  const title = '#' + props.tokenId
   return (
     <ROOT>
       <Grid container spacing={2}>

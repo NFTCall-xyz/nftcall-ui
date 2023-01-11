@@ -4,13 +4,13 @@ import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import { useNFT } from 'domains/data'
 import type { BaseNFT } from 'domains/data/nft/types'
 import { Paragraph } from 'components/Typography'
 import Stack from '@mui/material/Stack'
+import NFTIcon from 'domains/data/nft/components/NFTIcon'
+import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 
 export type WalletNFT = BaseNFT & {
   callPoolAddress: string
@@ -21,7 +21,7 @@ export type NFTCardProps = WalletNFT &
     action: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
   }>
 
-const Root = styled(Card)(({ theme }) => ({
+const ROOT = styled(Card)(({ theme }) => ({
   position: 'relative',
   border: 'solid 1px',
   borderColor: theme.palette.divider,
@@ -37,13 +37,8 @@ const Root = styled(Card)(({ theme }) => ({
 }))
 
 const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
-  const { tokenId, nftAddress, action } = props
-  const {
-    tokenId: { assets },
-  } = useNFT()
-  const nft = useMemo(() => {
-    return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
-  }, [assets, nftAddress, tokenId])
+  const { tokenId, action } = props
+  const { nftAssetsData } = useNFTAssetsData(props)
 
   const actions = useMemo(() => {
     if (!action) return null
@@ -56,12 +51,10 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
       </Button>
     )
   }, [action, props])
-  if (!nft) return <p>loading</p>
-  const { token_id, image_thumbnail_url } = nft
-  const title = '#' + token_id
+  const title = '#' + tokenId
   return (
-    <Root>
-      <CardMedia component="img" height="auto" image={image_thumbnail_url} alt={title} sx={{ padding: 1.5 }} />
+    <ROOT>
+      <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>
@@ -76,7 +69,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
       >
         {actions}
       </CardActions>
-    </Root>
+    </ROOT>
   )
 }
 
