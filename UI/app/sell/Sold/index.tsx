@@ -1,24 +1,11 @@
 import BasicTable from 'components/table/BasicTable'
-import { useNFT } from 'domains/data'
-import { useMemo, useEffect } from 'react'
-import { getWalletDataByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
+import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
 
 import { useTable } from './useTable'
 
 const Sold = () => {
   const table = useTable()
-  const { data } = table
-
-  const {
-    tokenId: { updateAssets },
-  } = useNFT()
-
-  const { wallet, key } = useMemo(() => getWalletDataByNFTs(data), [data])
-
-  useEffect(() => {
-    updateAssets(wallet)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key])
+  useUpdateNFTAssets(table.data)
 
   return <BasicTable {...table} />
 }

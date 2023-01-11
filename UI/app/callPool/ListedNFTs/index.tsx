@@ -1,8 +1,7 @@
 import { Grid } from '@mui/material'
 import { LoadMoreButton } from 'components/btn/LoadMoreButton'
-import { useNFT } from 'domains/data'
-import { useRef, useState, useCallback, useEffect, useMemo } from 'react'
-import { getWalletDataByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
+import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
+import { useRef, useState, useCallback } from 'react'
 import NFTCard from './NFTCard'
 import OpenCallOptions from './OpenCallOptions'
 import { useListedNFTs } from './useListedNFTs'
@@ -20,17 +19,7 @@ const ListedNFTs = () => {
     }
     setSize(s.size)
   }, [])
-
-  const {
-    tokenId: { updateAssets },
-  } = useNFT()
-
-  const { wallet, key } = useMemo(() => getWalletDataByNFTs(data), [data])
-
-  useEffect(() => {
-    updateAssets(wallet)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key])
+  useUpdateNFTAssets(data)
 
   return (
     <Grid container spacing={2}>

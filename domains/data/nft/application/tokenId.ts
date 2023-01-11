@@ -22,16 +22,26 @@ export const useTokendId = () => {
   }, [address.chainId, markets, networkAccount, tokenId.wallet.single])
 
   const updateAssets = useCallback(
-    async (wallet: WalletData[]) => {
-      for (let i = 0; i < wallet.length; i++) {
-        const { nftAddress, tokenIds } = wallet[i]
-        await tokenId.assets.single.run({
-          chainId: address.chainId,
-          getStoreCacheData,
-          nftAddress,
-          tokenIds,
-        })
+    (wallet: WalletData[]) => {
+      let stop = false
+      const close = () => {
+        stop = true
+        tokenId.assets.single.stop()
       }
+      const run = async () => {
+        for (let i = 0; i < wallet.length; i++) {
+          if (stop) return
+          const { nftAddress, tokenIds } = wallet[i]
+          await tokenId.assets.single.run({
+            chainId: address.chainId,
+            getStoreCacheData,
+            nftAddress,
+            tokenIds,
+          })
+        }
+      }
+      run()
+      return close
     },
     [address.chainId, tokenId.assets.single]
   )

@@ -1,23 +1,12 @@
 import Grid from '@mui/material/Grid'
-import { useEffect, useMemo } from 'react'
 import NFTCard from './NFTCard'
-import { useNFT } from 'domains/data'
-import { getWalletDataByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 import { useDepositedNFTs } from './useDepositedNFTs'
 import { LoadMoreButton } from 'components/btn/LoadMoreButton'
+import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
 
 const DepositedNFTs = () => {
   const { data, onLoadMore, noMoreData, disabled } = useDepositedNFTs()
-  const {
-    tokenId: { updateAssets },
-  } = useNFT()
-
-  const { wallet, key } = useMemo(() => getWalletDataByNFTs(data), [data])
-
-  useEffect(() => {
-    updateAssets(wallet)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key])
+  useUpdateNFTAssets(data)
 
   return (
     <Grid container spacing={2}>
