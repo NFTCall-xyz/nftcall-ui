@@ -49,7 +49,8 @@ const WalletNFTs = () => {
   }, [wallet, callPools, action])
 
   useEffect(() => {
-    updateAssets(wallet)
+    const stop = updateAssets(wallet)
+    return () => stop()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key])
 
