@@ -19,6 +19,11 @@ const ListedNFTs = () => {
     }
     setSize(s.size)
   }, [])
+  const clearSet = useCallback(() => {
+    const s = setRef.current
+    s.clear()
+    setSize(0)
+  }, [])
   useUpdateNFTAssets(data)
 
   return (
@@ -42,7 +47,18 @@ const ListedNFTs = () => {
         </Grid>
       </Grid>
       <Grid item xs={4}>
-        <OpenCallOptions {...{ setRef, size, request: restart, data, onCheckChange }} />
+        <OpenCallOptions
+          {...{
+            setRef,
+            size,
+            request: () => {
+              restart()
+              clearSet()
+            },
+            data,
+            onCheckChange,
+          }}
+        />
       </Grid>
     </Grid>
   )

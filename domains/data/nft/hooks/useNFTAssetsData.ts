@@ -3,11 +3,13 @@ import type { BaseNFT } from 'domains/data/nft/types'
 import { useMemo } from 'react'
 
 type UseNFTAssetsDataProps = BaseNFT
-export const useNFTAssetsData = ({ tokenId, nftAddress }: UseNFTAssetsDataProps) => {
+export const useNFTAssetsData = (props: UseNFTAssetsDataProps) => {
+  const { tokenId, nftAddress } = props || ({} as undefined)
   const {
     tokenId: { assets },
   } = useNFT()
   const nftAssetsData = useMemo(() => {
+    if (!tokenId) return
     return assets.find((i) => i.token_id === tokenId && i.nftAddress === nftAddress)
   }, [assets, nftAddress, tokenId])
 

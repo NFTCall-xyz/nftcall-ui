@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { usePost } from '.'
 
 const getDefaultData = (data: any) => data
@@ -28,6 +28,7 @@ export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
   const [data, setData] = useState<D>([] as any)
   const [pageIndex, setPageIndex] = useState(0)
   const [noMoreData, setNoMoreData] = useState(false)
+  const [onRestart, setRestart] = useState(false)
   const skip = useMemo(() => pageIndex * pageSize, [pageIndex, pageSize])
   const { post, loading, cancel } = usePost(request)
 
@@ -47,8 +48,15 @@ export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
     setPageIndex(0)
     setNoMoreData(false)
     setData(() => [] as any)
+    setRestart(true)
+  }, [cancel])
+
+  useEffect(() => {
+    if (!onRestart) return
+    setRestart(false)
     onLoadMore()
-  }, [cancel, onLoadMore])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onRestart])
 
   return {
     data,
