@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
-import { H2, Paragraph } from 'components/Typography'
+import { H2, H3, Paragraph } from 'components/Typography'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import Image from 'next/image'
 import ImageSrc from '../images/buy-and-sell.png'
@@ -41,6 +41,7 @@ const BuyAndSell: FC = () => {
         <BgGradient2 />
       </Box>
       <Stack spacing={4} paddingY={2} alignItems={{ xs: 'center', md: 'start' }} flex={1}>
+        <H3 color='primary.main'>{t('for')}</H3>
         <Stack spacing={2}>
           <H2 fontSize={36} textAlign={{ xs: 'center', md: 'left' }}>
             {t('title')}
