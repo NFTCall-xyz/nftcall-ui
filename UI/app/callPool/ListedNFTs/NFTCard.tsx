@@ -18,6 +18,7 @@ import NFTIcon from 'domains/data/nft/components/NFTIcon'
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
   maxExpriyTime: number
+  updateTimestamp: number
   status: NFTStatus
 }
 

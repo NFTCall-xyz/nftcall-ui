@@ -1,7 +1,48 @@
+import { getCurrentTimestamp } from 'app/constant'
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 import type { NFTStatus } from 'domains/data/nft/types'
 
 export type ListedNFTsProps = { subgraphName: string; nft: string } & GetQueryProps
+
+const getGqlQuery = ({ first, skip, nft }: ListedNFTsProps) => {
+  const nowTimestamp = getCurrentTimestamp()
+  return `
+  fragment nftInfo on NFT {
+    tokenId
+    strikePriceGapIdx
+    durationIdx
+    status
+    nftAddress
+  }
+
+  {
+    calledNFTs: nfts(
+      first: ${first}
+      skip: ${skip}
+      where: {
+        status: Called
+        positionEndTimestamp_lt: ${nowTimestamp}
+        nftAddress: "${nft.toLowerCase()}"
+      }
+      orderBy: positionEndTimestamp
+      orderDirection: asc
+    ) {
+      updateTimestamp: positionEndTimestamp
+      ...nftInfo
+    }
+    otherNFTs: nfts(
+      first: ${first}
+      skip: ${skip}
+      where: { status_in: [Listed], nftAddress: "${nft.toLowerCase()}" }
+      orderBy: updateTimestamp
+      orderDirection: asc
+    ) {
+      updateTimestamp
+      ...nftInfo
+    }
+  }
+  `
+}
 
 export const getListedNFTs = (
   props: ListedNFTsProps
@@ -12,9 +53,10 @@ export const getListedNFTs = (
     durationIdx: number
     status: NFTStatus
     nftAddress: string
+    updateTimestamp: number
   }>
 > => {
-  const { subgraphName, nft, first, skip } = props
+  const { subgraphName } = props
 
   const fn = (): Promise<any> =>
     fetch('https://api.thegraph.com/subgraphs/name/' + subgraphName, {
@@ -31,12 +73,12 @@ export const getListedNFTs = (
       },
       referrer: 'https://thegraph.com/',
       referrerPolicy: 'strict-origin-when-cross-origin',
-      body: `{"query":"{ nfts(first: ${first},skip: ${skip}, where: {nftAddress: \\"${nft.toLowerCase()}\\", status: \\"Listed\\" }) { tokenId strikePriceGapIdx durationIdx status nftAddress }}"}`,
+      body: JSON.stringify({ query: getGqlQuery(props) }),
       method: 'POST',
       mode: 'cors',
       credentials: 'omit',
     }).then((data) => data.json())
-  return fn().then(({ data }) => data.nfts)
+  return fn().then(({ data }) => data.calledNFTs.concat(data.otherNFTs))
 }
 
 export type ListedNFTs = Awaited<ReturnType<typeof getListedNFTs>>

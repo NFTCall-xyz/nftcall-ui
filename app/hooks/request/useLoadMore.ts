@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { usePost } from '.'
 
-const getDefaultData = (data: any) => data
-const isDefaultNoValidQuery = () => false
+const getDataDefault = (data: any) => data
+const isNoValidQueryDefault = () => false
+const isNoMoreDataDefault = (pageSize: number, data: any[]) => data.length < pageSize
 export type GetQueryProps = {
   skip: number
   first: number
@@ -13,6 +14,7 @@ export type LoadMoreProps<T extends any[], Q, D extends any[] = T> = {
   getQuery: (props: GetQueryProps) => Q
   isNoValidQuery?: (query: Q) => boolean
   getData?: (data: T) => D
+  isNoMoreData?: (pageSize: number, data: T) => boolean
 }
 export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
   pageSize,
@@ -20,10 +22,12 @@ export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
   getQuery,
   getData,
   isNoValidQuery,
+  isNoMoreData,
 }: LoadMoreProps<T, Q, D>) => {
   pageSize = pageSize || 10
-  getData = getData || getDefaultData
-  isNoValidQuery = isNoValidQuery || isDefaultNoValidQuery
+  getData = getData || getDataDefault
+  isNoValidQuery = isNoValidQuery || isNoValidQueryDefault
+  isNoMoreData = isNoMoreData || isNoMoreDataDefault
 
   const [data, setData] = useState<D>([] as any)
   const [pageIndex, setPageIndex] = useState(0)
@@ -38,10 +42,10 @@ export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
     const query = getQuery({ skip, first: pageSize })
     if (isNoValidQuery(query)) return Promise.resolve()
     return post(query).then((data) => {
-      if (data.length < pageSize) setNoMoreData(true)
+      if (isNoMoreData(pageSize, data)) setNoMoreData(true)
       setData((array) => array.concat(getData(data)) as any)
     })
-  }, [getData, getQuery, isNoValidQuery, noMoreData, pageIndex, pageSize, post, skip])
+  }, [getData, getQuery, isNoMoreData, isNoValidQuery, noMoreData, pageIndex, pageSize, post, skip])
 
   const restart = useCallback(() => {
     cancel()

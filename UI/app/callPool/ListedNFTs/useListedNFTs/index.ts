@@ -1,6 +1,6 @@
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 import { useLoadMore } from 'app/hooks/request/useLoadMore'
-import { safeGet } from 'app/utils/get'
+import { getNumber, safeGet } from 'app/utils/get'
 import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { useCallback, useEffect } from 'react'
 import type { ListedNFT } from '../NFTCard'
@@ -25,13 +25,16 @@ export const useListedNFTs = () => {
   )
 
   const getData = useCallback((sourceData: ListedNFTs) => {
-    return sourceData.map(({ tokenId, nftAddress, strikePriceGapIdx, durationIdx, status }) => {
+    return sourceData.map((nft) => {
+      const { tokenId, nftAddress, strikePriceGapIdx, durationIdx, status } = nft
+      const timestamps = getNumber(nft, ['updateTimestamp'])
       return {
         minStrikePrice: strikePriceGapIdx,
         maxExpriyTime: durationIdx,
         nftAddress,
         tokenId,
         status,
+        ...timestamps,
       } as ListedNFT
     })
   }, [])
@@ -40,11 +43,14 @@ export const useListedNFTs = () => {
     return !subgraphName || !nft
   }, [])
 
+  const isNoMoreData = useCallback((pageSize: number, data: ListedNFTs) => !data.length, [])
+
   const returnValue = useLoadMore({
     pageSize,
     request: getListedNFTs,
     getQuery,
     getData,
+    isNoMoreData,
     isNoValidQuery,
   })
 
