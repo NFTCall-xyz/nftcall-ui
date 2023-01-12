@@ -7,7 +7,7 @@ import { H2, H3, Paragraph } from 'components/Typography'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import StarRounded from '@mui/icons-material/StarRounded'
 import MoneyOffRounded from '@mui/icons-material/MoneyOffRounded'
-import GppGoodRounded from '@mui/icons-material/GppGoodRounded'
+import MultipleStopIcon from '@mui/icons-material/MultipleStop'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 
@@ -51,7 +51,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, content }) => {
   )
 }
 
-const featureIcons = [{ icon: <StarRounded /> }, { icon: <MoneyOffRounded /> }, { icon: <GppGoodRounded /> }]
+const featureIcons = [{ icon: <StarRounded /> }, { icon: <MultipleStopIcon /> }, { icon: <MoneyOffRounded /> }]
 
 const Benefits: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'benefits' })

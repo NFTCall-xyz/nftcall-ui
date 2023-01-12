@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import { H1, H3, Span } from 'components/Typography'
 import Image from 'next/image'
 import ArrowForward from '@mui/icons-material/ArrowForward'
-import Stats from '../Stats'
+// import Stats from '../Stats'
 import ImageSrc from '../images/hero-pic.png'
 import { styled } from '@mui/material/styles'
 
@@ -84,7 +84,7 @@ const Hero: FC = () => {
           <BgGradient3 />
         </Box>
       </Stack>
-      <Stats />
+      {/* <Stats /> */}
     </Stack>
   )
 }

@@ -4,7 +4,7 @@ import CTA from './CTA'
 import Benefits from './Benefits'
 import BuyAndSell from './BuyAndSell'
 import SpeculateAndHedge from './SpeculateAndHedge'
-import How from './How'
+// import How from './How'
 
 const Home = () => {
   return (
@@ -13,7 +13,7 @@ const Home = () => {
       <Benefits />
       <BuyAndSell />
       <SpeculateAndHedge />
-      <How />
+      {/* <How /> */}
       <CTA />
     </Stack>
   )

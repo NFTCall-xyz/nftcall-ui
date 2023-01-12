@@ -1,8 +1,8 @@
 const locale = {
   hero: {
-    title: 'Speculate, Hedge and Earn Income from <NFTOptions>NFT Options</NFTOptions>',
-    subTitle:
-      'NFTCall is building the first on-chain NFT options trading platform with both cash and physical settlement, allowing NFT investors to speculate, hedge or sell NFTs in a  more profitable way.',
+    title: 'Speculate or Earn Premiums from <NFTOptions>NFT Options</NFTOptions>',
+    subTitle: 
+      'NFTCall is a physically-settled, peer-to-peer NFT options trading platform that allows NFT holders to earn premiums and sell NFTs at a higher price while allowing NFT investors to buy NFTs with high leverage but with limited losses.',
     tradeNow: 'Trade Now',
     NFTOptions: 'NFT Options',
   },
@@ -15,35 +15,37 @@ const locale = {
     tradingVolume: 'Trading Volume',
   },
   benefits: {
-    title: 'A new NFT trading experience with NFTCall',
+    title: 'Sell, buy and exercise options in just one step',
     subTitle:
-      'NFTCall creates a derivative market where both NFT buyers and sellers can benefit from our hybrid settlement model, cost-effective fee structure and fully secured marketplace. ',
+      'NFTCall creates a derivative market where both NFT holders and investors can benefit from our physically-settled options, peer-to-peer model, and cost-effective fee structure.',
     tradeNow: 'Trade Now',
     list: {
       0: {
-        title: 'Cash & Physical Settlement',
-        subTitle: 'We create a flexible NFT trading experience with cash and physical settlement.',
+        title: 'Physical Settlement',
+        subTitle: 'NFTCall creates a new NFT trading experience with physically-settled options.',
       },
       1: {
-        title: 'No Transaction fees',
-        subTitle: 'We take no transaction fees to make sure everyone can enjoy NFT trading.',
+        title: 'Peer-to-peer model',
+        subTitle: 'We use a peer-to-peer model to ensure both NFT holders and investors can benefit from options contracts.',
       },
       2: {
-        title: '100% Secured',
-        subTitle: 'We built an on-chain permissionless marketplace to secure every transactions.',
+        title: 'No transaction fees',
+        subTitle: 'We do not charge transaction fees when exercising options to ensure that everyone can enjoy NFT options trading.',
       },
     },
   },
   buyAndSell: {
-    title: 'Buy and sell NFT in a profitable way',
+    for: 'For NFT Holders', 
+    title: 'Sell NFT at a higher price while earning premiums',
     subTitle:
-      'NFT buyers can pay a small premium in advance for the call options and take the NFT when it rises to a profitable price, while NFT sellers can earn passive income from the premium if their NFTs don’t get sold at a desired price.',
+      'NFT holders deposit their NFTs into the market for call options selling, which means they promise to sell their NFTs at a specified price in the future. And the specified price is usually higher than the current floor price. If the market price rises above the specified price on the expiration date, their NFTs will be sold to the options buyers, otherwise, they can receive passive income from the sold options.',
     tradeNow: 'Trade Now',
   },
   speculateAndHedge: {
-    title: 'Speculate and hedge in few easy steps.',
+    for: 'For NFT Investors',
+    title: 'Buy NFTs with high leverage but limited losses',
     subTitle:
-      'By removing the entry cost barrier, NFTCall provides mass exposure to popular NFTs. And NFT holders don’t have to worry about the floor crash, they can hedge their NFTs by purchasing put options. ',
+      'NFT investors can pay a small premium in advance for the call options, which means they lock in a price at which to buy the NFT in the future. If the floor price rises above the specified price on the expiration date, options buyers can take the NFT and sell it on the market for a profit, otherwise they only lose the small premium.',
     tradeNow: 'Trade Now',
   },
   how: {
