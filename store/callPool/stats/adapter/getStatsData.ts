@@ -1,4 +1,5 @@
 import { getWeiToValueBN } from 'app/utils/get'
+import type { BaseNFT } from 'domains/data/nft/types'
 import { toBN } from 'lib/math'
 import type { StatsBaseData } from './getStatsBaseData'
 
@@ -8,6 +9,7 @@ export type Stats = {
   totalNFTSales: BN
   totalDepositedNFTs: number
   totalOptionContracts: number
+  nfts: BaseNFT[]
 }
 export type StatsData = {
   callPools: Stats[]
@@ -21,6 +23,7 @@ export const getStatsData = (statsBaseData: StatsBaseData[]): StatsData => {
     totalNFTSales: toBN(0),
     totalDepositedNFTs: 0,
     totalOptionContracts: 0,
+    nfts: [],
   }
   const callPools = statsBaseData.map((i) => {
     const returnValue = {

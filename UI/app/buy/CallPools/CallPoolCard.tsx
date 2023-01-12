@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import FlexBetween from 'components/flexbox/FlexBetween'
 import { useTheme } from '@mui/material'
+import NFTList from './NFTList'
 
 // root component interface
 interface CallPoolCardProps {
@@ -51,6 +52,9 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
       <CardContent>
         <Stack spacing={2}>
           <H3>{name}</H3>
+          <Stack spacing={1} direction="row">
+            <NFTList callPool={callPool} />
+          </Stack>
           <FlexBetween>
             <Stack spacing={1}>
               <Tiny>{t('floorPrice')}</Tiny>

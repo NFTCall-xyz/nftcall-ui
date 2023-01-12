@@ -5,7 +5,38 @@ export type StatsProps = {
   callPools: string[]
 }
 
-export const statsRequest = ({ subgraphName, callPools }: StatsProps) => {
+const getGqlQuery = ({ callPools }: StatsProps) => {
+  return `
+  {
+    callPoolStats(
+      first: 1000
+      where: {
+        id_in: [
+          ${callPools.map((callPool) => JSON.stringify(callPool.toLowerCase())).join(',')}
+        ]
+      }
+    ) {
+      id
+      accumulativePremium
+      totalNFTSales
+      totalDepositedNFTs
+      totalOptionContracts
+      nfts(
+        first: 5
+        orderBy: updateTimestamp
+        orderDirection: desc
+        where: { status_not: Removed }
+      ) {
+        nftAddress
+        tokenId
+      }
+    }
+  }
+  `
+}
+
+export const statsRequest = (props: StatsProps) => {
+  const { subgraphName, callPools } = props
   return fetch(`https://api.thegraph.com/subgraphs/name/${subgraphName}`, {
     headers: {
       accept: '*/*',
@@ -16,17 +47,7 @@ export const statsRequest = ({ subgraphName, callPools }: StatsProps) => {
       'sec-fetch-site': 'same-site',
     },
     body: JSON.stringify({
-      query: `{
-  callPoolStats(
-    first: 1000, where: {id_in: [${callPools.map((callPool) => JSON.stringify(callPool.toLowerCase())).join(',')}]}
-  ) {
-    id
-    accumulativePremium
-    totalNFTSales
-    totalDepositedNFTs
-    totalOptionContracts
-  }
-}`,
+      query: getGqlQuery(props),
     }),
     method: 'POST',
     mode: 'cors',
