@@ -91,9 +91,9 @@ export const getPositions = (positions: SliceState) => {
       if (returnValue.endTime < now) {
         returnValue.status = 'Expired'
       } else if (returnValue.exerciseTime > now) {
-        returnValue.status = 'Not Exercisible'
+        returnValue.status = 'NotExercisable'
       } else {
-        returnValue.status = 'Exercisible'
+        returnValue.status = 'Exercisable'
       }
     }
     return returnValue

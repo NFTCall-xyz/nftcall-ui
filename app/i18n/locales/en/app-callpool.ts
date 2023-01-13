@@ -1,6 +1,6 @@
 const locale = {
   floorPrice: 'Floor Price',
-  depositedItems: 'Deposited Items',
+  depositedItems: 'Listed NFTs',
   history: {
     account: 'Account',
     NFT: 'NFT',
@@ -12,6 +12,16 @@ const locale = {
   tabs: {
     listedNFTs: 'Listed NFTs',
     history: 'History',
+  },
+  openPanel: {
+    openCall: 'Open Call Options',
+    strikePrice: 'Strike Price',
+    expiryDate: 'Expiration Date',
+    increase: 'increase',
+    later: 'later',
+    totalPremium: 'Total Premium',
+    yourBalance: 'Your Balance',
+    open: 'Open',
   },
 }
 

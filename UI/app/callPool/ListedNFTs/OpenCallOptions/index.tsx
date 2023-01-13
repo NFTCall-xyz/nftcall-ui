@@ -22,6 +22,8 @@ import FlexBetween from 'components/flexbox/FlexBetween'
 import { MIN_STRIKE_PRICE_MAP, MAX_EXPRIY_TIME_MAP } from 'app/constant/callPools'
 import type { ListedNFT } from '../NFTCard'
 import NFTCard from './NFTCard'
+import { useTranslation } from 'next-i18next'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 type OpenCallOptionsProps = {
   setRef: MutableRefObject<Set<string>>
@@ -37,6 +39,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   data,
   onCheckChange,
 }) => {
+  const { t } = useTranslation('app-callpool')
   const [strikePriceGapIdx, setStrikePriceGapIdx] = useState(0)
   const [durationIdx, setDurationIdx] = useState(0)
   const [premiumToOwner, setPremiumToOwner] = useState(toBN(0))
@@ -48,7 +51,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   }, [size])
 
   const {
-    callPool: { address, nftOracle },
+    callPool: { address, nftOracle, info: { symbol }, },
   } = useCallPoolDetails()
   const { networkAccount } = useWallet()
   const {
@@ -87,12 +90,20 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     <Card sx={{ border: 'solid 1px', borderColor: theme.palette.divider }}>
       <CardContent>
         <Stack spacing={2}>
-          <H3>Open Call Options</H3>
+          <H3>{t('openPanel.openCall')}</H3>
           <Stack spacing={1}>
             {ids.map((tokenId) => (
               <NFTCard key={tokenId} tokenId={tokenId} data={data} onCheckChange={onCheckChange} />
             ))}
           </Stack>
+          <FlexBetween>
+            <Span fontWeight='bold'>{t('openPanel.strikePrice')}</Span>
+            <NumberDisplay value={strikePrice} />
+            <Stack spacing={1} direction="row" alignItems="center">
+              <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
+              <NumberDisplay value={strikePrice} />
+            </Stack>
+          </FlexBetween>
           <Select
             value={strikePriceGapIdx}
             onChange={(e) => {
@@ -101,10 +112,13 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           >
             {MIN_STRIKE_PRICE_MAP.map((option) => (
               <MenuItem key={option.value} value={option.value}>
-                {option.label}
+                {`${option.label} ${t('openPanel.increase')}`} 
               </MenuItem>
             ))}
           </Select>
+          <FlexBetween>
+            <Span fontWeight='bold'>{t('openPanel.expiryDate')}</Span>
+          </FlexBetween>
           <Select
             value={durationIdx}
             onChange={(e) => {
@@ -113,20 +127,23 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           >
             {MAX_EXPRIY_TIME_MAP.map((option) => (
               <MenuItem key={option.value} value={option.value}>
-                {option.label}
+                {`${option.label} ${t('openPanel.later')}`} 
               </MenuItem>
             ))}
           </Select>
           <FlexBetween>
-            <Span>Total Premium</Span>
-            <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />
+            <Span fontWeight='bold'>{t('openPanel.totalPremium')}</Span>
+            <Stack spacing={1} direction="row" alignItems="center">
+              <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
+              <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />
+            </Stack>
           </FlexBetween>
           <FlexBetween>
-            <Span>Strike Price</Span>
-            <NumberDisplay value={strikePrice} />
-          </FlexBetween>
-          <FlexBetween>
-            <Span>Your Balance</Span>
+            <Span fontWeight='bold'>{t('openPanel.yourBalance')}</Span>
+            <Stack spacing={1} direction="row" alignItems="center">
+              <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
+              <NumberDisplay value={0} />
+            </Stack>
           </FlexBetween>
           <Button
             variant="contained"
@@ -159,7 +176,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
               }).then(() => updateListedData())
             }}
           >
-            Open
+            {t('openPanel.open')}
           </Button>
         </Stack>
       </CardContent>

@@ -16,6 +16,12 @@ const locale = {
     activePositions: 'Active Positions',
     history: 'History',
   },
+  status: {
+    Exercisable: 'Exercisable',
+    Exercised: 'Exercised',
+    Expired: 'Expired',
+    NotExercisable: 'Not Exercisable',
+  },
 }
 
 export default locale

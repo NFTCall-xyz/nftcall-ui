@@ -35,13 +35,21 @@ const Stats: FC = () => {
       ),
       title: 'TotalDepositedNFTs',
     },
+    // {
+    //   price: (
+    //     <div>
+    //       <NumberDisplay value={allCallPool.stats.totalOptionContracts} abbreviate={{}} />
+    //     </div>
+    //   ),
+    //   title: 'TotalOptionContracts',
+    // },
     {
       price: (
         <div>
           <NumberDisplay value={allCallPool.stats.totalOptionContracts} abbreviate={{}} />
         </div>
       ),
-      title: 'TotalOptionContracts',
+      title: 'TotalOpenInterest',
     },
   ]
 

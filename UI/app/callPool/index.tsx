@@ -16,6 +16,7 @@ import { H2, Paragraph } from 'components/Typography'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import Avatar from '@mui/material/Avatar'
+import Head from 'next/head'
 
 const CallPoolDetails: FC = () => {
   const { t } = useTranslation('app-callpool')
@@ -53,6 +54,9 @@ const CallPoolDetails: FC = () => {
 
   return (
     <>
+      <Head>
+        <title>NFTCall | {name}</title>
+      </Head>
       <BackButton />
       <Grid container pt={2}>
         <Grid item xs={12}>
@@ -63,7 +67,7 @@ const CallPoolDetails: FC = () => {
               </Avatar>
               <H2>{name}</H2>
             </Stack>
-            <Stack spacing={2} direction="row">
+            <Stack spacing={4} direction="row">
               <Stack spacing={1}>
                 <Paragraph color="text.secondary">{t('floorPrice')}</Paragraph>
                 <Stack spacing={1} direction="row" alignItems="center">
