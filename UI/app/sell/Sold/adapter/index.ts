@@ -1,4 +1,4 @@
-import { getNumber, getWeiToValueBN, getAddress } from 'app/utils/get'
+import { getNumber, getWeiToValueBN, getAddresses } from 'app/utils/get'
 
 type Props = {
   subgraphName: string
@@ -71,7 +71,7 @@ export const getNFTTransactions = (positions: SliceState) => {
     const returnValue: NFTTransaction = {
       ...t,
       ...timestamps,
-      ...getAddress(t, ['nftAddress']),
+      ...getAddresses(t, ['nftAddress']),
       ...getWeiToValueBN(t, ['soldPrice'], 18),
     }
     return returnValue

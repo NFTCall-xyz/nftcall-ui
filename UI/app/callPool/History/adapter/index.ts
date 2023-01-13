@@ -1,4 +1,4 @@
-import { getNumber, getWeiToValueBN, getAddress } from 'app/utils/get'
+import { getNumber, getWeiToValueBN, getAddresses } from 'app/utils/get'
 
 type Props = {
   subgraphName: string
@@ -83,7 +83,7 @@ export const getPositions = (positions: SliceState) => {
     const returnValue: Position = {
       ...t,
       ...timestamps,
-      ...getAddress(t, ['nftAddress', 'userAddress']),
+      ...getAddresses(t, ['nftAddress', 'userAddress']),
       ...getWeiToValueBN(t, ['strikePrice', 'premiumToOwner', 'premiumToReserve'], 18),
     }
     if (returnValue.status === 'Unexercised') {

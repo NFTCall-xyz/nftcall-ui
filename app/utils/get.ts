@@ -1,5 +1,6 @@
 import { weiToValue, toBN } from 'lib/math'
 import type BigNumber from 'bignumber.js'
+import { utils } from 'ethers'
 
 export const safeGet = <T>(cb: () => T): T => {
   try {
@@ -23,10 +24,10 @@ export const getWeiToValueBN = <T, K extends keyof T>(obj: T, keys: K[], decimal
   }, {} as Record<K, BigNumber>)
 }
 
-export const getAddress = <T, K extends keyof T>(obj: T, keys: K[]) => {
+export const getAddresses = <T, K extends keyof T>(obj: T, keys: K[]) => {
   return keys.reduce((o, k) => {
     if (obj[k]) {
-      o[k] = (obj[k] as any).toLowerCase()
+      o[k] = utils.getAddress(obj[k] as any)
     }
     return o
   }, {} as Record<K, string>)
