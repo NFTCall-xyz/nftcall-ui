@@ -5,7 +5,22 @@ export type UserStatsProps = {
   subgraphName: string
 }
 
-export const userStatsRequest = ({ userAddress, subgraphName }: UserStatsProps) => {
+const getGqlQuery = ({ userAddress }: UserStatsProps) => {
+  return `
+  {
+    userStats(where: { id: "${userAddress.toLowerCase()}" }) {
+      accumulativeEarnings
+      userCallPoolStat {
+        accruedEarnings
+        callPoolAddress
+      }
+    }
+  }
+  `
+}
+
+export const userStatsRequest = (prop: UserStatsProps) => {
+  const { subgraphName } = prop
   return fetch(`https://api.thegraph.com/subgraphs/name/${subgraphName}`, {
     headers: {
       accept: '*/*',
@@ -16,13 +31,7 @@ export const userStatsRequest = ({ userAddress, subgraphName }: UserStatsProps) 
       'sec-fetch-site': 'same-site',
     },
     body: JSON.stringify({
-      query: `{
-userStats(
-  where: { id: ${JSON.stringify(userAddress.toLocaleLowerCase())} }
-) {
-  accumulativeEarnings
-}
-}`,
+      query: getGqlQuery(prop),
     }),
     method: 'POST',
     mode: 'cors',

@@ -3,7 +3,7 @@ import type { BaseNFT } from 'domains/data/nft/types'
 import { toBN } from 'lib/math'
 import type { StatsBaseData } from './getStatsBaseData'
 
-export type Stats = {
+export type CallPoolStats = {
   callPool?: string
   accumulativePremium: BN
   totalNFTSales: BN
@@ -12,13 +12,13 @@ export type Stats = {
   nfts: BaseNFT[]
 }
 export type StatsData = {
-  callPools: Stats[]
-  all: Stats
+  callPools: CallPoolStats[]
+  all: CallPoolStats
 }
 
 export const getStatsData = (statsBaseData: StatsBaseData[]): StatsData => {
   if (!statsBaseData) return { callPools: [], all: {} as any }
-  const all: Stats = {
+  const all: CallPoolStats = {
     accumulativePremium: toBN(0),
     totalNFTSales: toBN(0),
     totalDepositedNFTs: 0,
