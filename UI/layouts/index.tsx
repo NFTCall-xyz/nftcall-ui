@@ -29,7 +29,10 @@ const Layout: FCC = ({ children }) => {
   const {
     menu: { current },
   } = useApp()
-  const title = useMemo(() => `NFTCall - ${t('router:' + current.key)}`, [current.key, t])
+  const seoTitle = "NFTCall | Speculate or Earn Premiums from NFT Options"
+  const desc = "NFTCall is a physically-settled, peer-to-peer NFT options trading platform that allows NFT holders to earn premiums and sell NFTs at a higher price while allowing NFT investors to buy NFTs with high leverage but with limited losses."
+  const title = useMemo(() => current.key === 'Home' ? seoTitle : `NFTCall | ${t('router:' + current.key)}`, [current.key, t])
+ 
   return (
     <Fragment>
       <NProgress />
@@ -37,17 +40,17 @@ const Layout: FCC = ({ children }) => {
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content={t('layout.description')} />
+        <meta name="description" content={desc} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="NFTCall Protocol | NFT Options Trading" />
+        <meta property="og:site_name" content={seoTitle} />
         <meta property="og:image" content="https://nftcall.xyz/logo-square.jpg" />
-        <meta property="og:description" content={t('layout.description')} />
-        <meta property="og:title" content="NFTCall Protocol" />
+        <meta property="og:description" content={desc} />
+        <meta property="og:title" content={seoTitle} />
         <meta property="og:url" content="https://nftcall.xyz" />
 
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="NFTCall Protocol | NFT Options Trading" />
+        <meta name="twitter:title" content={seoTitle} />
         <meta name="twitter:site" content="#" />
       </Head>
       <ActiveLayout>
