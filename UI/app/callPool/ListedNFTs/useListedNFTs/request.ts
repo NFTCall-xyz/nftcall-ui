@@ -71,8 +71,7 @@ export const getListedNFTs = (
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
       },
-      referrer: 'https://thegraph.com/',
-      referrerPolicy: 'strict-origin-when-cross-origin',
+
       body: JSON.stringify({ query: getGqlQuery(props) }),
       method: 'POST',
       mode: 'cors',

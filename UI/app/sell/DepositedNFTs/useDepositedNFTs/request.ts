@@ -2,6 +2,34 @@ import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 import type { NFTStatus } from 'domains/data/nft/types'
 
 export type DepositedNFTsProps = { subgraphName: string; user: string; nfts: string[] } & GetQueryProps
+const getGqlQuery = ({ first, skip, nfts, user }: DepositedNFTsProps) => {
+  return `
+  {
+    nfts(
+      first: ${first}
+      skip: ${skip}
+      where: {
+        nftAddress_in: [${nfts.map((nft) => JSON.stringify(nft.toLowerCase())).join(',')}]
+        userAddress: "${user.toLowerCase()}"
+        status_in: [Deposited, Listed, Called]
+      }
+    ) {
+      tokenId
+      strikePriceGapIdx
+      durationIdx
+      status
+      nftAddress
+      position {
+        premiumToOwner
+        strikePrice
+        endTime
+      }
+    }
+  }
+
+  `
+}
+
 export const getDepositedNFTs = (
   props: DepositedNFTsProps
 ): Promise<
@@ -13,7 +41,7 @@ export const getDepositedNFTs = (
     nftAddress: string
   }>
 > => {
-  const { user, subgraphName, nfts, first, skip } = props
+  const { subgraphName } = props
 
   const fn = (): Promise<any> =>
     fetch('https://api.thegraph.com/subgraphs/name/' + subgraphName, {
@@ -28,13 +56,7 @@ export const getDepositedNFTs = (
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
       },
-      referrer: 'https://thegraph.com/',
-      referrerPolicy: 'strict-origin-when-cross-origin',
-      body: `{"query":"{ nfts(first: ${first},skip: ${skip}, where: {nftAddress_in: [${nfts
-        .map((nft) => `\\"${nft.toLowerCase()}\\"`)
-        .join(
-          ','
-        )}], userAddress: \\"${user}\\", status_in: [Deposited, Listed] }) { tokenId strikePriceGapIdx durationIdx status nftAddress }}"}`,
+      body: JSON.stringify({ query: getGqlQuery(props) }),
       method: 'POST',
       mode: 'cors',
       credentials: 'omit',

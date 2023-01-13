@@ -45,3 +45,5 @@ public/locales
 dist
 
 lib/protocol/src
+
+test.graphql
