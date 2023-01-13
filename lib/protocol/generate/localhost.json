@@ -1,13 +1,13 @@
 {
-  "Premium": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
-  "CallFactory": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
-  "NTokenFactory": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
-  "CallTokenFactory": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
-  "MockAzuki": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-  "MockedOracle": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+  "Premium": "0x5bc5b1a6b960f7456d2889eae52a8e4a5a2b437c",
+  "NTokenFactory": "0x8965e4d7a81f4a67cb7e3b838257ead7d79839df",
+  "CallTokenFactory": "0xb9946fd6b6e6387c0b4dd27840ef15a35f90bcab",
+  "CallFactory": "0xc4b4b8be2fb3994d080818e458c333f6fffd3cb7",
+  "MockedOracle": "0x4ef010ad68a5f11f7737ed916bb8761b9b282849",
   "markets": {
     "Azuki": {
-      "CallPool": "0x41BA333c85070C0F29c9509242F9EbAf6BBB3c1a"
+      "NFT": "0x363b3C954D922770a312CeC18c85A3B01E167946",
+      "CallPool": "0x1a205cDB154D1676adb90800914da0A0213FC652"
     }
   }
 }
