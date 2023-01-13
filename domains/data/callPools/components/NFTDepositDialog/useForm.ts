@@ -15,7 +15,7 @@ const validationSchema = yup.object({
   maxExpriyTime: yup.number().required('maxExpriyTime is Required!'),
 })
 const initialValues: Pick<NFT, 'minStrikePrice' | 'maxExpriyTime'> = {
-  minStrikePrice: 0,
+  minStrikePrice: 1,
   maxExpriyTime: 3,
 }
 
