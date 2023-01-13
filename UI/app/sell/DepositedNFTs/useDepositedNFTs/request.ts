@@ -39,6 +39,11 @@ export const getDepositedNFTs = (
     durationIdx: number
     status: NFTStatus
     nftAddress: string
+    position?: {
+      premiumToOwner: string
+      strikePrice: string
+      endTime: number
+    }
   }>
 > => {
   const { subgraphName } = props

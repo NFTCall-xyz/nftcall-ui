@@ -1,5 +1,7 @@
+import { getCurrentTimestamp } from 'app/constant'
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 import { useLoadMore } from 'app/hooks/request/useLoadMore'
+import { getNumber, getWeiToValueBN } from 'app/utils/get'
 import { useWallet } from 'domains'
 import { useCallPools, useNetwork } from 'domains/data'
 import { useCallback, useEffect, useMemo } from 'react'
@@ -28,13 +30,21 @@ export const useDepositedNFTs = () => {
   )
 
   const getData = useCallback((sourceData: DepositedNFTs) => {
-    return sourceData.map(({ tokenId, nftAddress, strikePriceGapIdx, durationIdx, status }) => {
+    const now = getCurrentTimestamp()
+    return sourceData.map(({ tokenId, nftAddress, strikePriceGapIdx, durationIdx, status, position }) => {
+      if (status === 'Called' && position && position.endTime < now) {
+        status = 'Listed'
+      }
       return {
         minStrikePrice: strikePriceGapIdx,
         maxExpriyTime: durationIdx,
         nftAddress,
         tokenId,
         status,
+        position: position && {
+          ...getWeiToValueBN(position, ['premiumToOwner', 'strikePrice'], 18),
+          ...getNumber(position, ['endTime']),
+        },
       } as DepositedNFT
     })
   }, [])
