@@ -2,7 +2,7 @@ import { createContext } from 'app/utils/createContext'
 import { log } from 'app/utils/dev'
 import { toBN } from 'lib/math'
 import { useMemo } from 'react'
-import type { Stats } from 'store/callPool/stats/adapter/getStatsData'
+import type { CallPoolStats } from 'store/callPool/stats/adapter/getStatsData'
 import { useCallPoolStateData } from 'store/callPool/useCallPoolStateData'
 import type { NFTOracleData } from 'store/oracle/nftOracle/adapter/getNFTOracleData'
 import { useNetwork, useNFT } from '..'
@@ -11,6 +11,8 @@ import type { BaseCollection } from '../nft/application/collections/adapter/getC
 import { useBalanceOf } from './application/balanceOf'
 import { useStats } from './application/stats'
 import { useCallPoolsDialogs } from './application/dialogs'
+import type { UserCallPoolStat } from 'store/callPool/userStats/adapter/getUserStatsData'
+import { safeGet } from 'app/utils/get'
 
 export type CallPool = Market & {
   collection: BaseCollection
@@ -18,7 +20,8 @@ export type CallPool = Market & {
   nftOracle: NFTOracleData
 
   balanceOf: BN
-  stats: Stats
+  stats: CallPoolStats
+  userStats: UserCallPoolStat
 }
 
 const useCallPoolsService = () => {
@@ -38,6 +41,9 @@ const useCallPoolsService = () => {
         storeData.balanceOf.find((i) => i.callPool === address.CallPool) || ({ value: toBN(0) } as undefined)
 
       const stats = storeData.stats.callPools.find((i) => i.callPool === address.CallPool) || ({} as undefined)
+      const userStats =
+        safeGet(() => storeData.userStats.userCallPoolStat.find((i) => i.callPoolAddress === address.CallPool)) ||
+        ({} as undefined)
 
       return {
         ...market,
@@ -45,11 +51,19 @@ const useCallPoolsService = () => {
         nftOracle,
         balanceOf,
         stats,
+        userStats,
       } as CallPool
     })
     log('[CallPoolsService][callPools]', returnValue)
     return returnValue
-  }, [collections, markets, oracle.nftOracle, storeData.balanceOf, storeData.stats.callPools])
+  }, [
+    collections,
+    markets,
+    oracle.nftOracle,
+    storeData.balanceOf,
+    storeData.stats.callPools,
+    storeData.userStats.userCallPoolStat,
+  ])
 
   const allCallPool = useMemo(() => {
     const stats = storeData.stats.all || ({} as undefined)
