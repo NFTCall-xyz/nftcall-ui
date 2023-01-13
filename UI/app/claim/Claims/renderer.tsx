@@ -34,13 +34,14 @@ export const collectionNameCellRenderer = ({ rowData: { collection } }: TableCel
 export const cumulativeEarningsCellRenderer = ({
   rowData: {
     info: { symbol },
+    userStats: { accruedEarnings },
   },
 }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
       <Stack spacing={1} direction="row" alignItems="center">
         <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
-        <NumberDisplay value={0} />
+        <NumberDisplay value={accruedEarnings} />
       </Stack>
     </TableCell>
   )

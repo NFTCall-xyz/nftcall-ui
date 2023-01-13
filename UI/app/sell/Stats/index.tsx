@@ -6,8 +6,8 @@ import NumberDisplay from 'lib/math/components/NumberDisplay'
 import { useCallPools } from 'domains/data'
 
 import TokenIcon from 'lib/protocol/components/TokenIcon'
-import { useUserStats } from './hooks/useUserStats'
 import { useRouter } from 'next/router'
+import { useUserStats } from 'domains/data/callPools/hooks/useUserStats'
 
 const Stats: FC = () => {
   useUserStats()
@@ -23,7 +23,6 @@ const Stats: FC = () => {
             <NumberDisplay value={allCallPool.balanceOf} abbreviate={{}} />
           </Stack>
           <Button
-            disabled={allCallPool.balanceOf.isZero()}
             onClick={() => {
               router.push('/app/claim')
             }}

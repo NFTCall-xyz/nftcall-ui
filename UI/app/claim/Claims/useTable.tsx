@@ -13,6 +13,7 @@ import { useWallet } from 'domains'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { ClaimProps } from 'lib/protocol/typechain/nftcall'
+import { safeGet } from 'app/utils/get'
 
 export const useTable = (): BasicTableProps => {
   const { t } = useTranslation('app-claim', { keyPrefix: 'table' })
@@ -42,6 +43,7 @@ export const useTable = (): BasicTableProps => {
           <Button
             variant="contained"
             size="small"
+            disabled={rowData.balanceOf.isZero()}
             onClick={() => {
               fn({
                 callPool: rowData.address.CallPool,
@@ -97,7 +99,13 @@ export const useTable = (): BasicTableProps => {
     [t]
   )
 
-  const data = useMemo(() => callPools.filter((callPool) => !callPool.balanceOf.isZero()), [callPools])
+  const data = useMemo(
+    () =>
+      callPools.filter(
+        (callPool) => !callPool.balanceOf.isZero() || safeGet(() => !callPool.userStats.accruedEarnings.isZero())
+      ),
+    [callPools]
+  )
 
   return {
     columns,
