@@ -12,7 +12,7 @@ import { useTheme } from '@mui/material/styles'
 import Logo from '../Header/Logo'
 import LogoImgDark from './images/logo-black.svg'
 import LogoImg from '../Header/Logo/images/logo.svg'
-import SocialLinks from './Links'
+import SocialLinks from '../../app/Footer/Links'
 import { H3, Paragraph } from 'components/Typography'
 import { useTranslation } from 'next-i18next'
 
@@ -30,64 +30,28 @@ export const footerLinks = [
   {
     title: 'NFTCall Protocol',
     links: [
-      {
-        name: 'Overview',
-        link: '#',
-      },
-      {
-        name: 'How it Works',
-        link: '#',
-      },
-      {
-        name: 'Tokenomics',
-        link: '#',
-      },
-      {
-        name: 'User Guide',
-        link: '#',
-      },
+      { name: 'Overview', link: 'https://docs.nftcall.xyz/' },
+      { name: 'How it Works', link: 'https://docs.nftcall.xyz/overview/how-does-nftcall-work' },
+      // { name: 'Tokenomics', link: '#' },
+      { name: 'User Guide', link: 'https://docs.nftcall.xyz/guide/buy' },
     ],
   },
   {
     title: 'Useful Link',
     links: [
-      {
-        name: 'FAQ',
-        link: '#',
-      },
-      {
-        name: 'Docs',
-        link: '#',
-      },
-      {
-        name: 'Contact',
-        link: '#',
-      },
-      {
-        name: 'Terms & Services',
-        link: '#',
-      },
+      // { name: 'FAQ', link: '#' },
+      { name: 'Docs', link: 'https://docs.nftcall.xyz/' },
+      { name: 'Github', link: 'https://github.com/NFTCall-xyz' },
+      { name: 'Contact', link: 'mailto:info@nftcall.xyz' },
+      // { name: 'Terms & Services', link: '#' },
     ],
   },
   {
     title: 'Community',
     links: [
-      {
-        name: 'Telegram',
-        link: '#',
-      },
-      {
-        name: 'Blog',
-        link: '#',
-      },
-      {
-        name: 'Twitter',
-        link: '#',
-      },
-      {
-        name: 'Github',
-        link: '#',
-      },
+      { name: 'Discord', link: 'https://discord.gg/xK42Gt6e9E' },
+      { name: 'Blog', link: 'https://medium.com/@nftcall' },
+      { name: 'Twitter', link: 'https://twitter.com/nftcall_xyz' },
     ],
   },
 ]
