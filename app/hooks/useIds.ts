@@ -29,6 +29,7 @@ export const useIds = <T extends number | string = string>(defalutIds: Array<num
 
   return {
     values,
+    size,
     add,
     remove,
     has,

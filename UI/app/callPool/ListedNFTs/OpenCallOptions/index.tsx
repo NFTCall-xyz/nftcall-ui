@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { H3, Span } from 'components/Typography'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useState } from 'react'
-import { useCallPoolDetails, useNetwork } from 'domains/data'
+import { useCallPoolDetails, useNetwork, useUser } from 'domains/data'
 import { toBN } from 'lib/math'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
@@ -32,9 +32,12 @@ type OpenCallOptionsProps = {
 const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   request: updateListedData,
   nfts,
-  ids: { values: ids, remove },
+  ids: { values: ids, remove, size },
 }) => {
   const { t } = useTranslation('app-callpool')
+  const {
+    balanceOf: { balanceOf },
+  } = useUser()
   const [strikePriceGapIdxSource, setStrikePriceGapIdx] = useState(1)
   const [durationIdxSource, setDurationIdx] = useState(MAX_EXPRIY_TIME_MAP.length - 1)
   const { strikePriceSetting, durationSetting } = useMemo(() => {
@@ -77,14 +80,13 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     strikePriceSetting.max,
     strikePriceSetting.min,
   ])
-  const [premiumToOwner, setPremiumToOwner] = useState(toBN(0))
-  const [premiumToReserve, setPremiumToReserve] = useState(toBN(0))
-  const [strikePrice, setStrikePrice] = useState(toBN(0))
 
   const { callPool } = useCallPoolDetails()
   const {
     address,
     info: { symbol },
+    premiums,
+    nftOracle,
   } = callPool
 
   const { updatePreviewOpenCall } = usePreviewOpenCall(callPool)
@@ -92,6 +94,26 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     updatePreviewOpenCall()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids])
+  const { premiumToOwner, premiumToReserve, strikePrice } = useMemo(() => {
+    const returnValue = {
+      premiumToOwner: toBN(0),
+      premiumToReserve: toBN(0),
+      strikePrice: toBN(0),
+    }
+    const curveIdx = strikePriceGapIdx * 4 + durationIdx
+    const premium = premiums.find((i) => i.curveIdx === curveIdx)
+    if (!premium) return returnValue
+    const { currentPremium } = premium
+    const price = nftOracle.price.multipliedBy(size)
+    const premiumTotal = price.multipliedBy(currentPremium)
+
+    returnValue.premiumToReserve = premiumTotal.multipliedBy(0.1)
+    returnValue.premiumToOwner = premiumTotal.minus(returnValue.premiumToReserve)
+    const minStrikePriceMapGap = MIN_STRIKE_PRICE_MAP.find((i) => i.value === strikePriceGapIdx)
+    if (!minStrikePriceMapGap) return returnValue
+    returnValue.strikePrice = price.multipliedBy(minStrikePriceMapGap.number)
+    return returnValue
+  }, [durationIdx, nftOracle.price, premiums, size, strikePriceGapIdx])
 
   const { networkAccount } = useWallet()
   const {
@@ -174,30 +196,12 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
             <Span fontWeight="bold">{t('openPanel.yourBalance')}</Span>
             <Stack spacing={1} direction="row" alignItems="center">
               <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
-              <NumberDisplay value={0} />
+              <NumberDisplay value={balanceOf} />
             </Stack>
           </FlexBetween>
           <Button
             variant="contained"
-            onClick={() => {
-              callPoolService
-                .previewOpenCall({
-                  callPool: address.CallPool,
-                  tokenIds: ids,
-                  strikePriceGapIdx: strikePriceGapIdx,
-                  durationIdx: durationIdx,
-                })
-                .then(({ premiumToOwner, premiumToReserve, strikePrice }) => {
-                  setPremiumToOwner(premiumToOwner)
-                  setPremiumToReserve(premiumToReserve)
-                  setStrikePrice(strikePrice)
-                })
-            }}
-          >
-            Preview
-          </Button>
-          <Button
-            variant="contained"
+            disabled={strikePrice.isZero()}
             onClick={() => {
               fn({
                 callPool: address.CallPool,
