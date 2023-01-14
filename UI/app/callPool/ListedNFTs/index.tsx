@@ -45,7 +45,7 @@ const ListedNFTs = () => {
               restart()
               ids.clear()
             },
-            data,
+            nfts: data,
             ids,
           }}
         />

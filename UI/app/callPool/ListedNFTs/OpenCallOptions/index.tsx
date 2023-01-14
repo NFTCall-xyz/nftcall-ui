@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { H3, Span } from 'components/Typography'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useState } from 'react'
 import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { toBN } from 'lib/math'
@@ -26,17 +26,57 @@ import { usePreviewOpenCall } from 'domains/data/callPools/hooks/usePreviewOpenC
 
 type OpenCallOptionsProps = {
   request: any
-  data: ListedNFT[]
+  nfts: ListedNFT[]
   ids: UseIds
 }
 const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   request: updateListedData,
-  data,
+  nfts,
   ids: { values: ids, remove },
 }) => {
   const { t } = useTranslation('app-callpool')
-  const [strikePriceGapIdx, setStrikePriceGapIdx] = useState(0)
-  const [durationIdx, setDurationIdx] = useState(0)
+  const [strikePriceGapIdxSource, setStrikePriceGapIdx] = useState(1)
+  const [durationIdxSource, setDurationIdx] = useState(MAX_EXPRIY_TIME_MAP.length - 1)
+  const { strikePriceSetting, durationSetting } = useMemo(() => {
+    const strikePriceSetting = {
+      min: 0,
+      max: MIN_STRIKE_PRICE_MAP.length - 1,
+    }
+    const durationSetting = {
+      min: 0,
+      max: MAX_EXPRIY_TIME_MAP.length - 1,
+    }
+    ids.forEach((id) => {
+      const nft = nfts.find((i) => i.tokenId === id)
+      if (!nft) return
+      const { maxExpriyTime, minStrikePrice } = nft
+      if (maxExpriyTime < durationSetting.max) durationSetting.max = maxExpriyTime
+      if (minStrikePrice > strikePriceSetting.min) strikePriceSetting.min = minStrikePrice
+    })
+    return {
+      strikePriceSetting,
+      durationSetting,
+    }
+  }, [ids, nfts])
+  const { strikePriceGapIdx, durationIdx } = useMemo(() => {
+    let strikePriceGapIdx = strikePriceGapIdxSource
+    let durationIdx = durationIdxSource
+    if (strikePriceGapIdxSource < strikePriceSetting.min) strikePriceGapIdx = strikePriceSetting.min
+    if (strikePriceGapIdxSource > strikePriceSetting.max) strikePriceGapIdx = strikePriceSetting.max
+    if (durationIdxSource < durationSetting.min) durationIdx = durationSetting.min
+    if (durationIdxSource > durationSetting.max) durationIdx = durationSetting.max
+    return {
+      strikePriceGapIdx,
+      durationIdx,
+    }
+  }, [
+    durationIdxSource,
+    durationSetting.max,
+    durationSetting.min,
+    strikePriceGapIdxSource,
+    strikePriceSetting.max,
+    strikePriceSetting.min,
+  ])
   const [premiumToOwner, setPremiumToOwner] = useState(toBN(0))
   const [premiumToReserve, setPremiumToReserve] = useState(toBN(0))
   const [strikePrice, setStrikePrice] = useState(toBN(0))
@@ -78,12 +118,11 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           <H3>{t('openPanel.openCall')}</H3>
           <Stack spacing={1}>
             {ids.map((tokenId) => (
-              <NFTCard key={tokenId} tokenId={tokenId} data={data} onCheckChange={() => remove(tokenId)} />
+              <NFTCard key={tokenId} tokenId={tokenId} data={nfts} onCheckChange={() => remove(tokenId)} />
             ))}
           </Stack>
           <FlexBetween>
             <Span fontWeight="bold">{t('openPanel.strikePrice')}</Span>
-            <NumberDisplay value={strikePrice} />
             <Stack spacing={1} direction="row" alignItems="center">
               <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
               <NumberDisplay value={strikePrice} />
@@ -96,7 +135,11 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
             }}
           >
             {MIN_STRIKE_PRICE_MAP.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
+              <MenuItem
+                key={option.value}
+                value={option.value}
+                disabled={option.value < strikePriceSetting.min || option.value > strikePriceSetting.max}
+              >
                 {`${option.label} ${t('openPanel.increase')}`}
               </MenuItem>
             ))}
@@ -111,7 +154,11 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
             }}
           >
             {MAX_EXPRIY_TIME_MAP.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
+              <MenuItem
+                key={option.value}
+                value={option.value}
+                disabled={option.value < durationSetting.min || option.value > durationSetting.max}
+              >
                 {`${option.label} ${t('openPanel.later')}`}
               </MenuItem>
             ))}
