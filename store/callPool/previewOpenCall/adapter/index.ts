@@ -1,15 +1,21 @@
 import type { NFTOracleData } from 'store/oracle/nftOracle/adapter/getNFTOracleData'
-import { curveIdxs } from './premium'
+import type { PreviewOpenCallBaseData } from './getPreviewOpenCallBaseData'
 import { getPreviewOpenCallBaseData } from './getPreviewOpenCallBaseData'
+import store from 'store'
 
+export const getStoreCacheData = () => store.getState().callPool.previewOpenCall.data || ([] as undefined)
 export type PreviewOpenCallProps = {
-  tokenIds: string[]
+  getStoreCacheData: () => PreviewOpenCallBaseData[]
+  callPool: string
   nftOracle: NFTOracleData
 }
 
-export const previewOpenCallRequest = ({ tokenIds, nftOracle }: PreviewOpenCallProps) => {
-  const length = tokenIds.length
-  return Promise.resolve(curveIdxs.map((curveIdx) => getPreviewOpenCallBaseData({ curveIdx, length, nftOracle })))
+export const previewOpenCallRequest = ({ callPool, nftOracle, getStoreCacheData }: PreviewOpenCallProps) => {
+  const storeCacheData = getStoreCacheData()
+  const cacheData = storeCacheData.find((i) => i.callPool === callPool && i.vol === nftOracle.vol)
+  return Promise.resolve(
+    cacheData ? storeCacheData : [...storeCacheData, getPreviewOpenCallBaseData({ callPool, nftOracle })]
+  )
 }
 
 export type PreviewOpenCallSliceState = Awaited<ReturnType<typeof previewOpenCallRequest>>

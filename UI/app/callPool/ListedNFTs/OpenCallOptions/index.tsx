@@ -4,8 +4,7 @@ import Button from '@mui/material/Button'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { H3, Span } from 'components/Typography'
-import { useEffect } from 'react'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { toBN } from 'lib/math'
@@ -13,7 +12,7 @@ import NumberDisplay from 'lib/math/components/NumberDisplay'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { OpenCallProps } from 'lib/protocol/typechain/nftcall'
-import { useControllers, useWallet } from 'domains'
+import { useWallet } from 'domains'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import FlexBetween from 'components/flexbox/FlexBetween'
@@ -23,6 +22,7 @@ import NFTCard from './NFTCard'
 import { useTranslation } from 'next-i18next'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import type { UseIds } from 'app/hooks/useIds'
+import { usePreviewOpenCall } from 'domains/data/callPools/hooks/usePreviewOpenCall'
 
 type OpenCallOptionsProps = {
   request: any
@@ -41,13 +41,18 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   const [premiumToReserve, setPremiumToReserve] = useState(toBN(0))
   const [strikePrice, setStrikePrice] = useState(toBN(0))
 
+  const { callPool } = useCallPoolDetails()
   const {
-    callPool: {
-      address,
-      nftOracle,
-      info: { symbol },
-    },
-  } = useCallPoolDetails()
+    address,
+    info: { symbol },
+  } = callPool
+
+  const { updatePreviewOpenCall } = usePreviewOpenCall(callPool)
+  useEffect(() => {
+    updatePreviewOpenCall()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ids])
+
   const { networkAccount } = useWallet()
   const {
     contracts: { callPoolService },
@@ -55,7 +60,6 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   const sendTransaction = useSendTransaction()
   const fn = useCallback(
     (props: OpenCallProps) => {
-      console.log(props)
       return transaction({
         createTransaction: callPoolService.openCall(props),
         setStatus: () => {},
@@ -65,20 +69,6 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     },
     [callPoolService, sendTransaction]
   )
-  const {
-    callPool: { previewOpenCall },
-  } = useControllers()
-  const request = useCallback(() => {
-    if (!nftOracle || !ids.length) return
-    previewOpenCall.single.run({
-      tokenIds: ids,
-      nftOracle,
-    })
-  }, [ids, nftOracle, previewOpenCall.single])
-  useEffect(() => {
-    request()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ids])
   const theme = useTheme()
 
   return (

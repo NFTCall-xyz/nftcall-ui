@@ -1,36 +1,46 @@
 import type { NFTOracleData } from 'store/oracle/nftOracle/adapter/getNFTOracleData'
-import { getPremium } from './premium'
+import { getPremium, curveIdxs } from './premium'
 
 export type GetPreviewOpenCallBaseDataProps = {
-  curveIdx: number
-  length: number
+  callPool: string
   nftOracle: NFTOracleData
 }
+
+type PremiumBaseData = {
+  curveIdx: number
+  currentPremium: string
+}
 export type PreviewOpenCallBaseData = {
-  premiumTotal: string
-  premiumToReserve: string
-  premiumToOwner: string
+  callPool: string
+  vol: number
+  premiums: PremiumBaseData[]
 }
 
 export const getPreviewOpenCallBaseData = ({
-  curveIdx,
-  length,
-  nftOracle: { vol, price },
+  callPool,
+  nftOracle: { vol },
 }: GetPreviewOpenCallBaseDataProps): PreviewOpenCallBaseData => {
-  try {
-    const currentPremium = getPremium({
-      curveIdx,
-      vol,
+  const premiums = curveIdxs
+    .map((curveIdx) => {
+      try {
+        const currentPremium = getPremium({
+          curveIdx,
+          vol,
+        })
+        const premium: PremiumBaseData = {
+          curveIdx,
+          currentPremium: currentPremium.toString(),
+        }
+        return premium
+      } catch (error) {
+        return undefined
+      }
     })
-    const premiumTotal = price.multipliedBy(currentPremium)
-    const premiumToReserve = premiumTotal.multipliedBy(0.1)
-    const premiumToOwner = premiumTotal.minus(premiumToReserve)
-    return {
-      premiumTotal: premiumTotal.multipliedBy(length).toString(),
-      premiumToReserve: premiumToReserve.multipliedBy(length).toString(),
-      premiumToOwner: premiumToOwner.multipliedBy(length).toString(),
-    }
-  } catch (error) {
-    return null
+    .filter((i) => i)
+
+  return {
+    callPool,
+    vol,
+    premiums,
   }
 }
