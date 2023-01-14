@@ -1,4 +1,5 @@
 const locale = {
+  vol: 'Volatility',
   floorPrice: 'Floor Price',
   depositedItems: 'Listed NFTs',
   history: {

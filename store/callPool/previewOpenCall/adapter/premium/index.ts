@@ -25,15 +25,15 @@ type GetPremiumProps = {
 }
 export const getPremium = ({ curveIdx, vol }: GetPremiumProps) => {
   if (curveIdx >= 24) throw 'Index of Premium Curve exceeds limit'
-  const volIdx = vol / 500
+  const volIdx = Math.round(vol / 5)
   if (volIdx >= 99) throw 'Vol exceeds limit'
   const premiumMesh: any = premium
   const returnValue = toBN(premiumMesh[curveIdx][volIdx])
   return weiToValue(
     returnValue
-      .multipliedBy((volIdx + 1) * 500 - vol)
-      .plus(toBN(premiumMesh[curveIdx][volIdx + 1]).multipliedBy(vol - volIdx * 500))
-      .dividedBy(500),
+      .multipliedBy((volIdx + 1) * 5 - vol)
+      .plus(toBN(premiumMesh[curveIdx][volIdx + 1]).multipliedBy(vol - volIdx * 5))
+      .dividedBy(5),
     5
   )
 }

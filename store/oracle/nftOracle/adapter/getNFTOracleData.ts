@@ -1,3 +1,4 @@
+import { getNumber } from 'app/utils/get'
 import { weiToValue } from 'lib/math'
 import type { NFTOracleBaseData } from './getNFTOracleBaseData'
 
@@ -9,11 +10,12 @@ export type NFTOracleData = {
 
 export const getNFTOracleData = (nftOracleBaseData: NFTOracleBaseData[]): NFTOracleData[] => {
   if (!nftOracleBaseData) return []
-  return nftOracleBaseData.map(({ nft, price, vol }) => {
+  return nftOracleBaseData.map((i) => {
+    const { nft, price } = i
     return {
       nft,
       price: weiToValue(price, 18),
-      vol,
+      ...getNumber(i, ['vol'], -2),
     }
   })
 }

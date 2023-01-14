@@ -1,18 +1,19 @@
 import { createContext } from 'app/utils/createContext'
 import { log } from 'app/utils/dev'
+import { safeGet } from 'app/utils/get'
 import { toBN } from 'lib/math'
 import { useMemo } from 'react'
 import type { CallPoolStats } from 'store/callPool/stats/adapter/getStatsData'
 import { useCallPoolStateData } from 'store/callPool/useCallPoolStateData'
 import type { NFTOracleData } from 'store/oracle/nftOracle/adapter/getNFTOracleData'
+import type { UserCallPoolStat } from 'store/callPool/userStats/adapter/getUserStatsData'
 import { useNetwork, useNFT } from '..'
 import type { Market } from '../network/adapter/markets'
 import type { BaseCollection } from '../nft/application/collections/adapter/getCollection'
 import { useBalanceOf } from './application/balanceOf'
 import { useStats } from './application/stats'
 import { useCallPoolsDialogs } from './application/dialogs'
-import type { UserCallPoolStat } from 'store/callPool/userStats/adapter/getUserStatsData'
-import { safeGet } from 'app/utils/get'
+import { useTotalOpenInterest } from './application/totalOpenInterest'
 
 export type CallPool = Market & {
   collection: BaseCollection
@@ -20,8 +21,11 @@ export type CallPool = Market & {
   nftOracle: NFTOracleData
 
   balanceOf: BN
-  stats: CallPoolStats
+  stats: CallPoolStats & {
+    totalListedNFTs?: number
+  }
   userStats: UserCallPoolStat
+  totalOpenInterest: number
 }
 
 const useCallPoolsService = () => {
@@ -40,10 +44,18 @@ const useCallPoolsService = () => {
       const { value: balanceOf } =
         storeData.balanceOf.find((i) => i.callPool === address.CallPool) || ({ value: toBN(0) } as undefined)
 
-      const stats = storeData.stats.callPools.find((i) => i.callPool === address.CallPool) || ({} as undefined)
+      const stats: CallPool['stats'] =
+        storeData.stats.callPools.find((i) => i.callPool === address.CallPool) || ({} as undefined)
       const userStats =
         safeGet(() => storeData.userStats.userCallPoolStat.find((i) => i.callPoolAddress === address.CallPool)) ||
         ({} as undefined)
+      const totalOpenInterest =
+        safeGet(() => storeData.totalOpenInterest.find((i) => i.callPool === address.CallPool).value) || 0
+
+      if (stats.totalDepositedNFTs) {
+        stats.totalListedNFTs = stats.totalDepositedNFTs - totalOpenInterest
+        if (stats.totalListedNFTs < 0) stats.totalListedNFTs = 0
+      }
 
       return {
         ...market,
@@ -52,6 +64,7 @@ const useCallPoolsService = () => {
         balanceOf,
         stats,
         userStats,
+        totalOpenInterest,
       } as CallPool
     })
     log('[CallPoolsService][callPools]', returnValue)
@@ -62,6 +75,7 @@ const useCallPoolsService = () => {
     oracle.nftOracle,
     storeData.balanceOf,
     storeData.stats.callPools,
+    storeData.totalOpenInterest,
     storeData.userStats.userCallPoolStat,
   ])
 
@@ -83,9 +97,10 @@ const useCallPoolsService = () => {
   }, [callPools, storeData.stats.all, storeData.userStats])
 
   const balanceOf = useBalanceOf(callPools)
+  const totalOpenInterest = useTotalOpenInterest(callPools)
   const stats = useStats(callPools)
 
-  return { callPools, allCallPool, balanceOf, stats, dialogs }
+  return { callPools, allCallPool, balanceOf, totalOpenInterest, stats, dialogs }
 }
 const { Provider: CallPoolsProvider, createUseContext } = createContext(useCallPoolsService)
 export const createCallPoolsContext = createUseContext
