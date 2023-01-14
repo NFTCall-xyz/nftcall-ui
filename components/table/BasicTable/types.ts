@@ -22,6 +22,7 @@ export interface BasicTableProps<D = any> {
 }
 
 export type TableColumnsProps = ColumnProps & {
+  cellData?: string
   tip?: string
   isSelect?: boolean
   selectOptions?: Record<any, string>
