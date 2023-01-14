@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 
 import type { TableHeaderRenderer } from '../BasicTable/types'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 export const headerRenderer: TableHeaderRenderer = (props) => {
   if (props.tip) return headerWithTooltipRenderer(props)
@@ -43,6 +44,16 @@ export const symbolCellRenderer: TableCellRenderer = ({ cellData, rowData }) => 
       <Stack spacing={0.5} direction="row">
         <NumberDisplay value={cellData} abbreviate={{}} />
         <span> {rowData.symbol}</span>
+      </Stack>
+    </TableCell>
+  )
+}
+export const tokenIconCellRenderer: TableCellRenderer = ({ cellData }) => {
+  return (
+    <TableCell align="center" component="div">
+      <Stack spacing={0.5} direction="row" alignItems="center">
+        <TokenIcon symbol="ETH" sx={{ width: 14, height: 14 }} />
+        <NumberDisplay value={cellData} options="number" />
       </Stack>
     </TableCell>
   )
