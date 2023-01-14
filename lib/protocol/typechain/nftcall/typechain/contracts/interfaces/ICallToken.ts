@@ -20,27 +20,18 @@ import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrVal
 export interface ICallTokenInterface extends utils.Interface {
   functions: {
     'burn(uint256)': FunctionFragment
-    'mint(address,uint256,uint256,uint256,uint256)': FunctionFragment
+    'mint(address,uint256)': FunctionFragment
     'nft()': FunctionFragment
-    'reopen(address,uint256,uint256,uint256,uint256)': FunctionFragment
+    'open(address,uint256,uint256,uint256,uint256)': FunctionFragment
   }
 
-  getFunction(nameOrSignatureOrTopic: 'burn' | 'mint' | 'nft' | 'reopen'): FunctionFragment
+  getFunction(nameOrSignatureOrTopic: 'burn' | 'mint' | 'nft' | 'open'): FunctionFragment
 
   encodeFunctionData(functionFragment: 'burn', values: [PromiseOrValue<BigNumberish>]): string
-  encodeFunctionData(
-    functionFragment: 'mint',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
-  ): string
+  encodeFunctionData(functionFragment: 'mint', values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'nft', values?: undefined): string
   encodeFunctionData(
-    functionFragment: 'reopen',
+    functionFragment: 'open',
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
@@ -53,15 +44,17 @@ export interface ICallTokenInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'nft', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'reopen', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'open', data: BytesLike): Result
 
   events: {
     'Burn(address,uint256)': EventFragment
-    'Mint(address,uint256,uint256,uint256,uint256)': EventFragment
+    'Mint(address,uint256)': EventFragment
+    'Open(address,uint256,uint256,uint256,uint256)': EventFragment
   }
 
   getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Mint'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Open'): EventFragment
 }
 
 export interface BurnEventObject {
@@ -75,13 +68,21 @@ export type BurnEventFilter = TypedEventFilter<BurnEvent>
 export interface MintEventObject {
   user: string
   tokenId: BigNumber
+}
+export type MintEvent = TypedEvent<[string, BigNumber], MintEventObject>
+
+export type MintEventFilter = TypedEventFilter<MintEvent>
+
+export interface OpenEventObject {
+  user: string
+  tokenId: BigNumber
   exercisePrice: BigNumber
   exercisePeriodBegin: BigNumber
   exercisePeriodEnd: BigNumber
 }
-export type MintEvent = TypedEvent<[string, BigNumber, BigNumber, BigNumber, BigNumber], MintEventObject>
+export type OpenEvent = TypedEvent<[string, BigNumber, BigNumber, BigNumber, BigNumber], OpenEventObject>
 
-export type MintEventFilter = TypedEventFilter<MintEvent>
+export type OpenEventFilter = TypedEventFilter<OpenEvent>
 
 export interface ICallToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this
@@ -114,15 +115,12 @@ export interface ICallToken extends BaseContract {
     mint(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
     nft(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
-    reopen(
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,
@@ -140,15 +138,12 @@ export interface ICallToken extends BaseContract {
   mint(
     user: PromiseOrValue<string>,
     tokenId: PromiseOrValue<BigNumberish>,
-    strikePrice: PromiseOrValue<BigNumberish>,
-    duration: PromiseOrValue<BigNumberish>,
-    exercisePeriodProportion: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
   nft(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
-  reopen(
+  open(
     user: PromiseOrValue<string>,
     tokenId: PromiseOrValue<BigNumberish>,
     strikePrice: PromiseOrValue<BigNumberish>,
@@ -160,18 +155,11 @@ export interface ICallToken extends BaseContract {
   callStatic: {
     burn(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
 
-    mint(
-      user: PromiseOrValue<string>,
-      tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>
+    mint(user: PromiseOrValue<string>, tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
 
     nft(overrides?: CallOverrides): Promise<string>
 
-    reopen(
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,
@@ -188,20 +176,26 @@ export interface ICallToken extends BaseContract {
     ): BurnEventFilter
     Burn(user?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): BurnEventFilter
 
-    'Mint(address,uint256,uint256,uint256,uint256)'(
+    'Mint(address,uint256)'(
+      user?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): MintEventFilter
+    Mint(user?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): MintEventFilter
+
+    'Open(address,uint256,uint256,uint256,uint256)'(
       user?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null,
       exercisePrice?: null,
       exercisePeriodBegin?: null,
       exercisePeriodEnd?: null
-    ): MintEventFilter
-    Mint(
+    ): OpenEventFilter
+    Open(
       user?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null,
       exercisePrice?: null,
       exercisePeriodBegin?: null,
       exercisePeriodEnd?: null
-    ): MintEventFilter
+    ): OpenEventFilter
   }
 
   estimateGas: {
@@ -213,15 +207,12 @@ export interface ICallToken extends BaseContract {
     mint(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
     nft(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
 
-    reopen(
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,
@@ -240,15 +231,12 @@ export interface ICallToken extends BaseContract {
     mint(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
     nft(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>
 
-    reopen(
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,

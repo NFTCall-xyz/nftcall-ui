@@ -22,6 +22,7 @@ export interface ICallPoolInterface extends utils.Interface {
   functions: {
     'balanceOf(address)': FunctionFragment
     'callToken()': FunctionFragment
+    'changePreference(uint256,uint8,uint8,uint256)': FunctionFragment
     'collectProtocol(address,uint256)': FunctionFragment
     'deposit(address,uint256)': FunctionFragment
     'depositWithPreference(address,uint256,uint8,uint8,uint256)': FunctionFragment
@@ -34,8 +35,10 @@ export interface ICallPoolInterface extends utils.Interface {
     'openCallBatch(uint256[],uint256[],uint256[])': FunctionFragment
     'oracle()': FunctionFragment
     'premium()': FunctionFragment
+    'previewOpenCall(uint256,uint256,uint256)': FunctionFragment
     'relistNFT(uint256)': FunctionFragment
     'takeNFTOffMarket(uint256)': FunctionFragment
+    'totalOpenInterest()': FunctionFragment
     'withdraw(address,uint256)': FunctionFragment
     'withdrawETH(address,uint256)': FunctionFragment
   }
@@ -44,6 +47,7 @@ export interface ICallPoolInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | 'balanceOf'
       | 'callToken'
+      | 'changePreference'
       | 'collectProtocol'
       | 'deposit'
       | 'depositWithPreference'
@@ -56,14 +60,25 @@ export interface ICallPoolInterface extends utils.Interface {
       | 'openCallBatch'
       | 'oracle'
       | 'premium'
+      | 'previewOpenCall'
       | 'relistNFT'
       | 'takeNFTOffMarket'
+      | 'totalOpenInterest'
       | 'withdraw'
       | 'withdrawETH'
   ): FunctionFragment
 
   encodeFunctionData(functionFragment: 'balanceOf', values: [PromiseOrValue<string>]): string
   encodeFunctionData(functionFragment: 'callToken', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'changePreference',
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string
   encodeFunctionData(
     functionFragment: 'collectProtocol',
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
@@ -97,8 +112,13 @@ export interface ICallPoolInterface extends utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'oracle', values?: undefined): string
   encodeFunctionData(functionFragment: 'premium', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'previewOpenCall',
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+  ): string
   encodeFunctionData(functionFragment: 'relistNFT', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'takeNFTOffMarket', values: [PromiseOrValue<BigNumberish>]): string
+  encodeFunctionData(functionFragment: 'totalOpenInterest', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'withdraw',
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
@@ -110,6 +130,7 @@ export interface ICallPoolInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'callToken', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'changePreference', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'collectProtocol', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'depositWithPreference', data: BytesLike): Result
@@ -122,12 +143,15 @@ export interface ICallPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'openCallBatch', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'oracle', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'premium', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'previewOpenCall', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'relistNFT', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'takeNFTOffMarket', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalOpenInterest', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'withdrawETH', data: BytesLike): Result
 
   events: {
+    'BalanceChangedETH(address,uint256)': EventFragment
     'CallClosed(address,address,address,uint256,uint256)': EventFragment
     'CallOpened(address,address,uint256,uint256,uint256)': EventFragment
     'CollectProtocol(address,address,uint256)': EventFragment
@@ -140,6 +164,7 @@ export interface ICallPoolInterface extends utils.Interface {
     'WithdrawETH(address,address,uint256)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'BalanceChangedETH'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallClosed'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallOpened'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CollectProtocol'): EventFragment
@@ -151,6 +176,14 @@ export interface ICallPoolInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'Withdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'WithdrawETH'): EventFragment
 }
+
+export interface BalanceChangedETHEventObject {
+  user: string
+  newBalance: BigNumber
+}
+export type BalanceChangedETHEvent = TypedEvent<[string, BigNumber], BalanceChangedETHEventObject>
+
+export type BalanceChangedETHEventFilter = TypedEventFilter<BalanceChangedETHEvent>
 
 export interface CallClosedEventObject {
   nft: string
@@ -280,6 +313,14 @@ export interface ICallPool extends BaseContract {
 
     callToken(overrides?: CallOverrides): Promise<[string]>
 
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
+
     collectProtocol(
       recipient: PromiseOrValue<string>,
       amountRequested: PromiseOrValue<BigNumberish>,
@@ -311,7 +352,7 @@ export interface ICallPool extends BaseContract {
     getNFTStatus(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number]>
+    ): Promise<[boolean, boolean, number, number, BigNumber]>
 
     nToken(overrides?: CallOverrides): Promise<[string]>
 
@@ -335,6 +376,20 @@ export interface ICallPool extends BaseContract {
 
     premium(overrides?: CallOverrides): Promise<[string]>
 
+    previewOpenCall(
+      tokenId: PromiseOrValue<BigNumberish>,
+      strikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        strikePrice: BigNumber
+        premiumToOwner: BigNumber
+        premiumToReserve: BigNumber
+        errorCode: BigNumber
+      }
+    >
+
     relistNFT(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -344,6 +399,8 @@ export interface ICallPool extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
+
+    totalOpenInterest(overrides?: CallOverrides): Promise<[BigNumber]>
 
     withdraw(
       to: PromiseOrValue<string>,
@@ -361,6 +418,14 @@ export interface ICallPool extends BaseContract {
   balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
 
   callToken(overrides?: CallOverrides): Promise<string>
+
+  changePreference(
+    tokenId: PromiseOrValue<BigNumberish>,
+    lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+    upperDurationIdx: PromiseOrValue<BigNumberish>,
+    lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
 
   collectProtocol(
     recipient: PromiseOrValue<string>,
@@ -393,7 +458,7 @@ export interface ICallPool extends BaseContract {
   getNFTStatus(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<[boolean, boolean, number, number]>
+  ): Promise<[boolean, boolean, number, number, BigNumber]>
 
   nToken(overrides?: CallOverrides): Promise<string>
 
@@ -417,6 +482,20 @@ export interface ICallPool extends BaseContract {
 
   premium(overrides?: CallOverrides): Promise<string>
 
+  previewOpenCall(
+    tokenId: PromiseOrValue<BigNumberish>,
+    strikePriceGapIdx: PromiseOrValue<BigNumberish>,
+    durationIdx: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      strikePrice: BigNumber
+      premiumToOwner: BigNumber
+      premiumToReserve: BigNumber
+      errorCode: BigNumber
+    }
+  >
+
   relistNFT(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -426,6 +505,8 @@ export interface ICallPool extends BaseContract {
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
+
+  totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
 
   withdraw(
     to: PromiseOrValue<string>,
@@ -443,6 +524,14 @@ export interface ICallPool extends BaseContract {
     balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
 
     callToken(overrides?: CallOverrides): Promise<string>
+
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     collectProtocol(
       recipient: PromiseOrValue<string>,
@@ -472,7 +561,7 @@ export interface ICallPool extends BaseContract {
     getNFTStatus(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number]>
+    ): Promise<[boolean, boolean, number, number, BigNumber]>
 
     nToken(overrides?: CallOverrides): Promise<string>
 
@@ -496,9 +585,25 @@ export interface ICallPool extends BaseContract {
 
     premium(overrides?: CallOverrides): Promise<string>
 
+    previewOpenCall(
+      tokenId: PromiseOrValue<BigNumberish>,
+      strikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        strikePrice: BigNumber
+        premiumToOwner: BigNumber
+        premiumToReserve: BigNumber
+        errorCode: BigNumber
+      }
+    >
+
     relistNFT(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
 
     takeNFTOffMarket(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
+
+    totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
 
     withdraw(
       to: PromiseOrValue<string>,
@@ -514,6 +619,12 @@ export interface ICallPool extends BaseContract {
   }
 
   filters: {
+    'BalanceChangedETH(address,uint256)'(
+      user?: PromiseOrValue<string> | null,
+      newBalance?: null
+    ): BalanceChangedETHEventFilter
+    BalanceChangedETH(user?: PromiseOrValue<string> | null, newBalance?: null): BalanceChangedETHEventFilter
+
     'CallClosed(address,address,address,uint256,uint256)'(
       nft?: PromiseOrValue<string> | null,
       user?: PromiseOrValue<string> | null,
@@ -646,6 +757,14 @@ export interface ICallPool extends BaseContract {
 
     callToken(overrides?: CallOverrides): Promise<BigNumber>
 
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
+
     collectProtocol(
       recipient: PromiseOrValue<string>,
       amountRequested: PromiseOrValue<BigNumberish>,
@@ -698,6 +817,13 @@ export interface ICallPool extends BaseContract {
 
     premium(overrides?: CallOverrides): Promise<BigNumber>
 
+    previewOpenCall(
+      tokenId: PromiseOrValue<BigNumberish>,
+      strikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     relistNFT(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -707,6 +833,8 @@ export interface ICallPool extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
+
+    totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
 
     withdraw(
       to: PromiseOrValue<string>,
@@ -725,6 +853,14 @@ export interface ICallPool extends BaseContract {
     balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     callToken(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
 
     collectProtocol(
       recipient: PromiseOrValue<string>,
@@ -778,6 +914,13 @@ export interface ICallPool extends BaseContract {
 
     premium(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+    previewOpenCall(
+      tokenId: PromiseOrValue<BigNumberish>,
+      strikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     relistNFT(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -787,6 +930,8 @@ export interface ICallPool extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
+
+    totalOpenInterest(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     withdraw(
       to: PromiseOrValue<string>,

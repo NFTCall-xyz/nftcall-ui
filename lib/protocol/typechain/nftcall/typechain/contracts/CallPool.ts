@@ -44,6 +44,7 @@ export interface CallPoolInterface extends utils.Interface {
     'previewOpenCall(uint256,uint256,uint256)': FunctionFragment
     'relistNFT(uint256)': FunctionFragment
     'takeNFTOffMarket(uint256)': FunctionFragment
+    'totalOpenInterest()': FunctionFragment
     'unpause()': FunctionFragment
     'withdraw(address,uint256)': FunctionFragment
     'withdrawETH(address,uint256)': FunctionFragment
@@ -75,6 +76,7 @@ export interface CallPoolInterface extends utils.Interface {
       | 'previewOpenCall'
       | 'relistNFT'
       | 'takeNFTOffMarket'
+      | 'totalOpenInterest'
       | 'unpause'
       | 'withdraw'
       | 'withdrawETH'
@@ -136,6 +138,7 @@ export interface CallPoolInterface extends utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'relistNFT', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'takeNFTOffMarket', values: [PromiseOrValue<BigNumberish>]): string
+  encodeFunctionData(functionFragment: 'totalOpenInterest', values?: undefined): string
   encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'withdraw',
@@ -170,11 +173,13 @@ export interface CallPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'previewOpenCall', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'relistNFT', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'takeNFTOffMarket', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalOpenInterest', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'withdrawETH', data: BytesLike): Result
 
   events: {
+    'BalanceChangedETH(address,uint256)': EventFragment
     'CallClosed(address,address,address,uint256,uint256)': EventFragment
     'CallOpened(address,address,uint256,uint256,uint256)': EventFragment
     'CollectProtocol(address,address,uint256)': EventFragment
@@ -189,6 +194,7 @@ export interface CallPoolInterface extends utils.Interface {
     'WithdrawETH(address,address,uint256)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'BalanceChangedETH'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallClosed'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallOpened'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CollectProtocol'): EventFragment
@@ -202,6 +208,14 @@ export interface CallPoolInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'Withdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'WithdrawETH'): EventFragment
 }
+
+export interface BalanceChangedETHEventObject {
+  user: string
+  newBalance: BigNumber
+}
+export type BalanceChangedETHEvent = TypedEvent<[string, BigNumber], BalanceChangedETHEventObject>
+
+export type BalanceChangedETHEventFilter = TypedEventFilter<BalanceChangedETHEvent>
 
 export interface CallClosedEventObject {
   nft: string
@@ -390,7 +404,7 @@ export interface CallPool extends BaseContract {
     getNFTStatus(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number]>
+    ): Promise<[boolean, boolean, number, number, BigNumber]>
 
     minimumPremiumToOwner(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -443,6 +457,8 @@ export interface CallPool extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
+
+    totalOpenInterest(overrides?: CallOverrides): Promise<[BigNumber]>
 
     unpause(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
@@ -508,7 +524,7 @@ export interface CallPool extends BaseContract {
   getNFTStatus(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<[boolean, boolean, number, number]>
+  ): Promise<[boolean, boolean, number, number, BigNumber]>
 
   minimumPremiumToOwner(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -561,6 +577,8 @@ export interface CallPool extends BaseContract {
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
+
+  totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
 
   unpause(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
@@ -623,7 +641,7 @@ export interface CallPool extends BaseContract {
     getNFTStatus(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number]>
+    ): Promise<[boolean, boolean, number, number, BigNumber]>
 
     minimumPremiumToOwner(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -671,6 +689,8 @@ export interface CallPool extends BaseContract {
 
     takeNFTOffMarket(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
 
+    totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
+
     unpause(overrides?: CallOverrides): Promise<void>
 
     withdraw(
@@ -687,6 +707,12 @@ export interface CallPool extends BaseContract {
   }
 
   filters: {
+    'BalanceChangedETH(address,uint256)'(
+      user?: PromiseOrValue<string> | null,
+      newBalance?: null
+    ): BalanceChangedETHEventFilter
+    BalanceChangedETH(user?: PromiseOrValue<string> | null, newBalance?: null): BalanceChangedETHEventFilter
+
     'CallClosed(address,address,address,uint256,uint256)'(
       nft?: PromiseOrValue<string> | null,
       user?: PromiseOrValue<string> | null,
@@ -914,6 +940,8 @@ export interface CallPool extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
+    totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
+
     unpause(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
 
     withdraw(
@@ -1022,6 +1050,8 @@ export interface CallPool extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
+
+    totalOpenInterest(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     unpause(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>
 

@@ -1,7 +1,7 @@
 const locale = {
   hero: {
     title: 'Speculate or Earn Premiums from <NFTOptions>NFT Options</NFTOptions>',
-    subTitle: 
+    subTitle:
       'NFTCall is a physically-settled, peer-to-peer NFT options trading platform that allows NFT holders to earn premiums and sell NFTs at a higher price while allowing NFT investors to buy NFTs with high leverage but with limited losses.',
     tradeNow: 'Trade Now',
     NFTOptions: 'NFT Options',
@@ -26,16 +26,18 @@ const locale = {
       },
       1: {
         title: 'Peer-to-peer model',
-        subTitle: 'We use a peer-to-peer model to ensure both NFT holders and investors can benefit from options contracts.',
+        subTitle:
+          'We use a peer-to-peer model to ensure both NFT holders and investors can benefit from options contracts.',
       },
       2: {
         title: 'No transaction fees',
-        subTitle: 'We do not charge transaction fees when exercising options to ensure that everyone can enjoy NFT options trading.',
+        subTitle:
+          'We do not charge transaction fees when exercising options to ensure that everyone can enjoy NFT options trading.',
       },
     },
   },
   buyAndSell: {
-    for: 'For NFT Holders', 
+    for: 'For NFT Holders',
     title: 'Sell NFT at a higher price while earning premiums',
     subTitle:
       'NFT holders deposit their NFTs into the market for call options selling, which means they promise to sell their NFTs at a specified price in the future. And the specified price is usually higher than the current floor price. If the market price rises above the specified price on the expiration date, their NFTs will be sold to the options buyers, otherwise, they can receive passive income from the sold options.',

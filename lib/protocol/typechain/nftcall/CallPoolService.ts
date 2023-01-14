@@ -18,6 +18,8 @@ export type BalanceOfProps = BaseCallPoolProps & {
   user: tEthereumAddress
 }
 
+export type TotalOpenInterest = BaseCallPoolProps
+
 export type CheckAvailableProps = BaseCallPoolProps & {
   tokenId: string
 }
@@ -79,6 +81,7 @@ export class CallPoolService extends BaseService<CallPool> {
     this.provider = provider
 
     this.balanceOf = this.balanceOf.bind(this)
+    this.totalOpenInterest = this.totalOpenInterest.bind(this)
     this.checkAvailable = this.checkAvailable.bind(this)
     this.deposit = this.deposit.bind(this)
     this.withdraw = this.withdraw.bind(this)
@@ -92,6 +95,11 @@ export class CallPoolService extends BaseService<CallPool> {
   public balanceOf({ callPool, user }: BalanceOfProps) {
     const callPoolContract = this.getContractInstance(callPool)
     return callPoolContract.balanceOf(user)
+  }
+
+  public totalOpenInterest({ callPool }: TotalOpenInterest) {
+    const callPoolContract = this.getContractInstance(callPool)
+    return callPoolContract.totalOpenInterest()
   }
 
   public checkAvailable({ callPool, tokenId }: CheckAvailableProps) {

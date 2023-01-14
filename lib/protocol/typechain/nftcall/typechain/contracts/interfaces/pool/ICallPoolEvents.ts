@@ -10,6 +10,7 @@ export interface ICallPoolEventsInterface extends utils.Interface {
   functions: {}
 
   events: {
+    'BalanceChangedETH(address,uint256)': EventFragment
     'CallClosed(address,address,address,uint256,uint256)': EventFragment
     'CallOpened(address,address,uint256,uint256,uint256)': EventFragment
     'CollectProtocol(address,address,uint256)': EventFragment
@@ -22,6 +23,7 @@ export interface ICallPoolEventsInterface extends utils.Interface {
     'WithdrawETH(address,address,uint256)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'BalanceChangedETH'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallClosed'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallOpened'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CollectProtocol'): EventFragment
@@ -33,6 +35,14 @@ export interface ICallPoolEventsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'Withdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'WithdrawETH'): EventFragment
 }
+
+export interface BalanceChangedETHEventObject {
+  user: string
+  newBalance: BigNumber
+}
+export type BalanceChangedETHEvent = TypedEvent<[string, BigNumber], BalanceChangedETHEventObject>
+
+export type BalanceChangedETHEventFilter = TypedEventFilter<BalanceChangedETHEvent>
 
 export interface CallClosedEventObject {
   nft: string
@@ -162,6 +172,12 @@ export interface ICallPoolEvents extends BaseContract {
   callStatic: {}
 
   filters: {
+    'BalanceChangedETH(address,uint256)'(
+      user?: PromiseOrValue<string> | null,
+      newBalance?: null
+    ): BalanceChangedETHEventFilter
+    BalanceChangedETH(user?: PromiseOrValue<string> | null, newBalance?: null): BalanceChangedETHEventFilter
+
     'CallClosed(address,address,address,uint256,uint256)'(
       nft?: PromiseOrValue<string> | null,
       user?: PromiseOrValue<string> | null,

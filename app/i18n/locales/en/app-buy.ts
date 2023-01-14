@@ -6,12 +6,12 @@ const locale = {
     TotalNFTSales: 'Total NFT Sales',
     TotalDepositedNFTs: 'Total Deposited NFTs',
     TotalOptionContracts: 'Total Option Contracts',
-    TotalOpenInterest: 'Total Open Interest'
+    TotalOpenInterest: 'Total Open Interest',
   },
   callPools: {
     floorPrice: 'Floor Price',
     depositedItems: 'Listed NFTs',
-    noNFT: 'No NFTs deposited yet.'
+    noNFT: 'No NFTs deposited yet.',
   },
 }
 

@@ -10,6 +10,7 @@ export interface ErrorsInterface extends utils.Interface {
   functions: {
     'CP_ARRAY_LENGTH_UNMATCHED()': FunctionFragment
     'CP_CALLER_IS_NOT_FACTORY_OWNER()': FunctionFragment
+    'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT()': FunctionFragment
     'CP_CAN_NOT_OPEN_CALL()': FunctionFragment
     'CP_DID_NOT_SEND_ENOUGHT_ETH()': FunctionFragment
     'CP_DURATION_TOO_LONG()': FunctionFragment
@@ -30,6 +31,7 @@ export interface ErrorsInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | 'CP_ARRAY_LENGTH_UNMATCHED'
       | 'CP_CALLER_IS_NOT_FACTORY_OWNER'
+      | 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT'
       | 'CP_CAN_NOT_OPEN_CALL'
       | 'CP_DID_NOT_SEND_ENOUGHT_ETH'
       | 'CP_DURATION_TOO_LONG'
@@ -48,6 +50,7 @@ export interface ErrorsInterface extends utils.Interface {
 
   encodeFunctionData(functionFragment: 'CP_ARRAY_LENGTH_UNMATCHED', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_CALLER_IS_NOT_FACTORY_OWNER', values?: undefined): string
+  encodeFunctionData(functionFragment: 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_CAN_NOT_OPEN_CALL', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_DID_NOT_SEND_ENOUGHT_ETH', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_DURATION_TOO_LONG', values?: undefined): string
@@ -65,6 +68,7 @@ export interface ErrorsInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: 'CP_ARRAY_LENGTH_UNMATCHED', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_CALLER_IS_NOT_FACTORY_OWNER', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_CAN_NOT_OPEN_CALL', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_DID_NOT_SEND_ENOUGHT_ETH', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_DURATION_TOO_LONG', data: BytesLike): Result
@@ -110,6 +114,8 @@ export interface Errors extends BaseContract {
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<[string]>
 
+    CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<[string]>
+
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<[string]>
 
     CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<[string]>
@@ -143,6 +149,8 @@ export interface Errors extends BaseContract {
 
   CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<string>
 
+  CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<string>
+
   CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<string>
 
   CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<string>
@@ -175,6 +183,8 @@ export interface Errors extends BaseContract {
     CP_ARRAY_LENGTH_UNMATCHED(overrides?: CallOverrides): Promise<string>
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<string>
+
+    CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<string>
 
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<string>
 
@@ -212,6 +222,8 @@ export interface Errors extends BaseContract {
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<BigNumber>
 
+    CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<BigNumber>
+
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<BigNumber>
@@ -245,6 +257,8 @@ export interface Errors extends BaseContract {
     CP_ARRAY_LENGTH_UNMATCHED(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<PopulatedTransaction>
 

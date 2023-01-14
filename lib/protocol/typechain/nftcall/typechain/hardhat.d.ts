@@ -138,6 +138,22 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ICallPoolOwnerActions__factory>
     getContractFactory(
+      name: 'ICallPoolState',
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ICallPoolState__factory>
+    getContractFactory(
+      name: 'CallFactoryForTest',
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CallFactoryForTest__factory>
+    getContractFactory(
+      name: 'CallPoolDeployerForTest',
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CallPoolDeployerForTest__factory>
+    getContractFactory(
+      name: 'CallPoolForTest',
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CallPoolForTest__factory>
+    getContractFactory(
       name: 'MockedOracle',
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MockedOracle__factory>
@@ -271,6 +287,18 @@ declare module 'hardhat/types/runtime' {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ICallPoolOwnerActions>
+    getContractAt(name: 'ICallPoolState', address: string, signer?: ethers.Signer): Promise<Contracts.ICallPoolState>
+    getContractAt(
+      name: 'CallFactoryForTest',
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CallFactoryForTest>
+    getContractAt(
+      name: 'CallPoolDeployerForTest',
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CallPoolDeployerForTest>
+    getContractAt(name: 'CallPoolForTest', address: string, signer?: ethers.Signer): Promise<Contracts.CallPoolForTest>
     getContractAt(name: 'MockedOracle', address: string, signer?: ethers.Signer): Promise<Contracts.MockedOracle>
     getContractAt(
       name: 'NFTOracleTestUpgrade',

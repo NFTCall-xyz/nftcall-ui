@@ -13,20 +13,29 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
       },
-    ],
-    name: 'balanceOf',
-    outputs: [
+      {
+        internalType: 'uint8',
+        name: 'lowerStrikePriceGapIdx',
+        type: 'uint8',
+      },
+      {
+        internalType: 'uint8',
+        name: 'upperDurationIdx',
+        type: 'uint8',
+      },
       {
         internalType: 'uint256',
-        name: '',
+        name: 'lowerLimitOfStrikePrice',
         type: 'uint256',
       },
     ],
-    stateMutability: 'view',
+    name: 'changePreference',
+    outputs: [] as any,
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -91,40 +100,6 @@ const _abi = [
     name: 'exerciseCall',
     outputs: [] as any,
     stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'getNFTStatus',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-      {
-        internalType: 'uint8',
-        name: '',
-        type: 'uint8',
-      },
-      {
-        internalType: 'uint8',
-        name: '',
-        type: 'uint8',
-      },
-    ],
-    stateMutability: 'view',
     type: 'function',
   },
   {

@@ -13,7 +13,7 @@ const SpeculateAndHedge: FC = () => {
   return (
     <Stack component="section" direction={{ xs: 'column', md: 'row' }} spacing={8}>
       <Stack spacing={4} paddingY={2} alignItems={{ xs: 'center', md: 'start' }} flex={1}>
-        <H3 color='primary.main'>{t('for')}</H3>
+        <H3 color="primary.main">{t('for')}</H3>
         <Stack spacing={2}>
           <H2 fontSize={36} textAlign={{ xs: 'center', md: 'left' }}>
             {t('title')}

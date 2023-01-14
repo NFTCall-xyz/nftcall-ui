@@ -37,19 +37,22 @@ export interface CallTokenInterface extends utils.Interface {
     'getApproved(uint256)': FunctionFragment
     'getCallInfo(uint256)': FunctionFragment
     'isApprovedForAll(address,address)': FunctionFragment
-    'mint(address,uint256,uint256,uint256,uint256)': FunctionFragment
+    'mint(address,uint256)': FunctionFragment
     'name()': FunctionFragment
     'nft()': FunctionFragment
+    'open(address,uint256,uint256,uint256,uint256)': FunctionFragment
     'owner()': FunctionFragment
     'ownerOf(uint256)': FunctionFragment
     'renounceOwnership()': FunctionFragment
-    'reopen(address,uint256,uint256,uint256,uint256)': FunctionFragment
     'safeTransferFrom(address,address,uint256)': FunctionFragment
     'safeTransferFrom(address,address,uint256,bytes)': FunctionFragment
     'setApprovalForAll(address,bool)': FunctionFragment
     'supportsInterface(bytes4)': FunctionFragment
     'symbol()': FunctionFragment
+    'tokenByIndex(uint256)': FunctionFragment
+    'tokenOfOwnerByIndex(address,uint256)': FunctionFragment
     'tokenURI(uint256)': FunctionFragment
+    'totalSupply()': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
   }
@@ -65,16 +68,19 @@ export interface CallTokenInterface extends utils.Interface {
       | 'mint'
       | 'name'
       | 'nft'
+      | 'open'
       | 'owner'
       | 'ownerOf'
       | 'renounceOwnership'
-      | 'reopen'
       | 'safeTransferFrom(address,address,uint256)'
       | 'safeTransferFrom(address,address,uint256,bytes)'
       | 'setApprovalForAll'
       | 'supportsInterface'
       | 'symbol'
+      | 'tokenByIndex'
+      | 'tokenOfOwnerByIndex'
       | 'tokenURI'
+      | 'totalSupply'
       | 'transferFrom'
       | 'transferOwnership'
   ): FunctionFragment
@@ -91,8 +97,11 @@ export interface CallTokenInterface extends utils.Interface {
     functionFragment: 'isApprovedForAll',
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string
+  encodeFunctionData(functionFragment: 'mint', values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
+  encodeFunctionData(functionFragment: 'nft', values?: undefined): string
   encodeFunctionData(
-    functionFragment: 'mint',
+    functionFragment: 'open',
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
@@ -101,21 +110,9 @@ export interface CallTokenInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>
     ]
   ): string
-  encodeFunctionData(functionFragment: 'name', values?: undefined): string
-  encodeFunctionData(functionFragment: 'nft', values?: undefined): string
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
   encodeFunctionData(functionFragment: 'ownerOf', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'reopen',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
-  ): string
   encodeFunctionData(
     functionFragment: 'safeTransferFrom(address,address,uint256)',
     values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
@@ -130,7 +127,13 @@ export interface CallTokenInterface extends utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'supportsInterface', values: [PromiseOrValue<BytesLike>]): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
+  encodeFunctionData(functionFragment: 'tokenByIndex', values: [PromiseOrValue<BigNumberish>]): string
+  encodeFunctionData(
+    functionFragment: 'tokenOfOwnerByIndex',
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string
   encodeFunctionData(functionFragment: 'tokenURI', values: [PromiseOrValue<BigNumberish>]): string
+  encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'transferFrom',
     values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
@@ -146,16 +149,19 @@ export interface CallTokenInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'nft', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'open', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'reopen', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256)', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256,bytes)', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'tokenByIndex', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'tokenOfOwnerByIndex', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result
 
@@ -163,7 +169,8 @@ export interface CallTokenInterface extends utils.Interface {
     'Approval(address,address,uint256)': EventFragment
     'ApprovalForAll(address,address,bool)': EventFragment
     'Burn(address,uint256)': EventFragment
-    'Mint(address,uint256,uint256,uint256,uint256)': EventFragment
+    'Mint(address,uint256)': EventFragment
+    'Open(address,uint256,uint256,uint256,uint256)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Transfer(address,address,uint256)': EventFragment
   }
@@ -172,6 +179,7 @@ export interface CallTokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'ApprovalForAll'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Mint'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Open'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
 }
@@ -205,13 +213,21 @@ export type BurnEventFilter = TypedEventFilter<BurnEvent>
 export interface MintEventObject {
   user: string
   tokenId: BigNumber
+}
+export type MintEvent = TypedEvent<[string, BigNumber], MintEventObject>
+
+export type MintEventFilter = TypedEventFilter<MintEvent>
+
+export interface OpenEventObject {
+  user: string
+  tokenId: BigNumber
   exercisePrice: BigNumber
   exercisePeriodBegin: BigNumber
   exercisePeriodEnd: BigNumber
 }
-export type MintEvent = TypedEvent<[string, BigNumber, BigNumber, BigNumber, BigNumber], MintEventObject>
+export type OpenEvent = TypedEvent<[string, BigNumber, BigNumber, BigNumber, BigNumber], OpenEventObject>
 
-export type MintEventFilter = TypedEventFilter<MintEvent>
+export type OpenEventFilter = TypedEventFilter<OpenEvent>
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string
@@ -279,9 +295,6 @@ export interface CallToken extends BaseContract {
     mint(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -289,13 +302,7 @@ export interface CallToken extends BaseContract {
 
     nft(overrides?: CallOverrides): Promise<[string]>
 
-    owner(overrides?: CallOverrides): Promise<[string]>
-
-    ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string]>
-
-    renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
-
-    reopen(
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,
@@ -303,6 +310,12 @@ export interface CallToken extends BaseContract {
       exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
+
+    owner(overrides?: CallOverrides): Promise<[string]>
+
+    ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string]>
+
+    renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
     'safeTransferFrom(address,address,uint256)'(
       from: PromiseOrValue<string>,
@@ -329,7 +342,17 @@ export interface CallToken extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<[string]>
 
+    tokenByIndex(index: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber]>
+
+    tokenOfOwnerByIndex(
+      owner: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string]>
+
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transferFrom(
       from: PromiseOrValue<string>,
@@ -370,9 +393,6 @@ export interface CallToken extends BaseContract {
   mint(
     user: PromiseOrValue<string>,
     tokenId: PromiseOrValue<BigNumberish>,
-    strikePrice: PromiseOrValue<BigNumberish>,
-    duration: PromiseOrValue<BigNumberish>,
-    exercisePeriodProportion: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -380,13 +400,7 @@ export interface CallToken extends BaseContract {
 
   nft(overrides?: CallOverrides): Promise<string>
 
-  owner(overrides?: CallOverrides): Promise<string>
-
-  ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
-
-  renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
-
-  reopen(
+  open(
     user: PromiseOrValue<string>,
     tokenId: PromiseOrValue<BigNumberish>,
     strikePrice: PromiseOrValue<BigNumberish>,
@@ -394,6 +408,12 @@ export interface CallToken extends BaseContract {
     exercisePeriodProportion: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
+
+  owner(overrides?: CallOverrides): Promise<string>
+
+  ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
+
+  renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
   'safeTransferFrom(address,address,uint256)'(
     from: PromiseOrValue<string>,
@@ -420,7 +440,17 @@ export interface CallToken extends BaseContract {
 
   symbol(overrides?: CallOverrides): Promise<string>
 
+  tokenByIndex(index: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
+
+  tokenOfOwnerByIndex(
+    owner: PromiseOrValue<string>,
+    index: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
   tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
+
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>
 
   transferFrom(
     from: PromiseOrValue<string>,
@@ -451,7 +481,13 @@ export interface CallToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>
 
-    mint(
+    mint(user: PromiseOrValue<string>, tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
+
+    name(overrides?: CallOverrides): Promise<string>
+
+    nft(overrides?: CallOverrides): Promise<string>
+
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,
@@ -459,25 +495,12 @@ export interface CallToken extends BaseContract {
       exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>
-
-    name(overrides?: CallOverrides): Promise<string>
-
-    nft(overrides?: CallOverrides): Promise<string>
 
     owner(overrides?: CallOverrides): Promise<string>
 
     ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
-
-    reopen(
-      user: PromiseOrValue<string>,
-      tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>
 
     'safeTransferFrom(address,address,uint256)'(
       from: PromiseOrValue<string>,
@@ -504,7 +527,17 @@ export interface CallToken extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<string>
 
+    tokenByIndex(index: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
+
+    tokenOfOwnerByIndex(
+      owner: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
 
     transferFrom(
       from: PromiseOrValue<string>,
@@ -545,20 +578,26 @@ export interface CallToken extends BaseContract {
     ): BurnEventFilter
     Burn(user?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): BurnEventFilter
 
-    'Mint(address,uint256,uint256,uint256,uint256)'(
+    'Mint(address,uint256)'(
+      user?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): MintEventFilter
+    Mint(user?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): MintEventFilter
+
+    'Open(address,uint256,uint256,uint256,uint256)'(
       user?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null,
       exercisePrice?: null,
       exercisePeriodBegin?: null,
       exercisePeriodEnd?: null
-    ): MintEventFilter
-    Mint(
+    ): OpenEventFilter
+    Open(
       user?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null,
       exercisePrice?: null,
       exercisePeriodBegin?: null,
       exercisePeriodEnd?: null
-    ): MintEventFilter
+    ): OpenEventFilter
 
     'OwnershipTransferred(address,address)'(
       previousOwner?: PromiseOrValue<string> | null,
@@ -608,9 +647,6 @@ export interface CallToken extends BaseContract {
     mint(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -618,13 +654,7 @@ export interface CallToken extends BaseContract {
 
     nft(overrides?: CallOverrides): Promise<BigNumber>
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>
-
-    ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
-
-    renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
-
-    reopen(
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,
@@ -632,6 +662,12 @@ export interface CallToken extends BaseContract {
       exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>
+
+    ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
+
+    renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
 
     'safeTransferFrom(address,address,uint256)'(
       from: PromiseOrValue<string>,
@@ -658,7 +694,17 @@ export interface CallToken extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>
 
+    tokenByIndex(index: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
+
+    tokenOfOwnerByIndex(
+      owner: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
 
     transferFrom(
       from: PromiseOrValue<string>,
@@ -700,9 +746,6 @@ export interface CallToken extends BaseContract {
     mint(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
@@ -710,13 +753,7 @@ export interface CallToken extends BaseContract {
 
     nft(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>
-
-    reopen(
+    open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
       strikePrice: PromiseOrValue<BigNumberish>,
@@ -724,6 +761,12 @@ export interface CallToken extends BaseContract {
       exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    ownerOf(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>
 
     'safeTransferFrom(address,address,uint256)'(
       from: PromiseOrValue<string>,
@@ -750,7 +793,17 @@ export interface CallToken extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+    tokenByIndex(index: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    tokenOfOwnerByIndex(
+      owner: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     transferFrom(
       from: PromiseOrValue<string>,

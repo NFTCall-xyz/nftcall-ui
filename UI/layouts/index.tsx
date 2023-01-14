@@ -29,10 +29,14 @@ const Layout: FCC = ({ children }) => {
   const {
     menu: { current },
   } = useApp()
-  const seoTitle = "NFTCall | Speculate or Earn Premiums from NFT Options"
-  const desc = "NFTCall is a physically-settled, peer-to-peer NFT options trading platform that allows NFT holders to earn premiums and sell NFTs at a higher price while allowing NFT investors to buy NFTs with high leverage but with limited losses."
-  const title = useMemo(() => current.key === 'Home' ? seoTitle : `NFTCall | ${t('router:' + current.key)}`, [current.key, t])
- 
+  const seoTitle = 'NFTCall | Speculate or Earn Premiums from NFT Options'
+  const desc =
+    'NFTCall is a physically-settled, peer-to-peer NFT options trading platform that allows NFT holders to earn premiums and sell NFTs at a higher price while allowing NFT investors to buy NFTs with high leverage but with limited losses.'
+  const title = useMemo(
+    () => (current.key === 'Home' ? seoTitle : `NFTCall | ${t('router:' + current.key)}`),
+    [current.key, t]
+  )
+
   return (
     <Fragment>
       <NProgress />

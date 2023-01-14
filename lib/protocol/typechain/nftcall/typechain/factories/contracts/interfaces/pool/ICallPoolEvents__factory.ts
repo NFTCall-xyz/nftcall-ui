@@ -13,6 +13,25 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
+        name: 'user',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'newBalance',
+        type: 'uint256',
+      },
+    ],
+    name: 'BalanceChangedETH',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
         name: 'nft',
         type: 'address',
       },

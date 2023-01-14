@@ -109,7 +109,7 @@ const _abi = [
       },
     ],
     name: 'upgradeToAndCall',
-    outputs: [] as any,
+    outputs: [],
     stateMutability: 'payable',
     type: 'function',
   },

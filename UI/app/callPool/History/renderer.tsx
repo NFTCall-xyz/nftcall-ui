@@ -33,7 +33,7 @@ export const accountCellRenderer = ({ rowData: { userAddress } }: TableCellProps
 export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
-      <Stack spacing={1} direction="row" alignItems='center'>
+      <Stack spacing={1} direction="row" alignItems="center">
         <Box sx={{ width: 40 }}>
           <NFTIcon nft={{ tokenId, nftAddress }} />
         </Box>
@@ -60,7 +60,7 @@ export const premiumCellRenderer = ({ rowData: { premiumToOwner } }: TableCellPr
   return (
     <TableCell align="center" component="div">
       <Stack spacing={0.5} direction="row" alignItems="center">
-        <TokenIcon symbol='eth' sx={{ width: 14, height: 14 }} />
+        <TokenIcon symbol="eth" sx={{ width: 14, height: 14 }} />
         <NumberDisplay value={premiumToOwner} options="number" />
       </Stack>
     </TableCell>
@@ -71,7 +71,7 @@ export const strikePriceCellRenderer = ({ rowData: { strikePrice } }: TableCellP
   return (
     <TableCell align="center" component="div">
       <Stack spacing={0.5} direction="row" alignItems="center">
-        <TokenIcon symbol='eth' sx={{ width: 14, height: 14 }} />
+        <TokenIcon symbol="eth" sx={{ width: 14, height: 14 }} />
         <NumberDisplay value={strikePrice} options="number" />
       </Stack>
     </TableCell>
@@ -85,4 +85,3 @@ export const statusCellRenderer = ({ rowData: { status } }: TableCellProps) => {
     </TableCell>
   )
 }
-

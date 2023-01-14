@@ -13,6 +13,25 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
+        name: 'user',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'newBalance',
+        type: 'uint256',
+      },
+    ],
+    name: 'BalanceChangedETH',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
         name: 'nft',
         type: 'address',
       },
@@ -340,6 +359,34 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint8',
+        name: 'lowerStrikePriceGapIdx',
+        type: 'uint8',
+      },
+      {
+        internalType: 'uint8',
+        name: 'upperDurationIdx',
+        type: 'uint8',
+      },
+      {
+        internalType: 'uint256',
+        name: 'lowerLimitOfStrikePrice',
+        type: 'uint256',
+      },
+    ],
+    name: 'changePreference',
+    outputs: [] as any,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: 'recipient',
         type: 'address',
@@ -468,6 +515,11 @@ const _abi = [
         name: '',
         type: 'uint8',
       },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
     ],
     stateMutability: 'view',
     type: 'function',
@@ -577,6 +629,50 @@ const _abi = [
         name: 'tokenId',
         type: 'uint256',
       },
+      {
+        internalType: 'uint256',
+        name: 'strikePriceGapIdx',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'durationIdx',
+        type: 'uint256',
+      },
+    ],
+    name: 'previewOpenCall',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'strikePrice',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'premiumToOwner',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'premiumToReserve',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'errorCode',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
+      },
     ],
     name: 'relistNFT',
     outputs: [] as any,
@@ -594,6 +690,19 @@ const _abi = [
     name: 'takeNFTOffMarket',
     outputs: [] as any,
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [] as any,
+    name: 'totalOpenInterest',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {

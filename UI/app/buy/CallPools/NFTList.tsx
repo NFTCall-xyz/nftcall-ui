@@ -13,9 +13,12 @@ const NFTList: FC<NFTListProps> = ({ callPool }) => {
   const nfts = useMemo(() => safeGet(() => callPool.stats.nfts) || [], [callPool])
   const { t } = useTranslation('app-buy')
 
-  if (!nfts.length) return (
-    <Paragraph color='text.disabled' lineHeight='36px'>{t('callPools.noNFT')}</Paragraph>
-  )
+  if (!nfts.length)
+    return (
+      <Paragraph color="text.disabled" lineHeight="36px">
+        {t('callPools.noNFT')}
+      </Paragraph>
+    )
 
   return (
     <>

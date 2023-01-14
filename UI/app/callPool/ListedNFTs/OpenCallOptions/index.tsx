@@ -51,7 +51,11 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   }, [size])
 
   const {
-    callPool: { address, nftOracle, info: { symbol }, },
+    callPool: {
+      address,
+      nftOracle,
+      info: { symbol },
+    },
   } = useCallPoolDetails()
   const { networkAccount } = useWallet()
   const {
@@ -97,7 +101,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
             ))}
           </Stack>
           <FlexBetween>
-            <Span fontWeight='bold'>{t('openPanel.strikePrice')}</Span>
+            <Span fontWeight="bold">{t('openPanel.strikePrice')}</Span>
             <NumberDisplay value={strikePrice} />
             <Stack spacing={1} direction="row" alignItems="center">
               <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
@@ -112,12 +116,12 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           >
             {MIN_STRIKE_PRICE_MAP.map((option) => (
               <MenuItem key={option.value} value={option.value}>
-                {`${option.label} ${t('openPanel.increase')}`} 
+                {`${option.label} ${t('openPanel.increase')}`}
               </MenuItem>
             ))}
           </Select>
           <FlexBetween>
-            <Span fontWeight='bold'>{t('openPanel.expiryDate')}</Span>
+            <Span fontWeight="bold">{t('openPanel.expiryDate')}</Span>
           </FlexBetween>
           <Select
             value={durationIdx}
@@ -127,19 +131,19 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           >
             {MAX_EXPRIY_TIME_MAP.map((option) => (
               <MenuItem key={option.value} value={option.value}>
-                {`${option.label} ${t('openPanel.later')}`} 
+                {`${option.label} ${t('openPanel.later')}`}
               </MenuItem>
             ))}
           </Select>
           <FlexBetween>
-            <Span fontWeight='bold'>{t('openPanel.totalPremium')}</Span>
+            <Span fontWeight="bold">{t('openPanel.totalPremium')}</Span>
             <Stack spacing={1} direction="row" alignItems="center">
               <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
               <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />
             </Stack>
           </FlexBetween>
           <FlexBetween>
-            <Span fontWeight='bold'>{t('openPanel.yourBalance')}</Span>
+            <Span fontWeight="bold">{t('openPanel.yourBalance')}</Span>
             <Stack spacing={1} direction="row" alignItems="center">
               <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
               <NumberDisplay value={0} />

@@ -20,11 +20,10 @@ import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrVal
 
 export interface ICallPoolActionsInterface extends utils.Interface {
   functions: {
-    'balanceOf(address)': FunctionFragment
+    'changePreference(uint256,uint8,uint8,uint256)': FunctionFragment
     'deposit(address,uint256)': FunctionFragment
     'depositWithPreference(address,uint256,uint8,uint8,uint256)': FunctionFragment
     'exerciseCall(uint256)': FunctionFragment
-    'getNFTStatus(uint256)': FunctionFragment
     'openCall(uint256,uint256,uint256)': FunctionFragment
     'openCallBatch(uint256[],uint256[],uint256[])': FunctionFragment
     'relistNFT(uint256)': FunctionFragment
@@ -35,11 +34,10 @@ export interface ICallPoolActionsInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
-      | 'balanceOf'
+      | 'changePreference'
       | 'deposit'
       | 'depositWithPreference'
       | 'exerciseCall'
-      | 'getNFTStatus'
       | 'openCall'
       | 'openCallBatch'
       | 'relistNFT'
@@ -48,7 +46,15 @@ export interface ICallPoolActionsInterface extends utils.Interface {
       | 'withdrawETH'
   ): FunctionFragment
 
-  encodeFunctionData(functionFragment: 'balanceOf', values: [PromiseOrValue<string>]): string
+  encodeFunctionData(
+    functionFragment: 'changePreference',
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string
   encodeFunctionData(
     functionFragment: 'deposit',
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
@@ -64,7 +70,6 @@ export interface ICallPoolActionsInterface extends utils.Interface {
     ]
   ): string
   encodeFunctionData(functionFragment: 'exerciseCall', values: [PromiseOrValue<BigNumberish>]): string
-  encodeFunctionData(functionFragment: 'getNFTStatus', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(
     functionFragment: 'openCall',
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
@@ -84,11 +89,10 @@ export interface ICallPoolActionsInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string
 
-  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'changePreference', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'depositWithPreference', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'exerciseCall', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'getNFTStatus', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'openCall', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'openCallBatch', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'relistNFT', data: BytesLike): Result
@@ -122,7 +126,13 @@ export interface ICallPoolActions extends BaseContract {
   removeListener: OnEvent<this>
 
   functions: {
-    balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
 
     deposit(
       onBehalfOf: PromiseOrValue<string>,
@@ -143,11 +153,6 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
-
-    getNFTStatus(
-      tokenId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number]>
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -186,7 +191,13 @@ export interface ICallPoolActions extends BaseContract {
     ): Promise<ContractTransaction>
   }
 
-  balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
+  changePreference(
+    tokenId: PromiseOrValue<BigNumberish>,
+    lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+    upperDurationIdx: PromiseOrValue<BigNumberish>,
+    lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
 
   deposit(
     onBehalfOf: PromiseOrValue<string>,
@@ -207,11 +218,6 @@ export interface ICallPoolActions extends BaseContract {
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
-
-  getNFTStatus(
-    tokenId: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<[boolean, boolean, number, number]>
 
   openCall(
     tokenId: PromiseOrValue<BigNumberish>,
@@ -250,7 +256,13 @@ export interface ICallPoolActions extends BaseContract {
   ): Promise<ContractTransaction>
 
   callStatic: {
-    balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     deposit(
       onBehalfOf: PromiseOrValue<string>,
@@ -268,11 +280,6 @@ export interface ICallPoolActions extends BaseContract {
     ): Promise<void>
 
     exerciseCall(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
-
-    getNFTStatus(
-      tokenId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number]>
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -308,7 +315,13 @@ export interface ICallPoolActions extends BaseContract {
   filters: {}
 
   estimateGas: {
-    balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
 
     deposit(
       onBehalfOf: PromiseOrValue<string>,
@@ -329,8 +342,6 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
-
-    getNFTStatus(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -370,7 +381,13 @@ export interface ICallPoolActions extends BaseContract {
   }
 
   populateTransaction: {
-    balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>
+    changePreference(
+      tokenId: PromiseOrValue<BigNumberish>,
+      lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
+      upperDurationIdx: PromiseOrValue<BigNumberish>,
+      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
 
     deposit(
       onBehalfOf: PromiseOrValue<string>,
@@ -391,8 +408,6 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
-
-    getNFTStatus(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
