@@ -1,6 +1,5 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
@@ -14,6 +13,7 @@ import FlexBetween from 'components/flexbox/FlexBetween'
 import { Paragraph } from 'components/Typography'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
+import type { UseIds } from 'app/hooks/useIds'
 
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
@@ -22,10 +22,9 @@ export type ListedNFT = BaseNFT & {
   status: NFTStatus
 }
 
-export type NFTCardProps = ListedNFT &
-  Partial<{
-    onCheckChange: any
-  }>
+export type NFTCardProps = ListedNFT & {
+  ids: UseIds
+}
 
 const ROOT = styled(Card)(({ theme }) => ({
   width: '100%',
@@ -45,11 +44,15 @@ const ROOT = styled(Card)(({ theme }) => ({
 }))
 
 const NFTCard: FC<NFTCardProps> = (props) => {
-  const { tokenId, onCheckChange, maxExpriyTime, minStrikePrice } = props
+  const {
+    tokenId,
+    ids: { has, add, remove },
+    maxExpriyTime,
+    minStrikePrice,
+  } = props
   const { t } = useTranslation()
-  const [checked, setChecked] = useState(false)
+  const checked = has(tokenId)
   const { nftAssetsData } = useNFTAssetsData(props)
-  const displayCheckBox = useMemo(() => !!onCheckChange, [onCheckChange])
   const minStrikePriceLabel = useMemo(
     () => safeGet(() => MIN_STRIKE_PRICE_MAP.find((option) => option.value === minStrikePrice).label),
     [minStrikePrice]
@@ -59,15 +62,17 @@ const NFTCard: FC<NFTCardProps> = (props) => {
     [maxExpriyTime]
   )
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.checked
-    setChecked(value)
-    onCheckChange(tokenId, value)
+    if (event.target.checked) {
+      add(tokenId)
+    } else {
+      remove(tokenId)
+    }
   }
   const title = `#${tokenId}`
 
   return (
     <ROOT>
-      {displayCheckBox && <Checkbox className="checkbox" checked={checked} onChange={handleChange} />}
+      <Checkbox className="checkbox" checked={checked} onChange={handleChange} />
       <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack spacing={1}>

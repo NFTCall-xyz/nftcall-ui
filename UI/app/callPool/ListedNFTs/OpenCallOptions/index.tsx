@@ -4,11 +4,9 @@ import Button from '@mui/material/Button'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { H3, Span } from 'components/Typography'
-import type { MutableRefObject } from 'react'
 import { useEffect } from 'react'
 import { useCallback } from 'react'
 import { useState } from 'react'
-import { useMemo } from 'react'
 import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { toBN } from 'lib/math'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
@@ -24,20 +22,17 @@ import type { ListedNFT } from '../NFTCard'
 import NFTCard from './NFTCard'
 import { useTranslation } from 'next-i18next'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
+import type { UseIds } from 'app/hooks/useIds'
 
 type OpenCallOptionsProps = {
-  setRef: MutableRefObject<Set<string>>
-  size: number
   request: any
   data: ListedNFT[]
-  onCheckChange: any
+  ids: UseIds
 }
 const OpenCallOptions: FC<OpenCallOptionsProps> = ({
-  setRef,
-  size,
   request: updateListedData,
   data,
-  onCheckChange,
+  ids: { values: ids, remove },
 }) => {
   const { t } = useTranslation('app-callpool')
   const [strikePriceGapIdx, setStrikePriceGapIdx] = useState(0)
@@ -45,10 +40,6 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   const [premiumToOwner, setPremiumToOwner] = useState(toBN(0))
   const [premiumToReserve, setPremiumToReserve] = useState(toBN(0))
   const [strikePrice, setStrikePrice] = useState(toBN(0))
-  const ids = useMemo(() => {
-    return Array.from(setRef.current.values())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [size])
 
   const {
     callPool: {
@@ -97,7 +88,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           <H3>{t('openPanel.openCall')}</H3>
           <Stack spacing={1}>
             {ids.map((tokenId) => (
-              <NFTCard key={tokenId} tokenId={tokenId} data={data} onCheckChange={onCheckChange} />
+              <NFTCard key={tokenId} tokenId={tokenId} data={data} onCheckChange={() => remove(tokenId)} />
             ))}
           </Stack>
           <FlexBetween>
