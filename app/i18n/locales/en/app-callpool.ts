@@ -24,7 +24,7 @@ const locale = {
     yourBalance: 'Your Balance',
     open: 'Buy',
     minStrikePrice: 'Min. price gap:',
-    maxExpiryTime: 'Max. duration:'
+    maxExpiryTime: 'Max. duration:',
   },
 }
 

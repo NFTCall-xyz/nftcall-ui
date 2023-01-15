@@ -56,13 +56,7 @@ export const ChainButton: FC = () => {
         {network.fullName}
       </Button>
     )
-  }, [
-    network,
-    open,
-    t,
-    theme.palette,
-    downSm,
-  ])
+  }, [network, open, t, theme.palette, downSm])
 
   return content || null
 }

@@ -31,17 +31,17 @@ const MenuMobile = () => {
     () => (
       <List sx={{ paddingTop: 0 }}>
         <ListItem
-          sx={{ 
-            paddingTop: '16px', 
-            paddingBottom: '16px' 
+          sx={{
+            paddingTop: '16px',
+            paddingBottom: '16px',
           }}
         >
           <Logo />
         </ListItem>
-        <ListItem sx={{ '& button': { width: '100%' }}}>
-          <ChainButton/>
+        <ListItem sx={{ '& button': { width: '100%' } }}>
+          <ChainButton />
         </ListItem>
-        <ListItem sx={{ '& button': { width: '100%' }}}>
+        <ListItem sx={{ '& button': { width: '100%' } }}>
           <ConnectButton />
         </ListItem>
         <Divider />
@@ -59,13 +59,13 @@ const MenuMobile = () => {
           <Link href={linkTo} key={linkTo} passHref>
             <ListItemButton>
               <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={label} sx={{ color: theme.palette.text.secondary }}/>
+              <ListItemText primary={label} sx={{ color: theme.palette.text.secondary }} />
             </ListItemButton>
           </Link>
         ))}
         <Divider />
         <ListItem>
-          <Small color='text.disabled'> © 2022, NFTCall. All Rights Reserved</Small>
+          <Small color="text.disabled"> © 2022, NFTCall. All Rights Reserved</Small>
         </ListItem>
       </List>
     ),

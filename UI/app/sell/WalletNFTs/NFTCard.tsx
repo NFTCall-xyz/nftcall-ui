@@ -61,7 +61,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>
-          <Span color='text.secondary'>{collection}</Span>
+          <Span color="text.secondary">{collection}</Span>
         </Stack>
       </CardContent>
       <Divider />

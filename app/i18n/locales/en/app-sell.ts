@@ -36,7 +36,8 @@ const locale = {
     minStrikePrice: 'Minimum strike price',
     minStrikePriceTip: 'The lowest strike price that option buyers can choose when opening a call option on your NFT.',
     maxExpiryTime: 'Maximum expiration duration',
-    maxExpiryTimeTip: 'The longest expiration duration that option buyers can choose when opening a call option on your NFT.',
+    maxExpiryTimeTip:
+      'The longest expiration duration that option buyers can choose when opening a call option on your NFT.',
   },
   depositDialog: {
     title: 'Deposit NFTs to sell call opitons',

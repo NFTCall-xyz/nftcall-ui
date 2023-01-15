@@ -29,16 +29,16 @@ const NFTCard: FC<NFTCardProps> = ({ data, tokenId, onCheckChange }) => {
   return (
     <ROOT>
       <FlexBetween>
-        <Stack direction='row' alignItems='center' spacing={2}>
-          <NFTIcon nftAssetsData={nftAssetsData} sx={{ width: 40, height: 40 }}/>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <NFTIcon nftAssetsData={nftAssetsData} sx={{ width: 40, height: 40 }} />
           <Paragraph>{title}</Paragraph>
         </Stack>
         <IconButton
-            onClick={() => {
-              onCheckChange(tokenId, false)
-            }}
-          >
-            <DeleteIcon />
+          onClick={() => {
+            onCheckChange(tokenId, false)
+          }}
+        >
+          <DeleteIcon />
         </IconButton>
       </FlexBetween>
     </ROOT>

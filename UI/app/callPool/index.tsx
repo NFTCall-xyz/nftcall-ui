@@ -59,14 +59,14 @@ const CallPoolDetails: FC = () => {
       <BackButton />
       <Grid container pt={2}>
         <Grid item xs={12}>
-          <Stack direction={{ xs: "column", sm:"row" }} justifyContent='space-between'>
+          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
             <Stack direction="row" alignItems="center">
               <Avatar alt={name} src={imageUrl} sx={{ marginRight: 2, width: 60, height: 60, border: '' }}>
                 {name}
               </Avatar>
               <H2>{name}</H2>
             </Stack>
-            <Stack spacing={4} direction='row'>
+            <Stack spacing={4} direction="row">
               <Stack spacing={1}>
                 <Paragraph color="text.secondary">{t('floorPrice')}</Paragraph>
                 <Stack spacing={0.5} direction="row" alignItems="center">

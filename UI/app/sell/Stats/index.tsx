@@ -28,8 +28,8 @@ const Stats: FC = () => {
             onClick={() => {
               router.push('/app/claim')
             }}
-            variant='contained'
-            size='small'
+            variant="contained"
+            size="small"
           >
             {t('stats.claim')}
           </Button>

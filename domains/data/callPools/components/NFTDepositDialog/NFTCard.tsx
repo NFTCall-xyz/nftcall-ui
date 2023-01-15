@@ -27,7 +27,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
         <Grid item xs={9}>
           <Stack spacing={2}>
             <H3>{title}</H3>
-            <Paragraph color='text.secondary'>{safeGet(() => nftAssetsData.contractName) || ''}</Paragraph>
+            <Paragraph color="text.secondary">{safeGet(() => nftAssetsData.contractName) || ''}</Paragraph>
           </Stack>
         </Grid>
       </Grid>

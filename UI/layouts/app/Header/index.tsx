@@ -47,7 +47,7 @@ const Header: FC = () => {
         <Container component="main" maxWidth="lg">
           <BODY>
             <Logo />
-            <Stack spacing={2} direction="row" alignItems='center'>
+            <Stack spacing={2} direction="row" alignItems="center">
               <MenuMobile />
               {/* <ActionsMobile /> */}
             </Stack>

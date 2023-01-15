@@ -26,11 +26,7 @@ const ActionsMobile: FC = () => {
       >
         <MenuIcon />
       </IconButton>
-      <Drawer
-        anchor="right"
-        open={openDrawer}
-        onClose={() => setOpenDrawer(false)}
-      >
+      <Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
         <List>
           <ListItem>
             <ChainButton />

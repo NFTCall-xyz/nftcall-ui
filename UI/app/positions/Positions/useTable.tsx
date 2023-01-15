@@ -163,7 +163,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             first: pageSize,
             userAddress: networkAccount,
             subgraphName: 'rockgold0911/nftcall',
-            isActive
+            isActive,
           })
           .then((rowData) => {
             if (rowData.length < pageSize) setNoMoreSourceData(true)

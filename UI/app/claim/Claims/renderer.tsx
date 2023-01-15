@@ -21,7 +21,7 @@ export const collectionNameCellRenderer = ({ rowData: { collection } }: TableCel
   const { name, imageUrl } = collection || ({} as undefined)
   return (
     <TableCell align="center" component="div">
-      <Stack spacing={1} direction="row" alignItems='center'>
+      <Stack spacing={1} direction="row" alignItems="center">
         <Avatar alt={name} src={imageUrl} sx={{ width: 40, height: 40, border: '' }}>
           {name}
         </Avatar>

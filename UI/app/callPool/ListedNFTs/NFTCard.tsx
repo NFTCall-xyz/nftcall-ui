@@ -78,12 +78,12 @@ const NFTCard: FC<NFTCardProps> = (props) => {
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>
           <FlexBetween>
-            <Tiny color='text.secondary'>{t('openPanel.minStrikePrice')}</Tiny>
-            <Tiny color='text.secondary'>+{minStrikePriceLabel}</Tiny>
+            <Tiny color="text.secondary">{t('openPanel.minStrikePrice')}</Tiny>
+            <Tiny color="text.secondary">+{minStrikePriceLabel}</Tiny>
           </FlexBetween>
           <FlexBetween>
-            <Tiny color='text.secondary'>{t('openPanel.maxExpiryTime')}</Tiny>
-            <Tiny color='text.secondary'>{maxExpriyTimeMapLabel}</Tiny>
+            <Tiny color="text.secondary">{t('openPanel.maxExpiryTime')}</Tiny>
+            <Tiny color="text.secondary">{maxExpriyTimeMapLabel}</Tiny>
           </FlexBetween>
         </Stack>
       </CardContent>

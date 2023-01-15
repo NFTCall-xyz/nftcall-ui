@@ -30,8 +30,10 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
       {...{ ...nftDeposit, title: t('depositDialog.title') }}
       actions={
         <Fragment>
-          <Button variant='outlined' onClick={close}>{t('depositDialog.cancel')}</Button>
-          <SubmitBotton variant='contained' onClick={() => handleSubmit()} isSubmitting={isSubmitting}>
+          <Button variant="outlined" onClick={close}>
+            {t('depositDialog.cancel')}
+          </Button>
+          <SubmitBotton variant="contained" onClick={() => handleSubmit()} isSubmitting={isSubmitting}>
             {t('depositDialog.deposit')}
           </SubmitBotton>
         </Fragment>
@@ -41,7 +43,7 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
         <Stack spacing={4} sx={{ width: '100vw', maxWidth: '450px', paddingTop: 2 }}>
           <NFTCard tokenId={tokenId} nftAddress={nftAddress} />
           <Stack spacing={1}>
-            <Stack alignItems='center' spacing={0.5} direction='row'>
+            <Stack alignItems="center" spacing={0.5} direction="row">
               <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>
               <Tooltip title={t('settingsDialog.minStrikePriceTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
@@ -63,7 +65,7 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
             </FormTextField>
           </Stack>
           <Stack spacing={1}>
-            <Stack alignItems='center' spacing={0.5} direction='row'>
+            <Stack alignItems="center" spacing={0.5} direction="row">
               <Span fontWeight="bold">{t('settingsDialog.maxExpiryTime')}</Span>
               <Tooltip title={t('settingsDialog.maxExpiryTimeTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />

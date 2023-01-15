@@ -76,7 +76,7 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
             />
           </FlexBetween>
           <Stack spacing={1}>
-            <Stack alignItems='center' spacing={0.5} direction='row'>
+            <Stack alignItems="center" spacing={0.5} direction="row">
               <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>
               <Tooltip title={t('settingsDialog.minStrikePriceTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
@@ -98,7 +98,7 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
             </FormTextField>
           </Stack>
           <Stack spacing={1}>
-            <Stack alignItems='center' spacing={0.5} direction='row'>
+            <Stack alignItems="center" spacing={0.5} direction="row">
               <Span fontWeight="bold">{t('settingsDialog.maxExpiryTime')}</Span>
               <Tooltip title={t('settingsDialog.maxExpiryTimeTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
