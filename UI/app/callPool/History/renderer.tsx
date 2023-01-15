@@ -5,10 +5,8 @@ import LinkToAddress from 'components/button/LinkToAddress'
 import { Paragraph } from 'components/Typography'
 
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
-import NumberDisplay from 'lib/math/components/NumberDisplay'
 
 import type { Position } from './adapter'
-import TokenIcon from 'lib/protocol/components/TokenIcon'
 import OptionStatus from 'UI/app/positions/OptionStatus'
 
 export type TableCellProps = {
@@ -40,29 +38,6 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
           <Paragraph>#{tokenId}</Paragraph>
           {/* <p>{nftAddress}</p> */}
         </Stack>
-      </Stack>
-    </TableCell>
-  )
-}
-
-
-export const premiumCellRenderer = ({ rowData: { premiumToOwner } }: TableCellProps) => {
-  return (
-    <TableCell align="center" component="div">
-      <Stack spacing={0.5} direction="row" alignItems="center">
-        <TokenIcon symbol="eth" sx={{ width: 14, height: 14 }} />
-        <NumberDisplay value={premiumToOwner} options="number" />
-      </Stack>
-    </TableCell>
-  )
-}
-
-export const strikePriceCellRenderer = ({ rowData: { strikePrice } }: TableCellProps) => {
-  return (
-    <TableCell align="center" component="div">
-      <Stack spacing={0.5} direction="row" alignItems="center">
-        <TokenIcon symbol="eth" sx={{ width: 14, height: 14 }} />
-        <NumberDisplay value={strikePrice} options="number" />
       </Stack>
     </TableCell>
   )

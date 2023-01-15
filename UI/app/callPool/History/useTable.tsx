@@ -1,20 +1,14 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { headerRenderer, dateCellRenderer } from 'components/table/renderer'
+import { headerRenderer, dateCellRenderer, tokenIconCellRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
 import { useCallPoolDetails } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
-import {
-  accountCellRenderer,
-  NFTCellRenderer,
-  premiumCellRenderer,
-  strikePriceCellRenderer,
-  statusCellRenderer,
-} from './renderer'
+import { accountCellRenderer, NFTCellRenderer, statusCellRenderer } from './renderer'
 
 const pageSize = 5
 
@@ -46,7 +40,7 @@ export const useTable = (): BasicTableProps => {
             dataKey: 'strikePrice',
             width: 450,
             headerRenderer,
-            cellRenderer: strikePriceCellRenderer,
+            cellRenderer: tokenIconCellRenderer,
           },
           {
             dataKey: 'expiryDate',
@@ -57,9 +51,10 @@ export const useTable = (): BasicTableProps => {
           },
           {
             dataKey: 'premium',
+            cellData: 'premiumToOwner',
             width: 450,
             headerRenderer,
-            cellRenderer: premiumCellRenderer,
+            cellRenderer: tokenIconCellRenderer,
           },
           {
             dataKey: 'status',
