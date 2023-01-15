@@ -20,18 +20,13 @@ const ActionsMobile: FC = () => {
     <ROOT direction="row" spacing={2}>
       <IconButton
         sx={{
-          color: 'primary.contrastText',
+          color: 'primary.secondary',
         }}
         onClick={() => setOpenDrawer(true)}
       >
         <MenuIcon />
       </IconButton>
       <Drawer
-        sx={{
-          '.MuiDrawer-paper': {
-            background: '#20100f',
-          },
-        }}
         anchor="right"
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}

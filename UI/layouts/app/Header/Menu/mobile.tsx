@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import Drawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Box from '@mui/material/Box'
@@ -21,11 +22,17 @@ const MenuMobile = () => {
   const { menu } = useApp()
   const { links } = useLinks()
   const [openDrawer, setOpenDrawer] = useState(false)
+  const theme = useTheme()
 
   const list = useMemo(
     () => (
       <List sx={{ paddingTop: 0 }}>
-        <ListItem sx={{ background: '#1C0200', paddingTop: '16px', paddingBottom: '16px' }}>
+        <ListItem
+          sx={{ 
+            paddingTop: '16px', 
+            paddingBottom: '16px' 
+          }}
+        >
           <Logo />
         </ListItem>
         <Divider />
@@ -33,27 +40,27 @@ const MenuMobile = () => {
           .filter((item) => !item.hide)
           .map(({ label, linkTo, key }) => (
             <Link href={linkTo} key={linkTo}>
-              <ListItem button selected={menu.current.key === key} onClick={() => setOpenDrawer(false)}>
-                <ListItemText primary={label} style={{ color: 'rgba(0, 0, 0, 0.87)' }} />
-              </ListItem>
+              <ListItemButton selected={menu.current.key === key} onClick={() => setOpenDrawer(false)}>
+                <ListItemText primary={label} />
+              </ListItemButton>
             </Link>
           ))}
         <Divider />
         {links.map(({ label, linkTo, icon }) => (
           <Link href={linkTo} key={linkTo} passHref>
-            <ListItem button>
+            <ListItemButton>
               <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
+              <ListItemText primary={label} sx={{ color: theme.palette.text.secondary }}/>
+            </ListItemButton>
           </Link>
         ))}
         <Divider />
         <ListItem>
-          <ListItemText primary=" © 2022, NFTCall. All Rights Reserved" />
+          <ListItemText secondary=" © 2022, NFTCall. All Rights Reserved" />
         </ListItem>
       </List>
     ),
-    [links, menu]
+    [links, menu, theme]
   )
 
   return (
@@ -61,7 +68,7 @@ const MenuMobile = () => {
       <Button
         variant="text"
         sx={{
-          color: 'primary.contrastText',
+          color: 'text.secondary',
         }}
         size="large"
         onClick={() => setOpenDrawer(true)}
