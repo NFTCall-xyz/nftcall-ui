@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import TableCell from '@mui/material/TableCell'
-import { Paragraph } from 'components/Typography'
 
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 
@@ -33,5 +32,3 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
     </TableCell>
   )
 }
-
-
