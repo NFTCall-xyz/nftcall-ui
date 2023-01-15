@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { headerRenderer } from 'components/table/renderer'
+import { headerRenderer, dateCellRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
 import { useCallPoolDetails } from 'domains/data'
 import { usePost } from 'app/hooks/request'
@@ -10,7 +10,6 @@ import { useMount } from 'app/hooks/useMount'
 import { request } from './adapter'
 import {
   accountCellRenderer,
-  expiryDateCellRenderer,
   NFTCellRenderer,
   premiumCellRenderer,
   strikePriceCellRenderer,
@@ -51,9 +50,10 @@ export const useTable = (): BasicTableProps => {
           },
           {
             dataKey: 'expiryDate',
+            cellData: 'endTime',
             width: 450,
             headerRenderer,
-            cellRenderer: expiryDateCellRenderer,
+            cellRenderer: dateCellRenderer,
           },
           {
             dataKey: 'premium',

@@ -3,9 +3,7 @@ import Stack from '@mui/material/Stack'
 import TableCell from '@mui/material/TableCell'
 import { Paragraph } from 'components/Typography'
 
-import { format } from 'date-fns'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
-import NumberDisplay from 'lib/math/components/NumberDisplay'
 
 import type { Position } from './adapter'
 
@@ -36,18 +34,4 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
   )
 }
 
-export const expiryDateCellRenderer = ({ rowData: { endTime } }: TableCellProps) => {
-  return (
-    <TableCell align="center" component="div">
-      <Paragraph>{format(endTime, 'MM/dd/yyyy')}</Paragraph>
-    </TableCell>
-  )
-}
 
-export const premiumCellRenderer = ({ rowData: { premiumToOwner } }: TableCellProps) => {
-  return (
-    <TableCell align="center" component="div">
-      <NumberDisplay value={premiumToOwner} options="number" />
-    </TableCell>
-  )
-}

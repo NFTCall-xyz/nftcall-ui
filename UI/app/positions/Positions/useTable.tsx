@@ -4,13 +4,13 @@ import type { TableCellRenderer } from 'react-virtualized'
 
 import { cellRenderer, headerRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
-import { useNetwork } from 'domains/data'
+import { useCallPools, useNetwork } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
-import { numberCellRenderer } from 'components/table/renderer'
-import { expiryDateCellRenderer, NFTCellRenderer, premiumCellRenderer } from './renderer'
+import { tokenIconCellRenderer, dateCellRenderer } from 'components/table/renderer'
+import { NFTCellRenderer } from './renderer'
 import TableCell from '@mui/material/TableCell'
 import Button from '@mui/material/Button'
 import { useWallet } from 'domains'
@@ -18,6 +18,7 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { ExerciseCallProps } from 'lib/protocol/typechain/nftcall'
 import { valueToWei } from 'lib/math'
+import { safeGet } from 'app/utils/get'
 
 const pageSize = 5
 
@@ -28,6 +29,7 @@ export const useTable = (): BasicTableProps => {
   const [noMoreSourceData, setNoMoreSourceData] = useState(false)
   const [sourceData, setSourceData] = useState([])
 
+  const { callPools } = useCallPools()
   const { networkAccount } = useWallet()
   const {
     contracts: { callPoolService },
@@ -86,25 +88,27 @@ export const useTable = (): BasicTableProps => {
             dataKey: 'floorPrice',
             width: 450,
             headerRenderer,
-            cellRenderer: numberCellRenderer,
+            cellRenderer: tokenIconCellRenderer,
           },
           {
             dataKey: 'strikePrice',
             width: 450,
             headerRenderer,
-            cellRenderer: numberCellRenderer,
+            cellRenderer: tokenIconCellRenderer,
           },
           {
             dataKey: 'expiryDate',
+            cellData: 'entTime',
             width: 450,
             headerRenderer,
-            cellRenderer: expiryDateCellRenderer,
+            cellRenderer: dateCellRenderer,
           },
           {
             dataKey: 'premium',
+            cellData: 'premiumToOwner',
             width: 450,
             headerRenderer,
-            cellRenderer: premiumCellRenderer,
+            cellRenderer: tokenIconCellRenderer,
           },
           {
             dataKey: 'status',
@@ -128,9 +132,15 @@ export const useTable = (): BasicTableProps => {
   )
   const skip = useMemo(() => pageIndex * pageSize, [pageIndex])
   const data = useMemo(() => {
-    const returnValue = [...sourceData]
-    return returnValue.sort((a, b) => b.createTimestamp - a.createTimestamp).slice(0, skip)
-  }, [skip, sourceData])
+    return sourceData.map((i) => {
+      const callPool = callPools.find((callPool) => callPool.address.CallPool === i.callPoolAddress)
+      return {
+        ...i,
+        floorPrice: safeGet(() => callPool.nftOracle.price),
+      }
+    })
+  }, [callPools, sourceData])
+
   const end = useMemo(() => {
     if (!noMoreSourceData) return false
     return skip > data.length
@@ -150,13 +160,7 @@ export const useTable = (): BasicTableProps => {
             userAddress: networkAccount,
             subgraphName: 'rockgold0911/nftcall',
           })
-          .then((data) => {
-            // const { symbol } = portfolio
-            const rowData = data.map((i) => ({
-              ...i,
-              // vault,
-            }))
-
+          .then((rowData) => {
             if (rowData.length < pageSize) setNoMoreSourceData(true)
             setSourceData((data) => data.concat(rowData))
           })

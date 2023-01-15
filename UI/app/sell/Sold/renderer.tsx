@@ -2,9 +2,6 @@ import TableCell from '@mui/material/TableCell'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import LinkToAddress from 'components/button/LinkToAddress'
-import { Paragraph } from 'components/Typography'
-
-import { format } from 'date-fns'
 
 import type { NFTTransaction } from './adapter'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
@@ -39,14 +36,6 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
           {/* <p>{nftAddress}</p> */}
         </Stack>
       </Stack>
-    </TableCell>
-  )
-}
-
-export const expiryDateCellRenderer = ({ cellData }: TableCellProps) => {
-  return (
-    <TableCell align="center" component="div">
-      <Paragraph>{format(cellData, 'MM/dd/yyyy')}</Paragraph>
     </TableCell>
   )
 }

@@ -4,6 +4,8 @@ import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined'
 import Tooltip from '@mui/material/Tooltip'
 import Stack from '@mui/material/Stack'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
+import { Paragraph } from 'components/Typography'
+import { format } from 'date-fns'
 
 import type { TableHeaderRenderer } from '../BasicTable/types'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
@@ -38,16 +40,6 @@ export const cellRenderer: TableCellRenderer = ({ cellData }) => {
   )
 }
 
-export const symbolCellRenderer: TableCellRenderer = ({ cellData, rowData }) => {
-  return (
-    <TableCell align="center" component="div">
-      <Stack spacing={0.5} direction="row">
-        <NumberDisplay value={cellData} abbreviate={{}} />
-        <span> {rowData.symbol}</span>
-      </Stack>
-    </TableCell>
-  )
-}
 export const tokenIconCellRenderer: TableCellRenderer = ({ cellData }) => {
   return (
     <TableCell align="center" component="div">
@@ -71,6 +63,16 @@ export const percentCellRenderer: TableCellRenderer = ({ cellData }) => {
   return (
     <TableCell align="center" component="div">
       <NumberDisplay value={cellData} options="percent" />
+    </TableCell>
+  )
+}
+
+export const dateCellRenderer: TableCellRenderer = ({ cellData }) => {
+  return (
+    <TableCell align="center" component="div">
+      <Paragraph fontSize={14} color="text.secondary">
+        {format(cellData, 'MMM dd hh:mm')}
+      </Paragraph>
     </TableCell>
   )
 }
