@@ -6,6 +6,7 @@ declare module '@mui/material/Button' {
     GreyOutlined: true
     dashed: true
     white: true
+    autoHide: true
   }
 }
 
@@ -107,6 +108,10 @@ const components = (theme: Theme): any => {
         {
           props: { variant: 'text' },
           style: { padding: 0, '&:hover': { backgroundColor: 'transparent' } },
+        },
+        {
+          props: { variant: 'autoHide' },
+          style: { transition: 'opacity 0.3s', opacity: 0, '&:hover': { opacity: 1 } },
         },
         {
           props: { variant: 'white' },

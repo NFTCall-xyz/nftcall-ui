@@ -39,6 +39,9 @@ const ROOT = styled(Card)(({ theme }) => ({
   '&:hover': {
     borderColor: theme.palette.primary.main,
     backgroundColor: theme.palette.primary[200],
+    ['.MuiButton-autoHide']: {
+      opacity: 1,
+    },
   },
   '& .checkbox': {
     position: 'absolute',
@@ -49,6 +52,7 @@ const ROOT = styled(Card)(({ theme }) => ({
 
 const NFTCard: FC<DepositedNFT> = (props) => {
   const { tokenId, status: sourceStatus, position } = props
+  const { premiumToOwner, strikePrice } = position || ({} as undefined)
   const [status, setStatus] = useState(sourceStatus)
   const [loading, setLoading] = useState(false)
   const { nftAssetsData } = useNFTAssetsData(props)
@@ -70,7 +74,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
               <ListOnMarket checked={true} loading={loading} nft={props} nftActions={nftActions} />
             </Stack>
             <Box>
-              <Button disabled={loading} onClick={() => {}}>
+              <Button disabled={loading} variant="autoHide" onClick={() => {}}>
                 Withdraw
               </Button>
             </Box>
@@ -84,7 +88,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
               <ListOnMarket checked={false} loading={loading} nft={props} nftActions={nftActions} />
             </Stack>
             <Box>
-              <Button disabled={loading} onClick={() => {}}>
+              <Button disabled={loading} variant="autoHide" onClick={() => {}}>
                 Withdraw
               </Button>
             </Box>
@@ -97,14 +101,14 @@ const NFTCard: FC<DepositedNFT> = (props) => {
               <Tiny>Strike Price</Tiny>
               <Stack spacing={1} direction="row" alignItems="center">
                 <TokenIcon symbol="ETH" sx={{ width: 16, height: 16 }} />
-                <NumberDisplay value={weiToValue(position.strikePrice, 18)} />
+                <NumberDisplay value={weiToValue(strikePrice, 18)} />
               </Stack>
             </Stack>
             <Stack spacing={1}>
               <Tiny>Premium Earned</Tiny>
               <Stack spacing={1} direction="row" alignItems="center">
                 <TokenIcon symbol="ETH" sx={{ width: 16, height: 16 }} />
-                <NumberDisplay value={weiToValue(position.premiumToOwner, 18)} />
+                <NumberDisplay value={weiToValue(premiumToOwner, 18)} />
               </Stack>
             </Stack>
           </FlexBetween>
@@ -112,7 +116,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       default:
         return null
     }
-  }, [loading, nftActions, position.premiumToOwner, position.strikePrice, props, status])
+  }, [loading, nftActions, premiumToOwner, strikePrice, props, status])
 
   if (status === 'Removed') return null
   const title = `${safeGet(() => nftAssetsData.contractName) || ''} #${tokenId}`
