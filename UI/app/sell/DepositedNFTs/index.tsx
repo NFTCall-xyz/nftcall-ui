@@ -5,15 +5,13 @@ import { LoadMoreButton } from 'components/btn/LoadMoreButton'
 import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
 
 const DepositedNFTs = () => {
-  const { data, onLoadMore, noMoreData, disabled } = useDepositedNFTs()
+  const { data, onLoadMore, noMoreData, disabled, restart } = useDepositedNFTs()
   useUpdateNFTAssets(data)
 
   return (
     <Grid container spacing={2}>
       {data.map((nft) => (
-        <Grid item xs={6} sm={3} md={2.4} key={nft.nftAddress + nft.tokenId}>
-          <NFTCard {...{ ...nft }} />
-        </Grid>
+        <NFTCard {...{ ...nft, restart }} key={nft.nftAddress + nft.tokenId} />
       ))}
       <Grid item xs={12}>
         <LoadMoreButton

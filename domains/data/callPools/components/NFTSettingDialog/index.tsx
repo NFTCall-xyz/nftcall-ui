@@ -42,16 +42,21 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
       sendTransaction,
       isOnlyApprove: false,
     })
-      .then(() => setStatus('Removed'))
+      .then(() => {
+        setStatus('Removed')
+        close()
+      })
       .finally(() => setSubmitting(false))
-  }, [callPoolAddress, callPoolService, networkAccount, sendTransaction, setStatus, setSubmitting, tokenId])
+  }, [callPoolAddress, callPoolService, close, networkAccount, sendTransaction, setStatus, setSubmitting, tokenId])
   return (
     <Dialog
       {...{ ...nftSetting, title: 'Setting' }}
       actions={
         <Fragment>
           <Button onClick={close}>Cancel</Button>
-          <Button onClick={handleWithdraw}>withdraw</Button>
+          <Button disabled={isSubmitting} onClick={handleWithdraw}>
+            withdraw
+          </Button>
           <SubmitBotton onClick={() => handleSubmit()} isSubmitting={isSubmitting}>
             Setting
           </SubmitBotton>

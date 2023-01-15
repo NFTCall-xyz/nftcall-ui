@@ -5,7 +5,7 @@ import { catchError } from 'app/utils/catch/error'
 import { createToastifyPromise } from 'app/utils/promise/toastify'
 
 import type { NFT } from 'domains/data/nft/types'
-import { useCallPools, useNetwork, useNFT } from 'domains/data'
+import { useCallPools, useNetwork } from 'domains/data'
 import { useWallet } from 'domains'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
@@ -30,9 +30,6 @@ export const useForm = () => {
     contracts: { callPoolService },
   } = useNetwork()
   const { networkAccount } = useWallet()
-  const {
-    tokenId: { updateWallet },
-  } = useNFT()
   const sendTransaction = useSendTransaction()
   const formik = useFormik({
     initialValues,
@@ -60,7 +57,7 @@ export const useForm = () => {
             },
           }),
       }).then(() => {
-        updateWallet()
+        nft.actions.update()
         close()
       })
     },

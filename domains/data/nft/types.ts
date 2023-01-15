@@ -6,6 +6,7 @@ export type BaseNFT = {
 export type NFTActions = Partial<{
   setStatus: (status: NFTStatus) => void
   setLoading: (loading: boolean) => void
+  update: () => void
 }>
 export type NFT = BaseNFT &
   Partial<{
