@@ -27,7 +27,7 @@ export const useForm = () => {
     },
   } = useCallPools()
   const {
-    contracts: { callPoolService, erc721Service },
+    contracts: { callPoolService },
   } = useNetwork()
   const { networkAccount } = useWallet()
   const {
@@ -38,14 +38,12 @@ export const useForm = () => {
     initialValues,
     validationSchema,
     onSubmit: (values, formikHelpers) => {
-      const { callPoolAddress, nftAddress, tokenId } = nft
+      const { callPoolAddress, tokenId } = nft
       return transaction({
-        createTransaction: callPoolService.deposit({
+        createTransaction: callPoolService.changePreference({
           callPool: callPoolAddress,
           user: networkAccount,
-          nft: nftAddress,
           tokenId,
-          approveService: erc721Service as any,
           lowerLimitOfStrikePrice: '0',
           lowerStrikePriceGapIdx: values.minStrikePrice,
           upperDurationIdx: values.maxExpriyTime,

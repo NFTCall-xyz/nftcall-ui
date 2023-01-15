@@ -63,6 +63,14 @@ export type RelistNFTProps = BaseCallPoolProps & {
   tokenId: string
 }
 
+export type ChangePreferenceProps = BaseCallPoolProps & {
+  user: tEthereumAddress
+  tokenId: string
+  lowerStrikePriceGapIdx: number
+  upperDurationIdx: number
+  lowerLimitOfStrikePrice: string
+}
+
 export type PreviewOpenCallProps = BaseCallPoolProps & {
   tokenIds: string[]
   strikePriceGapIdx: number
@@ -87,6 +95,7 @@ export class CallPoolService extends BaseService<CallPool> {
     this.withdraw = this.withdraw.bind(this)
     this.takeNFTOffMarket = this.takeNFTOffMarket.bind(this)
     this.relistNFT = this.relistNFT.bind(this)
+    this.changePreference = this.changePreference.bind(this)
     this.previewOpenCall = this.previewOpenCall.bind(this)
     this.openCall = this.openCall.bind(this)
     this.exerciseCall = this.exerciseCall.bind(this)
@@ -217,6 +226,34 @@ export class CallPoolService extends BaseService<CallPool> {
     const callPoolContract = this.getContractInstance(callPool)
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () => callPoolContract.populateTransaction.relistNFT(tokenId),
+      from: user,
+      value: DEFAULT_NULL_VALUE_ON_TX,
+    })
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.DLP,
+      },
+    ]
+  }
+
+  public async changePreference({
+    callPool,
+    user,
+    tokenId,
+    lowerStrikePriceGapIdx,
+    upperDurationIdx,
+    lowerLimitOfStrikePrice,
+  }: ChangePreferenceProps) {
+    const callPoolContract = this.getContractInstance(callPool)
+    const txCallback: () => Promise<transactionType> = this.generateTxCallback({
+      rawTxMethod: async () =>
+        callPoolContract.populateTransaction.changePreference(
+          tokenId,
+          lowerStrikePriceGapIdx,
+          upperDurationIdx,
+          lowerLimitOfStrikePrice
+        ),
       from: user,
       value: DEFAULT_NULL_VALUE_ON_TX,
     })
