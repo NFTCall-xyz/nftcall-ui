@@ -30,11 +30,18 @@ const locale = {
     withdraw: 'Withdraw',
   },
   settingsDialog: {
-    title: 'Options Selling Config',
+    title: 'Options selling config',
     submit: 'Submit',
     cancel: 'Cancel',
     minStrikePrice: 'Minimum strike price',
-    maxExpiryTime: 'Maximum expiry time'
+    minStrikePriceTip: 'The lowest strike price that option buyers can choose when opening a call option on your NFT.',
+    maxExpiryTime: 'Maximum expiration duration',
+    maxExpiryTimeTip: 'The longest expiration duration that option buyers can choose when opening a call option on your NFT.',
+  },
+  depositDialog: {
+    title: 'Deposit NFTs to sell call opitons',
+    deposit: 'Deposit',
+    cancel: 'Cancel',
   },
 }
 

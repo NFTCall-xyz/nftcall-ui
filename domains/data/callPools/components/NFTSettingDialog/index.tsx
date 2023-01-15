@@ -16,6 +16,8 @@ import NFTCard from './NFTCard'
 import { useForm } from './useForm'
 import { useTranslation } from 'next-i18next'
 import { Span } from 'components/Typography'
+import Tooltip from '@mui/material/Tooltip'
+import HelpIcon from '@mui/icons-material/Help'
 
 type NFTSettingDialogProps = {}
 const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
@@ -72,7 +74,12 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
         <Stack spacing={4} sx={{ width: '100vw', maxWidth: '450px', paddingTop: 2 }}>
           <NFTCard tokenId={tokenId} nftAddress={nftAddress} />
           <Stack spacing={1}>
-            <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>
+            <Stack alignItems='center' spacing={0.5} direction='row'>
+              <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>
+              <Tooltip title={t('settingsDialog.minStrikePriceTip')}>
+                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+              </Tooltip>
+            </Stack>
             <FormTextField
               formik={formik}
               fieldKey="minStrikePrice"
@@ -89,7 +96,12 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
             </FormTextField>
           </Stack>
           <Stack spacing={1}>
-            <Span fontWeight="bold">{t('settingsDialog.maxExpiryTime')}</Span>
+            <Stack alignItems='center' spacing={0.5} direction='row'>
+              <Span fontWeight="bold">{t('settingsDialog.maxExpiryTime')}</Span>
+              <Tooltip title={t('settingsDialog.maxExpiryTimeTip')}>
+                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+              </Tooltip>
+            </Stack>
             <FormTextField
               formik={formik}
               fieldKey="maxExpriyTime"

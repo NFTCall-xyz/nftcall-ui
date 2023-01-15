@@ -12,7 +12,7 @@ const Dialog: FCC<DialogValues & { title: string; actions?: any }> = ({ visible,
       <DialogCloseIconButton onClick={close} />
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>
-      {actions && <DialogActions>{actions}</DialogActions>}
+      {actions && <DialogActions sx={{ padding: 3 }}>{actions}</DialogActions>}
     </MaterialDialog>
   )
 }

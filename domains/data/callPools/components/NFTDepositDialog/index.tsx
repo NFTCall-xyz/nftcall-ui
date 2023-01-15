@@ -10,9 +10,14 @@ import { useCallPools } from 'domains/data'
 import { Fragment } from 'react'
 import NFTCard from './NFTCard'
 import { useForm } from './useForm'
+import { useTranslation } from 'next-i18next'
+import { Span } from 'components/Typography'
+import Tooltip from '@mui/material/Tooltip'
+import HelpIcon from '@mui/icons-material/Help'
 
 type NFTDepositDialogProps = {}
 const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
+  const { t } = useTranslation(['app-sell'])
   const {
     dialogs: { nftDeposit },
   } = useCallPools()
@@ -22,12 +27,12 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
   const { tokenId, nftAddress } = safeGet(() => nftDeposit.nft) || ({} as undefined)
   return (
     <Dialog
-      {...{ ...nftDeposit, title: 'Deposit' }}
+      {...{ ...nftDeposit, title: t('depositDialog.title') }}
       actions={
         <Fragment>
-          <Button onClick={close}>Cancel</Button>
-          <SubmitBotton onClick={() => handleSubmit()} isSubmitting={isSubmitting}>
-            Deposit
+          <Button variant='outlined' onClick={close}>{t('depositDialog.cancel')}</Button>
+          <SubmitBotton variant='contained' onClick={() => handleSubmit()} isSubmitting={isSubmitting}>
+            {t('depositDialog.deposit')}
           </SubmitBotton>
         </Fragment>
       }
@@ -35,34 +40,50 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
       <form onSubmit={handleSubmit}>
         <Stack spacing={4} sx={{ width: '100vw', maxWidth: '450px', paddingTop: 2 }}>
           <NFTCard tokenId={tokenId} nftAddress={nftAddress} />
-          <FormTextField
-            formik={formik}
-            fieldKey="minStrikePrice"
-            label="Minimum Strike Price"
-            textFieldProps={{
-              select: true,
-            }}
-          >
-            {MIN_STRIKE_PRICE_MAP.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </FormTextField>
-          <FormTextField
-            formik={formik}
-            fieldKey="maxExpriyTime"
-            label="Maximum Expiry Duration"
-            textFieldProps={{
-              select: true,
-            }}
-          >
-            {MAX_EXPRIY_TIME_MAP.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </FormTextField>
+          <Stack spacing={1}>
+            <Stack alignItems='center' spacing={0.5} direction='row'>
+              <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>
+              <Tooltip title={t('settingsDialog.minStrikePriceTip')}>
+                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+              </Tooltip>
+            </Stack>
+            <FormTextField
+              formik={formik}
+              fieldKey="minStrikePrice"
+              label=""
+              textFieldProps={{
+                select: true,
+              }}
+            >
+              {MIN_STRIKE_PRICE_MAP.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </FormTextField>
+          </Stack>
+          <Stack spacing={1}>
+            <Stack alignItems='center' spacing={0.5} direction='row'>
+              <Span fontWeight="bold">{t('settingsDialog.maxExpiryTime')}</Span>
+              <Tooltip title={t('settingsDialog.maxExpiryTimeTip')}>
+                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+              </Tooltip>
+            </Stack>
+            <FormTextField
+              formik={formik}
+              fieldKey="maxExpriyTime"
+              label=""
+              textFieldProps={{
+                select: true,
+              }}
+            >
+              {MAX_EXPRIY_TIME_MAP.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </FormTextField>
+          </Stack>
         </Stack>
       </form>
     </Dialog>
