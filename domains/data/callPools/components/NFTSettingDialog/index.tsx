@@ -6,66 +6,59 @@ import { safeGet } from 'app/utils/get'
 import Dialog from 'components/dialog/Dialog'
 import FormTextField from 'components/form/FormTextField'
 import SubmitBotton from 'components/form/SubmitBotton'
-import { useWallet } from 'domains'
-import { transaction } from 'domains/controllers/adapter/transaction'
-import { useCallPools, useNetwork } from 'domains/data'
-import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
-import { noop } from 'lodash'
-import { Fragment, useCallback } from 'react'
+import { useCallPools } from 'domains/data'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import NFTCard from './NFTCard'
 import { useForm } from './useForm'
 import { useTranslation } from 'next-i18next'
 import { Span } from 'components/Typography'
 import Tooltip from '@mui/material/Tooltip'
 import HelpIcon from '@mui/icons-material/Help'
+import FlexBetween from 'components/flexbox/FlexBetween'
+import ListOnMarket from './ListOnMarket'
+import type { NFTStatus } from 'domains/data/nft/types'
 
 type NFTSettingDialogProps = {}
 const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
-  const { t } = useTranslation(['app-sell'])
+  const { t } = useTranslation('app-sell', { keyPrefix: 'settingsDialog' })
   const {
     dialogs: { nftSetting },
   } = useCallPools()
   const { close } = nftSetting
   const { formik } = useForm()
-  const { handleSubmit, isSubmitting, setSubmitting } = formik
-  const { tokenId, nftAddress, callPoolAddress, actions } = safeGet(() => nftSetting.nft) || ({} as undefined)
-  const { setStatus } = safeGet(() => actions) || ({ setStatus: noop } as undefined)
-  const {
-    contracts: { callPoolService },
-  } = useNetwork()
-  const { networkAccount } = useWallet()
-  const sendTransaction = useSendTransaction()
-  const handleWithdraw = useCallback(() => {
-    setSubmitting(true)
-    return transaction({
-      createTransaction: callPoolService.withdraw({
-        callPool: callPoolAddress,
-        user: networkAccount,
-        tokenId,
-      }),
-      setStatus: () => {},
-      sendTransaction,
-      isOnlyApprove: false,
-    })
-      .then(() => {
-        setStatus('Removed')
-        close()
-      })
-      .finally(() => setSubmitting(false))
-  }, [callPoolAddress, callPoolService, close, networkAccount, sendTransaction, setStatus, setSubmitting, tokenId])
+  const { handleSubmit, isSubmitting } = formik
+  const { tokenId, nftAddress, status: sourceStatus, actions } = safeGet(() => nftSetting.nft) || ({} as undefined)
+  const [status, setStatus] = useState(sourceStatus)
+  const nftActions = useMemo(
+    () => ({
+      ...actions,
+      setStatus: (status: NFTStatus) => {
+        setStatus(status)
+        actions?.setStatus(status)
+      },
+      setLoading: (loading: boolean) => {
+        formik.setSubmitting(loading)
+        actions?.setLoading(loading)
+      },
+    }),
+    [actions, formik]
+  )
+  useEffect(() => {
+    if (!tokenId) return
+    setStatus(sourceStatus)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tokenId])
+  const isListOnMarket = status !== 'Deposited'
   return (
     <Dialog
-      {...{ ...nftSetting, title: t('settingsDialog.title') }}
+      {...{ ...nftSetting, title: t('title') }}
       actions={
         <Fragment>
-          <Button variant='outlined' onClick={close}>
-            {t('settingsDialog.cancel')}
+          <Button variant="outlined" onClick={close}>
+            {t('cancel')}
           </Button>
-          <Button disabled={isSubmitting} onClick={handleWithdraw} variant='contained'>
-            {t('nftcard.withdraw')}
-          </Button>
-          <SubmitBotton onClick={() => handleSubmit()} isSubmitting={isSubmitting} variant='contained'>
-            {t('settingsDialog.submit')}
+          <SubmitBotton onClick={() => handleSubmit()} isSubmitting={isSubmitting} variant="contained">
+            {t('submit')}
           </SubmitBotton>
         </Fragment>
       }
@@ -73,6 +66,15 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
       <form onSubmit={handleSubmit}>
         <Stack spacing={4} sx={{ width: '100vw', maxWidth: '450px', paddingTop: 2 }}>
           <NFTCard tokenId={tokenId} nftAddress={nftAddress} />
+          <FlexBetween>
+            <Span fontWeight="bold">{t('listOnMarket')}</Span>
+            <ListOnMarket
+              checked={isListOnMarket}
+              loading={isSubmitting}
+              nft={nftSetting.nft}
+              nftActions={nftActions}
+            />
+          </FlexBetween>
           <Stack spacing={1}>
             <Stack alignItems='center' spacing={0.5} direction='row'>
               <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>

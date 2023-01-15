@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 import { useState } from 'react'
 import { useMemo } from 'react'
 import { styled } from '@mui/material/styles'
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
@@ -17,12 +18,14 @@ import { safeGet } from 'app/utils/get'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import { weiToValue } from 'lib/math'
-import ListOnMarket from './ListOnMarket'
-import { useCallPools } from 'domains/data'
+import { useCallPools, useNetwork } from 'domains/data'
 import Grid from '@mui/material/Grid'
 import { useTranslation } from 'next-i18next'
 import SettingsIcon from '@mui/icons-material/Settings'
 import IconButton from '@mui/material/IconButton'
+import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
+import { transaction } from 'domains/controllers/adapter/transaction'
+import { useWallet } from 'domains'
 
 export type DepositedNFT = BaseNFT & {
   callPoolAddress: string
@@ -57,7 +60,7 @@ const ROOT = styled(Card)(({ theme }) => ({
 
 const NFTCard: FC<DepositedNFT> = (props) => {
   const { t } = useTranslation('app-sell')
-  const { tokenId, status: sourceStatus, position, restart } = props
+  const { tokenId, status: sourceStatus, position, restart, callPoolAddress } = props
   const { premiumToOwner, strikePrice } = position || ({} as undefined)
   const [status, setStatus] = useState(sourceStatus)
   const [loading, setLoading] = useState(false)
@@ -78,20 +81,44 @@ const NFTCard: FC<DepositedNFT> = (props) => {
   const openNFTSetting = useCallback(() => {
     open({
       ...props,
+      status,
       actions: nftActions,
     })
-  }, [nftActions, open, props])
+  }, [nftActions, open, props, status])
+
+  const {
+    contracts: { callPoolService },
+  } = useNetwork()
+  const { networkAccount } = useWallet()
+  const sendTransaction = useSendTransaction()
+  const handleWithdraw = useCallback(() => {
+    setLoading(true)
+    return transaction({
+      createTransaction: callPoolService.withdraw({
+        callPool: callPoolAddress,
+        user: networkAccount,
+        tokenId,
+      }),
+      setStatus: () => {},
+      sendTransaction,
+      isOnlyApprove: false,
+    })
+      .then(() => {
+        setStatus('Removed')
+        close()
+      })
+      .finally(() => setLoading(false))
+  }, [callPoolAddress, callPoolService, networkAccount, sendTransaction, setStatus, tokenId])
 
   const actions = useMemo(() => {
     switch (status) {
       case 'Listed':
         return (
           <FlexBetween width={1}>
-            <Stack spacing={1}>
-              <Tiny>{t('nftcard.listOnMarket')}</Tiny>
-              <ListOnMarket checked={true} loading={loading} nft={props} nftActions={nftActions} />
-            </Stack>
-            <IconButton  aria-label="settings" disabled={loading} onClick={openNFTSetting}>
+            <Button disabled={loading} onClick={handleWithdraw} variant="contained">
+              {t('nftcard.withdraw')}
+            </Button>
+            <IconButton aria-label="settings" onClick={openNFTSetting}>
               <SettingsIcon />
             </IconButton>
           </FlexBetween>
@@ -99,11 +126,10 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       case 'Deposited':
         return (
           <FlexBetween width={1}>
-            <Stack spacing={1}>
-              <Tiny>{t('nftcard.listOnMarket')}</Tiny>
-              <ListOnMarket checked={false} loading={loading} nft={props} nftActions={nftActions} />
-            </Stack>
-            <IconButton  aria-label="settings" disabled={loading} onClick={openNFTSetting}>
+            <Button disabled={loading} onClick={handleWithdraw} variant="contained">
+              {t('nftcard.withdraw')}
+            </Button>
+            <IconButton aria-label="settings" onClick={openNFTSetting}>
               <SettingsIcon />
             </IconButton>
           </FlexBetween>
@@ -130,7 +156,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       default:
         return null
     }
-  }, [status, loading, props, nftActions, openNFTSetting, strikePrice, premiumToOwner, t])
+  }, [status, loading, handleWithdraw, t, openNFTSetting, strikePrice, premiumToOwner])
 
   if (status === 'Removed') return null
   const title = `#${tokenId}`
@@ -143,7 +169,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
         <CardContent>
           <Stack spacing={1}>
             <Paragraph>{title}</Paragraph>
-            <Span color='text.secondary'>{collection}</Span>
+            <Span color="text.secondary">{collection}</Span>
           </Stack>
         </CardContent>
         <Divider />

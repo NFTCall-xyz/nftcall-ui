@@ -5,22 +5,18 @@ import Switch from '@mui/material/Switch'
 import { useWallet } from 'domains'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { useNetwork } from 'domains/data'
-import type { NFTActions } from 'domains/data/nft/types'
-import type { DepositedNFT } from './NFTCard'
+import type { NFT, NFTActions } from 'domains/data/nft/types'
 
 export type ListOnMarketProps = {
   loading: boolean
   checked: boolean
-  nft: DepositedNFT
+  nft: NFT
   nftActions: NFTActions
 }
 
-const ListOnMarket: FC<ListOnMarketProps> = ({
-  checked,
-  loading,
-  nft: { callPoolAddress, tokenId },
-  nftActions: { setStatus, setLoading },
-}) => {
+const ListOnMarket: FC<ListOnMarketProps> = ({ checked, loading, nft, nftActions }) => {
+  const { callPoolAddress, tokenId } = nft || ({} as undefined)
+  const { setStatus, setLoading } = nftActions || ({} as undefined)
   const {
     contracts: { callPoolService },
   } = useNetwork()

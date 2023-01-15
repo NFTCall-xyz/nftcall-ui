@@ -23,7 +23,6 @@ const locale = {
     soldPrice: 'Sold Price',
   },
   nftcard: {
-    listOnMarket: 'List on Market',
     strikePrice: 'Strike Price',
     premiumEarned: 'Premium Earned',
     settings: 'Settings',
@@ -33,6 +32,7 @@ const locale = {
     title: 'Options selling config',
     submit: 'Submit',
     cancel: 'Cancel',
+    listOnMarket: 'List on Market',
     minStrikePrice: 'Minimum strike price',
     minStrikePriceTip: 'The lowest strike price that option buyers can choose when opening a call option on your NFT.',
     maxExpiryTime: 'Maximum expiration duration',
