@@ -1,14 +1,18 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { headerRenderer } from 'components/table/renderer'
+import {
+  linkToAddressCellRenderer,
+  dateCellRenderer,
+  headerRenderer,
+  tokenIconCellRenderer,
+} from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
-import { numberCellRenderer } from 'components/table/renderer'
-import { expiryDateCellRenderer, linkToAddressCellRenderer, NFTCellRenderer } from './renderer'
+import { NFTCellRenderer } from './renderer'
 import { useWallet } from 'domains'
 
 const pageSize = 5
@@ -41,13 +45,13 @@ export const useTable = (): BasicTableProps => {
             dataKey: 'createTimestamp',
             width: 450,
             headerRenderer,
-            cellRenderer: expiryDateCellRenderer,
+            cellRenderer: dateCellRenderer,
           },
           {
             dataKey: 'soldPrice',
             width: 450,
             headerRenderer,
-            cellRenderer: numberCellRenderer,
+            cellRenderer: tokenIconCellRenderer,
           },
         ] as TableColumnsProps[]
       ).map((column) => {

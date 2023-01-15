@@ -9,6 +9,7 @@ import { format } from 'date-fns'
 
 import type { TableHeaderRenderer } from '../BasicTable/types'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
+import LinkToAddress from 'components/button/LinkToAddress'
 
 export const headerRenderer: TableHeaderRenderer = (props) => {
   if (props.tip) return headerWithTooltipRenderer(props)
@@ -73,6 +74,14 @@ export const dateCellRenderer: TableCellRenderer = ({ cellData }) => {
       <Paragraph fontSize={14} color="text.secondary">
         {format(cellData, 'MMM dd hh:mm')}
       </Paragraph>
+    </TableCell>
+  )
+}
+
+export const linkToAddressCellRenderer: TableCellRenderer = ({ cellData }) => {
+  return (
+    <TableCell align="center" component="div">
+      <LinkToAddress address={cellData} />
     </TableCell>
   )
 }

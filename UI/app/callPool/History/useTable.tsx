@@ -1,14 +1,19 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { headerRenderer, dateCellRenderer, tokenIconCellRenderer } from 'components/table/renderer'
+import {
+  headerRenderer,
+  dateCellRenderer,
+  tokenIconCellRenderer,
+  linkToAddressCellRenderer,
+} from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
 import { useCallPoolDetails } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
-import { accountCellRenderer, NFTCellRenderer, statusCellRenderer } from './renderer'
+import { NFTCellRenderer, statusCellRenderer } from './renderer'
 
 const pageSize = 5
 
@@ -26,9 +31,10 @@ export const useTable = (): BasicTableProps => {
         [
           {
             dataKey: 'account',
+            cellData: 'userAddress',
             width: 450,
             headerRenderer,
-            cellRenderer: accountCellRenderer,
+            cellRenderer: linkToAddressCellRenderer,
           },
           {
             dataKey: 'NFT',

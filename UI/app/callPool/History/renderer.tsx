@@ -1,7 +1,6 @@
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import TableCell from '@mui/material/TableCell'
-import LinkToAddress from 'components/button/LinkToAddress'
 import { Paragraph } from 'components/Typography'
 
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
@@ -18,13 +17,6 @@ export type TableCellProps = {
   parent?: any
   rowData: Position
   rowIndex: number
-}
-export const accountCellRenderer = ({ rowData: { userAddress } }: TableCellProps) => {
-  return (
-    <TableCell align="center" component="div">
-      <LinkToAddress address={userAddress} />
-    </TableCell>
-  )
 }
 
 export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellProps) => {
