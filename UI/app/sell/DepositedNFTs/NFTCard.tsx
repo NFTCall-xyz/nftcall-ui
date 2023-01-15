@@ -1,23 +1,16 @@
 import type { FC } from 'react'
 import { useState } from 'react'
-import { useCallback } from 'react'
 import { useMemo } from 'react'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
-import { useCallPools, useNetwork } from 'domains/data'
-import { useWallet } from 'domains'
-import { transaction } from 'domains/controllers/adapter/transaction'
-import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
-import type { RelistNFTProps, TakeNFTOffMarketProps, WithdrawProps } from 'lib/protocol/typechain/nftcall'
 import Stack from '@mui/material/Stack'
 import FlexBetween from 'components/flexbox/FlexBetween'
-import Switch from '@mui/material/Switch'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
+import type { BaseNFT, NFTActions, NFTStatus } from 'domains/data/nft/types'
 import { Paragraph, Tiny } from 'components/Typography'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
@@ -25,8 +18,10 @@ import { safeGet } from 'app/utils/get'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import { weiToValue } from 'lib/math'
+import ListOnMarket from './ListOnMarket'
 
 export type DepositedNFT = BaseNFT & {
+  callPoolAddress: string
   minStrikePrice: number
   maxExpriyTime: number
   status: NFTStatus
@@ -37,7 +32,7 @@ export type DepositedNFT = BaseNFT & {
   }
 }
 
-const Root = styled(Card)(({ theme }) => ({
+const ROOT = styled(Card)(({ theme }) => ({
   position: 'relative',
   border: 'solid 1px',
   borderColor: theme.palette.divider,
@@ -53,62 +48,18 @@ const Root = styled(Card)(({ theme }) => ({
 }))
 
 const NFTCard: FC<DepositedNFT> = (props) => {
-  const { tokenId, nftAddress, status: sourceStatus, position } = props
+  const { tokenId, status: sourceStatus, position } = props
   const [status, setStatus] = useState(sourceStatus)
   const [loading, setLoading] = useState(false)
   const { nftAssetsData } = useNFTAssetsData(props)
-  const {
-    contracts: { callPoolService },
-  } = useNetwork()
-  const { callPools } = useCallPools()
-  const callPool = useMemo(() => {
-    return callPools.find((callPool) => callPool.address.NFT.toLowerCase() === nftAddress)
-  }, [callPools, nftAddress])
-  const { networkAccount } = useWallet()
+  const nftActions = useMemo(() => {
+    const returnValue: NFTActions = {
+      setStatus,
+      setLoading,
+    }
+    return returnValue
+  }, [])
 
-  const sendTransaction = useSendTransaction()
-  const relistNFT = useCallback(
-    (props: RelistNFTProps) => {
-      setLoading(true)
-      return transaction({
-        createTransaction: callPoolService.relistNFT(props),
-        setStatus: () => {},
-        sendTransaction,
-        isOnlyApprove: false,
-      })
-        .then(() => setStatus('Listed'))
-        .finally(() => setLoading(false))
-    },
-    [callPoolService, sendTransaction]
-  )
-  const takeNFTOffMarket = useCallback(
-    (props: TakeNFTOffMarketProps) => {
-      setLoading(true)
-      return transaction({
-        createTransaction: callPoolService.takeNFTOffMarket(props),
-        setStatus: () => {},
-        sendTransaction,
-        isOnlyApprove: false,
-      })
-        .then(() => setStatus('Deposited'))
-        .finally(() => setLoading(false))
-    },
-    [callPoolService, sendTransaction]
-  )
-  const withdraw = useCallback(
-    (props: WithdrawProps) => {
-      setLoading(true)
-      return transaction({
-        createTransaction: callPoolService.withdraw(props),
-        setStatus: () => {},
-        sendTransaction,
-        isOnlyApprove: false,
-      })
-        .then(() => setStatus('Removed'))
-        .finally(() => setLoading(false))
-    },
-    [callPoolService, sendTransaction]
-  )
   const actions = useMemo(() => {
     switch (status) {
       case 'Listed':
@@ -116,29 +67,10 @@ const NFTCard: FC<DepositedNFT> = (props) => {
           <FlexBetween>
             <Stack spacing={1}>
               <p>List on Market</p>
-              <Switch
-                checked={true}
-                disabled={loading}
-                onChange={() => {
-                  takeNFTOffMarket({
-                    callPool: callPool.address.CallPool,
-                    user: networkAccount,
-                    tokenId,
-                  })
-                }}
-              />
+              <ListOnMarket checked={true} loading={loading} nft={props} nftActions={nftActions} />
             </Stack>
             <Box>
-              <Button
-                disabled={loading}
-                onClick={() => {
-                  withdraw({
-                    callPool: callPool.address.CallPool,
-                    user: networkAccount,
-                    tokenId,
-                  })
-                }}
-              >
+              <Button disabled={loading} onClick={() => {}}>
                 Withdraw
               </Button>
             </Box>
@@ -149,36 +81,16 @@ const NFTCard: FC<DepositedNFT> = (props) => {
           <FlexBetween>
             <Stack spacing={1}>
               <p>List on Market</p>
-              <Switch
-                checked={false}
-                disabled={loading}
-                onChange={() => {
-                  relistNFT({
-                    callPool: callPool.address.CallPool,
-                    user: networkAccount,
-                    tokenId,
-                  })
-                }}
-              />
+              <ListOnMarket checked={false} loading={loading} nft={props} nftActions={nftActions} />
             </Stack>
             <Box>
-              <Button
-                disabled={loading}
-                onClick={() => {
-                  withdraw({
-                    callPool: callPool.address.CallPool,
-                    user: networkAccount,
-                    tokenId,
-                  })
-                }}
-              >
+              <Button disabled={loading} onClick={() => {}}>
                 Withdraw
               </Button>
             </Box>
           </FlexBetween>
         )
       case 'Called':
-        debugger
         return (
           <FlexBetween>
             <Stack spacing={1}>
@@ -200,24 +112,13 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       default:
         return null
     }
-  }, [
-    callPool.address.CallPool,
-    loading,
-    networkAccount,
-    position?.premiumToOwner,
-    position?.strikePrice,
-    relistNFT,
-    status,
-    takeNFTOffMarket,
-    tokenId,
-    withdraw,
-  ])
+  }, [loading, nftActions, position.premiumToOwner, position.strikePrice, props, status])
 
   if (status === 'Removed') return null
   const title = `${safeGet(() => nftAssetsData.contractName) || ''} #${tokenId}`
 
   return (
-    <Root>
+    <ROOT>
       <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent>
         <Stack spacing={1}>
@@ -233,7 +134,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       >
         {actions}
       </CardActions>
-    </Root>
+    </ROOT>
   )
 }
 
