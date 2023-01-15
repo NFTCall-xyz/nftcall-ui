@@ -19,6 +19,9 @@ const CallPoolDetails: FC = () => {
         title: 'activePositions',
         children: {
           component: Positions,
+          props: {
+            isActive: true,
+          },
         },
       },
       {

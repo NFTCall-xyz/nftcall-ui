@@ -18,11 +18,14 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { ExerciseCallProps } from 'lib/protocol/typechain/nftcall'
 import { valueToWei } from 'lib/math'
-import { safeGet } from 'app/utils/get'
+import { getNumber, safeGet } from 'app/utils/get'
 
 const pageSize = 5
 
-export const useTable = (): BasicTableProps => {
+type PositionsProps = {
+  isActive: boolean
+}
+export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   const { t } = useTranslation('app-positions', { keyPrefix: 'table' })
   const [pageIndex, setPageIndex] = useState(0)
   const dataFetcher = usePost(request)
@@ -98,7 +101,6 @@ export const useTable = (): BasicTableProps => {
           },
           {
             dataKey: 'expiryDate',
-            cellData: 'entTime',
             width: 450,
             headerRenderer,
             cellRenderer: dateCellRenderer,
@@ -134,8 +136,10 @@ export const useTable = (): BasicTableProps => {
   const data = useMemo(() => {
     return sourceData.map((i) => {
       const callPool = callPools.find((callPool) => callPool.address.CallPool === i.callPoolAddress)
+      const timestamps = getNumber(i, ['endTime'])
       return {
         ...i,
+        expiryDate: timestamps.endTime,
         floorPrice: safeGet(() => callPool.nftOracle.price),
       }
     })
@@ -159,6 +163,7 @@ export const useTable = (): BasicTableProps => {
             first: pageSize,
             userAddress: networkAccount,
             subgraphName: 'rockgold0911/nftcall',
+            isActive
           })
           .then((rowData) => {
             if (rowData.length < pageSize) setNoMoreSourceData(true)
@@ -166,7 +171,7 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [dataFetcher, end, networkAccount, noMoreSourceData, pageIndex, skip])
+  }, [dataFetcher, end, isActive, networkAccount, noMoreSourceData, pageIndex, skip])
 
   useMount(() => {
     loadMore.onLoadMore()

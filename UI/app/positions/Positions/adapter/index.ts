@@ -1,3 +1,4 @@
+import { getCurrentTimestamp } from 'app/constant'
 import { getNumber, getWeiToValueBN, getAddresses } from 'app/utils/get'
 
 type Props = {
@@ -5,6 +6,7 @@ type Props = {
   skip: number
   first: number
   userAddress: string
+  isActive: boolean
 }
 export type SliceState = Array<{
   status: string
@@ -17,7 +19,7 @@ export type SliceState = Array<{
   endTime: number
   exerciseTime: number
 }>
-export const request = ({ subgraphName, skip, first, userAddress }: Props) => {
+export const request = ({ subgraphName, skip, first, userAddress, isActive }: Props) => {
   if (!subgraphName) return Promise.reject({ message: 'network error' })
   let returnValue: Position[] = []
   const promises = []
@@ -36,9 +38,10 @@ export const request = ({ subgraphName, skip, first, userAddress }: Props) => {
   positions(
     first: ${first}
     skip: ${skip}
-    where: { userAddress: ${JSON.stringify(userAddress)} }
+    where: { userAddress: ${JSON.stringify(userAddress)} ${isActive ? `,endTime_gt: ${getCurrentTimestamp()}` : ''}}
     orderBy: createTimestamp
     orderDirection: desc
+
   ) {
     callPoolAddress
     nftAddress
