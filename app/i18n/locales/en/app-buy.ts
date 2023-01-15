@@ -3,7 +3,7 @@ const locale = {
   subTitle: 'Get a right to buy NFTs at a specific price, up until a specified date.',
   stats: {
     AccumulativePremium: 'Accrued Premium',
-    TotalNFTSales: 'Total NFT Sales',
+    TotalNFTSales: 'Total Trading Volume',
     TotalDepositedNFTs: 'Total Deposited NFTs',
     TotalOptionContracts: 'Total Option Contracts',
     TotalOpenInterest: 'Total Open Interest',
