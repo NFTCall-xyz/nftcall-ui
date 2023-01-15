@@ -15,14 +15,16 @@ const locale = {
     history: 'History',
   },
   openPanel: {
-    openCall: 'Open Call Options',
+    openCall: 'Buy Call Options',
     strikePrice: 'Strike Price',
     expiryDate: 'Expiration Date',
     increase: 'increase',
     later: 'later',
     totalPremium: 'Total Premium',
     yourBalance: 'Your Balance',
-    open: 'Open',
+    open: 'Buy',
+    minStrikePrice: 'Min. strike price:',
+    maxExpiryTime: 'Max. expiry time:'
   },
 }
 

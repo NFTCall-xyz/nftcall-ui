@@ -136,69 +136,75 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   return (
     <Card sx={{ border: 'solid 1px', borderColor: theme.palette.divider }}>
       <CardContent>
-        <Stack spacing={2}>
+        <Stack spacing={4}>
           <H3>{t('openPanel.openCall')}</H3>
           <Stack spacing={1}>
             {ids.map((tokenId) => (
               <NFTCard key={tokenId} tokenId={tokenId} data={nfts} onCheckChange={() => remove(tokenId)} />
             ))}
           </Stack>
-          <FlexBetween>
-            <Span fontWeight="bold">{t('openPanel.strikePrice')}</Span>
-            <Stack spacing={1} direction="row" alignItems="center">
-              <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
-              <NumberDisplay value={strikePrice} />
-            </Stack>
-          </FlexBetween>
-          <Select
-            value={strikePriceGapIdx}
-            onChange={(e) => {
-              setStrikePriceGapIdx(parseInt(e.target.value as any))
-            }}
-          >
-            {MIN_STRIKE_PRICE_MAP.map((option) => (
-              <MenuItem
-                key={option.value}
-                value={option.value}
-                disabled={option.value < strikePriceSetting.min || option.value > strikePriceSetting.max}
-              >
-                {`${option.label} ${t('openPanel.increase')}`}
-              </MenuItem>
-            ))}
-          </Select>
-          <FlexBetween>
-            <Span fontWeight="bold">{t('openPanel.expiryDate')}</Span>
-          </FlexBetween>
-          <Select
-            value={durationIdx}
-            onChange={(e) => {
-              setDurationIdx(parseInt(e.target.value as any))
-            }}
-          >
-            {MAX_EXPRIY_TIME_MAP.map((option) => (
-              <MenuItem
-                key={option.value}
-                value={option.value}
-                disabled={option.value < durationSetting.min || option.value > durationSetting.max}
-              >
-                {`${option.label} ${t('openPanel.later')}`}
-              </MenuItem>
-            ))}
-          </Select>
-          <FlexBetween>
-            <Span fontWeight="bold">{t('openPanel.totalPremium')}</Span>
-            <Stack spacing={1} direction="row" alignItems="center">
-              <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
-              <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />
-            </Stack>
-          </FlexBetween>
-          <FlexBetween>
-            <Span fontWeight="bold">{t('openPanel.yourBalance')}</Span>
-            <Stack spacing={1} direction="row" alignItems="center">
-              <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
-              <NumberDisplay value={balanceOf} />
-            </Stack>
-          </FlexBetween>
+          <Stack spacing={1}>
+            <FlexBetween>
+              <Span fontWeight="bold">{t('openPanel.strikePrice')}</Span>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
+                <NumberDisplay value={strikePrice} />
+              </Stack>
+            </FlexBetween>
+            <Select
+              value={strikePriceGapIdx}
+              onChange={(e) => {
+                setStrikePriceGapIdx(parseInt(e.target.value as any))
+              }}
+            >
+              {MIN_STRIKE_PRICE_MAP.map((option) => (
+                <MenuItem
+                  key={option.value}
+                  value={option.value}
+                  disabled={option.value < strikePriceSetting.min || option.value > strikePriceSetting.max}
+                >
+                  {`${option.label} ${t('openPanel.increase')}`}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+          <Stack spacing={1}>
+            <FlexBetween>
+              <Span fontWeight="bold">{t('openPanel.expiryDate')}</Span>
+            </FlexBetween>
+            <Select
+              value={durationIdx}
+              onChange={(e) => {
+                setDurationIdx(parseInt(e.target.value as any))
+              }}
+            >
+              {MAX_EXPRIY_TIME_MAP.map((option) => (
+                <MenuItem
+                  key={option.value}
+                  value={option.value}
+                  disabled={option.value < durationSetting.min || option.value > durationSetting.max}
+                >
+                  {`${option.label} ${t('openPanel.later')}`}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+          <Stack spacing={2}>
+            <FlexBetween>
+              <Span fontWeight="bold">{t('openPanel.totalPremium')}</Span>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
+                <NumberDisplay value={premiumToOwner.plus(premiumToReserve)} />
+              </Stack>
+            </FlexBetween>
+            <FlexBetween>
+              <Span fontWeight="bold">{t('openPanel.yourBalance')}</Span>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
+                <NumberDisplay value={balanceOf} />
+              </Stack>
+            </FlexBetween>
+          </Stack>
           <Button
             variant="contained"
             disabled={strikePrice.isZero()}

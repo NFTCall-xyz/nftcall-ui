@@ -28,7 +28,6 @@ const MenuList = [
   {
     key: 'Claim',
     linkTo: '/app/claim',
-    hide: true,
   },
   {
     key: 'CallPoolDetail',

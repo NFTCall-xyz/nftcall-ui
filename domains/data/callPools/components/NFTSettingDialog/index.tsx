@@ -14,9 +14,12 @@ import { noop } from 'lodash'
 import { Fragment, useCallback } from 'react'
 import NFTCard from './NFTCard'
 import { useForm } from './useForm'
+import { useTranslation } from 'next-i18next'
+import { Span } from 'components/Typography'
 
 type NFTSettingDialogProps = {}
 const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
+  const { t } = useTranslation(['app-sell'])
   const {
     dialogs: { nftSetting },
   } = useCallPools()
@@ -50,15 +53,17 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
   }, [callPoolAddress, callPoolService, close, networkAccount, sendTransaction, setStatus, setSubmitting, tokenId])
   return (
     <Dialog
-      {...{ ...nftSetting, title: 'Setting' }}
+      {...{ ...nftSetting, title: t('settingsDialog.title') }}
       actions={
         <Fragment>
-          <Button onClick={close}>Cancel</Button>
-          <Button disabled={isSubmitting} onClick={handleWithdraw}>
-            withdraw
+          <Button variant='outlined' onClick={close}>
+            {t('settingsDialog.cancel')}
           </Button>
-          <SubmitBotton onClick={() => handleSubmit()} isSubmitting={isSubmitting}>
-            Setting
+          <Button disabled={isSubmitting} onClick={handleWithdraw} variant='contained'>
+            {t('nftcard.withdraw')}
+          </Button>
+          <SubmitBotton onClick={() => handleSubmit()} isSubmitting={isSubmitting} variant='contained'>
+            {t('settingsDialog.submit')}
           </SubmitBotton>
         </Fragment>
       }
@@ -66,34 +71,40 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
       <form onSubmit={handleSubmit}>
         <Stack spacing={4} sx={{ width: '100vw', maxWidth: '450px', paddingTop: 2 }}>
           <NFTCard tokenId={tokenId} nftAddress={nftAddress} />
-          <FormTextField
-            formik={formik}
-            fieldKey="minStrikePrice"
-            label="Minimum Strike Price"
-            textFieldProps={{
-              select: true,
-            }}
-          >
-            {MIN_STRIKE_PRICE_MAP.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </FormTextField>
-          <FormTextField
-            formik={formik}
-            fieldKey="maxExpriyTime"
-            label="Maximum Expiry Duration"
-            textFieldProps={{
-              select: true,
-            }}
-          >
-            {MAX_EXPRIY_TIME_MAP.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </FormTextField>
+          <Stack spacing={1}>
+            <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>
+            <FormTextField
+              formik={formik}
+              fieldKey="minStrikePrice"
+              label=""
+              textFieldProps={{
+                select: true,
+              }}
+            >
+              {MIN_STRIKE_PRICE_MAP.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </FormTextField>
+          </Stack>
+          <Stack spacing={1}>
+            <Span fontWeight="bold">{t('settingsDialog.maxExpiryTime')}</Span>
+            <FormTextField
+              formik={formik}
+              fieldKey="maxExpriyTime"
+              label=""
+              textFieldProps={{
+                select: true,
+              }}
+            >
+              {MAX_EXPRIY_TIME_MAP.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </FormTextField>
+          </Stack>
         </Stack>
       </form>
     </Dialog>

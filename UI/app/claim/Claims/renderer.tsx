@@ -21,7 +21,7 @@ export const collectionNameCellRenderer = ({ rowData: { collection } }: TableCel
   const { name, imageUrl } = collection || ({} as undefined)
   return (
     <TableCell align="center" component="div">
-      <Stack spacing={1} direction="row">
+      <Stack spacing={1} direction="row" alignItems='center'>
         <Avatar alt={name} src={imageUrl} sx={{ width: 40, height: 40, border: '' }}>
           {name}
         </Avatar>
@@ -39,7 +39,7 @@ export const cumulativeEarningsCellRenderer = ({
 }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
-      <Stack spacing={1} direction="row" alignItems="center">
+      <Stack spacing={0.5} direction="row" alignItems="center">
         <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
         <NumberDisplay value={accruedEarnings} />
       </Stack>
@@ -54,7 +54,7 @@ export const claimableEarningsCellRenderer = ({
 }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
-      <Stack spacing={1} direction="row" alignItems="center">
+      <Stack spacing={0.5} direction="row" alignItems="center">
         <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
         <NumberDisplay value={balanceOf} />
       </Stack>

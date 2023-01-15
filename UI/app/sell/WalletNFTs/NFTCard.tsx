@@ -7,10 +7,11 @@ import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import type { BaseNFT } from 'domains/data/nft/types'
-import { Paragraph } from 'components/Typography'
+import { Paragraph, Span } from 'components/Typography'
 import Stack from '@mui/material/Stack'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
+import { safeGet } from 'app/utils/get'
 
 export type WalletNFT = BaseNFT & {
   callPoolAddress: string
@@ -52,12 +53,15 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
     )
   }, [action, props])
   const title = '#' + tokenId
+  const collection = safeGet(() => nftAssetsData.contractName) || ''
+
   return (
     <ROOT>
       <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>
+          <Span color='text.secondary'>{collection}</Span>
         </Stack>
       </CardContent>
       <Divider />

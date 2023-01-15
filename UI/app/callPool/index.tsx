@@ -10,7 +10,6 @@ import Tabs from 'components/tabs'
 
 import ListedNFTs from './ListedNFTs'
 import History from './History'
-import FlexBetween from 'components/flexbox/FlexBetween'
 import { useCallPoolDetails } from 'domains/data'
 import { H2, Paragraph } from 'components/Typography'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
@@ -60,17 +59,17 @@ const CallPoolDetails: FC = () => {
       <BackButton />
       <Grid container pt={2}>
         <Grid item xs={12}>
-          <FlexBetween>
+          <Stack direction={{ xs: "column", sm:"row" }} justifyContent='space-between'>
             <Stack direction="row" alignItems="center">
               <Avatar alt={name} src={imageUrl} sx={{ marginRight: 2, width: 60, height: 60, border: '' }}>
                 {name}
               </Avatar>
               <H2>{name}</H2>
             </Stack>
-            <Stack spacing={4} direction="row">
+            <Stack spacing={4} direction='row'>
               <Stack spacing={1}>
                 <Paragraph color="text.secondary">{t('floorPrice')}</Paragraph>
-                <Stack spacing={1} direction="row" alignItems="center">
+                <Stack spacing={0.5} direction="row" alignItems="center">
                   <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
                   <H2>
                     <NumberDisplay value={price} />
@@ -80,7 +79,6 @@ const CallPoolDetails: FC = () => {
               <Stack spacing={1}>
                 <Paragraph color="text.secondary">{t('vol')}</Paragraph>
                 <Stack spacing={1} direction="row" alignItems="center">
-                  <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
                   <H2>
                     <NumberDisplay value={vol} options="percent" />
                   </H2>
@@ -93,7 +91,7 @@ const CallPoolDetails: FC = () => {
                 </H2>
               </Stack>
             </Stack>
-          </FlexBetween>
+          </Stack>
         </Grid>
         <Grid item xs={12}>
           <Tabs

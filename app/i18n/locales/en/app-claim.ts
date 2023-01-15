@@ -3,7 +3,7 @@ const locale = {
   subTitle: 'Claim earnings from NFT and options selling',
   table: {
     collectionName: 'NFT Collection',
-    cumulativeEarnings: 'Cumulative Earnings',
+    cumulativeEarnings: 'Accrued Earnings',
     claimableEarnings: 'Claimable Earnings',
     action: 'Action',
     claim: 'Claim',

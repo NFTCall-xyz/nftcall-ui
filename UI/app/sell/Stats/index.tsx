@@ -8,17 +8,19 @@ import { useCallPools } from 'domains/data'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import { useRouter } from 'next/router'
 import { useUserStats } from 'domains/data/callPools/hooks/useUserStats'
+import { useTranslation } from 'next-i18next'
 
 const Stats: FC = () => {
   useUserStats()
   const { allCallPool } = useCallPools()
   const router = useRouter()
+  const { t } = useTranslation('app-sell')
 
   const cardList = [
     {
       price: (
         <Stack spacing={2} direction="row" justifyContent="space-between">
-          <Stack spacing={1} direction="row" alignItems="center">
+          <Stack spacing={0.5} direction="row" alignItems="center">
             <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
             <NumberDisplay value={allCallPool.balanceOf} abbreviate={{}} />
           </Stack>
@@ -26,8 +28,10 @@ const Stats: FC = () => {
             onClick={() => {
               router.push('/app/claim')
             }}
+            variant='contained'
+            size='small'
           >
-            Claim
+            {t('stats.claim')}
           </Button>
         </Stack>
       ),
@@ -35,7 +39,7 @@ const Stats: FC = () => {
     },
     {
       price: (
-        <Stack spacing={1} direction="row" alignItems="center">
+        <Stack spacing={0.5} direction="row" alignItems="center">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
           <NumberDisplay value={allCallPool.userStats.accumulativeEarnings} abbreviate={{}} />
         </Stack>

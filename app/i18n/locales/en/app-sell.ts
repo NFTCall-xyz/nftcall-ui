@@ -5,6 +5,7 @@ const locale = {
   stats: {
     claimable: 'Claimable Earnings',
     accruedEarnings: 'Accrued Earnings',
+    claim: 'Claim',
   },
   callPools: {
     floorPrice: 'Floor Price',
@@ -20,6 +21,20 @@ const locale = {
     transactionHash: 'Tx Hash',
     createTimestamp: 'Date',
     soldPrice: 'Sold Price',
+  },
+  nftcard: {
+    listOnMarket: 'List on Market',
+    strikePrice: 'Strike Price',
+    premiumEarned: 'Premium Earned',
+    settings: 'Settings',
+    withdraw: 'Withdraw',
+  },
+  settingsDialog: {
+    title: 'Options Selling Config',
+    submit: 'Submit',
+    cancel: 'Cancel',
+    minStrikePrice: 'Minimum strike price',
+    maxExpiryTime: 'Maximum expiry time'
   },
 }
 

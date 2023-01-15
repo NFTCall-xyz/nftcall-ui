@@ -29,6 +29,7 @@ export const ChainButton: FC = () => {
             border: `1px solid ${theme.palette.error.main}`,
             '&:hover': {
               border: `1px solid ${theme.palette.error.main}`,
+              color: theme.palette.error.light,
             },
             color: theme.palette.error.main,
           }}
@@ -59,12 +60,7 @@ export const ChainButton: FC = () => {
     network,
     open,
     t,
-    theme.palette.action.hover,
-    theme.palette.divider,
-    theme.palette.error.main,
-    theme.palette.text.secondary,
-    theme.palette.primary.main,
-    theme.palette.text.primary,
+    theme.palette,
     downSm,
   ])
 
