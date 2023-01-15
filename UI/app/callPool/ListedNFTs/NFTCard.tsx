@@ -10,7 +10,7 @@ import type { BaseNFT, NFTStatus } from 'domains/data/nft/types'
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 import { safeGet } from 'app/utils/get'
 import FlexBetween from 'components/flexbox/FlexBetween'
-import { Paragraph, Span } from 'components/Typography'
+import { Paragraph, Tiny } from 'components/Typography'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import type { UseIds } from 'app/hooks/useIds'
@@ -78,12 +78,12 @@ const NFTCard: FC<NFTCardProps> = (props) => {
         <Stack spacing={1}>
           <Paragraph>{title}</Paragraph>
           <FlexBetween>
-            <Span color='text.secondary'>{t('openPanel.minStrikePrice')}</Span>
-            <Span color='text.secondary'>{minStrikePriceLabel}</Span>
+            <Tiny color='text.secondary'>{t('openPanel.minStrikePrice')}</Tiny>
+            <Tiny color='text.secondary'>+{minStrikePriceLabel}</Tiny>
           </FlexBetween>
           <FlexBetween>
-            <Span color='text.secondary'>{t('openPanel.maxExpiryTime')}</Span>
-            <Span color='text.secondary'>{maxExpriyTimeMapLabel}</Span>
+            <Tiny color='text.secondary'>{t('openPanel.maxExpiryTime')}</Tiny>
+            <Tiny color='text.secondary'>{maxExpriyTimeMapLabel}</Tiny>
           </FlexBetween>
         </Stack>
       </CardContent>

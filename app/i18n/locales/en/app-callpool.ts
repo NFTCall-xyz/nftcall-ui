@@ -23,8 +23,8 @@ const locale = {
     totalPremium: 'Total Premium',
     yourBalance: 'Your Balance',
     open: 'Buy',
-    minStrikePrice: 'Min. strike price:',
-    maxExpiryTime: 'Max. expiry time:'
+    minStrikePrice: 'Min. price gap:',
+    maxExpiryTime: 'Max. duration:'
   },
 }
 

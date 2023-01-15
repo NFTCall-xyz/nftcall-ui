@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { styled, useTheme } from '@mui/material/styles'
-import Button from '@mui/material/Button'
 import Drawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
@@ -10,11 +9,15 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Box from '@mui/material/Box'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 import Logo from '../Logo'
 import { useLinks } from '../../Footer/Links/useLinks'
 import { useApp } from 'app'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import ChainButton from 'lib/protocol/components/wallet/ChainButton'
+import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'
+import { Small } from 'components/Typography'
 
 const ROOT = styled(Box)``
 
@@ -34,6 +37,12 @@ const MenuMobile = () => {
           }}
         >
           <Logo />
+        </ListItem>
+        <ListItem sx={{ '& button': { width: '100%' }}}>
+          <ChainButton/>
+        </ListItem>
+        <ListItem sx={{ '& button': { width: '100%' }}}>
+          <ConnectButton />
         </ListItem>
         <Divider />
         {menu.list
@@ -56,7 +65,7 @@ const MenuMobile = () => {
         ))}
         <Divider />
         <ListItem>
-          <ListItemText secondary=" © 2022, NFTCall. All Rights Reserved" />
+          <Small color='text.disabled'> © 2022, NFTCall. All Rights Reserved</Small>
         </ListItem>
       </List>
     ),
@@ -65,18 +74,15 @@ const MenuMobile = () => {
 
   return (
     <ROOT>
-      <Button
-        variant="text"
+      <IconButton
         sx={{
-          color: 'text.secondary',
+          color: 'primary.secondary',
         }}
-        size="large"
         onClick={() => setOpenDrawer(true)}
-        endIcon={<KeyboardArrowDownIcon />}
       >
-        {menu.current.label}
-      </Button>
-      <Drawer anchor="left" open={openDrawer} onClose={() => setOpenDrawer(false)}>
+        <MenuIcon />
+      </IconButton>
+      <Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
         {list}
       </Drawer>
     </ROOT>

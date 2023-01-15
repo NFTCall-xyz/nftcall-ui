@@ -14,7 +14,7 @@ const StyledTabList = styled(TabList)(({ theme }) => ({
   [theme.breakpoints.down(780)]: {
     width: '100%',
     marginBottom: 20,
-    '& .MuiTabs-flexContainer': { justifyContent: 'space-between' },
+    '& .MuiTabs-flexContainer': { justifyContent: 'center' },
   },
   [theme.breakpoints.up('sm')]: {
     '& .MuiTabs-flexContainer': {

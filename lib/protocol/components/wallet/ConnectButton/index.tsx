@@ -35,7 +35,6 @@ const WalletConnected: FC = () => {
       onClick={open}
       variant="outlined"
       sx={{
-        marginLeft: 1,
         border: `1px solid ${theme.palette.divider}`,
         '&:hover': { backgroundColor: theme.palette.action.hover },
         color: theme.palette.text.secondary,
@@ -50,7 +49,7 @@ const WalletDisconnected: FC = () => {
   const { t } = useTranslation()
   const { open } = useConnectButton()
   return (
-    <Button key="wallet-btn" variant="contained" onClick={open} sx={{ marginLeft: 1 }}>
+    <Button key="wallet-btn" variant="contained" onClick={open}>
       {t('wallet.disconnected.title')}
     </Button>
   )
@@ -60,7 +59,7 @@ const WalletConnecting: FC = () => {
   const { t } = useTranslation()
   const { open } = useConnectButton()
   return (
-    <Button key="wallet-btn" variant="contained" onClick={open} sx={{ borderRadius: 30, marginLeft: 1 }}>
+    <Button key="wallet-btn" variant="contained" onClick={open} sx={{ borderRadius: 30 }}>
       {t('wallet.connecting.title')}
     </Button>
   )
