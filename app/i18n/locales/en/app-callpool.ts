@@ -2,6 +2,7 @@ const locale = {
   vol: 'Volatility',
   floorPrice: 'Floor Price',
   depositedItems: 'Listed NFTs',
+  tradingVolume: 'Trading Volume',
   history: {
     account: 'Account',
     NFT: 'NFT',

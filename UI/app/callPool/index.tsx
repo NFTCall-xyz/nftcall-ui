@@ -48,7 +48,7 @@ const CallPoolDetails: FC = () => {
     collection: { name, imageUrl },
     nftOracle: { price, vol },
     info: { symbol },
-    stats: { totalListedNFTs },
+    stats: { totalListedNFTs, totalTradingVolume },
   } = callPool
 
   return (
@@ -81,6 +81,15 @@ const CallPoolDetails: FC = () => {
                 <Stack spacing={1} direction="row" alignItems="center">
                   <H2>
                     <NumberDisplay value={vol} options="percent" />
+                  </H2>
+                </Stack>
+              </Stack>
+              <Stack spacing={1}>
+                <Paragraph color="text.secondary">{t('tradingVolume')}</Paragraph>
+                <Stack spacing={0.5} direction="row" alignItems="center">
+                  <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
+                  <H2>
+                    <NumberDisplay value={totalTradingVolume} />
                   </H2>
                 </Stack>
               </Stack>
