@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack'
 
 import type { NFTTransaction } from './adapter'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
+import { Paragraph, Span } from 'components/Typography'
 
 export type TableCellProps = {
   cellData?: any
@@ -23,9 +24,9 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
         <Box sx={{ width: 40 }}>
           <NFTIcon nft={{ tokenId, nftAddress }} />
         </Box>
-        <Stack spacing={2}>
-          <p>{tokenId}</p>
-          {/* <p>{nftAddress}</p> */}
+        <Stack alignItems='start'>
+          <Paragraph>#{tokenId}</Paragraph>
+          <Span color='text.secondary'>{'BoredApeClubYacht'}</Span>
         </Stack>
       </Stack>
     </TableCell>
