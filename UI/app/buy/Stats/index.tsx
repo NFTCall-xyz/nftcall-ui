@@ -38,7 +38,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={0} abbreviate={{}} />
+          <NumberDisplay value={allCallPool.totalOpenInterest} abbreviate={{}} />
         </div>
       ),
       title: 'TotalOpenInterest',

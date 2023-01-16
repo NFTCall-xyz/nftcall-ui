@@ -82,8 +82,10 @@ const useCallPoolsService = () => {
   const allCallPool = useMemo(() => {
     const stats = storeData.stats.all || ({} as undefined)
     let balanceOf = toBN(0)
+    let totalOpenInterest = toBN(0)
     callPools.forEach((callPool) => {
       balanceOf = balanceOf.plus(callPool.balanceOf)
+      totalOpenInterest = totalOpenInterest.plus(callPool.totalOpenInterest)
     })
     const userStats = storeData.userStats || ({} as undefined)
 
@@ -91,6 +93,7 @@ const useCallPoolsService = () => {
       stats,
       balanceOf,
       userStats,
+      totalOpenInterest,
     }
     log('[CallPoolsService][allCallPool]', returnValue)
     return returnValue
