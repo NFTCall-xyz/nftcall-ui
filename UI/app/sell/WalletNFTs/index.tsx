@@ -60,16 +60,17 @@ const WalletNFTs = () => {
 
   return (
     <Grid container spacing={2}>
-      {nfts.length ? 
+      {nfts.length ? (
         nfts.map((nft) => (
           <Grid item xs={6} sm={3} md={2.4} key={nft.nftAddress + nft.tokenId}>
             <NFTCard {...{ ...nft }} />
           </Grid>
-        )) :
+        ))
+      ) : (
         <FlexRowAlign width={1} height={100}>
-          <Paragraph color='text.secondary'>{t('table.walletTip')}</Paragraph>
+          <Paragraph color="text.secondary">{t('table.walletTip')}</Paragraph>
         </FlexRowAlign>
-      }
+      )}
     </Grid>
   )
 }

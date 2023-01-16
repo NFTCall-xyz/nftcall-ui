@@ -26,9 +26,9 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
         <Box sx={{ width: 40 }}>
           <NFTIcon nft={{ tokenId, nftAddress }} />
         </Box>
-        <Stack alignItems='start'>
+        <Stack alignItems="start">
           <Paragraph>#{tokenId}</Paragraph>
-          <Span color='text.secondary'>{'BoredApeClubYacht'}</Span>
+          <Span color="text.secondary">{'BoredApeClubYacht'}</Span>
         </Stack>
       </Stack>
     </TableCell>
