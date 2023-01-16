@@ -3,17 +3,15 @@ import type { BaseNFT } from 'domains/data/nft/types'
 type CallPoolStats = {
   id: string
   accumulativePremium: string
-  totalNFTSales: string
+  totalTradingVolume: string
   totalDepositedNFTs: number
-  totalOptionContracts: number
   nfts: BaseNFT[]
 }
 export type StatsBaseData = {
   callPool: string
   accumulativePremium: string
-  totalNFTSales: string
+  totalTradingVolume: string
   totalDepositedNFTs: number
-  totalOptionContracts: number
   nfts: BaseNFT[]
 }
 

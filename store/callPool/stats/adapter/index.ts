@@ -18,9 +18,8 @@ const getGqlQuery = ({ callPools }: StatsProps) => {
     ) {
       id
       accumulativePremium
-      totalNFTSales
+      totalTradingVolume
       totalDepositedNFTs
-      totalOptionContracts
       nfts(
         first: 5
         orderBy: updateTimestamp

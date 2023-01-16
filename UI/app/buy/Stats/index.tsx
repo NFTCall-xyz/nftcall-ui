@@ -22,10 +22,10 @@ const Stats: FC = () => {
       price: (
         <Stack spacing={0.5} direction="row" alignItems="center">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-          <NumberDisplay value={allCallPool.stats.totalNFTSales} abbreviate={{}} />
+          <NumberDisplay value={allCallPool.stats.totalTradingVolume} abbreviate={{}} />
         </Stack>
       ),
-      title: 'TotalNFTSales',
+      title: 'TotalTradingVolume',
     },
     {
       price: (
@@ -35,18 +35,10 @@ const Stats: FC = () => {
       ),
       title: 'TotalDepositedNFTs',
     },
-    // {
-    //   price: (
-    //     <div>
-    //       <NumberDisplay value={allCallPool.stats.totalOptionContracts} abbreviate={{}} />
-    //     </div>
-    //   ),
-    //   title: 'TotalOptionContracts',
-    // },
     {
       price: (
         <div>
-          <NumberDisplay value={allCallPool.stats.totalOptionContracts} abbreviate={{}} />
+          <NumberDisplay value={0} abbreviate={{}} />
         </div>
       ),
       title: 'TotalOpenInterest',
