@@ -10,7 +10,7 @@ const locale = {
   },
   callPools: {
     floorPrice: 'Floor Price',
-    depositedItems: 'Listed NFTs',
+    tradingVolume: 'Trading Volume',
     noNFT: 'No NFTs deposited yet.',
   },
 }

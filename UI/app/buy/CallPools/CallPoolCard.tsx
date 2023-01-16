@@ -25,7 +25,7 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
     nftOracle: { price: floorPrice },
     collection: { name, bannerImageUrl, imageUrl },
     info: { symbol },
-    stats: { totalListedNFTs },
+    stats: { totalTradingVolume },
     address,
   } = callPool
   const router = useRouter()
@@ -64,8 +64,11 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
               </Stack>
             </Stack>
             <Stack spacing={1}>
-              <Tiny>{t('depositedItems')}</Tiny>
-              <NumberDisplay value={totalListedNFTs} />
+              <Tiny>{t('tradingVolume')}</Tiny>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <TokenIcon symbol={symbol} sx={{ width: 16, height: 16 }} />
+                <NumberDisplay value={totalTradingVolume} />
+              </Stack>
             </Stack>
           </FlexBetween>
         </Stack>
