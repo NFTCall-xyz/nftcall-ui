@@ -27,6 +27,7 @@ const locale = {
     premiumEarned: 'Premium Earned',
     settings: 'Settings',
     withdraw: 'Withdraw',
+    expiryDate: 'Expiration Date',
   },
   settingsDialog: {
     title: 'Options selling config',
@@ -43,6 +44,11 @@ const locale = {
     title: 'Deposit NFTs to sell call opitons',
     deposit: 'Deposit',
     cancel: 'Cancel',
+  },
+  table: {
+    walletTip: "You don't have available NFTs.",
+    depositedTip: "You don't have deposited NFTs.",
+    soldTip: "You don't have sold NFTs.",
   },
 }
 

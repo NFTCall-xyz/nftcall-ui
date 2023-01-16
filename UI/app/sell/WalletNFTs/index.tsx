@@ -6,8 +6,12 @@ import { useCallPools, useNFT } from 'domains/data'
 import { getWalletDataKeyByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 import { safeGet } from 'app/utils/get'
 import { log } from 'app/utils/dev'
+import { Paragraph } from 'components/Typography'
+import FlexRowAlign from 'components/flexbox/FlexRowAlign'
+import { useTranslation } from 'next-i18next'
 
 const WalletNFTs = () => {
+  const { t } = useTranslation('app-sell')
   const {
     tokenId: { wallet, updateAssets },
   } = useNFT()
@@ -56,11 +60,16 @@ const WalletNFTs = () => {
 
   return (
     <Grid container spacing={2}>
-      {nfts.map((nft) => (
-        <Grid item xs={6} sm={3} md={2.4} key={nft.nftAddress + nft.tokenId}>
-          <NFTCard {...{ ...nft }} />
-        </Grid>
-      ))}
+      {nfts.length ? 
+        nfts.map((nft) => (
+          <Grid item xs={6} sm={3} md={2.4} key={nft.nftAddress + nft.tokenId}>
+            <NFTCard {...{ ...nft }} />
+          </Grid>
+        )) :
+        <FlexRowAlign width={1} height={100}>
+          <Paragraph color='text.secondary'>{t('table.walletTip')}</Paragraph>
+        </FlexRowAlign>
+      }
     </Grid>
   )
 }

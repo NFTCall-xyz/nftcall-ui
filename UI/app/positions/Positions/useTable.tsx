@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { TableCellRenderer } from 'react-virtualized'
 
-import { cellRenderer, headerRenderer } from 'components/table/renderer'
+import { headerRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
 import { useCallPools, useNetwork } from 'domains/data'
 import { usePost } from 'app/hooks/request'
@@ -10,7 +10,7 @@ import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
 import { tokenIconCellRenderer, dateCellRenderer } from 'components/table/renderer'
-import { NFTCellRenderer } from './renderer'
+import { NFTCellRenderer, statusCellRenderer } from './renderer'
 import TableCell from '@mui/material/TableCell'
 import Button from '@mui/material/Button'
 import { useWallet } from 'domains'
@@ -83,32 +83,32 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
         [
           {
             dataKey: 'NFT',
-            width: 450,
+            width: 650,
             headerRenderer,
             cellRenderer: NFTCellRenderer,
           },
           {
             dataKey: 'floorPrice',
-            width: 450,
+            width: 350,
             headerRenderer,
             cellRenderer: tokenIconCellRenderer,
           },
           {
             dataKey: 'strikePrice',
-            width: 450,
+            width: 350,
             headerRenderer,
             cellRenderer: tokenIconCellRenderer,
           },
           {
             dataKey: 'expiryDate',
-            width: 450,
+            width: 350,
             headerRenderer,
             cellRenderer: dateCellRenderer,
           },
           {
             dataKey: 'premium',
             cellData: 'premiumToOwner',
-            width: 450,
+            width: 350,
             headerRenderer,
             cellRenderer: tokenIconCellRenderer,
           },
@@ -116,11 +116,11 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             dataKey: 'status',
             width: 450,
             headerRenderer,
-            cellRenderer,
+            cellRenderer: statusCellRenderer,
           },
           {
             dataKey: 'action',
-            width: 250,
+            width: 400,
             headerRenderer,
             cellRenderer: ActionCellRenderer,
           },

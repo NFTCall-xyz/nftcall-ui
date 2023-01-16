@@ -26,6 +26,7 @@ import IconButton from '@mui/material/IconButton'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import { useWallet } from 'domains'
+import { format } from 'date-fns'
 
 export type DepositedNFT = BaseNFT & {
   callPoolAddress: string
@@ -61,7 +62,7 @@ const ROOT = styled(Card)(({ theme }) => ({
 const NFTCard: FC<DepositedNFT> = (props) => {
   const { t } = useTranslation('app-sell')
   const { tokenId, status: sourceStatus, position, restart, callPoolAddress } = props
-  const { premiumToOwner, strikePrice } = position || ({} as undefined)
+  const { endTime } = position || ({} as undefined)
   const [status, setStatus] = useState(sourceStatus)
   const [loading, setLoading] = useState(false)
   const { nftAssetsData } = useNFTAssetsData(props)
@@ -137,37 +138,30 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       case 'Called':
         return (
           <FlexBetween width={1}>
-            <Stack spacing={1}>
-              <Tiny>{t('nftcard.strikePrice')}</Tiny>
-              <Stack spacing={0.5} direction="row" alignItems="center">
-                <TokenIcon symbol="ETH" sx={{ width: 16, height: 16 }} />
-                <NumberDisplay value={weiToValue(strikePrice, 18)} />
-              </Stack>
+            <Stack spacing={0.3}>
+              <Tiny>{t('nftcard.expiryDate')}</Tiny>
+              <Tiny color='text.primary'>{format(endTime, 'MMM dd hh:mm')}</Tiny>
             </Stack>
-            <Stack spacing={1}>
-              <Tiny>{t('nftcard.premiumEarned')}</Tiny>
-              <Stack spacing={0.5} direction="row" alignItems="center">
-                <TokenIcon symbol="ETH" sx={{ width: 16, height: 16 }} />
-                <NumberDisplay value={weiToValue(premiumToOwner, 18)} />
-              </Stack>
-            </Stack>
+            <IconButton aria-label="settings" onClick={openNFTSetting}>
+              <SettingsIcon />
+            </IconButton>
           </FlexBetween>
         )
       default:
         return null
     }
-  }, [status, loading, handleWithdraw, t, openNFTSetting, strikePrice, premiumToOwner])
+  }, [status, loading, handleWithdraw, t, openNFTSetting, endTime])
 
   if (status === 'Removed') return null
   const title = `#${tokenId}`
   const collection = safeGet(() => nftAssetsData.contractName) || ''
 
   return (
-    <Grid item xs={6} sm={4} md={3}>
+    <Grid item xs={6} sm={3} md={2.5}>
       <ROOT>
         <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
-        <CardContent>
-          <Stack spacing={1}>
+        <CardContent sx={{ padding: 2, paddingTop: 0 }}>
+          <Stack>
             <Paragraph>{title}</Paragraph>
             <Span color="text.secondary">{collection}</Span>
           </Stack>
