@@ -14,6 +14,8 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { ClaimProps } from 'lib/protocol/typechain/nftcall'
 import { safeGet } from 'app/utils/get'
+import { useAppSelector } from 'store'
+import { userStatsSelect } from 'store/callPool/userStats'
 
 export const useTable = (): BasicTableProps => {
   const { t } = useTranslation('app-claim', { keyPrefix: 'table' })
@@ -106,9 +108,10 @@ export const useTable = (): BasicTableProps => {
       ),
     [callPools]
   )
+  const loading = useAppSelector(userStatsSelect.selectLoading)
 
   return {
-    loading: false,
+    loading,
     columns,
     data,
   }
