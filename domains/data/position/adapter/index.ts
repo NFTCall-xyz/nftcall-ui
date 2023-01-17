@@ -26,7 +26,7 @@ export const request = ({
   let returnValue: Position[] = []
   const promises = []
   promises.push(
-    fetch(`https://api.thegraph.com/subgraphs/name/${subgraphName}`, {
+    fetch(subgraphName, {
       headers: {
         accept: '*/*',
         'accept-language': 'zh-CN,zh;q=0.9',

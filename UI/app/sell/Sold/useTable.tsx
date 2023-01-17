@@ -14,6 +14,7 @@ import { useMount } from 'app/hooks/useMount'
 import { request } from './adapter'
 import { nftCellRenderer } from './renderer'
 import { useWallet } from 'domains'
+import { useNetwork } from 'domains/data'
 
 const pageSize = 5
 
@@ -70,6 +71,7 @@ export const useTable = (): BasicTableProps => {
     if (!noMoreSourceData) return false
     return skip > data.length
   }, [data.length, noMoreSourceData, skip])
+  const { subgraphName } = useNetwork()
 
   const loadMore = useMemo(() => {
     return {
@@ -83,7 +85,7 @@ export const useTable = (): BasicTableProps => {
             skip,
             first: pageSize,
             userAddress: networkAccount,
-            subgraphName: 'rockgold0911/nftcall',
+            subgraphName,
           })
           .then((data) => {
             // const { symbol } = portfolio
@@ -97,7 +99,7 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [dataFetcher, end, networkAccount, noMoreSourceData, pageIndex, skip])
+  }, [dataFetcher, end, networkAccount, noMoreSourceData, pageIndex, skip, subgraphName])
 
   useMount(() => {
     loadMore.onLoadMore()

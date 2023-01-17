@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { headerRenderer } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
-import { useCallPools } from 'domains/data'
+import { useCallPools, useNetwork } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
@@ -93,6 +93,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
     if (!noMoreSourceData) return false
     return skip > data.length
   }, [data.length, noMoreSourceData, skip])
+  const { subgraphName } = useNetwork()
 
   const loadMore = useMemo(() => {
     return {
@@ -106,7 +107,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             skip,
             first: pageSize,
             nftOwnerAddress: networkAccount,
-            subgraphName: 'rockgold0911/nftcall',
+            subgraphName,
             isActive,
           })
           .then((rowData) => {
@@ -115,7 +116,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           })
       },
     }
-  }, [dataFetcher, end, isActive, networkAccount, noMoreSourceData, pageIndex, skip])
+  }, [dataFetcher, end, isActive, networkAccount, noMoreSourceData, pageIndex, skip, subgraphName])
 
   useMount(() => {
     loadMore.onLoadMore()

@@ -21,7 +21,7 @@ const getGqlQuery = ({ userAddress }: UserStatsProps) => {
 
 export const userStatsRequest = (prop: UserStatsProps) => {
   const { subgraphName } = prop
-  return fetch(`https://api.thegraph.com/subgraphs/name/${subgraphName}`, {
+  return fetch(subgraphName, {
     headers: {
       accept: '*/*',
       'accept-language': 'zh-CN,zh;q=0.9',

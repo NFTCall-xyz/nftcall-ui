@@ -59,7 +59,7 @@ export const getListedNFTs = (
   const { subgraphName } = props
 
   const fn = (): Promise<any> =>
-    fetch('https://api.thegraph.com/subgraphs/name/' + subgraphName, {
+    fetch('' + subgraphName, {
       headers: {
         accept: 'application/json, multipart/mixed',
         'accept-language': 'zh-CN,zh;q=0.9',

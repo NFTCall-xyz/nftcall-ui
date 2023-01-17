@@ -8,7 +8,7 @@ import {
   linkToAddressCellRenderer,
 } from 'components/table/renderer'
 import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
-import { useCallPoolDetails } from 'domains/data'
+import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
@@ -85,6 +85,7 @@ export const useTable = (): BasicTableProps => {
     if (!noMoreSourceData) return false
     return skip > data.length
   }, [data.length, noMoreSourceData, skip])
+  const { subgraphName } = useNetwork()
 
   const loadMore = useMemo(() => {
     return {
@@ -99,7 +100,7 @@ export const useTable = (): BasicTableProps => {
             skip,
             first: pageSize,
             callPoolAddress,
-            subgraphName: 'rockgold0911/nftcall',
+            subgraphName,
           })
           .then((data) => {
             // const { symbol } = portfolio
@@ -113,7 +114,7 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [callPool.address.CallPool, dataFetcher, end, noMoreSourceData, pageIndex, skip])
+  }, [callPool.address.CallPool, dataFetcher, end, noMoreSourceData, pageIndex, skip, subgraphName])
 
   useMount(() => {
     loadMore.onLoadMore()

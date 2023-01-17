@@ -36,7 +36,7 @@ const getGqlQuery = ({ callPools }: StatsProps) => {
 
 export const statsRequest = (props: StatsProps) => {
   const { subgraphName, callPools } = props
-  return fetch(`https://api.thegraph.com/subgraphs/name/${subgraphName}`, {
+  return fetch(subgraphName, {
     headers: {
       accept: '*/*',
       'accept-language': 'zh-CN,zh;q=0.9',
