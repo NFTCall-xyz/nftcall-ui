@@ -10,7 +10,8 @@ import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 import Stack from '@mui/material/Stack'
 import FlexBetween from 'components/flexbox/FlexBetween'
-import type { BaseNFT, NFTActions, NFTStatus } from 'domains/data/nft/types'
+import type { BaseNFT, NFTActions } from 'domains/data/nft/types'
+import { NFTStatus } from 'domains/data/nft/types'
 import { Paragraph, Tiny, Span } from 'components/Typography'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
@@ -102,7 +103,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       isOnlyApprove: false,
     })
       .then(() => {
-        setStatus('Removed')
+        setStatus(NFTStatus.Removed)
         close()
       })
       .finally(() => setLoading(false))
@@ -110,7 +111,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
 
   const actions = useMemo(() => {
     switch (status) {
-      case 'Listed':
+      case NFTStatus.Listed:
         return (
           <FlexBetween width={1}>
             <Button disabled={loading} onClick={handleWithdraw} variant="contained">
@@ -121,7 +122,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
             </IconButton>
           </FlexBetween>
         )
-      case 'Deposited':
+      case NFTStatus.Deposited:
         return (
           <FlexBetween width={1}>
             <Button disabled={loading} onClick={handleWithdraw} variant="contained">
@@ -132,7 +133,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
             </IconButton>
           </FlexBetween>
         )
-      case 'Called':
+      case NFTStatus.Called:
         return (
           <FlexBetween width={1}>
             <Stack spacing={0.3}>

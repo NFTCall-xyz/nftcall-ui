@@ -16,7 +16,7 @@ import Tooltip from '@mui/material/Tooltip'
 import HelpIcon from '@mui/icons-material/Help'
 import FlexBetween from 'components/flexbox/FlexBetween'
 import ListOnMarket from './ListOnMarket'
-import type { NFTStatus } from 'domains/data/nft/types'
+import { NFTStatus } from 'domains/data/nft/types'
 
 type NFTSettingDialogProps = {}
 const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
@@ -48,7 +48,7 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
     setStatus(sourceStatus)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenId])
-  const isListOnMarket = status !== 'Deposited'
+  const isListOnMarket = status !== NFTStatus.Deposited
   return (
     <Dialog
       {...{ ...nftSetting, title: t('title') }}

@@ -1,4 +1,9 @@
-export type NFTStatus = 'Deposited' | 'Listed' | 'Called' | 'Removed'
+export enum NFTStatus {
+  'Deposited' = 'Deposited',
+  'Listed' = 'Listed',
+  'Called' = 'Called',
+  'Removed' = 'Removed',
+}
 export type BaseNFT = {
   tokenId: string
   nftAddress: string

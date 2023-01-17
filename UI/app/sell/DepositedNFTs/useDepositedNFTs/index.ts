@@ -4,6 +4,7 @@ import { useLoadMore } from 'app/hooks/request/useLoadMore'
 import { getNumber, getWeiToValueBN, getAddresses } from 'app/utils/get'
 import { useWallet } from 'domains'
 import { useCallPools, useNetwork } from 'domains/data'
+import { NFTStatus } from 'domains/data/nft/types'
 import { useCallback, useEffect, useMemo } from 'react'
 import type { DepositedNFT } from '../NFTCard'
 import type { DepositedNFTs, DepositedNFTsProps } from './request'
@@ -34,8 +35,8 @@ export const useDepositedNFTs = () => {
     return sourceData.map((data) => {
       const { tokenId, strikePriceGapIdx, durationIdx, position } = data
       let { status } = data
-      if (status === 'Called' && position && position.endTime < now) {
-        status = 'Listed'
+      if (status === NFTStatus.Called && position && position.endTime < now) {
+        status = NFTStatus.Listed
       }
       return {
         minStrikePrice: strikePriceGapIdx,

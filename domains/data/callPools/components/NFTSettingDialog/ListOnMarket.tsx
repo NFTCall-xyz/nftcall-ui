@@ -6,6 +6,7 @@ import { useWallet } from 'domains'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { useNetwork } from 'domains/data'
 import type { NFT, NFTActions } from 'domains/data/nft/types'
+import { NFTStatus } from 'domains/data/nft/types'
 
 export type ListOnMarketProps = {
   loading: boolean
@@ -38,7 +39,7 @@ const ListOnMarket: FC<ListOnMarketProps> = ({ checked, loading, nft, nftActions
       sendTransaction,
       isOnlyApprove: false,
     })
-      .then(() => setStatus('Listed'))
+      .then(() => setStatus(NFTStatus.Listed))
       .finally(() => setLoading(false))
   }, [callPoolService, query, sendTransaction, setLoading, setStatus])
   const takeNFTOffMarket = useCallback(() => {
@@ -49,7 +50,7 @@ const ListOnMarket: FC<ListOnMarketProps> = ({ checked, loading, nft, nftActions
       sendTransaction,
       isOnlyApprove: false,
     })
-      .then(() => setStatus('Deposited'))
+      .then(() => setStatus(NFTStatus.Deposited))
       .finally(() => setLoading(false))
   }, [callPoolService, query, sendTransaction, setLoading, setStatus])
 
