@@ -49,6 +49,7 @@ export const request = ({ subgraphName, skip, first, callPoolAddress, isActive, 
     premiumToOwner
     premiumToReserve
     status
+    updateTimestamp
   }
 }`,
       }),

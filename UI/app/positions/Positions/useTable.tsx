@@ -9,8 +9,8 @@ import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
 import { request } from 'domains/data/position/adapter'
-import { tokenIconCellRenderer, dateCellRenderer } from 'components/table/renderer'
-import { nftCellRenderer, statusCellRenderer } from './renderer'
+import { tokenIconCellRenderer } from 'components/table/renderer'
+import { nftCellRenderer, positionDateCellRenderer, statusCellRenderer } from './renderer'
 import TableCell from '@mui/material/TableCell'
 import Button from '@mui/material/Button'
 import { useWallet } from 'domains'
@@ -18,7 +18,7 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import type { ExerciseCallProps } from 'lib/protocol/typechain/nftcall'
 import { valueToWei } from 'lib/math'
-import { getNumber, safeGet } from 'app/utils/get'
+import { safeGet } from 'app/utils/get'
 
 const pageSize = 5
 
@@ -100,10 +100,11 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             cellRenderer: tokenIconCellRenderer,
           },
           {
-            dataKey: 'expiryDate',
+            dataKey: 'date',
+            cellData: 'endTime',
             width: 350,
             headerRenderer,
-            cellRenderer: dateCellRenderer,
+            cellRenderer: positionDateCellRenderer,
           },
           {
             dataKey: 'premium',
@@ -136,10 +137,8 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   const data = useMemo(() => {
     return sourceData.map((i) => {
       const callPool = callPools.find((callPool) => callPool.address.CallPool === i.callPoolAddress)
-      const timestamps = getNumber(i, ['endTime'])
       return {
         ...i,
-        expiryDate: timestamps.endTime,
         floorPrice: safeGet(() => callPool.nftOracle.price),
       }
     })

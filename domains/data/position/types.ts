@@ -17,6 +17,7 @@ export type PositionBaseData = {
   tokenId: string
   endTime: number
   exerciseTime: number
+  updateTimestamp: number
 }
 
 export type Position = {
@@ -30,4 +31,5 @@ export type Position = {
   tokenId: string
   endTime: number
   exerciseTime: number
+  updateTimestamp: number
 }
