@@ -5,8 +5,8 @@ import { Paragraph } from 'components/Typography'
 
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 
-import type { Position } from './adapter'
 import OptionStatus from 'UI/app/positions/OptionStatus'
+import type { Position } from 'domains/data/position/types'
 
 export type TableCellProps = {
   cellData?: any

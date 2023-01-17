@@ -12,7 +12,7 @@ import { useCallPoolDetails } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
-import { request } from './adapter'
+import { request } from 'domains/data/position/adapter'
 import { NFTCellRenderer, statusCellRenderer } from './renderer'
 
 const pageSize = 5

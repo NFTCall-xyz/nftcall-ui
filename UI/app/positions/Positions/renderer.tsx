@@ -1,8 +1,8 @@
 import TableCell from '@mui/material/TableCell'
 
-import type { Position } from './adapter'
 import OptionStatus from 'UI/app/positions/OptionStatus'
 import NFTCell from 'domains/data/nft/components/NFTCell'
+import type { Position } from 'domains/data/position/types'
 
 export type TableCellProps = {
   cellData?: any

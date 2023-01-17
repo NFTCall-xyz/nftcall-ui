@@ -8,7 +8,7 @@ import { useCallPools, useNetwork } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
-import { request } from './adapter'
+import { request } from 'domains/data/position/adapter'
 import { tokenIconCellRenderer, dateCellRenderer } from 'components/table/renderer'
 import { nftCellRenderer, statusCellRenderer } from './renderer'
 import TableCell from '@mui/material/TableCell'
