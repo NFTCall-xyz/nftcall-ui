@@ -36,6 +36,7 @@ const locale = {
     },
   },
   table: {
+    loading: 'Loading',
     noData: 'No data yet.',
     noMoreData: 'No more data.',
     loadMore: 'Load More',
