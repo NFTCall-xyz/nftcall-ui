@@ -1,5 +1,6 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
@@ -90,8 +91,10 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   } = callPool
 
   const { updatePreviewOpenCall } = usePreviewOpenCall(callPool)
+  const [errors, setErrors] = useState<string[]>([])
   useEffect(() => {
     updatePreviewOpenCall()
+    if (!ids.length) setErrors([])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids])
   const { premiumToOwner, premiumToReserve, strikePrice } = useMemo(() => {
@@ -109,6 +112,12 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
 
     returnValue.premiumToReserve = premiumTotal.multipliedBy(0.1)
     returnValue.premiumToOwner = premiumTotal.minus(returnValue.premiumToReserve)
+    console.log(returnValue.premiumToOwner.toNumber(), 0.001 * size)
+    if (returnValue.premiumToOwner.lt(0.001 * size)) {
+      setErrors(['Owner Premium is too small.'])
+    } else {
+      setErrors([])
+    }
     const minStrikePriceMapGap = MIN_STRIKE_PRICE_MAP.find((i) => i.value === strikePriceGapIdx)
     if (!minStrikePriceMapGap) return returnValue
     returnValue.strikePrice = price.multipliedBy(minStrikePriceMapGap.number)
@@ -207,7 +216,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           </Stack>
           <Button
             variant="contained"
-            disabled={strikePrice.isZero()}
+            disabled={strikePrice.isZero() || !!errors.length}
             onClick={() => {
               fn({
                 callPool: address.CallPool,
@@ -220,6 +229,13 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           >
             {t('openPanel.open')}
           </Button>
+          <Stack spacing={2}>
+            {errors.map((error) => (
+              <Alert severity="error" key={error}>
+                {error}
+              </Alert>
+            ))}
+          </Stack>
         </Stack>
       </CardContent>
     </Card>

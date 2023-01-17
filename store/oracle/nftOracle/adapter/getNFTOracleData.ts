@@ -15,7 +15,7 @@ export const getNFTOracleData = (nftOracleBaseData: NFTOracleBaseData[]): NFTOra
     return {
       nft,
       price: weiToValue(price, 18),
-      ...getNumber(i, ['vol'], -2),
+      ...getNumber(i, ['vol'], -4),
     }
   })
 }
