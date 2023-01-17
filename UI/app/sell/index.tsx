@@ -9,6 +9,7 @@ import Stats from './Stats'
 import WalletNFTs from './WalletNFTs'
 import DepositedNFTs from './DepositedNFTs'
 import Sold from './Sold'
+import Positions from './Positions'
 
 const Sell: FC = () => {
   const { t } = useTranslation('app-sell')
@@ -31,6 +32,12 @@ const Sell: FC = () => {
         title: 'sold',
         children: {
           component: Sold,
+        },
+      },
+      {
+        title: 'positions',
+        children: {
+          component: Positions,
         },
       },
     ]

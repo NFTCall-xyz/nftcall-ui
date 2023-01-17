@@ -9,7 +9,7 @@ export const getPositions = (positions: PositionBaseData[]) => {
     const returnValue: Position = {
       ...t,
       ...timestamps,
-      ...getAddresses(t, ['nftAddress', 'userAddress', 'callPoolAddress']),
+      ...getAddresses(t, ['nftAddress', 'userAddress', 'callPoolAddress', 'nftOwnerAddress']),
       ...getWeiToValueBN(t, ['strikePrice', 'premiumToOwner', 'premiumToReserve'], 18),
     }
     if (returnValue.status === PositionStatus.Unexercised) {

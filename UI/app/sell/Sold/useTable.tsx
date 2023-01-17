@@ -30,22 +30,16 @@ export const useTable = (): BasicTableProps => {
       (
         [
           {
+            dataKey: 'NFT',
+            width: 450,
+            headerRenderer,
+            cellRenderer: nftCellRenderer,
+          },
+          {
             dataKey: 'transactionHash',
             width: 450,
             headerRenderer,
             cellRenderer: linkToAddressCellRenderer,
-          },
-          {
-            dataKey: 'NFT',
-            width: 450,
-            headerRenderer,
-            cellRenderer: nftCellRenderer,
-          },
-          {
-            dataKey: 'NFT',
-            width: 450,
-            headerRenderer,
-            cellRenderer: nftCellRenderer,
           },
           {
             dataKey: 'createTimestamp',

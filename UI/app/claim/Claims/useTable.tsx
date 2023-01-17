@@ -60,8 +60,7 @@ export const useTable = (): BasicTableProps => {
         </TableCell>
       )
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [t]
+    [balanceOf, fn, networkAccount, t]
   )
 
   const columns = useMemo(

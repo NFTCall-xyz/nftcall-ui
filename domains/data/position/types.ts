@@ -11,6 +11,7 @@ export type PositionBaseData = {
   strikePrice: BN
   premiumToOwner: BN
   premiumToReserve: BN
+  nftOwnerAddress: string
   nftAddress: string
   userAddress: string
   callPoolAddress: string
@@ -25,6 +26,7 @@ export type Position = {
   strikePrice: BN
   premiumToOwner: BN
   premiumToReserve: BN
+  nftOwnerAddress: string
   nftAddress: string
   userAddress: string
   callPoolAddress: string

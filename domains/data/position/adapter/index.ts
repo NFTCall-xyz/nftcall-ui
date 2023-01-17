@@ -11,8 +11,17 @@ type Props = {
   userAddress: string
   isActive: boolean
   callPoolAddress: string
+  nftOwnerAddress: string
 }>
-export const request = ({ subgraphName, skip, first, callPoolAddress, isActive, userAddress }: Props) => {
+export const request = ({
+  subgraphName,
+  skip,
+  first,
+  callPoolAddress,
+  isActive,
+  userAddress,
+  nftOwnerAddress,
+}: Props) => {
   if (!subgraphName) return Promise.reject({ message: 'network error' })
   let returnValue: Position[] = []
   const promises = []
@@ -34,6 +43,7 @@ export const request = ({ subgraphName, skip, first, callPoolAddress, isActive, 
     where: {
       ${callPoolAddress ? `callPoolAddress: ${JSON.stringify(callPoolAddress)}` : ''}
       ${userAddress ? `userAddress: ${JSON.stringify(userAddress)}` : ''}
+      ${nftOwnerAddress ? `nftOwnerAddress: ${JSON.stringify(nftOwnerAddress)}` : ''}
       ${isActive ? `endTime_gt: ${getCurrentTimestamp()}` : ''}
    }
     orderBy: createTimestamp
@@ -42,6 +52,7 @@ export const request = ({ subgraphName, skip, first, callPoolAddress, isActive, 
     callPoolAddress
     userAddress
     nftAddress
+    nftOwnerAddress
     tokenId
     exerciseTime
     endTime
