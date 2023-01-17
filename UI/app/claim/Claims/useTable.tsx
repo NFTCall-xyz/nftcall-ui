@@ -108,6 +108,7 @@ export const useTable = (): BasicTableProps => {
   )
 
   return {
+    loading: false,
     columns,
     data,
   }

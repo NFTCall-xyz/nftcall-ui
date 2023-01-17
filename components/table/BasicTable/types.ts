@@ -1,6 +1,7 @@
 import type { ColumnProps, TableProps, TableHeaderProps } from 'react-virtualized'
 
 export interface BasicTableProps<D = any> {
+  loading: boolean
   columns: TableColumnsProps[]
   rowHeight?: number
   headerHeight?: number

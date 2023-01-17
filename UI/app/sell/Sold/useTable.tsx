@@ -110,6 +110,7 @@ export const useTable = (): BasicTableProps => {
   })
 
   return {
+    loading: dataFetcher.loading,
     columns,
     data,
     loadMore,

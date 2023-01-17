@@ -19,16 +19,22 @@ const BasicTable: FC<BasicTableProps> = (props) => {
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.up('md'))
   const noData = useMemo(() => !props.data || !props.data.length, [props.data])
+  const { loading } = props
 
   return (
     <Fragment>
       {matches ? <PCTable {...props} /> : <MobileTable {...props} />}
-      {noData && (
-        <Box display="flex" justifyContent="center" alignItems="center" height={100}>
-          <H6 color="text.disabled">{t('table.noData')}</H6>
-        </Box>
+      {loading && (
+        <FlexRowAlign paddingTop={2} height={100}>
+          <H6 color="text.disabled">{t('table.loading')}</H6>
+        </FlexRowAlign>
       )}
-      {props.pagination && (
+      {!loading && noData && (
+        <FlexRowAlign paddingTop={2} height={100}>
+          <H6 color="text.disabled">{t('table.noData')}</H6>
+        </FlexRowAlign>
+      )}
+      {!loading && props.pagination && (
         <TablePagination
           rowsPerPageOptions={[10, 20, 30]}
           component="div"
@@ -39,7 +45,7 @@ const BasicTable: FC<BasicTableProps> = (props) => {
           onRowsPerPageChange={props.pagination.onRowsPerPageChange}
         />
       )}
-      {!noData && !props.pagination && props.loadMore && (
+      {!loading && !noData && !props.pagination && props.loadMore && (
         <FlexRowAlign paddingTop={2}>
           {props.loadMore.end ? (
             <Paragraph color="text.disabled">{t('table.noMoreData')}</Paragraph>

@@ -178,6 +178,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   })
 
   return {
+    loading: dataFetcher.loading,
     columns,
     data,
     loadMore,
