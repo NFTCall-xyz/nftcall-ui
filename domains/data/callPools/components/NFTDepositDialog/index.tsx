@@ -17,7 +17,8 @@ import HelpIcon from '@mui/icons-material/Help'
 
 type NFTDepositDialogProps = {}
 const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
-  const { t } = useTranslation(['app-sell'])
+  const { t } = useTranslation('domains', { keyPrefix: 'callPools' })
+  const { t: tNFT } = useTranslation('domains', { keyPrefix: 'nft' })
   const {
     dialogs: { nftDeposit },
   } = useCallPools()
@@ -44,8 +45,8 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
           <NFTCard tokenId={tokenId} nftAddress={nftAddress} />
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{t('settingsDialog.minStrikePrice')}</Span>
-              <Tooltip title={t('settingsDialog.minStrikePriceTip')}>
+              <Span fontWeight="bold">{tNFT('minStrikePrice')}</Span>
+              <Tooltip title={tNFT('minStrikePriceTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
               </Tooltip>
             </Stack>
@@ -66,8 +67,8 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
           </Stack>
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{t('settingsDialog.maxExpiryTime')}</Span>
-              <Tooltip title={t('settingsDialog.maxExpiryTimeTip')}>
+              <Span fontWeight="bold">{tNFT('maxExpiryTime')}</Span>
+              <Tooltip title={tNFT('maxExpiryTimeTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
               </Tooltip>
             </Stack>

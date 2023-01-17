@@ -17,7 +17,7 @@ export const getStaticProps: GetStaticProps = withStaticTranslations(
     }
   },
   {
-    namespaces: ['app-callpool', 'app-positions'],
+    namespaces: ['app-callpool'],
   }
 )
 

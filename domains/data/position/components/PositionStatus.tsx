@@ -3,13 +3,13 @@ import { useMemo } from 'react'
 import { useTheme } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-type OptionStatusProps = {
+type PositionStatusProps = {
   status: string
 }
 
-const OptionStatus: FC<OptionStatusProps> = ({ status }) => {
+const PositionStatus: FC<PositionStatusProps> = ({ status }) => {
   const theme = useTheme()
-  const { t } = useTranslation('app-positions', { keyPrefix: 'status' })
+  const { t } = useTranslation('domains', { keyPrefix: 'position.status' })
   const color = useMemo(() => {
     switch (status) {
       case 'Exercised':
@@ -25,4 +25,4 @@ const OptionStatus: FC<OptionStatusProps> = ({ status }) => {
   return <Span color={color}>{t(status)}</Span>
 }
 
-export default OptionStatus
+export default PositionStatus

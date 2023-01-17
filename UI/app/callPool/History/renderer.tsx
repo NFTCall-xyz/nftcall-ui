@@ -5,7 +5,7 @@ import { Paragraph } from 'components/Typography'
 
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 
-import OptionStatus from 'UI/app/positions/OptionStatus'
+import PositionStatus from 'domains/data/position/components/PositionStatus'
 import type { Position } from 'domains/data/position/types'
 
 export type TableCellProps = {
@@ -38,7 +38,7 @@ export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellP
 export const statusCellRenderer = ({ rowData: { status } }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
-      <OptionStatus status={status} />
+      <PositionStatus status={status} />
     </TableCell>
   )
 }

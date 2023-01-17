@@ -11,7 +11,7 @@ export const withStaticTranslations = createWithGetStaticProps(
   async (props, { namespaces }: StaticTranslationsOptions) => {
     const serverSideTranslationsProps = await serverSideTranslations(
       props.locale,
-      ['common', 'router', ...(namespaces || [])],
+      ['common', 'router', 'domains', ...(namespaces || [])],
       nextI18NextConfig
     )
     return {

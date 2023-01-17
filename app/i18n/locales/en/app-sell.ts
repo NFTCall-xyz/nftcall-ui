@@ -29,22 +29,6 @@ const locale = {
     withdraw: 'Withdraw',
     expiryDate: 'Expiration Date',
   },
-  settingsDialog: {
-    title: 'Options selling config',
-    submit: 'Submit',
-    cancel: 'Cancel',
-    listOnMarket: 'List on Market',
-    minStrikePrice: 'Minimum strike price',
-    minStrikePriceTip: 'The lowest strike price that option buyers can choose when opening a call option on your NFT.',
-    maxExpiryTime: 'Maximum expiration duration',
-    maxExpiryTimeTip:
-      'The longest expiration duration that option buyers can choose when opening a call option on your NFT.',
-  },
-  depositDialog: {
-    title: 'Deposit NFTs to sell call opitons',
-    deposit: 'Deposit',
-    cancel: 'Cancel',
-  },
   table: {
     walletTip: "You don't have available NFTs.",
     depositedTip: "You don't have deposited NFTs.",

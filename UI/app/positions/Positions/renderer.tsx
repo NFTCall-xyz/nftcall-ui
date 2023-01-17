@@ -1,6 +1,6 @@
 import TableCell from '@mui/material/TableCell'
 
-import OptionStatus from 'UI/app/positions/OptionStatus'
+import PositionStatus from 'domains/data/position/components/PositionStatus'
 import NFTCell from 'domains/data/nft/components/NFTCell'
 import type { Position } from 'domains/data/position/types'
 
@@ -26,7 +26,7 @@ export const nftCellRenderer = ({ rowData }: TableCellProps) => {
 export const statusCellRenderer = ({ rowData: { status } }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
-      <OptionStatus status={status} />
+      <PositionStatus status={status} />
     </TableCell>
   )
 }

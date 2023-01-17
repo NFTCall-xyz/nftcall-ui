@@ -20,7 +20,8 @@ import { NFTStatus } from 'domains/data/nft/types'
 
 type NFTSettingDialogProps = {}
 const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
-  const { t } = useTranslation('app-sell', { keyPrefix: 'settingsDialog' })
+  const { t } = useTranslation('domains', { keyPrefix: 'callPools.settingsDialog' })
+  const { t: tNFT } = useTranslation('domains', { keyPrefix: 'nft' })
   const {
     dialogs: { nftSetting },
   } = useCallPools()
@@ -77,8 +78,8 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
           </FlexBetween>
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{t('minStrikePrice')}</Span>
-              <Tooltip title={t('minStrikePriceTip')}>
+              <Span fontWeight="bold">{tNFT('minStrikePrice')}</Span>
+              <Tooltip title={tNFT('minStrikePriceTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
               </Tooltip>
             </Stack>
@@ -99,8 +100,8 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
           </Stack>
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{t('maxExpiryTime')}</Span>
-              <Tooltip title={t('maxExpiryTimeTip')}>
+              <Span fontWeight="bold">{tNFT('maxExpiryTime')}</Span>
+              <Tooltip title={tNFT('maxExpiryTimeTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
               </Tooltip>
             </Stack>

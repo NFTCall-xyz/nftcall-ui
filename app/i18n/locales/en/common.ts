@@ -35,16 +35,6 @@ const locale = {
       error: 'Unsupported network',
     },
   },
-  project: {
-    status: {
-      open: 'Open',
-      lockedUp: 'Locked-Up',
-    },
-    fundraisingProgress: {
-      title: 'Fundraising Progress',
-      max: 'Max',
-    },
-  },
   table: {
     noData: 'No data yet.',
     noMoreData: 'No more data.',
