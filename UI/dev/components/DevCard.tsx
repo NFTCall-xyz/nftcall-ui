@@ -50,6 +50,7 @@ export const DevCard: FC<DevCardProps> = ({ title, data }) => {
           {...{
             columns,
             data,
+            loading: false,
           }}
         />
       </CardContent>
