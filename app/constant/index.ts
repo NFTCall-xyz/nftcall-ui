@@ -8,6 +8,7 @@ export const LTV_PRECISION = 4
 
 export const getTimestamp = (time: number) => Math.floor(time / 1000)
 export const getCurrentTimestamp = () => getTimestamp(Date.now())
+export const getCurrentTime = () => Date.now()
 
 export const HOVER = 1000 * 60 * 60
 export const HalfDay = HOVER * 12

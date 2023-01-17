@@ -24,6 +24,9 @@ import { useTranslation } from 'next-i18next'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 import type { UseIds } from 'app/hooks/useIds'
 import { usePreviewOpenCall } from 'domains/data/callPools/hooks/usePreviewOpenCall'
+import { getCurrentTime } from 'app/constant'
+import { safeGet } from 'app/utils/get'
+import { format } from 'date-fns'
 
 type OpenCallOptionsProps = {
   request: any
@@ -97,11 +100,12 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     if (!ids.length) setErrors([])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids])
-  const { premiumToOwner, premiumToReserve, strikePrice } = useMemo(() => {
+  const { premiumToOwner, premiumToReserve, strikePrice, expriyTime } = useMemo(() => {
     const returnValue = {
       premiumToOwner: toBN(0),
       premiumToReserve: toBN(0),
       strikePrice: toBN(0),
+      expriyTime: 0,
     }
     const curveIdx = strikePriceGapIdx * 4 + durationIdx
     const premium = premiums.find((i) => i.curveIdx === curveIdx)
@@ -118,9 +122,11 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     } else {
       setErrors([])
     }
-    const minStrikePriceMapGap = MIN_STRIKE_PRICE_MAP.find((i) => i.value === strikePriceGapIdx)
-    if (!minStrikePriceMapGap) return returnValue
-    returnValue.strikePrice = price.multipliedBy(minStrikePriceMapGap.number)
+    const minStrikePriceMap = MIN_STRIKE_PRICE_MAP.find((i) => i.value === strikePriceGapIdx)
+    const maxExpriyTimeMap = MAX_EXPRIY_TIME_MAP.find((i) => i.value === durationIdx)
+    if (!minStrikePriceMap || !maxExpriyTimeMap) return returnValue
+    returnValue.strikePrice = price.multipliedBy(minStrikePriceMap.number)
+    returnValue.expriyTime = getCurrentTime() + maxExpriyTimeMap.number
     return returnValue
   }, [durationIdx, nftOracle.price, premiums, size, strikePriceGapIdx])
 
@@ -180,6 +186,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           <Stack spacing={1}>
             <FlexBetween>
               <Span fontWeight="bold">{t('openPanel.expiryDate')}</Span>
+              <Span>{safeGet(() => format(expriyTime, 'MMM dd hh:mm'))}</Span>
             </FlexBetween>
             <Select
               value={durationIdx}

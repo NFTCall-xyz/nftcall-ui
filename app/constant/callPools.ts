@@ -1,3 +1,5 @@
+import { DAY } from '.'
+
 export const MIN_STRIKE_PRICE_MAP = [
   { value: 0, label: '0%', number: 1 },
   { value: 1, label: '10%', number: 1.1 },
@@ -7,8 +9,8 @@ export const MIN_STRIKE_PRICE_MAP = [
   { value: 5, label: '100%', number: 2 },
 ]
 export const MAX_EXPRIY_TIME_MAP = [
-  { value: 0, label: '3 days' },
-  { value: 1, label: '7 days' },
-  { value: 2, label: '14 days' },
-  { value: 3, label: '28 days' },
+  { value: 0, label: '3 days', number: DAY * 3 },
+  { value: 1, label: '7 days', number: DAY * 7 },
+  { value: 2, label: '14 days', number: DAY * 14 },
+  { value: 3, label: '28 days', number: DAY * 28 },
 ]
