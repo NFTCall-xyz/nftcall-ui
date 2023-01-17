@@ -10,7 +10,7 @@ import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
 import { tokenIconCellRenderer, dateCellRenderer } from 'components/table/renderer'
-import { NFTCellRenderer, statusCellRenderer } from './renderer'
+import { nftCellRenderer, statusCellRenderer } from './renderer'
 import TableCell from '@mui/material/TableCell'
 import Button from '@mui/material/Button'
 import { useWallet } from 'domains'
@@ -85,7 +85,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             dataKey: 'NFT',
             width: 650,
             headerRenderer,
-            cellRenderer: NFTCellRenderer,
+            cellRenderer: nftCellRenderer,
           },
           {
             dataKey: 'floorPrice',

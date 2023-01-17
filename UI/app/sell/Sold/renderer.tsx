@@ -1,10 +1,7 @@
 import TableCell from '@mui/material/TableCell'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
 
 import type { NFTTransaction } from './adapter'
-import NFTIcon from 'domains/data/nft/components/NFTIcon'
-import { Paragraph, Span } from 'components/Typography'
+import NFTCell from 'domains/data/nft/components/NFTCell'
 
 export type TableCellProps = {
   cellData?: any
@@ -17,18 +14,10 @@ export type TableCellProps = {
   rowIndex: number
 }
 
-export const NFTCellRenderer = ({ rowData: { tokenId, nftAddress } }: TableCellProps) => {
+export const nftCellRenderer = ({ rowData }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
-      <Stack spacing={1} direction="row">
-        <Box sx={{ width: 40 }}>
-          <NFTIcon nft={{ tokenId, nftAddress }} />
-        </Box>
-        <Stack alignItems="start">
-          <Paragraph>#{tokenId}</Paragraph>
-          <Span color="text.secondary">{'BoredApeClubYacht'}</Span>
-        </Stack>
-      </Stack>
+      <NFTCell {...{ nft: rowData, sx: { width: 40, height: 40 } }} />
     </TableCell>
   )
 }

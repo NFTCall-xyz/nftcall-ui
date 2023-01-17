@@ -12,7 +12,7 @@ import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
 import { request } from './adapter'
-import { NFTCellRenderer } from './renderer'
+import { nftCellRenderer } from './renderer'
 import { useWallet } from 'domains'
 
 const pageSize = 5
@@ -39,7 +39,13 @@ export const useTable = (): BasicTableProps => {
             dataKey: 'NFT',
             width: 450,
             headerRenderer,
-            cellRenderer: NFTCellRenderer,
+            cellRenderer: nftCellRenderer,
+          },
+          {
+            dataKey: 'NFT',
+            width: 450,
+            headerRenderer,
+            cellRenderer: nftCellRenderer,
           },
           {
             dataKey: 'createTimestamp',
