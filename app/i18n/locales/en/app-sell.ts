@@ -15,6 +15,7 @@ const locale = {
     walletNFTs: 'Wallet',
     depositedNFTs: 'Deposited',
     sold: 'Sold',
+    positions: 'Options Sold'
   },
   history: {
     NFT: 'NFT',

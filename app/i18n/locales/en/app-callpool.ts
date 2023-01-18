@@ -6,7 +6,7 @@ const locale = {
   history: {
     account: 'Account',
     NFT: 'NFT',
-    expiryDate: 'Expiry Date',
+    expiryDate: 'Expiration Date',
     premium: 'Premium',
     status: 'Status',
     strikePrice: 'Strike Price',

@@ -55,7 +55,7 @@ const Layout: FCC = ({ children }) => {
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={seoTitle} />
-        <meta name="twitter:site" content="#" />
+        <meta name="twitter:site" content="@nftcall_xyz" />
       </Head>
       <ActiveLayout>
         {children}

@@ -5,7 +5,7 @@ const locale = {
     NFT: 'NFT',
     floorPrice: 'Floor Price',
     strikePrice: 'Strike Price',
-    date: 'Date',
+    date: 'Exercisable / Expiry Date',
     expiryDate: 'Expiration Date',
     exercisableDate: 'Exercisable Date',
     exercisedDate: 'Exercised Date',
