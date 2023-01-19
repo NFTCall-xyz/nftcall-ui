@@ -17,6 +17,7 @@ import HelpIcon from '@mui/icons-material/Help'
 import FlexBetween from 'components/flexbox/FlexBetween'
 import ListOnMarket from './ListOnMarket'
 import { NFTStatus } from 'domains/data/nft/types'
+import FormNumberFieldField from 'components/form/FormNumberField'
 
 type NFTSettingDialogProps = {}
 const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
@@ -119,6 +120,15 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
                 </MenuItem>
               ))}
             </FormTextField>
+          </Stack>
+          <Stack spacing={1}>
+            <Stack alignItems="center" spacing={0.5} direction="row">
+              <Span fontWeight="bold">{tNFT('lowerLimitOfStrikePrice')}</Span>
+              <Tooltip title={tNFT('lowerLimitOfStrikePriceTip')}>
+                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+              </Tooltip>
+            </Stack>
+            <FormNumberFieldField formik={formik} fieldKey="lowerLimitOfStrikePrice" />
           </Stack>
         </Stack>
       </form>

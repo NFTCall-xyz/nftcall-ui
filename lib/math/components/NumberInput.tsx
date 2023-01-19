@@ -5,8 +5,9 @@ import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import { useTheme } from '@mui/material/styles'
+import { Fragment } from 'react'
 
-export function NumberInput({ value, onChange, disabled, onBlur, error, onMax }: any) {
+export function NumberInput({ value, onChange, disabled, onBlur, error, helperText, onMax, name }: any) {
   const theme = useTheme()
   return (
     <FormControl error={error} variant="standard">
@@ -16,6 +17,7 @@ export function NumberInput({ value, onChange, disabled, onBlur, error, onMax }:
         sx={{ padding: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
       >
         <InputBase
+          name={name}
           aria-describedby="helper-text"
           value={value}
           onChange={onChange}
@@ -24,12 +26,16 @@ export function NumberInput({ value, onChange, disabled, onBlur, error, onMax }:
           placeholder="0.00"
           inputProps={{ 'aria-label': 'input number', pattern: '^[0-9]*[.,]?[0-9]*$' }}
         />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <Button disabled={disabled} onClick={onMax} sx={{ color: theme.palette.primary.main }}>
-          Max
-        </Button>
+        {onMax && (
+          <Fragment>
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <Button disabled={disabled} onClick={onMax} sx={{ color: theme.palette.primary.main }}>
+              Max
+            </Button>
+          </Fragment>
+        )}
       </Paper>
-      <FormHelperText id="helper-text">{error}</FormHelperText>
+      <FormHelperText id="helper-text">{helperText || error}</FormHelperText>
     </FormControl>
   )
 }

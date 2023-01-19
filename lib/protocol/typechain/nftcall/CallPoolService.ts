@@ -140,7 +140,7 @@ export class CallPoolService extends BaseService<CallPool> {
       txs.push(approveTx)
     }
 
-    if (lowerStrikePriceGapIdx === 1 && upperDurationIdx === 3) {
+    if (lowerStrikePriceGapIdx === 1 && upperDurationIdx === 3 && lowerLimitOfStrikePrice === '0') {
       const txCallback: () => Promise<transactionType> = this.generateTxCallback({
         rawTxMethod: async () => callPoolContract.populateTransaction.deposit(user, tokenId),
         from: user,

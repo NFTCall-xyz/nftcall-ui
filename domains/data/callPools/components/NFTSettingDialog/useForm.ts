@@ -10,14 +10,18 @@ import { useWallet } from 'domains'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 import { useEffect } from 'react'
+import { valueToWei } from 'lib/math'
+import { safeGet } from 'app/utils/get'
 
 const validationSchema = yup.object({
-  minStrikePrice: yup.number().required('minStrikePrice is Required!'),
-  maxExpriyTime: yup.number().required('maxExpriyTime is Required!'),
+  minStrikePrice: yup.number().required('minStrikePrice is required!'),
+  maxExpriyTime: yup.number().required('maxExpriyTime is required!'),
+  lowerLimitOfStrikePrice: yup.string().matches(/^[0-9]*[.,]?[0-9]*$/, 'Lower Limit is a number!'),
 })
-const initialValues: Pick<NFT, 'minStrikePrice' | 'maxExpriyTime'> = {
+const initialValues: Pick<NFT, 'minStrikePrice' | 'maxExpriyTime'> & { lowerLimitOfStrikePrice: string } = {
   minStrikePrice: 1,
   maxExpriyTime: 3,
+  lowerLimitOfStrikePrice: '0',
 }
 
 export const useForm = () => {
@@ -41,7 +45,7 @@ export const useForm = () => {
           callPool: callPoolAddress,
           user: networkAccount,
           tokenId,
-          lowerLimitOfStrikePrice: '0',
+          lowerLimitOfStrikePrice: safeGet(() => valueToWei(values.lowerLimitOfStrikePrice).toString()) || '0',
           lowerStrikePriceGapIdx: values.minStrikePrice,
           upperDurationIdx: values.maxExpriyTime,
         }),
@@ -65,10 +69,11 @@ export const useForm = () => {
 
   useEffect(() => {
     if (!nft || !nft.tokenId) return
-    const { minStrikePrice, maxExpriyTime } = nft
+    const { minStrikePrice, maxExpriyTime, lowerLimitOfStrikePrice } = nft
     formik.setValues({
       minStrikePrice,
       maxExpriyTime,
+      lowerLimitOfStrikePrice: lowerLimitOfStrikePrice.toString(),
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nft])

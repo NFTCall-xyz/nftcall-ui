@@ -19,5 +19,6 @@ export type NFT = BaseNFT &
     status: NFTStatus
     minStrikePrice: number
     maxExpriyTime: number
+    lowerLimitOfStrikePrice: BN
     actions: NFTActions
   }>

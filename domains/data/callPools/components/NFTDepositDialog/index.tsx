@@ -14,6 +14,7 @@ import { useTranslation } from 'next-i18next'
 import { Span } from 'components/Typography'
 import Tooltip from '@mui/material/Tooltip'
 import HelpIcon from '@mui/icons-material/Help'
+import FormNumberFieldField from 'components/form/FormNumberField'
 
 type NFTDepositDialogProps = {}
 const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
@@ -86,6 +87,15 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
                 </MenuItem>
               ))}
             </FormTextField>
+          </Stack>
+          <Stack spacing={1}>
+            <Stack alignItems="center" spacing={0.5} direction="row">
+              <Span fontWeight="bold">{tNFT('lowerLimitOfStrikePrice')}</Span>
+              <Tooltip title={tNFT('lowerLimitOfStrikePriceTip')}>
+                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+              </Tooltip>
+            </Stack>
+            <FormNumberFieldField formik={formik} fieldKey="lowerLimitOfStrikePrice" />
           </Stack>
         </Stack>
       </form>
