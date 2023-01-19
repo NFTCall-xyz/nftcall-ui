@@ -26,6 +26,7 @@ const locale = {
     open: 'Buy',
     minStrikePrice: 'Min. price gap:',
     maxExpiryTime: 'Max. duration:',
+    lowerLimitOfStrikePrice: 'Min. price:',
   },
 }
 

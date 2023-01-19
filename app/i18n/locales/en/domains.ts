@@ -26,6 +26,9 @@ const locale = {
     maxExpiryTime: 'Maximum expiration duration',
     maxExpiryTimeTip:
       'The longest expiration duration that option buyers can choose when opening a call option on your NFT.',
+    lowerLimitOfStrikePrice: 'Minimum strike price',
+    lowerLimitOfStrikePriceTip:
+      'The lowest strike price that option buyers can choose when opening a call option on your NFT.',
   },
 }
 

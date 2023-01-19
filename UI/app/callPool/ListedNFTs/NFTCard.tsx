@@ -14,6 +14,8 @@ import { Paragraph, Tiny } from 'components/Typography'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import type { UseIds } from 'app/hooks/useIds'
+import NumberDisplay from 'lib/math/components/NumberDisplay'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
@@ -50,6 +52,7 @@ const NFTCard: FC<NFTCardProps> = (props) => {
     ids: { has, add, remove },
     maxExpriyTime,
     minStrikePrice,
+    lowerLimitOfStrikePrice,
   } = props
   const { t } = useTranslation('app-callpool')
   const checked = has(tokenId)
@@ -86,6 +89,17 @@ const NFTCard: FC<NFTCardProps> = (props) => {
             <Tiny color="text.secondary">{t('openPanel.maxExpiryTime')}</Tiny>
             <Tiny color="text.secondary">{maxExpriyTimeMapLabel}</Tiny>
           </FlexBetween>
+          {!lowerLimitOfStrikePrice.isZero() && (
+            <FlexBetween>
+              <Tiny color="text.secondary">{t('openPanel.lowerLimitOfStrikePrice')}</Tiny>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <TokenIcon symbol="ETH" sx={{ width: 12, height: 12 }} />
+                <Tiny color="text.secondary">
+                  <NumberDisplay value={lowerLimitOfStrikePrice} />
+                </Tiny>
+              </Stack>
+            </FlexBetween>
+          )}
         </Stack>
       </CardContent>
     </ROOT>

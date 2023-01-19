@@ -44,7 +44,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   } = useUser()
   const [strikePriceGapIdxSource, setStrikePriceGapIdx] = useState(1)
   const [durationIdxSource, setDurationIdx] = useState(MAX_EXPRIY_TIME_MAP.length - 1)
-  const { strikePriceSetting, durationSetting } = useMemo(() => {
+  const { strikePriceSetting, durationSetting, limitOfStrikePriceSetting } = useMemo(() => {
     const strikePriceSetting = {
       min: 0,
       max: MIN_STRIKE_PRICE_MAP.length - 1,
@@ -53,16 +53,26 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
       min: 0,
       max: MAX_EXPRIY_TIME_MAP.length - 1,
     }
+    const limitOfStrikePriceSetting = {
+      tokenId: '',
+      min: toBN(0),
+    }
+
     ids.forEach((id) => {
       const nft = nfts.find((i) => i.tokenId === id)
       if (!nft) return
-      const { maxExpriyTime, minStrikePrice } = nft
+      const { maxExpriyTime, minStrikePrice, lowerLimitOfStrikePrice } = nft
       if (maxExpriyTime < durationSetting.max) durationSetting.max = maxExpriyTime
       if (minStrikePrice > strikePriceSetting.min) strikePriceSetting.min = minStrikePrice
+      if (lowerLimitOfStrikePrice.gt(limitOfStrikePriceSetting.min)) {
+        limitOfStrikePriceSetting.min = lowerLimitOfStrikePrice
+        limitOfStrikePriceSetting.tokenId = id
+      }
     })
     return {
       strikePriceSetting,
       durationSetting,
+      limitOfStrikePriceSetting,
     }
   }, [ids, nfts])
   const { strikePriceGapIdx, durationIdx } = useMemo(() => {
@@ -125,9 +135,22 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     const maxExpriyTimeMap = MAX_EXPRIY_TIME_MAP.find((i) => i.value === durationIdx)
     if (!minStrikePriceMap || !maxExpriyTimeMap) return returnValue
     returnValue.strikePrice = price.multipliedBy(minStrikePriceMap.number)
+    if (limitOfStrikePriceSetting.min.multipliedBy(size).gt(returnValue.strikePrice)) {
+      setErrors([`#${limitOfStrikePriceSetting.tokenId} Strike Price is too small.`])
+    } else {
+      setErrors([])
+    }
     returnValue.expriyTime = getCurrentTime() + maxExpriyTimeMap.number
     return returnValue
-  }, [durationIdx, nftOracle.price, premiums, size, strikePriceGapIdx])
+  }, [
+    durationIdx,
+    limitOfStrikePriceSetting.min,
+    limitOfStrikePriceSetting.tokenId,
+    nftOracle.price,
+    premiums,
+    size,
+    strikePriceGapIdx,
+  ])
 
   const { networkAccount } = useWallet()
   const {
