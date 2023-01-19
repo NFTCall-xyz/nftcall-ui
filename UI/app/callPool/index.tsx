@@ -17,6 +17,18 @@ import TokenIcon from 'lib/protocol/components/TokenIcon'
 import Avatar from '@mui/material/Avatar'
 import Head from 'next/head'
 
+type TitleProps = {
+  name?: string
+}
+const Title: FC<TitleProps> = ({ name }) => {
+  const titleText = `NFTCall | ${name || 'CallPool'}`
+  return (
+    <Head>
+      <title>{titleText}</title>
+    </Head>
+  )
+}
+
 const CallPoolDetails: FC = () => {
   const { t } = useTranslation('app-callpool')
   const theme = useTheme()
@@ -42,7 +54,7 @@ const CallPoolDetails: FC = () => {
   }, [t])
   const { callPool } = useCallPoolDetails()
 
-  if (!callPool) return null
+  if (!callPool) return <Title />
 
   const {
     collection: { name, imageUrl },
@@ -53,9 +65,7 @@ const CallPoolDetails: FC = () => {
 
   return (
     <>
-      <Head>
-        <title>NFTCall | {name || 'CallPool'}</title>
-      </Head>
+      <Title name={name} />
       <BackButton />
       <Grid container pt={2}>
         <Grid item xs={12}>
