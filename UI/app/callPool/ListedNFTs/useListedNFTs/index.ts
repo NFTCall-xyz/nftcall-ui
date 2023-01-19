@@ -1,6 +1,6 @@
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 import { useLoadMore } from 'app/hooks/request/useLoadMore'
-import { getNumber, safeGet } from 'app/utils/get'
+import { getNumber, getWeiToValueBN, safeGet } from 'app/utils/get'
 import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { useCallback, useEffect } from 'react'
 import type { ListedNFT } from '../NFTCard'
@@ -35,6 +35,7 @@ export const useListedNFTs = () => {
         tokenId,
         status,
         ...timestamps,
+        ...getWeiToValueBN(nft, ['lowerLimitOfStrikePrice'], 18),
       } as ListedNFT
     })
   }, [])

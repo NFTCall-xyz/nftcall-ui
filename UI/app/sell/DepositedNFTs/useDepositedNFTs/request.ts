@@ -17,6 +17,7 @@ const getGqlQuery = ({ first, skip, nfts, user }: DepositedNFTsProps) => {
       tokenId
       strikePriceGapIdx
       durationIdx
+      lowerLimitOfStrikePrice
       status
       nftAddress
       callPoolAddress
@@ -38,6 +39,7 @@ export const getDepositedNFTs = (
     tokenId: string
     strikePriceGapIdx: number
     durationIdx: number
+    lowerLimitOfStrikePrice: BN
     status: NFTStatus
     nftAddress: string
     callPoolAddress: string

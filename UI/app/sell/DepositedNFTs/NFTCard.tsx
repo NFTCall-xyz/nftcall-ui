@@ -30,6 +30,7 @@ export type DepositedNFT = BaseNFT & {
   callPoolAddress: string
   minStrikePrice: number
   maxExpriyTime: number
+  lowerLimitOfStrikePrice: BN
   status: NFTStatus
   restart: () => void
   position?: {

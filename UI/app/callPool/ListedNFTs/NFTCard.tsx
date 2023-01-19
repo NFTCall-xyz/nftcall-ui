@@ -18,6 +18,7 @@ import type { UseIds } from 'app/hooks/useIds'
 export type ListedNFT = BaseNFT & {
   minStrikePrice: number
   maxExpriyTime: number
+  lowerLimitOfStrikePrice: BN
   updateTimestamp: number
   status: NFTStatus
 }

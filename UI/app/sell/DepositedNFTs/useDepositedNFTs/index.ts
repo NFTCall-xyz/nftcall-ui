@@ -41,6 +41,7 @@ export const useDepositedNFTs = () => {
       return {
         minStrikePrice: strikePriceGapIdx,
         maxExpriyTime: durationIdx,
+        ...getWeiToValueBN(data, ['lowerLimitOfStrikePrice'], 18),
         ...getAddresses(data, ['nftAddress', 'callPoolAddress']),
         tokenId,
         status,
