@@ -8,11 +8,11 @@
   "markets": {
     "BAYC": {
       "NFT": "0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978",
-      "CallPoolForTest": "0x1f58A80cec63A64cB2a9384b0eE6C1EaD849B136"
+      "CallPoolForTest": "0xb44c94f3A2AA87E48554ba99c5aE6A839139F664"
     },
     "MAYC": {
       "NFT": "0x88898d1596204a25C93CE4832D3fB98A99058Fe8",
-      "CallPoolForTest": "0x4EA7687908346fE3672f5329591D4D343816B4Ed"
+      "CallPoolForTest": "0x7b4057c09b7ceB5861b2Ee993E8B9e193b98612c"
     }
   }
 }
