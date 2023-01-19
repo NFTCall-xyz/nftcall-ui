@@ -54,7 +54,7 @@ const CallPoolDetails: FC = () => {
   return (
     <>
       <Head>
-        <title>NFTCall | {name}</title>
+        <title>NFTCall | {name || 'CallPool'}</title>
       </Head>
       <BackButton />
       <Grid container pt={2}>
@@ -80,7 +80,13 @@ const CallPoolDetails: FC = () => {
                 <Paragraph color="text.secondary">{t('vol')}</Paragraph>
                 <Stack spacing={1} direction="row" alignItems="center">
                   <H2>
-                    <NumberDisplay value={vol} options="percent" />
+                    <NumberDisplay
+                      value={vol}
+                      options="percent"
+                      numberFormatOptions={{
+                        maximumFractionDigits: 0,
+                      }}
+                    />
                   </H2>
                 </Stack>
               </Stack>
