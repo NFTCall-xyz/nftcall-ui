@@ -58,8 +58,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             cellRenderer: positionDateCellRenderer,
           },
           {
-            dataKey: 'premium',
-            cellData: 'premiumToOwner',
+            dataKey: 'premiumToOwner',
             width: 350,
             headerRenderer,
             cellRenderer: tokenIconCellRenderer,

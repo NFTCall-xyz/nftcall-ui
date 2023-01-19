@@ -15,7 +15,7 @@ const locale = {
     walletNFTs: 'Wallet',
     depositedNFTs: 'Deposited',
     sold: 'Sold',
-    positions: 'Options Sold'
+    positions: 'Options Sold',
   },
   history: {
     NFT: 'NFT',
@@ -38,7 +38,7 @@ const locale = {
     expiryDate: 'Expiration Date',
     exercisableDate: 'Exercisable Date',
     exercisedDate: 'Exercised Date',
-    premium: 'Premium',
+    premiumToOwner: 'Earnings',
     PNL: 'PNL',
     status: 'Status',
     action: 'Action',

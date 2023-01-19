@@ -1,4 +1,5 @@
 import { getNumber, getAddresses, getWeiToValueBN } from 'app/utils/get'
+import { toBN } from 'lib/math'
 import type { PositionBaseData, Position } from '../types'
 import { PositionStatus } from '../types'
 
@@ -10,7 +11,10 @@ export const getPositions = (positions: PositionBaseData[]) => {
       ...t,
       ...timestamps,
       ...getAddresses(t, ['nftAddress', 'userAddress', 'callPoolAddress', 'nftOwnerAddress']),
-      ...getWeiToValueBN(t, ['strikePrice', 'premiumToOwner', 'premiumToReserve'], 18),
+      ...getWeiToValueBN(t, ['strikePrice', 'premiumToOwner', 'premiumToReserve', 'floorPrice'], 18),
+      PnL: toBN(0),
+      PnLInPercent: toBN(0),
+      premium: toBN(0),
     }
     if (returnValue.status === PositionStatus.Unexercised) {
       const now = Date.now()
@@ -22,6 +26,9 @@ export const getPositions = (positions: PositionBaseData[]) => {
         returnValue.status = PositionStatus.Exercisable
       }
     }
+    const { premiumToOwner, premiumToReserve } = returnValue
+    returnValue.premium = premiumToOwner.plus(premiumToReserve)
+
     return returnValue
   })
 

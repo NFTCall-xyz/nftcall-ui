@@ -8,6 +8,7 @@ export enum PositionStatus {
 
 export type PositionBaseData = {
   status: PositionStatus
+  floorPrice: BN
   strikePrice: BN
   premiumToOwner: BN
   premiumToReserve: BN
@@ -26,6 +27,10 @@ export type Position = {
   strikePrice: BN
   premiumToOwner: BN
   premiumToReserve: BN
+  floorPrice?: BN
+  PnL?: BN
+  PnLInPercent?: BN
+  premium: BN
   nftOwnerAddress: string
   nftAddress: string
   userAddress: string

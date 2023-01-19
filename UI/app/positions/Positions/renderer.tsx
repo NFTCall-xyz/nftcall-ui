@@ -10,6 +10,9 @@ import { PositionStatus as PositionStatusType } from 'domains/data/position/type
 import { useTranslation } from 'next-i18next'
 import { format } from 'date-fns'
 import { Paragraph } from 'components/Typography'
+import RiseOrFall from 'lib/math/components/RiseOrFall'
+import NumberDisplay from 'lib/math/components/NumberDisplay'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 export type TableCellProps = {
   cellData?: any
@@ -34,6 +37,31 @@ export const statusCellRenderer = ({ rowData: { status } }: TableCellProps) => {
   return (
     <TableCell align="center" component="div">
       <PositionStatus status={status} />
+    </TableCell>
+  )
+}
+
+export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent } }: TableCellProps) => {
+  if (PnL.isZero()) {
+    return (
+      <TableCell align="center" component="div">
+        <NumberDisplay value={PnL} options="number" numberFormatOptions={{ signDisplay: 'always' }} />
+      </TableCell>
+    )
+  }
+  return (
+    <TableCell align="center" component="div">
+      <Stack spacing={1}>
+        <RiseOrFall value={PnL}>
+          <Stack spacing={0.5} direction="row" alignItems="center">
+            <TokenIcon symbol="ETH" sx={{ width: 14, height: 14 }} />
+            <NumberDisplay value={PnL} options="number" numberFormatOptions={{ signDisplay: 'always' }} />
+          </Stack>
+        </RiseOrFall>
+        <RiseOrFall value={PnLInPercent}>
+          <NumberDisplay value={PnLInPercent} options="percent" numberFormatOptions={{ signDisplay: 'always' }} />
+        </RiseOrFall>
+      </Stack>
     </TableCell>
   )
 }

@@ -116,7 +116,6 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
 
     returnValue.premiumToReserve = premiumTotal.multipliedBy(0.1)
     returnValue.premiumToOwner = premiumTotal.minus(returnValue.premiumToReserve)
-    console.log(returnValue.premiumToOwner.toNumber(), 0.001 * size)
     if (returnValue.premiumToOwner.lt(0.001 * size)) {
       setErrors(['Owner Premium is too small.'])
     } else {

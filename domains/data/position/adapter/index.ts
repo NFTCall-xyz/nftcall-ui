@@ -56,6 +56,7 @@ export const request = ({
     tokenId
     exerciseTime
     endTime
+    floorPrice
     strikePrice
     premiumToOwner
     premiumToReserve
