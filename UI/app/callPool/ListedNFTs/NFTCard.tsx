@@ -79,27 +79,30 @@ const NFTCard: FC<NFTCardProps> = (props) => {
       <Checkbox className="checkbox" checked={checked} onChange={handleChange} />
       <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
-        <Stack spacing={1}>
+        <Stack spacing={0.5}>
           <Paragraph>{title}</Paragraph>
           <FlexBetween>
             <Tiny color="text.secondary">{t('openPanel.minStrikePrice')}</Tiny>
             <Tiny color="text.secondary">+{minStrikePriceLabel}</Tiny>
           </FlexBetween>
           <FlexBetween>
-            <Tiny color="text.secondary">{t('openPanel.maxExpiryTime')}</Tiny>
-            <Tiny color="text.secondary">{maxExpriyTimeMapLabel}</Tiny>
-          </FlexBetween>
-          {!lowerLimitOfStrikePrice.isZero() && (
-            <FlexBetween>
-              <Tiny color="text.secondary">{t('openPanel.lowerLimitOfStrikePrice')}</Tiny>
+            <Tiny color="text.secondary">{t('openPanel.lowerLimitOfStrikePrice')}</Tiny>
+            {!lowerLimitOfStrikePrice.isZero() ? 
               <Stack spacing={0.5} direction="row" alignItems="center">
                 <TokenIcon symbol="ETH" sx={{ width: 12, height: 12 }} />
                 <Tiny color="text.secondary">
                   <NumberDisplay value={lowerLimitOfStrikePrice} />
                 </Tiny>
-              </Stack>
-            </FlexBetween>
-          )}
+              </Stack> : 
+              <Tiny color="text.secondary">
+                {t('openPanel.unlimit')}
+              </Tiny>
+            }
+          </FlexBetween>
+          <FlexBetween>
+            <Tiny color="text.secondary">{t('openPanel.maxExpiryTime')}</Tiny>
+            <Tiny color="text.secondary">{maxExpriyTimeMapLabel}</Tiny>
+          </FlexBetween>
         </Stack>
       </CardContent>
     </ROOT>

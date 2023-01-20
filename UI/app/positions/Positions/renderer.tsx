@@ -44,17 +44,17 @@ export const statusCellRenderer = ({ rowData: { status } }: TableCellProps) => {
 export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent } }: TableCellProps) => {
   if (PnL.isZero()) {
     return (
-      <TableCell align="center" component="div">
+      <TableCell align="center" component="div" sx={{ '& span': { fontSize: 14 }}}>
         <NumberDisplay value={PnL} options="number" numberFormatOptions={{ signDisplay: 'always' }} />
       </TableCell>
     )
   }
   return (
-    <TableCell align="center" component="div">
-      <Stack spacing={1}>
+    <TableCell align="center" component="div" sx={{ '& span': { fontSize: 14 }}}>
+      <Stack spacing={0.5}>
         <RiseOrFall value={PnL}>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <TokenIcon symbol="ETH" sx={{ width: 14, height: 14 }} />
+            {/* <TokenIcon symbol="ETH" sx={{ width: 14, height: 14 }} /> */}
             <NumberDisplay value={PnL} options="number" numberFormatOptions={{ signDisplay: 'always' }} />
           </Stack>
         </RiseOrFall>

@@ -21,8 +21,8 @@ const locale = {
     },
   },
   nft: {
-    minStrikePrice: 'Minimum strike price',
-    minStrikePriceTip: 'The lowest strike price that option buyers can choose when opening a call option on your NFT.',
+    minStrikePrice: 'Minimum strike price increase',
+    minStrikePriceTip: 'The minimum strike price increase that option buyers can choose when opening a call option on your NFT.',
     maxExpiryTime: 'Maximum expiration duration',
     maxExpiryTimeTip:
       'The longest expiration duration that option buyers can choose when opening a call option on your NFT.',

@@ -7,7 +7,6 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import TablePagination from '@mui/material/TablePagination'
 import FlexRowAlign from 'components/flexbox/FlexRowAlign'
 import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
 import { H6, Paragraph } from 'components/Typography'
 
 import PCTable from './PCTable'

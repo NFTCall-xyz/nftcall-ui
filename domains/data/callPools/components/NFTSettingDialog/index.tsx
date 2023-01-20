@@ -101,6 +101,15 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
           </Stack>
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
+              <Span fontWeight="bold">{tNFT('lowerLimitOfStrikePrice')}</Span>
+              <Tooltip title={tNFT('lowerLimitOfStrikePriceTip')}>
+                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+              </Tooltip>
+            </Stack>
+            <FormNumberFieldField formik={formik} fieldKey="lowerLimitOfStrikePrice" />
+          </Stack>
+          <Stack spacing={1}>
+            <Stack alignItems="center" spacing={0.5} direction="row">
               <Span fontWeight="bold">{tNFT('maxExpiryTime')}</Span>
               <Tooltip title={tNFT('maxExpiryTimeTip')}>
                 <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
@@ -120,15 +129,6 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
                 </MenuItem>
               ))}
             </FormTextField>
-          </Stack>
-          <Stack spacing={1}>
-            <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{tNFT('lowerLimitOfStrikePrice')}</Span>
-              <Tooltip title={tNFT('lowerLimitOfStrikePriceTip')}>
-                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
-              </Tooltip>
-            </Stack>
-            <FormNumberFieldField formik={formik} fieldKey="lowerLimitOfStrikePrice" />
           </Stack>
         </Stack>
       </form>
