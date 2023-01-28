@@ -8,6 +8,7 @@ export type CallPoolStats = {
   accumulativePremium: BN
   totalTradingVolume: BN
   totalDepositedNFTs: number
+  totalListedNFTs: number
   nfts: BaseNFT[]
 }
 export type StatsData = {
@@ -21,6 +22,7 @@ export const getStatsData = (statsBaseData: StatsBaseData[]): StatsData => {
     accumulativePremium: toBN(0),
     totalTradingVolume: toBN(0),
     totalDepositedNFTs: 0,
+    totalListedNFTs: 0,
     nfts: [],
   }
   const callPools = statsBaseData.map((i) => {
@@ -31,6 +33,7 @@ export const getStatsData = (statsBaseData: StatsBaseData[]): StatsData => {
     all.accumulativePremium = all.accumulativePremium.plus(returnValue.accumulativePremium)
     all.totalTradingVolume = all.totalTradingVolume.plus(returnValue.totalTradingVolume)
     all.totalDepositedNFTs += returnValue.totalDepositedNFTs
+    all.totalListedNFTs += returnValue.totalListedNFTs
     return returnValue
   })
 

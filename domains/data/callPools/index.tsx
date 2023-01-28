@@ -52,8 +52,8 @@ const useCallPoolsService = () => {
       const totalOpenInterest =
         safeGet(() => storeData.totalOpenInterest.find((i) => i.callPool === address.CallPool).value) || 0
 
-      if (stats.totalDepositedNFTs) {
-        stats.totalListedNFTs = stats.totalDepositedNFTs - totalOpenInterest
+      if (stats.totalListedNFTs && totalOpenInterest) {
+        stats.totalListedNFTs = stats.totalListedNFTs - totalOpenInterest
         if (stats.totalListedNFTs < 0) stats.totalListedNFTs = 0
       }
 

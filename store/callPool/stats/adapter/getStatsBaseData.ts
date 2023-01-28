@@ -5,6 +5,7 @@ type CallPoolStats = {
   accumulativePremium: string
   totalTradingVolume: string
   totalDepositedNFTs: number
+  totalListedNFTs: number
   nfts: BaseNFT[]
 }
 export type StatsBaseData = {
@@ -12,6 +13,7 @@ export type StatsBaseData = {
   accumulativePremium: string
   totalTradingVolume: string
   totalDepositedNFTs: number
+  totalListedNFTs: number
   nfts: BaseNFT[]
 }
 

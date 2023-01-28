@@ -88,9 +88,9 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     }
   }, [
     durationIdxSource,
+    strikePriceGapIdxSource,
     durationSetting.max,
     durationSetting.min,
-    strikePriceGapIdxSource,
     strikePriceSetting.max,
     strikePriceSetting.min,
   ])
