@@ -1,15 +1,18 @@
 import WalletProvider, { createWalletContext } from 'lib/protocol/components/wallet'
 
+import ControllersProvider, { createControllersContext } from './controllers'
 import UtilsProvider from './utils'
 import DataProvider from './data'
-import ControllersProvider, { createControllersContext } from './controllers'
+import PagesProvider from './pages'
 
 const Provider: FCC = ({ children }) => {
   return (
     <WalletProvider>
       <UtilsProvider>
         <ControllersProvider>
-          <DataProvider>{children}</DataProvider>
+          <DataProvider>
+            <PagesProvider>{children}</PagesProvider>
+          </DataProvider>
         </ControllersProvider>
       </UtilsProvider>
     </WalletProvider>
