@@ -30,6 +30,10 @@ const locale = {
           'We use a peer-to-peer model to ensure both NFT holders and investors can benefit from options contracts.',
       },
       2: {
+        title: 'Flexible options exercise',
+        subTitle: "NFTCall combines features of American and European style options. Buyers can exercise the options during the second half of the period before the expiration.",
+      },
+      3: {
         title: 'No transaction fees',
         subTitle:
           'We do not charge transaction fees when exercising options to ensure that everyone can enjoy NFT options trading.',

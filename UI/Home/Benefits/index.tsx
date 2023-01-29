@@ -6,10 +6,11 @@ import Button from '@mui/material/Button'
 import { H2, H3, Paragraph } from 'components/Typography'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import StarRounded from '@mui/icons-material/StarRounded'
-import MoneyOffRounded from '@mui/icons-material/MoneyOffRounded'
+// import MoneyOffRounded from '@mui/icons-material/MoneyOffRounded'
 import MultipleStopIcon from '@mui/icons-material/MultipleStop'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
+import TimelapseIcon from '@mui/icons-material/Timelapse'
 
 type FeatureCardProps = {
   icon: React.ReactNode
@@ -51,7 +52,12 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, content }) => {
   )
 }
 
-const featureIcons = [{ icon: <StarRounded /> }, { icon: <MultipleStopIcon /> }, { icon: <MoneyOffRounded /> }]
+const featureIcons = [
+  { icon: <StarRounded /> }, 
+  { icon: <MultipleStopIcon /> }, 
+  // { icon: <MoneyOffRounded /> }, 
+  { icon: <TimelapseIcon /> }
+]
 
 const Benefits: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'benefits' })
