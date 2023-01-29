@@ -10,7 +10,15 @@ import { useMount } from 'app/hooks/useMount'
 
 import { request } from 'domains/data/position/adapter'
 import { tokenIconCellRenderer } from 'components/table/renderer'
-import { nftCellRenderer, positionDateCellRenderer, statusCellRenderer, pnlCellRenderer } from './renderer'
+import {
+  nftCellRenderer,
+  positionDate1CellRenderer,
+  positionDate2CellRenderer,
+  statusCellRenderer,
+  pnlCellRenderer,
+  positionDate2HeaderRenderer,
+  positionDate1HeaderRenderer,
+} from './renderer'
 import TableCell from '@mui/material/TableCell'
 import Button from '@mui/material/Button'
 import { useWallet } from 'domains'
@@ -102,11 +110,18 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             cellRenderer: tokenIconCellRenderer,
           },
           {
-            dataKey: 'date',
+            dataKey: 'createdDate',
+            cellData: 'createTimestamp',
+            width: 300,
+            headerRenderer: positionDate2HeaderRenderer,
+            cellRenderer: positionDate2CellRenderer,
+          },
+          {
+            dataKey: 'exercisableDate',
             cellData: 'endTime',
-            width: 450,
-            headerRenderer,
-            cellRenderer: positionDateCellRenderer,
+            width: 300,
+            headerRenderer: positionDate1HeaderRenderer,
+            cellRenderer: positionDate1CellRenderer,
           },
           {
             dataKey: 'premium',
@@ -116,19 +131,19 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           },
           {
             dataKey: 'PNL',
-            width: 450,
+            width: 240,
             headerRenderer,
             cellRenderer: pnlCellRenderer,
           },
           {
             dataKey: 'status',
-            width: 450,
+            width: 300,
             headerRenderer,
             cellRenderer: statusCellRenderer,
           },
           {
             dataKey: 'action',
-            width: 400,
+            width: 350,
             headerRenderer,
             cellRenderer: ActionCellRenderer,
           },

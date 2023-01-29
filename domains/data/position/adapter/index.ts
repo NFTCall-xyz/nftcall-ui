@@ -62,6 +62,7 @@ export const request = ({
     premiumToReserve
     status
     updateTimestamp
+    createTimestamp
   }
 }`,
       }),

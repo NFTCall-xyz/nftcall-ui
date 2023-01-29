@@ -12,9 +12,8 @@ import { format } from 'date-fns'
 import { Paragraph } from 'components/Typography'
 import RiseOrFall from 'lib/math/components/RiseOrFall'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
-import TokenIcon from 'lib/protocol/components/TokenIcon'
 
-export type TableCellProps = {
+type TableCellProps = {
   cellData?: any
   columnData?: any
   columnIndex: number
@@ -44,13 +43,13 @@ export const statusCellRenderer = ({ rowData: { status } }: TableCellProps) => {
 export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent } }: TableCellProps) => {
   if (PnL.isZero()) {
     return (
-      <TableCell align="center" component="div" sx={{ '& span': { fontSize: 14 }}}>
+      <TableCell align="center" component="div" sx={{ '& span': { fontSize: 14 } }}>
         <NumberDisplay value={PnL} options="number" numberFormatOptions={{ signDisplay: 'always' }} />
       </TableCell>
     )
   }
   return (
-    <TableCell align="center" component="div" sx={{ '& span': { fontSize: 14 }}}>
+    <TableCell align="center" component="div" sx={{ '& span': { fontSize: 14 } }}>
       <Stack spacing={0.5}>
         <RiseOrFall value={PnL}>
           <Stack spacing={0.5} direction="row" alignItems="center">
@@ -59,7 +58,12 @@ export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent } }: TableCellPro
           </Stack>
         </RiseOrFall>
         <RiseOrFall value={PnLInPercent}>
-          <NumberDisplay value={PnLInPercent} options="percent" numberFormatOptions={{ signDisplay: 'always' }} />
+          <NumberDisplay
+            value={PnLInPercent}
+            options="percent"
+            min={-1}
+            numberFormatOptions={{ signDisplay: 'always' }}
+          />
         </RiseOrFall>
       </Stack>
     </TableCell>
@@ -69,7 +73,7 @@ export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent } }: TableCellPro
 type PositionDateProps = {
   position: Position
 }
-const PositionNotExercisableDate: FC<PositionDateProps> = ({ position: { exerciseTime, endTime } }) => {
+const PositionNotExercisableDate: FC<PositionDateProps> = ({ position: { exerciseTime } }) => {
   const { t } = useTranslation('app-positions', { keyPrefix: 'table' })
   return (
     <TableCell align="center" component="div">
@@ -78,13 +82,6 @@ const PositionNotExercisableDate: FC<PositionDateProps> = ({ position: { exercis
           <Box>
             <Paragraph fontSize={14} color="text.secondary">
               {format(exerciseTime, 'MMM dd hh:mm')}
-            </Paragraph>
-          </Box>
-        </Tooltip>
-        <Tooltip title={t('expiryDate')}>
-          <Box>
-            <Paragraph fontSize={14} color="text.secondary">
-              {format(endTime, 'MMM dd hh:mm')}
             </Paragraph>
           </Box>
         </Tooltip>
@@ -108,11 +105,18 @@ const PositionExercisedDate: FC<PositionDateProps> = ({ position: { updateTimest
     </TableCell>
   )
 }
-const PositionExpiredDate: FC<PositionDateProps> = ({ position: { endTime } }) => {
+const PositionExpiredDate: FC<PositionDateProps> = ({ position: { endTime, createTimestamp } }) => {
   const { t } = useTranslation('app-positions', { keyPrefix: 'table' })
   return (
     <TableCell align="center" component="div">
       <Stack spacing={1}>
+        <Tooltip title={t('createdDate')}>
+          <Box>
+            <Paragraph fontSize={14} color="text.secondary">
+              {format(createTimestamp, 'MMM dd hh:mm')}
+            </Paragraph>
+          </Box>
+        </Tooltip>
         <Tooltip title={t('expiryDate')}>
           <Box>
             <Paragraph fontSize={14} color="text.secondary">
@@ -125,7 +129,7 @@ const PositionExpiredDate: FC<PositionDateProps> = ({ position: { endTime } }) =
   )
 }
 
-export const positionDateCellRenderer = (props: TableCellProps) => {
+export const positionDate1CellRenderer = (props: TableCellProps) => {
   const {
     rowData: { status },
   } = props
@@ -134,6 +138,48 @@ export const positionDateCellRenderer = (props: TableCellProps) => {
   } else if (status === PositionStatusType.Exercised) {
     return <PositionExercisedDate position={props.rowData} />
   } else {
-    return <PositionExpiredDate position={props.rowData} />
+    return (
+      <TableCell align="center" component="div">
+        -
+      </TableCell>
+    )
   }
+}
+
+export const positionDate2CellRenderer = (props: TableCellProps) => {
+  return <PositionExpiredDate position={props.rowData} />
+}
+
+const PositionDate1Header = () => {
+  const { t } = useTranslation('app-positions', { keyPrefix: 'table' })
+  return (
+    <Stack spacing={0}>
+      <span>{t('exercisableDate')}</span>
+      <span>{t('exercisedDate')}</span>
+    </Stack>
+  )
+}
+export const positionDate1HeaderRenderer = () => {
+  return (
+    <TableCell align="center" component="div" variant="head">
+      <PositionDate1Header />
+    </TableCell>
+  )
+}
+
+const PositionDate2Header = () => {
+  const { t } = useTranslation('app-positions', { keyPrefix: 'table' })
+  return (
+    <Stack spacing={0}>
+      <span>{t('createdDate')}</span>
+      <span>{t('expiryDate')}</span>
+    </Stack>
+  )
+}
+export const positionDate2HeaderRenderer = () => {
+  return (
+    <TableCell align="center" component="div" variant="head">
+      <PositionDate2Header />
+    </TableCell>
+  )
 }

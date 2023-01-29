@@ -6,7 +6,7 @@ import { PositionStatus } from '../types'
 export const getPositions = (positions: PositionBaseData[]) => {
   if (!positions) return []
   const returnValue = positions.map((t) => {
-    const timestamps = getNumber(t, ['endTime', 'exerciseTime', 'updateTimestamp'])
+    const timestamps = getNumber(t, ['endTime', 'exerciseTime', 'updateTimestamp', 'createTimestamp'])
     const returnValue: Position = {
       ...t,
       ...timestamps,

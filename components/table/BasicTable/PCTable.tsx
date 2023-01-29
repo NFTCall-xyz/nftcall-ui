@@ -120,6 +120,9 @@ export const ROOT = styled('div')`
   .ReactVirtualized__Table__rowColumn {
     display: flex;
   }
+  .ReactVirtualized__Table__headerRow {
+    align-items: center;
+  }
   .MuiTableCell-root {
     display: flex;
     align-items: center;

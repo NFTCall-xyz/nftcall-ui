@@ -20,6 +20,7 @@ export type PositionBaseData = {
   endTime: number
   exerciseTime: number
   updateTimestamp: number
+  createTimestamp: number
 }
 
 export type Position = {
@@ -39,4 +40,5 @@ export type Position = {
   endTime: number
   exerciseTime: number
   updateTimestamp: number
+  createTimestamp: number
 }

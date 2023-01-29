@@ -232,6 +232,9 @@ export const ROOT = styled('div')`
   .ReactVirtualized__Table__rowColumn {
     display: flex;
   }
+  .ReactVirtualized__Table__headerRow {
+    align-items: center;
+  }
   .ReactVirtualized__Table__rowColumn {
     &.secondary {
       align-items: center;
