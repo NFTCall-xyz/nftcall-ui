@@ -3,16 +3,13 @@ import WalletProvider, { createWalletContext } from 'lib/protocol/components/wal
 import ControllersProvider, { createControllersContext } from './controllers'
 import UtilsProvider from './utils'
 import DataProvider from './data'
-import PagesProvider from './pages'
 
 const Provider: FCC = ({ children }) => {
   return (
     <WalletProvider>
       <UtilsProvider>
         <ControllersProvider>
-          <DataProvider>
-            <PagesProvider>{children}</PagesProvider>
-          </DataProvider>
+          <DataProvider>{children}</DataProvider>
         </ControllersProvider>
       </UtilsProvider>
     </WalletProvider>
