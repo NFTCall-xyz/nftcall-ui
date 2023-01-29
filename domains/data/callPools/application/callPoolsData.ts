@@ -80,7 +80,7 @@ export const useCallPoolsData = () => {
     const returnValue = callPoolsSouceData.map((callPool) => {
       const callPoolAddress = callPool.address.CallPool
       const cacheData = callPoolsCacheData.find((i) => i.callPoolAddress === callPoolAddress)
-      return merge(cacheData, callPool)
+      return merge(callPool, cacheData)
     })
     log('[CallPools]', returnValue)
     return returnValue
