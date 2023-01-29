@@ -87,17 +87,16 @@ const NFTCard: FC<NFTCardProps> = (props) => {
           </FlexBetween>
           <FlexBetween>
             <Tiny color="text.secondary">{t('openPanel.lowerLimitOfStrikePrice')}</Tiny>
-            {!lowerLimitOfStrikePrice.isZero() ? 
+            {!lowerLimitOfStrikePrice.isZero() ? (
               <Stack spacing={0.5} direction="row" alignItems="center">
                 <TokenIcon symbol="ETH" sx={{ width: 12, height: 12 }} />
                 <Tiny color="text.secondary">
                   <NumberDisplay value={lowerLimitOfStrikePrice} />
                 </Tiny>
-              </Stack> : 
-              <Tiny color="text.secondary">
-                {t('openPanel.unlimit')}
-              </Tiny>
-            }
+              </Stack>
+            ) : (
+              <Tiny color="text.secondary">{t('openPanel.unlimit')}</Tiny>
+            )}
           </FlexBetween>
           <FlexBetween>
             <Tiny color="text.secondary">{t('openPanel.maxExpiryTime')}</Tiny>

@@ -53,10 +53,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, content }) => {
 }
 
 const featureIcons = [
-  { icon: <StarRounded /> }, 
-  { icon: <MultipleStopIcon /> }, 
-  // { icon: <MoneyOffRounded /> }, 
-  { icon: <TimelapseIcon /> }
+  { icon: <StarRounded /> },
+  { icon: <MultipleStopIcon /> },
+  // { icon: <MoneyOffRounded /> },
+  { icon: <TimelapseIcon /> },
 ]
 
 const Benefits: FC = () => {

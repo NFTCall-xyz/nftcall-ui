@@ -31,7 +31,8 @@ const locale = {
       },
       2: {
         title: 'Flexible options exercise',
-        subTitle: "NFTCall combines features of American and European style options. Buyers can exercise the options during the second half of the period before the expiration.",
+        subTitle:
+          'NFTCall combines features of American and European style options. Buyers can exercise the options during the second half of the period before the expiration.',
       },
       3: {
         title: 'No transaction fees',
