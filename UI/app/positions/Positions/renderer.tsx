@@ -58,12 +58,7 @@ export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent } }: TableCellPro
           </Stack>
         </RiseOrFall>
         <RiseOrFall value={PnLInPercent}>
-          <NumberDisplay
-            value={PnLInPercent}
-            options="percent"
-            min={-1}
-            numberFormatOptions={{ signDisplay: 'always' }}
-          />
+          <NumberDisplay value={PnLInPercent} options="percent" numberFormatOptions={{ signDisplay: 'always' }} />
         </RiseOrFall>
       </Stack>
     </TableCell>

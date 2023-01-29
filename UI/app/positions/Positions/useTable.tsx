@@ -164,14 +164,13 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           const callPool = callPools.find((callPool) => callPool.address.CallPool === i.callPoolAddress)
           return callPool.nftOracle.price
         }) || toBN(0)
-      if (
-        !floorPrice.isZero() &&
-        (i.status === PositionStatus.NotExercisable ||
-          i.status === PositionStatus.Exercised ||
-          i.status === PositionStatus.Exercisable)
-      ) {
+      if (!floorPrice.isZero()) {
         const { premium, strikePrice } = i
-        i.PnL = floorPrice.minus(strikePrice).minus(premium)
+        if (i.status === PositionStatus.Exercised) {
+          i.PnL = floorPrice.minus(strikePrice).minus(premium)
+        } else {
+          i.PnL = floorPrice.gt(strikePrice) ? floorPrice.minus(strikePrice).minus(premium) : toBN(0).minus(premium)
+        }
         i.PnLInPercent = i.PnL.dividedBy(premium)
       }
       return {
