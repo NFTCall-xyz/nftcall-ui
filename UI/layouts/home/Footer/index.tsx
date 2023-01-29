@@ -49,7 +49,7 @@ export const footerLinks = [
   {
     title: 'Community',
     links: [
-      { name: 'Discord', link: 'https://discord.gg/xK42Gt6e9E' },
+      { name: 'Discord', link: 'https://discord.gg/Evg6erexq9' },
       { name: 'Blog', link: 'https://medium.com/@nftcall' },
       { name: 'Twitter', link: 'https://twitter.com/nftcall_xyz' },
     ],

@@ -40,7 +40,7 @@ const links = [
   // { label: 'Telegram', linkTo: '#', icon: <TelegramIcon /> },
   {
     label: 'Discord',
-    linkTo: 'https://discord.gg/xK42Gt6e9E',
+    linkTo: 'https://discord.gg/Evg6erexq9',
     icon: <DiscordIcon />,
   },
   {
