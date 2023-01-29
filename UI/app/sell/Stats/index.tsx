@@ -41,10 +41,7 @@ const Stats: FC = () => {
       price: (
         <Stack spacing={0.5} direction="row" alignItems="center">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-          <NumberDisplay
-            value={allCallPool.balanceOf.plus(allCallPool.userStats.accumulativeEarnings)}
-            abbreviate={{}}
-          />
+          <NumberDisplay value={allCallPool.userStats.accumulativeEarnings} abbreviate={{}} />
         </Stack>
       ),
       title: 'accruedEarnings',
