@@ -80,6 +80,7 @@ const PositionNotExercisableDate: FC<PositionDateProps> = ({ position: { exercis
             </Paragraph>
           </Box>
         </Tooltip>
+        <span>-</span>
       </Stack>
     </TableCell>
   )
@@ -89,6 +90,7 @@ const PositionExercisedDate: FC<PositionDateProps> = ({ position: { updateTimest
   return (
     <TableCell align="center" component="div">
       <Stack spacing={1}>
+        <span>-</span>
         <Tooltip title={t('exercisedDate')}>
           <Box>
             <Paragraph fontSize={14} color="text.secondary">
@@ -135,7 +137,10 @@ export const positionDate1CellRenderer = (props: TableCellProps) => {
   } else {
     return (
       <TableCell align="center" component="div">
-        -
+        <Stack spacing={1}>
+          <span>-</span>
+          <span>-</span>
+        </Stack>
       </TableCell>
     )
   }
@@ -150,7 +155,7 @@ const PositionDate1Header = () => {
   return (
     <Stack spacing={0}>
       <span>{t('exercisableDate')}</span>
-      <span>{t('exercisedDate')}</span>
+      <span>{'/' + t('exercisedDate')}</span>
     </Stack>
   )
 }
@@ -167,7 +172,7 @@ const PositionDate2Header = () => {
   return (
     <Stack spacing={0}>
       <span>{t('createdDate')}</span>
-      <span>{t('expiryDate')}</span>
+      <span>{'/' + t('expiryDate')}</span>
     </Stack>
   )
 }
