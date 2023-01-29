@@ -17,7 +17,7 @@ const nextConfig = {
     emotion: true,
   },
   eslint: {
-    dirs: ['app', 'domains', 'store', 'lib', 'pages', 'UI', 'icons'],
+    dirs: ['app', 'domains', 'store', 'lib', 'pages', 'UI', 'icons', 'database'],
   },
   webpack: (config, context) => {
     i18nWebpack(config, context)
