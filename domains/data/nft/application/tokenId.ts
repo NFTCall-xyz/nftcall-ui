@@ -1,12 +1,46 @@
 import { useControllers, useWallet } from 'domains'
 import { useNetwork } from 'domains/data'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useTokenIdStateData } from 'store/nft/tokenId/useTokenIdStateData'
 import type { WalletData } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 import { getStoreCacheData } from 'store/nft/tokenId/assets/adapter'
+import { getUseCacheMemo } from 'database/helpers'
+import { db } from 'database/nftcall'
+import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
+import { log } from 'app/utils/dev'
+
+type UseCacheMemoProps = { chainId: number }
+const { useCacheMemo, useCacheDataEffect } = getUseCacheMemo(
+  () => db.nftAssets,
+  (table, { chainId }: UseCacheMemoProps) => table.filter((callPool) => callPool.network === chainId).toArray()
+)
+
+const useAssetsData = (assetsSourceData: AssetsData[]) => {
+  const { chainId } = useWallet()
+  const assetsCacheData = useCacheMemo([assetsSourceData], {
+    chainId,
+  })
+
+  const assets: AssetsData[] = useMemo(() => {
+    if (!assetsCacheData.length) return assetsSourceData
+    const returnValue = assetsCacheData
+    log('[Assets]', returnValue)
+    return returnValue
+  }, [assetsCacheData, assetsSourceData])
+
+  useCacheDataEffect(assetsSourceData, (data) => {
+    const network = chainId
+    const items = data.map((i) => {
+      const returnValue = { ...i, network, tokenId: i.token_id }
+      return returnValue
+    })
+    return items
+  })
+  return assets
+}
 
 export const useTokendId = () => {
-  const returnValue = useTokenIdStateData()
+  const { assets: assetsSourceData, wallet } = useTokenIdStateData()
   const { address, markets } = useNetwork()
   const { networkAccount } = useWallet()
   const { tokenId } = useControllers()
@@ -50,8 +84,11 @@ export const useTokendId = () => {
     updateWallet()
   }, [updateWallet])
 
+  const assets = useAssetsData(assetsSourceData)
+
   return {
-    ...returnValue,
+    assets,
+    wallet,
     updateWallet,
     updateAssets,
   }
