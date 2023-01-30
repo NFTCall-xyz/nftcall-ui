@@ -1,24 +1,11 @@
 import { Grid } from '@mui/material'
-import { useCallPools } from 'domains/data'
-import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
-import type { BaseNFT } from 'domains/data/nft/types'
+import { useAppBuy } from 'domains/pages/app'
 import type { FC } from 'react'
-import { useMemo } from 'react'
 
 import CallPoolCard from './CallPoolCard'
 
-const Stats: FC = () => {
-  const { callPools } = useCallPools()
-  const nfts = useMemo(() => {
-    let returnValue: BaseNFT[] = []
-    callPools.forEach(({ stats }) => {
-      if (!stats || !stats.nfts || !stats.nfts.length) return
-      returnValue = returnValue.concat(stats.nfts)
-    })
-    return returnValue
-  }, [callPools])
-
-  useUpdateNFTAssets(nfts)
+const CallPools: FC = () => {
+  const { callPools } = useAppBuy()
   return (
     <div>
       <Grid container spacing={2}>
@@ -32,4 +19,4 @@ const Stats: FC = () => {
   )
 }
 
-export default Stats
+export default CallPools

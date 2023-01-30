@@ -4,8 +4,11 @@ import { useTranslation } from 'next-i18next'
 
 import Stats from './Stats'
 import CallPools from './CallPools'
+import { useAppBuy } from 'domains/pages/app'
 
 const Buy: FC = () => {
+  const { usePageEffect } = useAppBuy()
+  usePageEffect()
   const { t } = useTranslation('app-buy')
   return (
     <Stack spacing={4}>

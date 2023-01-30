@@ -3,17 +3,17 @@ import type { FC } from 'react'
 
 import StatsCard from './StatsCard'
 import NumberDisplay from 'lib/math/components/NumberDisplay'
-import { useCallPools } from 'domains/data'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
+import { useAppBuy } from 'domains/pages/app'
 
 const Stats: FC = () => {
-  const { allCallPool } = useCallPools()
+  const { stats } = useAppBuy()
   const cardList = [
     {
       price: (
         <Stack spacing={0.5} direction="row" alignItems="center">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-          <NumberDisplay value={allCallPool.stats.accumulativePremium} abbreviate={{}} />
+          <NumberDisplay value={stats.accumulativePremium} abbreviate={{}} />
         </Stack>
       ),
       title: 'AccumulativePremium',
@@ -22,7 +22,7 @@ const Stats: FC = () => {
       price: (
         <Stack spacing={0.5} direction="row" alignItems="center">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-          <NumberDisplay value={allCallPool.stats.totalTradingVolume} abbreviate={{}} />
+          <NumberDisplay value={stats.totalTradingVolume} abbreviate={{}} />
         </Stack>
       ),
       title: 'TotalTradingVolume',
@@ -30,7 +30,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={allCallPool.stats.totalDepositedNFTs} abbreviate={{}} />
+          <NumberDisplay value={stats.totalDepositedNFTs} abbreviate={{}} />
         </div>
       ),
       title: 'TotalDepositedNFTs',
@@ -38,7 +38,7 @@ const Stats: FC = () => {
     {
       price: (
         <div>
-          <NumberDisplay value={allCallPool.totalOpenInterest} abbreviate={{}} />
+          <NumberDisplay value={stats.totalOpenInterest} abbreviate={{}} />
         </div>
       ),
       title: 'TotalOpenInterest',
