@@ -1,6 +1,8 @@
-import { Grid } from '@mui/material'
-import { useAppBuy } from 'domains/pages/app'
 import type { FC } from 'react'
+
+import { Grid } from '@mui/material'
+
+import { useAppBuy } from 'domains/pages/app'
 
 import CallPoolCard from './CallPoolCard'
 

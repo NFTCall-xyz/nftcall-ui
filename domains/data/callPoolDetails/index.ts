@@ -1,9 +1,12 @@
+import { useMemo } from 'react'
+
 import { createContext } from 'app/utils/createContext'
 import { log } from 'app/utils/dev'
 import { safeGet } from 'app/utils/get'
-import { useMemo } from 'react'
+
 import type { PremiumData } from 'store/callPool/previewOpenCall/adapter/getPreviewOpenCallData'
 import { useCallPoolStateData } from 'store/callPool/useCallPoolStateData'
+
 import { useCallPools } from '..'
 import type { CallPool } from '../callPools'
 import { useCallPoolId } from './application/callPoolId'

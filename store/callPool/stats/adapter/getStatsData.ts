@@ -1,6 +1,9 @@
 import { getWeiToValueBN } from 'app/utils/get'
+
 import type { BaseNFT } from 'domains/data/nft/types'
+
 import { toBN } from 'lib/math'
+
 import type { StatsBaseData } from './getStatsBaseData'
 
 export type CallPoolStats = {

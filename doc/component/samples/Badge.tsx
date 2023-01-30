@@ -1,13 +1,14 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import Badge from '@mui/material/Badge'
-import ButtonGroup from '@mui/material/ButtonGroup'
-import Button from '@mui/material/Button'
+
 import AddIcon from '@mui/icons-material/Add'
-import RemoveIcon from '@mui/icons-material/Remove'
 import MailIcon from '@mui/icons-material/Mail'
-import Switch from '@mui/material/Switch'
+import RemoveIcon from '@mui/icons-material/Remove'
+import Badge from '@mui/material/Badge'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import ButtonGroup from '@mui/material/ButtonGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import Switch from '@mui/material/Switch'
 
 export default function BadgeVisibility() {
   const [count, setCount] = React.useState(1)

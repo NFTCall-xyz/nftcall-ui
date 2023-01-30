@@ -1,4 +1,5 @@
 import { safeGet } from 'app/utils/get'
+
 import type { TableColumnsProps } from '../types'
 
 export const getCellData = (row: any, column: TableColumnsProps) => {

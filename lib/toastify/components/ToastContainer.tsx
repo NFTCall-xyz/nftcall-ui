@@ -1,11 +1,11 @@
-import * as React from 'react'
 import cx from 'clsx'
+import * as React from 'react'
 
-import { Toast } from './Toast'
-import { Bounce } from './Transitions'
-import { POSITION, Direction, Default } from '../utils'
 import { useToastContainer } from '../hooks'
 import type { ToastContainerProps, ToastPosition } from '../types'
+import { Default, Direction, POSITION } from '../utils'
+import { Toast } from './Toast'
+import { Bounce } from './Transitions'
 
 export const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const { getToastToRender, containerRef, isToastActive } = useToastContainer(props)

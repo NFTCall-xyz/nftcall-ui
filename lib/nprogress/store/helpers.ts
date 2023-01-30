@@ -1,9 +1,9 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { clamp, get } from 'lodash'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'store'
-import { clamp, get } from 'lodash'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { createSlice } from '@reduxjs/toolkit'
 
 import { useLatest } from 'app/hooks/useLatest'
 import { useObjectMemo } from 'app/hooks/useValues'

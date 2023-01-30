@@ -1,14 +1,15 @@
 import type { FC } from 'react'
-import type { Theme } from '@mui/material'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import Button from '@mui/material/Button'
-import ChainErrorIcon from '@mui/icons-material/PowerOffTwoTone'
-import ChainIcon from '../ChainIcon'
 
-import { useChainButton } from './useChainButton'
+import ChainErrorIcon from '@mui/icons-material/PowerOffTwoTone'
+import type { Theme } from '@mui/material'
+import Button from '@mui/material/Button'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+
+import ChainIcon from '../ChainIcon'
+import { useChainButton } from './useChainButton'
 
 export const ChainButton: FC = () => {
   const { t } = useTranslation()

@@ -1,9 +1,9 @@
-import path from 'path'
 import fs from 'fs'
 import fsPromises from 'fs/promises'
+import path from 'path'
 
-import type { WriteFileType } from './types'
 import { fileSourceFormat } from './format'
+import type { WriteFileType } from './types'
 
 export function ensureFolderExistence(filePath: string) {
   const extname = path.extname(filePath)

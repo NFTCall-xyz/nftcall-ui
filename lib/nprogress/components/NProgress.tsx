@@ -1,11 +1,12 @@
 import type { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { styled } from '@mui/material/styles'
+
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
+import { styled } from '@mui/material/styles'
 
-import { selectPageProgress } from '../store/nprogress'
 import { PROGRESS_STATUS } from '../store/helpers'
+import { selectPageProgress } from '../store/nprogress'
 
 const ROOT = styled(Box)`
   width: 100%;

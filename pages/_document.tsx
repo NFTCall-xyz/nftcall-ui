@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/next-script-for-ga */
-import * as React from 'react'
 import createEmotionServer from '@emotion/server/create-instance'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import * as React from 'react'
+
 import createEmotionCache from 'app/emotion/createEmotionCache'
 
 export default class MyDocument extends Document {

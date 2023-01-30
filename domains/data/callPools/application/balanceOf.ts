@@ -1,7 +1,10 @@
 import { useControllers, useWallet } from 'domains'
-import { useNetwork } from 'domains/data'
 import { useCallback, useMemo } from 'react'
+
+import { useNetwork } from 'domains/data'
+
 import type { BalanceOfProps } from 'store/callPool/balanceOf/adapter'
+
 import type { CallPool } from '..'
 
 export const useBalanceOf = (callPools: CallPool[]) => {

@@ -1,5 +1,7 @@
 import type { AbstractConnector } from '@web3-react/abstract-connector'
+
 import type { NetworkConfig } from 'lib/protocol/network/types'
+
 import type { ProviderId } from './providers/types'
 
 export type Currency = {

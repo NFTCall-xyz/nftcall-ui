@@ -1,17 +1,20 @@
-import TableCell from '@mui/material/TableCell'
-import Stack from '@mui/material/Stack'
-import Tooltip from '@mui/material/Tooltip'
-import Box from '@mui/material/Box'
+import { format } from 'date-fns'
+import { useTranslation } from 'next-i18next'
 
-import PositionStatus from 'domains/data/position/components/PositionStatus'
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import TableCell from '@mui/material/TableCell'
+import Tooltip from '@mui/material/Tooltip'
+
+import { Paragraph } from 'components/Typography'
+
 import NFTCell from 'domains/data/nft/components/NFTCell'
+import PositionStatus from 'domains/data/position/components/PositionStatus'
 import type { Position } from 'domains/data/position/types'
 import { PositionStatus as PositionStatusType } from 'domains/data/position/types'
-import { useTranslation } from 'next-i18next'
-import { format } from 'date-fns'
-import { Paragraph } from 'components/Typography'
-import RiseOrFall from 'lib/math/components/RiseOrFall'
+
 import NumberDisplay from 'lib/math/components/NumberDisplay'
+import RiseOrFall from 'lib/math/components/RiseOrFall'
 
 type TableCellProps = {
   cellData?: any

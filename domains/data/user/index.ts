@@ -1,4 +1,5 @@
 import { createContext } from 'app/utils/createContext'
+
 import { useBalanceOf } from './application/balanceOf'
 
 const useUserService = () => {

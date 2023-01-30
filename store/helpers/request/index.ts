@@ -1,5 +1,5 @@
-import type { AsyncThunkPayloadCreator } from '@reduxjs/toolkit/dist/createAsyncThunk'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import type { AsyncThunkPayloadCreator } from '@reduxjs/toolkit/dist/createAsyncThunk'
 
 import { safeGet } from 'app/utils/get'
 

@@ -1,15 +1,18 @@
-import type { TableCellRenderer } from 'react-virtualized'
-import TableCell from '@mui/material/TableCell'
-import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined'
-import Tooltip from '@mui/material/Tooltip'
-import Stack from '@mui/material/Stack'
-import NumberDisplay from 'lib/math/components/NumberDisplay'
-import { Paragraph } from 'components/Typography'
 import { format } from 'date-fns'
+import type { TableCellRenderer } from 'react-virtualized'
+
+import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined'
+import Stack from '@mui/material/Stack'
+import TableCell from '@mui/material/TableCell'
+import Tooltip from '@mui/material/Tooltip'
+
+import { Paragraph } from 'components/Typography'
+import LinkToAddress from 'components/button/LinkToAddress'
+
+import NumberDisplay from 'lib/math/components/NumberDisplay'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 import type { TableHeaderRenderer } from '../BasicTable/types'
-import TokenIcon from 'lib/protocol/components/TokenIcon'
-import LinkToAddress from 'components/button/LinkToAddress'
 
 export const headerRenderer: TableHeaderRenderer = (props) => {
   if (props.tip) return headerWithTooltipRenderer(props)

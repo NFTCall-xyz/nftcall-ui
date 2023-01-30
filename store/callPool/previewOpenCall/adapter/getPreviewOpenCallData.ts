@@ -1,4 +1,5 @@
 import { toBN } from 'lib/math'
+
 import type { PreviewOpenCallBaseData } from './getPreviewOpenCallBaseData'
 
 export type PremiumData = {

@@ -1,4 +1,5 @@
 import type { GetAssetsProps, NFTOracleService } from 'lib/protocol/typechain/nftcall/NFTOracleService'
+
 import { getNFTOracleBaseData } from './getNFTOracleBaseData'
 
 export type NFTOracleProps = GetAssetsProps & {

@@ -1,12 +1,14 @@
-import { valueToWei, weiToValue } from 'lib/math'
 import type { providers } from 'ethers'
 import { BigNumber } from 'ethers'
+
+import { valueToWei, weiToValue } from 'lib/math'
+
 import BaseService from '../commons/BaseService'
-import type { tEthereumAddress, transactionType, EthereumTransactionTypeExtended } from '../commons/types'
+import type { EthereumTransactionTypeExtended, tEthereumAddress, transactionType } from '../commons/types'
 import { eEthereumTxType } from '../commons/types'
+import { SUPER_BIG_ALLOWANCE_NUMBER } from '../commons/utils'
 import type { ERC20 } from './typechain/IERC20Detailed'
 import { ERC20__factory } from './typechain/IERC20Detailed__factory'
-import { SUPER_BIG_ALLOWANCE_NUMBER } from '../commons/utils'
 
 export interface IERC20ServiceInterface {
   decimalsOf: (token: tEthereumAddress) => Promise<number>

@@ -1,5 +1,5 @@
-import type { Id, ToastContent, ClearWaitingQueueParams, NotValidatedToastProps } from '../types'
 import type { ContainerInstance } from '../hooks'
+import type { ClearWaitingQueueParams, Id, NotValidatedToastProps, ToastContent } from '../types'
 
 export const enum Event {
   Show,

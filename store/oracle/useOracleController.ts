@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+
 import { useNFTOracleController } from './nftOracle'
 
 export const useOracleController = () => {

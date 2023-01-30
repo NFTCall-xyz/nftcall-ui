@@ -1,7 +1,8 @@
-import type { BoxProps } from '@mui/material'
-import { Box } from '@mui/material'
 import clsx from 'clsx'
 import React from 'react'
+
+import type { BoxProps } from '@mui/material'
+import { Box } from '@mui/material'
 
 const createEllipsisStyle = () =>
   ({

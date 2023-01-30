@@ -1,8 +1,11 @@
 import Grid from '@mui/material/Grid'
+
+import { LoadMoreButton } from 'components/btn/LoadMoreButton'
+
+import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
+
 import NFTCard from './NFTCard'
 import { useDepositedNFTs } from './useDepositedNFTs'
-import { LoadMoreButton } from 'components/btn/LoadMoreButton'
-import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
 
 const DepositedNFTs = () => {
   const { data, onLoadMore, noMoreData, disabled, restart } = useDepositedNFTs()

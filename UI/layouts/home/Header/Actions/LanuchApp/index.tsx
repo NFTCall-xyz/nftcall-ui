@@ -1,6 +1,7 @@
-import type { FC } from 'react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
+
 import Button from '@mui/material/Button'
 
 export const LanuchApp: FC = () => {

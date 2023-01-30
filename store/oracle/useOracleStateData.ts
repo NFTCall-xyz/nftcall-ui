@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useAppSelector } from 'store'
+
 import { nftOracleSelect } from './nftOracle'
 import { getNFTOracleData } from './nftOracle/adapter/getNFTOracleData'
 

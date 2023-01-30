@@ -1,4 +1,5 @@
 import { groupBy } from 'lodash'
+
 export type WalletBaseData = {
   nftAddress: string
   tokenIds: string[]

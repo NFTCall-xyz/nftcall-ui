@@ -1,21 +1,26 @@
+import { useWallet } from 'domains'
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { TableCellRenderer } from 'react-virtualized'
+import { useAppSelector } from 'store'
 
+import Button from '@mui/material/Button'
+import TableCell from '@mui/material/TableCell'
+
+import { safeGet } from 'app/utils/get'
+
+import type { BasicTableProps, TableColumnsProps } from 'components/table/BasicTable/types'
 import { headerRenderer } from 'components/table/renderer'
-import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
+
+import { transaction } from 'domains/controllers/adapter/transaction'
 import { useCallPools, useNetwork } from 'domains/data'
 
-import { claimableEarningsCellRenderer, collectionNameCellRenderer, cumulativeEarningsCellRenderer } from './renderer'
-import TableCell from '@mui/material/TableCell'
-import Button from '@mui/material/Button'
-import { useWallet } from 'domains'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
-import { transaction } from 'domains/controllers/adapter/transaction'
 import type { ClaimProps } from 'lib/protocol/typechain/nftcall'
-import { safeGet } from 'app/utils/get'
-import { useAppSelector } from 'store'
+
 import { userStatsSelect } from 'store/callPool/userStats'
+
+import { claimableEarningsCellRenderer, collectionNameCellRenderer, cumulativeEarningsCellRenderer } from './renderer'
 
 export const useTable = (): BasicTableProps => {
   const { t } = useTranslation('app-claim', { keyPrefix: 'table' })

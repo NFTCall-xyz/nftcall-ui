@@ -1,8 +1,10 @@
 import { useTranslation } from 'next-i18next'
-import Stack from '@mui/material/Stack'
-import { H4, Span } from 'components/Typography'
+
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
+
+import { H4, Span } from 'components/Typography'
 
 const stats = [
   {

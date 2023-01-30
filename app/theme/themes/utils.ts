@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-restricted-imports
-import type { Shadows } from '@mui/material/styles/shadows'
+import type { Shadows } from '@mui/material/styles'
 import { alpha } from '@mui/material/styles'
+
 export const getShadows = (rgb: string): Shadows => {
   const shadowColor1 = alpha(rgb, 0.03)
   const shadowColor2 = alpha(rgb, 0.04)

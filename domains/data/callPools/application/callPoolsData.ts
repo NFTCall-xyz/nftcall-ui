@@ -1,14 +1,20 @@
+import { useWallet } from 'domains'
+import { merge } from 'lodash'
+import { useMemo } from 'react'
+
+import { log } from 'app/utils/dev'
 import { safeGet } from 'app/utils/get'
+
 import { getUseCacheMemo } from 'database/helpers'
 import { db } from 'database/nftcall'
-import { useWallet } from 'domains'
-import { useNetwork, useNFT } from 'domains/data'
+
+import { useNFT, useNetwork } from 'domains/data'
+
 import { toBN } from 'lib/math'
-import { log } from 'app/utils/dev'
-import { useMemo } from 'react'
+
 import { useCallPoolStateData } from 'store/callPool/useCallPoolStateData'
+
 import type { CallPool } from '..'
-import { merge } from 'lodash'
 
 type UseCacheMemoProps = { chainId: number }
 const { useCacheMemo, useCacheDataEffect } = getUseCacheMemo(

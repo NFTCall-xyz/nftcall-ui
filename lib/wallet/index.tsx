@@ -1,26 +1,26 @@
-import type { ReactNode } from 'react'
-import * as PropTypes from 'prop-types'
-import * as React from 'react'
-import { defaultMarket } from 'lib/protocol/market'
-import { getNetwork } from 'lib/protocol/network'
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { UnsupportedChainIdError, Web3ReactProvider, useWeb3React } from '@web3-react/core'
 import type { Web3ReactContextInterface } from '@web3-react/core/dist/types'
+import * as PropTypes from 'prop-types'
+import type { ReactNode } from 'react'
+import * as React from 'react'
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 
-import type { AccountType, Status, Wallet } from './types'
+import { defaultMarket } from 'lib/protocol/market'
+import { getNetwork } from 'lib/protocol/network'
+
+import * as chains from './chains'
 import { connectors } from './connectors'
 import { ChainUnsupportedError, ConnectorUnsupportedError } from './errors'
-
 import { getProviderFromUseWalletId, getProviderString } from './providers'
 import type { ProviderId } from './providers/types'
-import * as chains from './chains'
+import type { AccountType, Status, Wallet } from './types'
 import {
   clearLastActiveAccount,
-  setLastConnector,
-  setLastActiveAccount,
-  getLastConnector,
-  getLastActiveAccount,
   getAccountIsContract,
+  getLastActiveAccount,
+  getLastConnector,
+  setLastActiveAccount,
+  setLastConnector,
 } from './utils'
 
 type WalletContext = {

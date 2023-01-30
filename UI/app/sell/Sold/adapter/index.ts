@@ -1,4 +1,4 @@
-import { getNumber, getWeiToValueBN, getAddresses } from 'app/utils/get'
+import { getAddresses, getNumber, getWeiToValueBN } from 'app/utils/get'
 
 type Props = {
   subgraphName: string

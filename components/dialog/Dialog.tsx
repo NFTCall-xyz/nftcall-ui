@@ -4,6 +4,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 
 import type { DialogValues } from 'app/hooks/useDialog'
+
 import { DialogCloseIconButton } from 'components/btn/IconButton'
 
 const Dialog: FCC<DialogValues & { title: string; actions?: any }> = ({ visible, close, title, children, actions }) => {

@@ -1,5 +1,5 @@
-import icons from './images/icons'
 import aIcons from './images/aIcons'
+import icons from './images/icons'
 
 export interface Asset {
   name: string

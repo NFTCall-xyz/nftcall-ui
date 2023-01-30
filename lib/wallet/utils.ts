@@ -1,9 +1,12 @@
-import type { Account, EthereumProvider, ChainInformation } from './types'
-import { getChainInformation, getKnownChainsIds } from './chains'
-import type { ChainId } from 'lib/protocol/chain/types'
 import { utils } from 'ethers'
-import { setItem, removeItem, getItem } from 'app/utils/cache/localStorage'
+
+import { getItem, removeItem, setItem } from 'app/utils/cache/localStorage'
+
+import type { ChainId } from 'lib/protocol/chain/types'
 import { getNetwork } from 'lib/protocol/network'
+
+import { getChainInformation, getKnownChainsIds } from './chains'
+import type { Account, ChainInformation, EthereumProvider } from './types'
 
 function isUnwrappedRpcResult(response: unknown): response is {
   error?: string

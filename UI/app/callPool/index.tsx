@@ -1,21 +1,25 @@
+import { useTranslation } from 'next-i18next'
+import Head from 'next/head'
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import { useTheme } from '@mui/material/styles'
-import { useTranslation } from 'next-i18next'
-import BackButton from 'components/button/BackButton'
+
+import Avatar from '@mui/material/Avatar'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
+import { useTheme } from '@mui/material/styles'
+
+import { H2, Paragraph } from 'components/Typography'
+import BackButton from 'components/button/BackButton'
 import type { TabsProps } from 'components/tabs'
 import Tabs from 'components/tabs'
 
-import ListedNFTs from './ListedNFTs'
-import History from './History'
 import { useCallPoolDetails } from 'domains/data'
-import { H2, Paragraph } from 'components/Typography'
+
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
-import Avatar from '@mui/material/Avatar'
-import Head from 'next/head'
+
+import History from './History'
+import ListedNFTs from './ListedNFTs'
 
 type TitleProps = {
   name?: string

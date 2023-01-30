@@ -1,12 +1,12 @@
+import { useWallet } from 'domains'
 import type { FC } from 'react'
+import { ROOT } from 'styles/dialog'
+
 import Dialog from '@mui/material/Dialog'
 
-import { ROOT } from 'styles/dialog'
-import { useWallet } from 'domains'
-
 import ChainDialogCloseIconButton from './ChainDialogCloseIconButton'
-import ChainDialogTitle from './ChainDialogTitle'
 import ChainDialogContent from './ChainDialogContent'
+import ChainDialogTitle from './ChainDialogTitle'
 
 const ChainDialog: FC = () => {
   const {

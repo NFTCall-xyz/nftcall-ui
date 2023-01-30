@@ -1,16 +1,17 @@
-import CssBaseline from '@mui/material/CssBaseline'
+import ActiveLayout from 'UI/layouts'
 import type { AppProps } from 'next/app'
 
+import CssBaseline from '@mui/material/CssBaseline'
+
 import { createContext } from 'app/utils/createContext'
-import { ToastContainer } from 'lib/toastify'
-import ActiveLayout from 'UI/layouts'
-
-import ThemeProvider from './theme'
-
-import { useMenu } from './router/useMenu'
-import type { FCC } from './types'
 
 import { useRouteChange } from 'lib/nprogress/router'
+import { ToastContainer } from 'lib/toastify'
+
+import { useMenu } from './router/useMenu'
+import ThemeProvider from './theme'
+import type { FCC } from './types'
+
 export function useAppService() {
   useRouteChange()
   const menu = useMenu()

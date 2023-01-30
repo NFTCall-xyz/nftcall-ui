@@ -1,10 +1,12 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { get } from 'lodash'
+
 import type { PaletteMode } from '@mui/material'
 
-import type { Themes } from '../themes'
 import { setItem } from 'app/utils/cache/localStorage'
+
+import type { Themes } from '../themes'
 
 const path = 'theme'
 export const THEME_MODE_KEY = 'THEME_MODE'

@@ -1,4 +1,5 @@
 import { safeGet } from 'app/utils/get'
+
 import type { AssetsData } from './getAssetsData'
 
 export type AssetsBaseData = {

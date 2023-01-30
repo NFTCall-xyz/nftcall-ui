@@ -1,4 +1,5 @@
 import { toBN, weiToValue } from 'lib/math'
+
 import type { BalanceOfBaseData } from './getBalanceOfBaseData'
 
 export type BalanceOfData = BN

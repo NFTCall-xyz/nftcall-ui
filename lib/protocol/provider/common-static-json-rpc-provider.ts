@@ -1,6 +1,6 @@
+import { deepCopy } from '@ethersproject/properties'
 import type { FallbackProvider } from '@ethersproject/providers'
 import { StaticJsonRpcProvider } from '@ethersproject/providers'
-import { deepCopy } from '@ethersproject/properties'
 import type { ConnectionInfo } from '@ethersproject/web'
 import { fetchJson } from '@ethersproject/web'
 

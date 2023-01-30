@@ -1,4 +1,5 @@
 import type { providers } from 'ethers'
+
 import BaseService from '../commons/BaseService'
 import type { tEthereumAddress } from '../commons/types'
 import type { NFTOracle } from './typechain'

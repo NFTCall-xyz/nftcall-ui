@@ -1,4 +1,5 @@
 import { ChainId } from 'lib/protocol/chain/types'
+
 import { ChainUnknownError } from './errors'
 import type { ChainInformation, ChainType, Currency } from './types'
 

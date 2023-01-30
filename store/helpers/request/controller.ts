@@ -1,16 +1,16 @@
-import { useRef, useCallback, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import type { AsyncThunk } from '@reduxjs/toolkit'
+import { useCallback, useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from 'store'
 
 import { useLatest } from 'app/hooks/useLatest'
 import { useObjectMemo } from 'app/hooks/useValues'
-import { useAppDispatch } from 'store'
+import { safeGet } from 'app/utils/get'
 
+import type { RequestActions } from './reducers'
+import type { RequestSelect } from './select'
 import type { RequestSliceState } from './state'
 import { REQUEST_STATUS } from './state'
-import type { RequestSelect } from './select'
-import type { RequestActions } from './reducers'
-import { safeGet } from 'app/utils/get'
 
 type CreateUseRequestControllerProps<SliceState extends RequestSliceState, Returned, ThunkArg> = {
   request: AsyncThunk<Returned, ThunkArg, {}>

@@ -1,7 +1,9 @@
 import { useControllers } from 'domains'
 import { useCallback, useMemo } from 'react'
+
 import type { PreviewOpenCallProps } from 'store/callPool/previewOpenCall/adapter'
 import { getStoreCacheData } from 'store/callPool/previewOpenCall/adapter'
+
 import type { CallPool } from '..'
 
 export const usePreviewOpenCall = ({ address, nftOracle }: CallPool) => {

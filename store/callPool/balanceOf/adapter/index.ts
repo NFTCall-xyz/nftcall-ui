@@ -1,4 +1,5 @@
 import type { CallPoolService } from 'lib/protocol/typechain/nftcall'
+
 import type { BalanceOfBaseData } from './getBalanceOfBaseData'
 import { getBalanceOfBaseData } from './getBalanceOfBaseData'
 

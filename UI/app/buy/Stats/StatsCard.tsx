@@ -1,7 +1,9 @@
-import { Stack, useTheme } from '@mui/material'
-import { H2, Span } from 'components/Typography'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { Stack, useTheme } from '@mui/material'
+
+import { H2, Span } from 'components/Typography'
 
 // root component interface
 interface StatsCardProps {

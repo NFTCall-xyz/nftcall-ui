@@ -1,6 +1,8 @@
-import type { BN as BigNumber } from 'lib/math/types'
 import type { FC as AppFC } from 'react'
+
 import type { FCC as AppFCC } from 'app/types'
+
+import type { BN as BigNumber } from 'lib/math/types'
 
 declare global {
   declare type FCC<T = {}> = AppFCC<T>

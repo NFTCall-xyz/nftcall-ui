@@ -1,7 +1,9 @@
-import { Span } from 'components/Typography'
-import { useMemo } from 'react'
-import { useTheme } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { useTheme } from '@mui/material'
+
+import { Span } from 'components/Typography'
 
 type PositionStatusProps = {
   status: string

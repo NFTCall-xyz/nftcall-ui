@@ -1,17 +1,21 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import { styled } from '@mui/material/styles'
+
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import type { BaseNFT } from 'domains/data/nft/types'
-import { Paragraph, Span } from 'components/Typography'
 import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
+
+import { safeGet } from 'app/utils/get'
+
+import { Paragraph, Span } from 'components/Typography'
+
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
-import { safeGet } from 'app/utils/get'
+import type { BaseNFT } from 'domains/data/nft/types'
 
 export type WalletNFT = BaseNFT & {
   callPoolAddress: string

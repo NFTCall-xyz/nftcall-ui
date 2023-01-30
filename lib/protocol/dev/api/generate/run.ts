@@ -1,6 +1,7 @@
 import path from 'path'
-import { requireFromPath } from 'app/utils/require'
+
 import { writeFile } from 'app/utils/fs'
+import { requireFromPath } from 'app/utils/require'
 
 const ROOT_PATH = process.cwd()
 

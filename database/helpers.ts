@@ -1,8 +1,9 @@
-import { cloneDeep, isEmpty } from 'lodash'
 import type { Table } from 'dexie'
-import { toBN } from 'lib/math'
 import { useLiveQuery } from 'dexie-react-hooks'
+import { cloneDeep, isEmpty } from 'lodash'
 import { useEffect } from 'react'
+
+import { toBN } from 'lib/math'
 
 const BNToBNSaveArray = (obj: any[]) => {
   const arr = cloneDeep(obj)

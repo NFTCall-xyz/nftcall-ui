@@ -1,16 +1,18 @@
-import React from 'react'
 import { useTranslation } from 'next-i18next'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
-import { H2, H3, Paragraph } from 'components/Typography'
+import React from 'react'
+
 import ArrowForward from '@mui/icons-material/ArrowForward'
-import StarRounded from '@mui/icons-material/StarRounded'
 // import MoneyOffRounded from '@mui/icons-material/MoneyOffRounded'
 import MultipleStopIcon from '@mui/icons-material/MultipleStop'
-import { useTheme } from '@mui/material/styles'
-import IconButton from '@mui/material/IconButton'
+import StarRounded from '@mui/icons-material/StarRounded'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import { useTheme } from '@mui/material/styles'
+
+import { H2, H3, Paragraph } from 'components/Typography'
 
 type FeatureCardProps = {
   icon: React.ReactNode

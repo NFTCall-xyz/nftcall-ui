@@ -1,7 +1,7 @@
+import CallPoolDetailsProvider, { createCallPoolDetailsContext } from './callPoolDetails'
+import CallPoolsProvider, { createCallPoolsContext } from './callPools'
 import NetworkProvider, { createNetworkContext } from './network'
 import NFTProvider, { createNFTContext } from './nft'
-import CallPoolsProvider, { createCallPoolsContext } from './callPools'
-import CallPoolDetailsProvider, { createCallPoolDetailsContext } from './callPoolDetails'
 import UserProvider, { createUserContext } from './user'
 
 const Provider: FCC = ({ children }) => {

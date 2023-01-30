@@ -1,20 +1,21 @@
+import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import type { FC } from 'react'
-import { styled } from '@mui/material/styles'
+
 import Container from '@mui/material/Container'
-import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import Link from 'next/link'
-
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import { useTheme } from '@mui/material/styles'
 
-import Logo from '../Header/Logo'
-import LogoImgDark from './images/logo-black.svg'
-import LogoImg from '../Header/Logo/images/logo.svg'
-import SocialLinks from '../../app/Footer/Links'
 import { H3, Paragraph } from 'components/Typography'
-import { useTranslation } from 'next-i18next'
+
+import SocialLinks from '../../app/Footer/Links'
+import Logo from '../Header/Logo'
+import LogoImg from '../Header/Logo/images/logo.svg'
+import LogoImgDark from './images/logo-black.svg'
 
 const FooterLink = styled(Link)`
   ${({ theme }) => ({

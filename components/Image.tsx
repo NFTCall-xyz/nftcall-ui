@@ -1,13 +1,14 @@
-import type { FC } from 'react'
 import RcImage from 'rc-image'
+import type { FC } from 'react'
+
 import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  CloseOutlined,
   RotateLeftOutlined,
   RotateRightOutlined,
   ZoomInOutlined,
   ZoomOutOutlined,
-  CloseOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
 } from '@mui/icons-material'
 
 const previewIcons = {

@@ -1,16 +1,19 @@
-import React from 'react'
 import { useTranslation } from 'next-i18next'
+import Image from 'next/image'
+import React from 'react'
+
+import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
-import { H2, Paragraph, Span } from 'components/Typography'
 import { useTheme } from '@mui/material/styles'
-import Image from 'next/image'
-import ImageSrc from '../images/quotes.svg'
-import Avatar from '@mui/material/Avatar'
+import { styled } from '@mui/material/styles'
+
+import { H2, Paragraph, Span } from 'components/Typography'
+
 import AliceSrc from '../images/Alice.png'
 import BobSrc from '../images/Bob.png'
 import CharlieSrc from '../images/Charlie.png'
-import { styled } from '@mui/material/styles'
+import ImageSrc from '../images/quotes.svg'
 
 const BgGradient = styled(Box)`
   position: absolute;

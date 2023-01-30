@@ -1,6 +1,7 @@
-import { weiToValue, toBN } from 'lib/math'
 import type BigNumber from 'bignumber.js'
 import { utils } from 'ethers'
+
+import { toBN, weiToValue } from 'lib/math'
 
 export const safeGet = <T>(cb: () => T): T => {
   try {

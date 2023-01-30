@@ -1,6 +1,8 @@
-import { useUnmount } from 'app/hooks/useUnmount'
-import { useCallPoolDetails } from 'domains/data'
 import { useEffect, useState } from 'react'
+
+import { useUnmount } from 'app/hooks/useUnmount'
+
+import { useCallPoolDetails } from 'domains/data'
 
 export const useCallPoolIdEffect = (props: any) => {
   const { callPoolId } = useCallPoolDetails()

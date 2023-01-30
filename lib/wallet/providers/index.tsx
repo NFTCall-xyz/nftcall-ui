@@ -1,5 +1,5 @@
-import { isElectron } from './envs'
 import { providers, unknownProvider } from './config'
+import { isElectron } from './envs'
 import type { Provider, ProviderId, ProviderStrings } from './types'
 
 // Get a providers object for a given ID.

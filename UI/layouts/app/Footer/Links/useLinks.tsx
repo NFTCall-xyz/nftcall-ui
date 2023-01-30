@@ -1,10 +1,9 @@
-import { styled } from '@mui/material/styles'
-
+import EmailIcon from '@mui/icons-material/Email'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 // import TelegramIcon from '@mui/icons-material/Telegram'
 import TwitterIcon from '@mui/icons-material/Twitter'
-import EmailIcon from '@mui/icons-material/Email'
+import { styled } from '@mui/material/styles'
 
 const MediumSVG = () => {
   return (

@@ -1,13 +1,14 @@
-import type { FC } from 'react'
 import dynamic from 'next/dynamic'
-import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
+import type { FC } from 'react'
+
 import type { Theme } from '@mui/material'
+import { useMediaQuery } from '@mui/material'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 
 import Logo from './Logo'
-import { useMediaQuery } from '@mui/material'
-import Container from '@mui/material/Container'
 
 const Menu = dynamic(() => import('./Menu'), { ssr: false })
 const MenuMobile = dynamic(() => import('./Menu/mobile'), { ssr: false })

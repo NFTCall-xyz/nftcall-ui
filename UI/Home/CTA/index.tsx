@@ -1,10 +1,12 @@
 import { useTranslation } from 'next-i18next'
-import Stack from '@mui/material/Stack'
+
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import { H3, Paragraph } from 'components/Typography'
-import ArrowForward from '@mui/icons-material/ArrowForward'
+import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material/styles'
+
+import { H3, Paragraph } from 'components/Typography'
 
 const CTA: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'cta' })

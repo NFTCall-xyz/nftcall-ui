@@ -1,7 +1,8 @@
 import TableCell from '@mui/material/TableCell'
 
-import type { NFTTransaction } from './adapter'
 import NFTCell from 'domains/data/nft/components/NFTCell'
+
+import type { NFTTransaction } from './adapter'
 
 export type TableCellProps = {
   cellData?: any

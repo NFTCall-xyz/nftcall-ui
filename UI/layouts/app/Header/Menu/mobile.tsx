@@ -1,23 +1,26 @@
-import { useMemo, useState } from 'react'
+import { useApp } from 'app'
 import Link from 'next/link'
-import { styled, useTheme } from '@mui/material/styles'
-import Drawer from '@mui/material/Drawer'
+import { useMemo, useState } from 'react'
+
+import MenuIcon from '@mui/icons-material/Menu'
+import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
+import Drawer from '@mui/material/Drawer'
+import IconButton from '@mui/material/IconButton'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import Box from '@mui/material/Box'
+import ListItemText from '@mui/material/ListItemText'
+import { styled, useTheme } from '@mui/material/styles'
 
-import Logo from '../Logo'
-import { useLinks } from '../../Footer/Links/useLinks'
-import { useApp } from 'app'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
+import { Small } from 'components/Typography'
+
 import ChainButton from 'lib/protocol/components/wallet/ChainButton'
 import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'
-import { Small } from 'components/Typography'
+
+import { useLinks } from '../../Footer/Links/useLinks'
+import Logo from '../Logo'
 
 const ROOT = styled(Box)``
 

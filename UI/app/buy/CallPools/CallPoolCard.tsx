@@ -1,17 +1,22 @@
-import Stack from '@mui/material/Stack'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Avatar from '@mui/material/Avatar'
-import CardMedia from '@mui/material/CardMedia'
-import { H3, Tiny } from 'components/Typography'
-import type { CallPool } from 'domains/data/callPools'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import NumberDisplay from 'lib/math/components/NumberDisplay'
-import { useRouter } from 'next/router'
-import TokenIcon from 'lib/protocol/components/TokenIcon'
-import FlexBetween from 'components/flexbox/FlexBetween'
+
 import { useTheme } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
+
+import { H3, Tiny } from 'components/Typography'
+import FlexBetween from 'components/flexbox/FlexBetween'
+
+import type { CallPool } from 'domains/data/callPools'
+
+import NumberDisplay from 'lib/math/components/NumberDisplay'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
+
 import NFTList from './NFTList'
 
 // root component interface

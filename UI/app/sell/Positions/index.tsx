@@ -1,4 +1,5 @@
 import BasicTable from 'components/table/BasicTable'
+
 import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
 
 import { useTable } from './useTable'

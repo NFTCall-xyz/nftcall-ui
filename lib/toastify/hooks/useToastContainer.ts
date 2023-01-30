@@ -1,31 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useReducer, cloneElement, isValidElement } from 'react'
+import { cloneElement, isValidElement, useEffect, useReducer, useRef } from 'react'
+
+import { Event, eventManager } from '../core/eventManager'
+import type {
+  ClearWaitingQueueParams,
+  Id,
+  NotValidatedToastProps,
+  Toast,
+  ToastContainerProps,
+  ToastContent,
+  ToastPosition,
+  ToastProps,
+  ToastTransition,
+} from '../types'
 import {
+  Default,
+  Direction,
   canBeRendered,
+  getAutoCloseDelay,
   isBool,
   isFn,
   isNum,
   isStr,
   isToastIdValid,
-  getAutoCloseDelay,
-  Direction,
-  Default,
 } from '../utils'
-import { eventManager, Event } from '../core/eventManager'
-
-import type {
-  Id,
-  ToastContainerProps,
-  ToastProps,
-  ToastContent,
-  Toast,
-  ToastPosition,
-  ClearWaitingQueueParams,
-  NotValidatedToastProps,
-  ToastTransition,
-} from '../types'
-import { useKeeper } from './useKeeper'
 import { ActionType, reducer } from './toastContainerReducer'
+import { useKeeper } from './useKeeper'
 
 type CollectionItem = Record<Id, Toast>
 type ToastToRender = Partial<Record<ToastPosition, Toast[]>>

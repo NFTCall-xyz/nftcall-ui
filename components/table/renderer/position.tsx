@@ -1,5 +1,6 @@
 import Stack from '@mui/material/Stack'
 import TableCell from '@mui/material/TableCell'
+
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import RiseOrFall from 'lib/math/components/RiseOrFall'
 

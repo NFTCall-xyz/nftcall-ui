@@ -1,4 +1,5 @@
 import { getAddresses, getWeiToValueBN, safeGet } from 'app/utils/get'
+
 import type { UserCallPoolStatBaseData, UserStatsBaseData } from './getUserStatsBaseData'
 
 export type UserCallPoolStat = {

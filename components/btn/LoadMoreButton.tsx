@@ -1,7 +1,9 @@
 import { useTranslation } from 'next-i18next'
+
 import Button from '@mui/material/Button'
-import FlexRowAlign from 'components/flexbox/FlexRowAlign'
+
 import { Paragraph } from 'components/Typography'
+import FlexRowAlign from 'components/flexbox/FlexRowAlign'
 
 export type LoadMoreButtonProps = {
   end: boolean

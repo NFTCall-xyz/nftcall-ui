@@ -1,4 +1,5 @@
 import type { Theme } from '@mui/material'
+
 import { lightTheme } from './constants'
 
 declare module '@mui/material/Button' {

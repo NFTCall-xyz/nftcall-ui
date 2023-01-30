@@ -1,14 +1,15 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab'
-
 import type { SyntheticEvent } from 'react'
 import { useMemo } from 'react'
 import { useState } from 'react'
-import { styled } from '@mui/material/styles'
-import type { FCC } from 'app/types'
+
+import { TabContext, TabList, TabPanel } from '@mui/lab'
 import Grid from '@mui/material/Grid'
+import Tab from '@mui/material/Tab'
+import { styled } from '@mui/material/styles'
+
+import type { FCC } from 'app/types'
 
 import FlexBetween from 'components/flexbox/FlexBetween'
-import Tab from '@mui/material/Tab'
 
 const StyledTabList = styled(TabList)(({ theme }) => ({
   [theme.breakpoints.down(780)]: {

@@ -1,7 +1,10 @@
 import { useControllers } from 'domains'
-import { useNetwork } from 'domains/data'
 import { useCallback, useMemo } from 'react'
+
+import { useNetwork } from 'domains/data'
+
 import type { TotalOpenInterestProps } from 'store/callPool/totalOpenInterest/adapter'
+
 import type { CallPool } from '..'
 
 export const useTotalOpenInterest = (callPools: CallPool[]) => {

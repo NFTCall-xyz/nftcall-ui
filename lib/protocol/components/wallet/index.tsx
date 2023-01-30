@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from 'react'
 
 import { createContext } from 'app/utils/createContext'
+
 import { useWalletBase } from 'lib/wallet'
 
 import UseWalletProvider from './UseWallet/Provider'
-
 import { useChainDialog } from './modules/chain-dialog'
 import { useConnectDialog } from './modules/connect-dialog'
 

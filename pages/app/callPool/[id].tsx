@@ -1,10 +1,12 @@
 import UI from 'UI/app/callPool'
-
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import type { FC } from 'react'
+
 import { withStaticTranslations } from 'app/i18n/hoc'
-import { MARKETS } from 'lib/protocol/market'
+
 import { useCallPoolIdEffect } from 'domains/data/callPoolDetails/application/callPoolId'
+
+import { MARKETS } from 'lib/protocol/market'
 
 export const getStaticProps: GetStaticProps = withStaticTranslations(
   (props) => {

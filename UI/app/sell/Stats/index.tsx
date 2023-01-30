@@ -1,14 +1,16 @@
-import { Grid, Button, Stack } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 
-import StatsCard from './StatsCard'
-import NumberDisplay from 'lib/math/components/NumberDisplay'
-import { useCallPools } from 'domains/data'
+import { Button, Grid, Stack } from '@mui/material'
 
-import TokenIcon from 'lib/protocol/components/TokenIcon'
-import { useRouter } from 'next/router'
+import { useCallPools } from 'domains/data'
 import { useUserStats } from 'domains/data/callPools/hooks/useUserStats'
-import { useTranslation } from 'next-i18next'
+
+import NumberDisplay from 'lib/math/components/NumberDisplay'
+import TokenIcon from 'lib/protocol/components/TokenIcon'
+
+import StatsCard from './StatsCard'
 
 const Stats: FC = () => {
   useUserStats()

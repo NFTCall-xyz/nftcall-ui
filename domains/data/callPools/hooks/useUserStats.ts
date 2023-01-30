@@ -1,6 +1,8 @@
 import { useControllers, useWallet } from 'domains'
-import { useNetwork } from 'domains/data'
 import { useMemo } from 'react'
+
+import { useNetwork } from 'domains/data'
+
 import type { UserStatsProps } from 'store/callPool/userStats/adapter'
 
 export const useUserStats = () => {

@@ -1,6 +1,7 @@
-import { replaceBaseUrl } from 'app/utils/url/base-url'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
+
+import { replaceBaseUrl } from 'app/utils/url/base-url'
 
 export const createUseTo = (baseUrl: string) => {
   return () => {

@@ -1,16 +1,20 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import { styled } from '@mui/material/styles'
-import Card from '@mui/material/Card'
-import type { ListedNFT } from '../NFTCard'
+
 import DeleteIcon from '@mui/icons-material/Delete'
-import IconButton from '@mui/material/IconButton'
-import Box from '@mui/material/Box'
-import { Paragraph } from 'components/Typography'
-import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
-import NFTIcon from 'domains/data/nft/components/NFTIcon'
-import FlexBetween from 'components/flexbox/FlexBetween'
 import { Stack } from '@mui/material'
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import IconButton from '@mui/material/IconButton'
+import { styled } from '@mui/material/styles'
+
+import { Paragraph } from 'components/Typography'
+import FlexBetween from 'components/flexbox/FlexBetween'
+
+import NFTIcon from 'domains/data/nft/components/NFTIcon'
+import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
+
+import type { ListedNFT } from '../NFTCard'
 
 export type NFTCardProps = {
   tokenId: string

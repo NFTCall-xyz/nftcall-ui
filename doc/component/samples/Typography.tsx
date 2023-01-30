@@ -1,5 +1,7 @@
 import * as React from 'react'
+
 import Box from '@mui/material/Box'
+
 import { H1, H2, H3, H4, H5, H6, Paragraph, Small, Span, Tiny } from 'components/Typography'
 
 export default function Types() {

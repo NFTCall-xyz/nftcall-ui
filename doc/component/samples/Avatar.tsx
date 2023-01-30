@@ -1,11 +1,11 @@
 import React from 'react'
-import Avatar from '@mui/material/Avatar'
-import { deepOrange, deepPurple, pink, green } from '@mui/material/colors'
+
+import AssignmentIcon from '@mui/icons-material/Assignment'
 import FolderIcon from '@mui/icons-material/Folder'
 import PageviewIcon from '@mui/icons-material/Pageview'
-import AssignmentIcon from '@mui/icons-material/Assignment'
+import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
-
+import { deepOrange, deepPurple, green, pink } from '@mui/material/colors'
 import { styled } from '@mui/material/styles'
 
 const ROOT = styled('div')`

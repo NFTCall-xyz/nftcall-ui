@@ -1,7 +1,9 @@
+import store from 'store'
+
 import type { NFTOracleData } from 'store/oracle/nftOracle/adapter/getNFTOracleData'
+
 import type { PreviewOpenCallBaseData } from './getPreviewOpenCallBaseData'
 import { getPreviewOpenCallBaseData } from './getPreviewOpenCallBaseData'
-import store from 'store'
 
 export const getStoreCacheData = () => store.getState().callPool.previewOpenCall.data || ([] as undefined)
 export type PreviewOpenCallProps = {

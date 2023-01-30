@@ -1,9 +1,11 @@
-import { createContext } from 'app/utils/createContext'
 import { useMemo } from 'react'
+
+import { createContext } from 'app/utils/createContext'
+
 import { getMarkets } from './adapter/markets'
 import { useAddress } from './application/address'
-import { useProvider } from './application/provider'
 import { useContracts } from './application/contracts'
+import { useProvider } from './application/provider'
 
 const useNetworkService = () => {
   const address = useAddress()

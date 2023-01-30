@@ -1,14 +1,14 @@
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
+  TimeScale,
   Title,
   Tooltip,
-  Legend,
-  Filler,
-  TimeScale,
 } from 'chart.js'
 import 'chartjs-adapter-date-fns'
 

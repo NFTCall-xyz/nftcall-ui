@@ -1,13 +1,16 @@
-import { Trans, useTranslation } from 'next-i18next'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
-import { H1, H3, Span } from 'components/Typography'
-import Image from 'next/image'
-import ArrowForward from '@mui/icons-material/ArrowForward'
 // import Stats from '../Stats'
-import ImageSrc from '../images/hero-pic.png'
+import { Trans, useTranslation } from 'next-i18next'
+import Image from 'next/image'
+
+import ArrowForward from '@mui/icons-material/ArrowForward'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
+
+import { H1, H3, Span } from 'components/Typography'
+
+import ImageSrc from '../images/hero-pic.png'
 
 const BgGradient1 = styled(Box)`
   position: absolute;

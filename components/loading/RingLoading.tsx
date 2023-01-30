@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+
 import { styled } from '@mui/material/styles'
 
 const RingLoading: FC = () => {

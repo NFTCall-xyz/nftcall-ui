@@ -1,6 +1,8 @@
 import { useControllers } from 'domains'
-import { useNetwork } from 'domains/data'
 import { useMemo } from 'react'
+
+import { useNetwork } from 'domains/data'
+
 import { useOracleStateData } from 'store/oracle/useOracleStateData'
 
 export const useOracle = () => {

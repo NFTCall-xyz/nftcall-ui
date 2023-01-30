@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { resolve } from 'path'
 // import type { SourceFile } from 'ts-morph'
 import { Project, VariableDeclarationKind } from 'ts-morph'
-import { resolve } from 'path'
+
+import { removeDir } from 'app/utils/fs'
+import { firstToUpperCase } from 'app/utils/string/case'
 
 import type { DataFetcherReq } from './form/types'
-import { firstToUpperCase } from 'app/utils/string/case'
-import { removeDir } from 'app/utils/fs'
 
 const ROOT_PATH = process.cwd()
 const DIST_PATH = 'store/dev/api/code-template/create-store/dist'

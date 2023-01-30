@@ -1,13 +1,14 @@
 import type { FC } from 'react'
-import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
+
 import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 
 import Logo from '../Header/Logo'
-import LogoImgDark from './images/logo-black.svg'
 import Links from './Links'
-import Stack from '@mui/material/Stack'
+import LogoImgDark from './images/logo-black.svg'
 
 const ROOT = styled(Box)`
   ${({ theme }) => ({

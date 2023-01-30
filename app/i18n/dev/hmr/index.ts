@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
 import { noop } from 'lodash'
 import { useTranslation } from 'next-i18next'
+import { useEffect } from 'react'
 
 export const useI18nHMR = __DEV__
   ? () => {

@@ -1,11 +1,15 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
+
+import { safeGet } from 'app/utils/get'
+
+import { useMath } from 'domains/utils'
+
 import { toBN } from 'lib/math'
 import type { BNValue } from 'lib/math/types'
-import { useMath } from 'domains/utils'
+
 import type { AbbreviateOptions } from '../format/abbreviate'
 import { getAbbreviateData } from '../format/abbreviate'
-import { safeGet } from 'app/utils/get'
 
 type NumberDisplayProps = {
   value: BNValue

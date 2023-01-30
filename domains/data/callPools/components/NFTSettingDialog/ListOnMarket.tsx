@@ -1,12 +1,15 @@
-import type { FC } from 'react'
-import { useMemo, useCallback } from 'react'
-import { transaction } from 'domains/controllers/adapter/transaction'
-import Switch from '@mui/material/Switch'
 import { useWallet } from 'domains'
-import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
+import type { FC } from 'react'
+import { useCallback, useMemo } from 'react'
+
+import Switch from '@mui/material/Switch'
+
+import { transaction } from 'domains/controllers/adapter/transaction'
 import { useNetwork } from 'domains/data'
 import type { NFT, NFTActions } from 'domains/data/nft/types'
 import { NFTStatus } from 'domains/data/nft/types'
+
+import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 
 export type ListOnMarketProps = {
   loading: boolean

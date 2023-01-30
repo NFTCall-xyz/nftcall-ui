@@ -1,4 +1,5 @@
 import path from 'path'
+
 import getLocalePath from '../../config/localePath'
 import sourcePath from '../../config/sourcePath'
 

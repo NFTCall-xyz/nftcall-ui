@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
+
 import { toBN } from '../BN'
 import type { BNValue } from '../types'
-
 import { abbreviate } from './abbreviate'
 import { toFixed } from './toFixed'
 

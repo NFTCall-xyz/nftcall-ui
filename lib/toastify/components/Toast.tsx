@@ -1,15 +1,15 @@
-import { useMemo } from 'react'
 import cx from 'clsx'
+import { useMemo } from 'react'
 
+import { useTheme } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 
-import { ProgressBar } from './ProgressBar'
-import { Icons } from './Icons'
-import type { ToastProps } from '../types'
 import { useToast } from '../hooks'
+import type { ToastProps } from '../types'
 import { CloseButton } from './CloseButton'
-import { useTheme } from '@mui/material'
+import { Icons } from './Icons'
+import { ProgressBar } from './ProgressBar'
 
 export const Toast: React.FC<ToastProps> = (props) => {
   const { isRunning, preventExitTransition, toastRef, eventHandlers } = useToast(props)

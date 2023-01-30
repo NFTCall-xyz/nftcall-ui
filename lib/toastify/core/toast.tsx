@@ -1,22 +1,22 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 
-import { POSITION, TYPE, canUseDom, isStr, isNum, isFn } from '../utils'
-import type { OnChangeCallback } from './eventManager'
-import { eventManager, Event } from './eventManager'
+import { ToastContainer } from '../components'
+import type { ContainerInstance } from '../hooks'
 import type {
+  ClearWaitingQueueParams,
+  Id,
+  NotValidatedToastProps,
+  ToastContainerProps,
   ToastContent,
   ToastOptions,
   ToastProps,
-  Id,
-  ToastContainerProps,
-  UpdateOptions,
-  ClearWaitingQueueParams,
-  NotValidatedToastProps,
   TypeOptions,
+  UpdateOptions,
 } from '../types'
-import type { ContainerInstance } from '../hooks'
-import { ToastContainer } from '../components'
+import { POSITION, TYPE, canUseDom, isFn, isNum, isStr } from '../utils'
+import type { OnChangeCallback } from './eventManager'
+import { Event, eventManager } from './eventManager'
 
 interface EnqueuedToast {
   content: ToastContent

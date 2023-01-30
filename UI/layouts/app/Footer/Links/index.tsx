@@ -1,6 +1,6 @@
+import IconButton from '@mui/material/IconButton'
 import Link from '@mui/material/Link'
 import { styled } from '@mui/material/styles'
-import IconButton from '@mui/material/IconButton'
 
 import { useLinks } from './useLinks'
 

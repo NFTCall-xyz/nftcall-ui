@@ -1,19 +1,19 @@
-import type { FC } from 'react'
-import { useMemo, Fragment } from 'react'
-import { useCallback } from 'react'
-import DialogContent from '@mui/material/DialogContent'
-import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
-
 import { useWeb3React } from '@web3-react/core'
-import { switchEthereumChain } from 'lib/wallet/utils'
-import { ChainId } from 'lib/protocol/chain/types'
-import { getNetwork } from 'lib/protocol/network'
+import { useWallet } from 'domains'
+import type { FC } from 'react'
+import { Fragment, useMemo } from 'react'
+import { useCallback } from 'react'
 
+import Button from '@mui/material/Button'
+import DialogContent from '@mui/material/DialogContent'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 
+import { ChainId } from 'lib/protocol/chain/types'
+import { getNetwork } from 'lib/protocol/network'
+import { switchEthereumChain } from 'lib/wallet/utils'
+
 import ChainIcon from '../ChainIcon'
-import { useWallet } from 'domains'
 
 const ChainDialogContent: FC = () => {
   const buttons = useMemo(

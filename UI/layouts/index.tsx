@@ -1,15 +1,17 @@
-import { Fragment, useMemo } from 'react'
+import { useApp } from 'app'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
-import { useApp } from 'app'
-import NProgress from 'lib/nprogress/components/NProgress'
-import ChainDialog from 'lib/protocol/components/wallet/ChainDialog'
-import ConnectDialog from 'lib/protocol/components/wallet/ConnectDialog'
+import { Fragment, useMemo } from 'react'
+
 import NFTDepositDialog from 'domains/data/callPools/components/NFTDepositDialog'
 import NFTSettingDialog from 'domains/data/callPools/components/NFTSettingDialog'
 
-import HomeLayout from './home'
+import NProgress from 'lib/nprogress/components/NProgress'
+import ChainDialog from 'lib/protocol/components/wallet/ChainDialog'
+import ConnectDialog from 'lib/protocol/components/wallet/ConnectDialog'
+
 import AppLayout from './app'
+import HomeLayout from './home'
 
 const ActiveLayout: FCC = (props) => {
   const {

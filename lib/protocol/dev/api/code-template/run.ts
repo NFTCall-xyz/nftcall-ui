@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Project, Scope } from 'ts-morph'
 import { resolve } from 'path'
+import { Project, Scope } from 'ts-morph'
+
+import { firstToUpperCase } from 'app/utils/string/case'
 
 import type { DataFetcherReq } from './form/types'
-import { firstToUpperCase } from 'app/utils/string/case'
 
 const DIST_PATH = 'lib/protocol/dev/api/code-template/dist'
 

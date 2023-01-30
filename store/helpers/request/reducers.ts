@@ -1,9 +1,10 @@
 import type { ActionReducerMapBuilder, AsyncThunk, PayloadAction, Slice } from '@reduxjs/toolkit'
 import type { NoInfer } from '@reduxjs/toolkit/dist/tsHelpers'
-import { safeGet } from 'app/utils/get'
 import { isEqual } from 'lodash'
 
-import type { RequestSliceState, REQUEST_STATUS } from './state'
+import { safeGet } from 'app/utils/get'
+
+import type { REQUEST_STATUS, RequestSliceState } from './state'
 
 export const createRequestReducers = () => ({
   setStatus(state: any, action: PayloadAction<REQUEST_STATUS>) {

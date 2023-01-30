@@ -1,9 +1,12 @@
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
 import { safeGet } from 'app/utils/get'
+
+import { Paragraph } from 'components/Typography'
+
 import type { CallPool } from 'domains/data/callPools'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
-import { useMemo } from 'react'
-import { Paragraph } from 'components/Typography'
-import { useTranslation } from 'next-i18next'
 
 interface NFTListProps {
   callPool: CallPool

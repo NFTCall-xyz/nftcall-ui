@@ -1,8 +1,10 @@
+import { useMemo } from 'react'
+
 import { createContext } from 'app/utils/createContext'
+
 import { useCallPools } from 'domains/data'
 import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
 import type { BaseNFT } from 'domains/data/nft/types'
-import { useMemo } from 'react'
 
 const useBuyStats = () => {
   const { allCallPool } = useCallPools()

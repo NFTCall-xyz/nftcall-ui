@@ -1,6 +1,6 @@
 import { BigNumber as EthersBN } from '@ethersproject/bignumber'
 import { useWeb3React } from '@web3-react/core'
-import type { providers, BigNumber } from 'ethers'
+import type { BigNumber, providers } from 'ethers'
 import { useCallback } from 'react'
 
 export type transactionType = {

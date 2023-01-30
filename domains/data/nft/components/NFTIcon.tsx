@@ -1,13 +1,16 @@
+import { useMemo } from 'react'
+
 import type { BoxProps } from '@mui/material/Box'
 import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 import { styled } from '@mui/material/styles'
 import type { SxProps, Theme } from '@mui/material/styles'
-import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
-import { useMemo } from 'react'
-import CircularProgress from '@mui/material/CircularProgress'
+
 import { imagePlaceholder } from 'store/nft/tokenId/assets/adapter/getAssetsBaseData'
-import type { BaseNFT } from '../types'
+import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
+
 import { useNFTAssetsData } from '../hooks/useNFTAssetsData'
+import type { BaseNFT } from '../types'
 
 const ImageBox = (props: BoxProps<'img'>) => <Box {...props} component="img" />
 

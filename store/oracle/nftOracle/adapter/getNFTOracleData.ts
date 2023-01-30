@@ -1,5 +1,7 @@
 import { getNumber } from 'app/utils/get'
+
 import { weiToValue } from 'lib/math'
+
 import type { NFTOracleBaseData } from './getNFTOracleBaseData'
 
 export type NFTOracleData = {

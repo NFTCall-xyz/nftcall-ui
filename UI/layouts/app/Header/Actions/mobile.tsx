@@ -1,12 +1,13 @@
 import type { FC } from 'react'
 import { useState } from 'react'
-import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
-import IconButton from '@mui/material/IconButton'
+
+import MenuIcon from '@mui/icons-material/Menu'
 import Drawer from '@mui/material/Drawer'
+import IconButton from '@mui/material/IconButton'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import MenuIcon from '@mui/icons-material/Menu'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 
 import ChainButton from 'lib/protocol/components/wallet/ChainButton'
 import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'

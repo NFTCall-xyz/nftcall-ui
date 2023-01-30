@@ -1,4 +1,5 @@
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
+
 import type { NFTStatus } from 'domains/data/nft/types'
 
 export type DepositedNFTsProps = { subgraphName: string; user: string; nfts: string[] } & GetQueryProps

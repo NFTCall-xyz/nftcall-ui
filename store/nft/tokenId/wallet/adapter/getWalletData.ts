@@ -1,4 +1,5 @@
 import type { BaseNFT } from 'domains/data/nft/types'
+
 import type { WalletBaseData } from './getWalletBaseData'
 
 export type WalletData = {

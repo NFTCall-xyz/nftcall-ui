@@ -1,19 +1,20 @@
+import { useWallet } from 'domains'
+import Image from 'next/image'
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
-import { styled } from '@mui/material/styles'
+
 import Button from '@mui/material/Button'
 import DialogContent from '@mui/material/DialogContent'
 import Link from '@mui/material/Link'
+import { styled } from '@mui/material/styles'
 
-import RingLoading from 'components/loading/RingLoading'
 import { H3, H5 } from 'components/Typography'
-import { useWallet } from 'domains'
+import RingLoading from 'components/loading/RingLoading'
 
+import Account from '../Account'
 import MetamaskImg from './images/metamask.svg'
 import WalletconnectImg from './images/wallet-connect.svg'
-import Account from '../Account'
 
 const ConnectDialogContent: FC = () => {
   const { status } = useWallet()

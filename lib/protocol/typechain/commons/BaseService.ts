@@ -1,6 +1,7 @@
 import type { Provider } from '@ethersproject/providers'
-import type { Contract, PopulatedTransaction, providers, Signer } from 'ethers'
-import type { tEthereumAddress, TransactionGenerationMethod, transactionType } from './types'
+import type { Contract, PopulatedTransaction, Signer, providers } from 'ethers'
+
+import type { TransactionGenerationMethod, tEthereumAddress, transactionType } from './types'
 import { DEFAULT_NULL_VALUE_ON_TX } from './utils'
 
 export interface ContractsFactory {

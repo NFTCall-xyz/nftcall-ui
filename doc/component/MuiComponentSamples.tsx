@@ -1,6 +1,6 @@
 import React from 'react'
-import { Typography, Paper, Button, Grid } from '@mui/material'
 
+import { Button, Grid, Paper, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import componentSamples from './samples'

@@ -1,5 +1,6 @@
 import { getCurrentTimestamp } from 'app/constant'
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
+
 import type { NFTStatus } from 'domains/data/nft/types'
 
 export type ListedNFTsProps = { subgraphName: string; nft: string } & GetQueryProps

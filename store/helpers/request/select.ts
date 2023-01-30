@@ -1,6 +1,6 @@
 import { get } from 'lodash'
 
-import type { RequestSliceState, REQUEST_STATUS } from './state'
+import type { REQUEST_STATUS, RequestSliceState } from './state'
 
 export const createRequestSelect = <SliceState extends RequestSliceState>(path: string) => {
   const select = (state: any): SliceState => get(state, path)

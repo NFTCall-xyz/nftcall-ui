@@ -1,16 +1,16 @@
-import store from 'store'
-import { Provider as StoreProvider } from 'react-redux'
 import type { MyAppProps } from 'app'
 import App from 'app'
 import DomainsProvider from 'domains'
+import 'rc-image/assets/index.css'
+import { Provider as StoreProvider } from 'react-redux'
+import store from 'store'
+import 'styles/global.css'
 
 import CacheProvider from 'app/emotion'
 import { appWithTranslation, useI18nHMR } from 'app/i18n'
-import { initChartjs } from 'lib/chartjs'
 
+import { initChartjs } from 'lib/chartjs'
 import 'lib/toastify/styles.css'
-import 'rc-image/assets/index.css'
-import 'styles/global.css'
 
 initChartjs()
 

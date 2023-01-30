@@ -1,7 +1,8 @@
 import type { AsyncThunk } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { createRequestReducers, createRequestExtraReducers } from './reducers'
+
 import { createUseRequestController } from './controller'
+import { createRequestExtraReducers, createRequestReducers } from './reducers'
 import { createRequestSelect } from './select'
 import type { RequestSliceState } from './state'
 

@@ -1,4 +1,5 @@
 import type { CallPoolService } from 'lib/protocol/typechain/nftcall'
+
 import type { TotalOpenInterestBaseData } from './getTotalOpenInterestBaseData'
 import { getTotalOpenInterestBaseData } from './getTotalOpenInterestBaseData'
 

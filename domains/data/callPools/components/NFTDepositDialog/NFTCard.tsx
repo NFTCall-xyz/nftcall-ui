@@ -1,13 +1,17 @@
 import type { FC } from 'react'
-import { styled } from '@mui/material/styles'
+
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import type { BaseNFT } from 'domains/data/nft/types'
-import { H3, Paragraph } from 'components/Typography'
 import Stack from '@mui/material/Stack'
-import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
-import NFTIcon from 'domains/data/nft/components/NFTIcon'
+import { styled } from '@mui/material/styles'
+
 import { safeGet } from 'app/utils/get'
+
+import { H3, Paragraph } from 'components/Typography'
+
+import NFTIcon from 'domains/data/nft/components/NFTIcon'
+import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
+import type { BaseNFT } from 'domains/data/nft/types'
 
 export type NFTCardProps = BaseNFT
 

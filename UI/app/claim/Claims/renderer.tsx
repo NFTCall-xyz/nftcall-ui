@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack'
 import TableCell from '@mui/material/TableCell'
 
 import type { CallPool } from 'domains/data/callPools'
+
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 

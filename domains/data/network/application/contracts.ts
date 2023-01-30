@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { Provider } from 'lib/protocol/provider/common-static-json-rpc-provider'
 
+import type { Provider } from 'lib/protocol/provider/common-static-json-rpc-provider'
 import { ERC20Service } from 'lib/protocol/typechain/erc20'
 import { ERC721Service } from 'lib/protocol/typechain/erc721-contract'
 import { CallPoolService } from 'lib/protocol/typechain/nftcall'

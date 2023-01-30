@@ -1,11 +1,11 @@
 import { v2 } from '@google-cloud/translate'
-import { isEqual, set, get, merge, cloneDeep } from 'lodash'
-import path from 'path'
 import fs from 'fs'
+import { cloneDeep, get, isEqual, merge, set } from 'lodash'
+import path from 'path'
 
 import { LOCALES_SOURCE_PATH, LOCALES_TARGET_PATH } from '../../config'
-import { createLocale, outputLanguages, outputLocales } from '../../fs'
 import { languages } from '../../config/languages'
+import { createLocale, outputLanguages, outputLocales } from '../../fs'
 
 process.env['GOOGLE_APPLICATION_CREDENTIALS'] = path.resolve(
   process.cwd(),

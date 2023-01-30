@@ -1,11 +1,12 @@
 import * as React from 'react'
+
 import Box from '@mui/material/Box'
-import Fade from '@mui/material/Fade'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
-import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
+import Fade from '@mui/material/Fade'
 import LinearProgress from '@mui/material/LinearProgress'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 
 export default function DelayingAppearance() {
   const [loading, setLoading] = React.useState(false)

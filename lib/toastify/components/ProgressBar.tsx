@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
 import LinearProgress from '@mui/material/LinearProgress'
 
-import { TYPE } from './../utils'
 import type { TypeOptions } from '../types'
+import { TYPE } from './../utils'
 
 export interface ProgressBarProps {
   /**

@@ -1,7 +1,9 @@
 import type { Table } from 'dexie'
 import Dexie from 'dexie'
+
 import type { CallPool } from 'domains/data/callPools'
 import type { AllCallPools } from 'domains/data/callPools/application/allCallPoolsData'
+
 import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
 
 type BaseType = {

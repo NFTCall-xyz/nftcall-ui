@@ -1,11 +1,12 @@
-import Paper from '@mui/material/Paper'
-import InputBase from '@mui/material/InputBase'
+import { Fragment } from 'react'
+
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
+import InputBase from '@mui/material/InputBase'
+import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
-import { Fragment } from 'react'
 
 export function NumberInput({ value, onChange, disabled, onBlur, error, helperText, onMax, name }: any) {
   const theme = useTheme()

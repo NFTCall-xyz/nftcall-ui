@@ -2,11 +2,12 @@ import type { FC } from 'react'
 import { useMemo } from 'react'
 
 import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import type { TableColumnsProps } from 'components/table/BasicTable/types'
-import { headerRenderer, cellRenderer } from 'components/table/renderer'
+import CardHeader from '@mui/material/CardHeader'
+
 import BasicTable from 'components/table/BasicTable'
+import type { TableColumnsProps } from 'components/table/BasicTable/types'
+import { cellRenderer, headerRenderer } from 'components/table/renderer'
 
 type DevCardProps = {
   title: string

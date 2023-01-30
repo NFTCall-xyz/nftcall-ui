@@ -1,14 +1,16 @@
+import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import { useTheme } from '@mui/material/styles'
-import { useTranslation } from 'next-i18next'
+
 import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
+import { useTheme } from '@mui/material/styles'
+
+import { H1, Paragraph } from 'components/Typography'
 import type { TabsProps } from 'components/tabs'
 import Tabs from 'components/tabs'
 
 import Positions from './Positions'
-import { H1, Paragraph } from 'components/Typography'
-import Stack from '@mui/material/Stack'
 
 const CallPoolDetails: FC = () => {
   const { t } = useTranslation('app-positions')

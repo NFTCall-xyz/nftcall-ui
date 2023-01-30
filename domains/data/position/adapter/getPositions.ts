@@ -1,6 +1,8 @@
-import { getNumber, getAddresses, getWeiToValueBN } from 'app/utils/get'
+import { getAddresses, getNumber, getWeiToValueBN } from 'app/utils/get'
+
 import { toBN } from 'lib/math'
-import type { PositionBaseData, Position } from '../types'
+
+import type { Position, PositionBaseData } from '../types'
 import { PositionStatus } from '../types'
 
 export const getPositions = (positions: PositionBaseData[]) => {

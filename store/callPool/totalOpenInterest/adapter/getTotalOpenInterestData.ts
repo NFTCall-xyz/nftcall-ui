@@ -1,4 +1,5 @@
 import { toBN } from 'lib/math'
+
 import type { TotalOpenInterestBaseData } from './getTotalOpenInterestBaseData'
 
 export type TotalOpenInterestData = {

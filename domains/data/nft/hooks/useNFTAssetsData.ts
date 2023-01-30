@@ -1,6 +1,7 @@
+import { useMemo } from 'react'
+
 import { useNFT } from 'domains/data'
 import type { BaseNFT } from 'domains/data/nft/types'
-import { useMemo } from 'react'
 
 type UseNFTAssetsDataProps = BaseNFT
 export const useNFTAssetsData = (props: UseNFTAssetsDataProps) => {

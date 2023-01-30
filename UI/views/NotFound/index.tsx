@@ -1,9 +1,12 @@
-import { useTheme } from '@mui/material'
-import FlexBox from 'components/flexbox/FlexBox'
-import { H1, Paragraph } from 'components/Typography'
-import type { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { FC } from 'react'
+
+import { useTheme } from '@mui/material'
+
+import { H1, Paragraph } from 'components/Typography'
+import FlexBox from 'components/flexbox/FlexBox'
+
 import ErrorPageImage from './images/error-page.svg'
 
 const ErrorPage: FC = () => {

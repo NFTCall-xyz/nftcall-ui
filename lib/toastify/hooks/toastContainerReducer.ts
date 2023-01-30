@@ -1,5 +1,4 @@
 import type { Id } from '../types'
-
 import { isToastIdValid } from '../utils'
 
 export const enum ActionType {

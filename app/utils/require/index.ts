@@ -1,5 +1,5 @@
-import { transpileModule } from 'typescript'
 import fs from 'fs'
+import { transpileModule } from 'typescript'
 
 export const requireTsSource = (source: string) => {
   return eval(

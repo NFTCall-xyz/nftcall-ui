@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 
-import Header from './Header'
 import Footer from './Footer'
+import Header from './Header'
 import Main from './Main'
 
 const Layout: FCC = ({ children }) => {

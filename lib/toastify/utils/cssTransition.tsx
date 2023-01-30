@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useLayoutEffect, useRef } from 'react'
-import type { ToastTransitionProps } from '../types'
 
+import type { ToastTransitionProps } from '../types'
 import { collapseToast } from './collapseToast'
 import { Default } from './constant'
 

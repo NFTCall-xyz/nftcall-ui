@@ -1,9 +1,10 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Slider from '@mui/material/Slider'
+
 import VolumeDown from '@mui/icons-material/VolumeDown'
 import VolumeUp from '@mui/icons-material/VolumeUp'
+import Box from '@mui/material/Box'
+import Slider from '@mui/material/Slider'
+import Stack from '@mui/material/Stack'
 
 export default function ContinuousSlider() {
   const [value, setValue] = React.useState<number>(30)

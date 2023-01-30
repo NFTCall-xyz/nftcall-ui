@@ -1,10 +1,11 @@
-import path from 'path'
 import fs from 'fs'
 import { readFile } from 'fs/promises'
-import { requireTsSource } from 'app/utils/require'
-import { ensureFolderExistence, writeFile } from 'app/utils/fs'
+import path from 'path'
 
-import { GENERATED_PATH, LOCALES_SOURCE_PATH, LOCALES_TARGET_PATH, LOCALES_DEV_TARGET_PATH } from '../config'
+import { ensureFolderExistence, writeFile } from 'app/utils/fs'
+import { requireTsSource } from 'app/utils/require'
+
+import { GENERATED_PATH, LOCALES_DEV_TARGET_PATH, LOCALES_SOURCE_PATH, LOCALES_TARGET_PATH } from '../config'
 import { languages, locales } from '../config/languages'
 
 export const createLocale = (language: any, dev: boolean) => {

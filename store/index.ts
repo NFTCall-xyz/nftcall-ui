@@ -1,14 +1,15 @@
-import type { ThunkAction, Action } from '@reduxjs/toolkit'
+import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { configureStore } from '@reduxjs/toolkit'
 import type { TypedUseSelectorHook } from 'react-redux'
 import { useDispatch, useSelector } from 'react-redux'
 
 import theme from 'app/theme/store'
+
 import nprogress from 'lib/nprogress/store/nprogress'
 
 import callPool from './callPool'
-import oracle from './oracle'
 import nft from './nft'
+import oracle from './oracle'
 import user from './user'
 
 export function makeStore() {

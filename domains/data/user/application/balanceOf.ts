@@ -1,6 +1,8 @@
 import { useControllers, useWallet } from 'domains'
-import { useNetwork } from 'domains/data'
 import { useCallback, useMemo } from 'react'
+
+import { useNetwork } from 'domains/data'
+
 import { useUserStateData } from 'store/user/useUserStateData'
 
 export const useBalanceOf = () => {

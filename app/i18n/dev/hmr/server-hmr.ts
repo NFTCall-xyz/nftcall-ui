@@ -1,5 +1,7 @@
 import { merge } from 'lodash'
+
 import { createLocale } from '../fs'
+
 const { extractLangAndNS, printList } = require('i18next-hmr/lib/utils')
 const pluginName = `\x1b[35m\x1b[1m${'I18NextHMR'}\x1b[0m\x1b[39m`
 

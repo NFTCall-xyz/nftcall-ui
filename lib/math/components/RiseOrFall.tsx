@@ -1,11 +1,13 @@
 import { useMemo } from 'react'
-import type { FCC } from 'app/types'
-import { useTheme } from '@mui/material/styles'
+
+import ArrowDownward from '@mui/icons-material/ArrowDownward'
+import ArrowUpward from '@mui/icons-material/ArrowUpward'
 import type { TypographyTypeMap } from '@mui/material'
 import { Stack } from '@mui/material'
-import ArrowUpward from '@mui/icons-material/ArrowUpward'
-import ArrowDownward from '@mui/icons-material/ArrowDownward'
 import { Typography } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+
+import type { FCC } from 'app/types'
 
 import { toBN } from 'lib/math'
 

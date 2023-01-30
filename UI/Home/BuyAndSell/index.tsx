@@ -1,13 +1,16 @@
-import React from 'react'
 import { useTranslation } from 'next-i18next'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
-import { H2, H3, Paragraph } from 'components/Typography'
-import ArrowForward from '@mui/icons-material/ArrowForward'
 import Image from 'next/image'
-import ImageSrc from '../images/buy-and-sell.png'
+import React from 'react'
+
+import ArrowForward from '@mui/icons-material/ArrowForward'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
+
+import { H2, H3, Paragraph } from 'components/Typography'
+
+import ImageSrc from '../images/buy-and-sell.png'
 
 const BgGradient1 = styled(Box)`
   position: absolute;

@@ -1,16 +1,18 @@
+import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import { useMemo } from 'react'
 import { Fragment } from 'react'
-import { useTranslation } from 'next-i18next'
+
+import Button from '@mui/material/Button'
+import TablePagination from '@mui/material/TablePagination'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import TablePagination from '@mui/material/TablePagination'
-import FlexRowAlign from 'components/flexbox/FlexRowAlign'
-import Button from '@mui/material/Button'
-import { H6, Paragraph } from 'components/Typography'
 
-import PCTable from './PCTable'
+import { H6, Paragraph } from 'components/Typography'
+import FlexRowAlign from 'components/flexbox/FlexRowAlign'
+
 import MobileTable from './MobileTable'
+import PCTable from './PCTable'
 import type { BasicTableProps } from './types'
 
 const BasicTable: FC<BasicTableProps> = (props) => {

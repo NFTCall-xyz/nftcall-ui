@@ -1,15 +1,17 @@
-import Stack from '@mui/material/Stack'
-import { H1, Paragraph } from 'components/Typography'
 import { useTranslation } from 'next-i18next'
-import type { TabsProps } from 'components/tabs'
 import { useMemo } from 'react'
+
+import Stack from '@mui/material/Stack'
+
+import { H1, Paragraph } from 'components/Typography'
+import type { TabsProps } from 'components/tabs'
 import Tabs from 'components/tabs'
 
+import DepositedNFTs from './DepositedNFTs'
+import Positions from './Positions'
+import Sold from './Sold'
 import Stats from './Stats'
 import WalletNFTs from './WalletNFTs'
-import DepositedNFTs from './DepositedNFTs'
-import Sold from './Sold'
-import Positions from './Positions'
 
 const Sell: FC = () => {
   const { t } = useTranslation('app-sell')

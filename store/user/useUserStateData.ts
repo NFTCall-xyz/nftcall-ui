@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useAppSelector } from 'store'
+
 import { balanceOfSelect } from './balanceOf'
 import { getBalanceOfData } from './balanceOf/adapter/getBalanceOfData'
 

@@ -1,4 +1,4 @@
-import type { ColumnProps, TableProps, TableHeaderProps } from 'react-virtualized'
+import type { ColumnProps, TableHeaderProps, TableProps } from 'react-virtualized'
 
 export interface BasicTableProps<D = any> {
   loading: boolean

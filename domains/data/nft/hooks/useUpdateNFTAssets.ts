@@ -1,6 +1,9 @@
+import { useEffect, useMemo } from 'react'
+
 import { useNFT } from 'domains/data'
-import { useMemo, useEffect } from 'react'
+
 import { getWalletDataByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
+
 import type { BaseNFT } from '../types'
 
 type UseUpdateNFTAssetsProps = BaseNFT[]

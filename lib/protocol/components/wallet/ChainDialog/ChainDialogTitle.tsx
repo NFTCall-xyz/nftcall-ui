@@ -1,12 +1,12 @@
+import { useWallet } from 'domains'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { styled } from '@mui/material/styles'
-import DialogTitle from '@mui/material/DialogTitle'
+
 import { Typography } from '@mui/material'
+import DialogTitle from '@mui/material/DialogTitle'
+import { styled } from '@mui/material/styles'
 
 import { H3, H5 } from 'components/Typography'
-
-import { useWallet } from 'domains'
 
 const ROOT = styled('div')`
   ${({ theme }) => ({

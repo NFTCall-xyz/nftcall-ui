@@ -1,7 +1,10 @@
-import Stack from '@mui/material/Stack'
-import { H1, Paragraph } from 'components/Typography'
-import { useUserStats } from 'domains/data/callPools/hooks/useUserStats'
 import { useTranslation } from 'next-i18next'
+
+import Stack from '@mui/material/Stack'
+
+import { H1, Paragraph } from 'components/Typography'
+
+import { useUserStats } from 'domains/data/callPools/hooks/useUserStats'
 
 import Claims from './Claims'
 

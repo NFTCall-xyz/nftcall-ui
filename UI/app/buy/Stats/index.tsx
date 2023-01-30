@@ -1,10 +1,13 @@
-import { Grid, Stack } from '@mui/material'
 import type { FC } from 'react'
 
-import StatsCard from './StatsCard'
+import { Grid, Stack } from '@mui/material'
+
+import { useAppBuy } from 'domains/pages/app'
+
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
-import { useAppBuy } from 'domains/pages/app'
+
+import StatsCard from './StatsCard'
 
 const Stats: FC = () => {
   const { stats } = useAppBuy()

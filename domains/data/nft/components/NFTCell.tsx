@@ -1,10 +1,13 @@
-import type { SxProps, Theme } from '@mui/material/styles'
-import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
-import type { BaseNFT } from '../types'
 import Stack from '@mui/material/Stack'
-import NFTIcon from './NFTIcon'
+import type { SxProps, Theme } from '@mui/material/styles'
+
 import { Paragraph, Span } from 'components/Typography'
+
+import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
+
 import { useNFTAssetsData } from '../hooks/useNFTAssetsData'
+import type { BaseNFT } from '../types'
+import NFTIcon from './NFTIcon'
 
 export type NFTCellProps = {
   nftAssetsData?: AssetsData

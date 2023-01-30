@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+
 import Stack from '@mui/material/Stack'
 
 import { I18n } from './I18n'

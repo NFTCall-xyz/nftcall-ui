@@ -1,10 +1,10 @@
-import type { FC } from 'react'
-import { useRouter } from 'next/router'
-import { useTheme } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
 
-import Button from '@mui/material/Button'
 import ArrowBack from '@mui/icons-material/ArrowBack'
+import Button from '@mui/material/Button'
+import { useTheme } from '@mui/material/styles'
 
 const BackButton: FC = () => {
   const router = useRouter()

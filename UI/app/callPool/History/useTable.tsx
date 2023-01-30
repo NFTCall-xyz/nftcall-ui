@@ -1,18 +1,20 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  headerRenderer,
-  dateCellRenderer,
-  tokenIconCellRenderer,
-  linkToAddressCellRenderer,
-} from 'components/table/renderer'
-import type { TableColumnsProps, BasicTableProps } from 'components/table/BasicTable/types'
-import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
 
+import type { BasicTableProps, TableColumnsProps } from 'components/table/BasicTable/types'
+import {
+  dateCellRenderer,
+  headerRenderer,
+  linkToAddressCellRenderer,
+  tokenIconCellRenderer,
+} from 'components/table/renderer'
+
+import { useCallPoolDetails, useNetwork } from 'domains/data'
 import { request } from 'domains/data/position/adapter'
+
 import { NFTCellRenderer, statusCellRenderer } from './renderer'
 
 const pageSize = 5

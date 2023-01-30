@@ -1,10 +1,12 @@
 import Image from 'next/image'
-import { styled } from '@mui/material/styles'
+import { useRouter } from 'next/router'
+
 import MaterialLink from '@mui/material/Link'
+import { styled } from '@mui/material/styles'
 
 import LogoImg from './images/logo.svg'
 import type { LogoProps } from './types'
-import { useRouter } from 'next/router'
+
 const ROOT = styled(MaterialLink)`
   display: flex;
   align-items: center;

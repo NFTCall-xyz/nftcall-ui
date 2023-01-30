@@ -1,10 +1,13 @@
-import Stack from '@mui/material/Stack'
-import { H1, Paragraph } from 'components/Typography'
 import { useTranslation } from 'next-i18next'
 
-import Stats from './Stats'
-import CallPools from './CallPools'
+import Stack from '@mui/material/Stack'
+
+import { H1, Paragraph } from 'components/Typography'
+
 import { useAppBuy } from 'domains/pages/app'
+
+import CallPools from './CallPools'
+import Stats from './Stats'
 
 const Buy: FC = () => {
   const { usePageEffect } = useAppBuy()

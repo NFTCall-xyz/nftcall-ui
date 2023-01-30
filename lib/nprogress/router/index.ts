@@ -1,6 +1,7 @@
+import { useControllers } from 'domains'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { useControllers } from 'domains'
+
 import { safeGet } from 'app/utils/get'
 
 export const useRouteChange = () => {

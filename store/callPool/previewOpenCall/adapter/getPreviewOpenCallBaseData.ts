@@ -1,5 +1,6 @@
 import type { NFTOracleData } from 'store/oracle/nftOracle/adapter/getNFTOracleData'
-import { getPremium, curveIdxs } from './premium'
+
+import { curveIdxs, getPremium } from './premium'
 
 export type GetPreviewOpenCallBaseDataProps = {
   callPool: string

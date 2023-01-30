@@ -1,9 +1,11 @@
+import { merge } from 'lodash'
+
 import type { PaletteMode } from '@mui/material'
 import type { ThemeOptions } from '@mui/material/styles'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
-import { merge } from 'lodash'
-import * as DefaultThemeOptions from './default'
+
 import components from './components'
+import * as DefaultThemeOptions from './default'
 
 export const themes = {
   default: DefaultThemeOptions,

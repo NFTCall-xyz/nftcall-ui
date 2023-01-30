@@ -1,6 +1,8 @@
-import type { ChainId } from 'lib/protocol/chain/types'
 import axios from 'axios'
 import { utils } from 'ethers'
+
+import type { ChainId } from 'lib/protocol/chain/types'
+
 import { getWalletBaseData } from './getWalletBaseData'
 
 export type WalletProps = {

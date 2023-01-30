@@ -1,5 +1,5 @@
-import type { NetworkConfig } from './types'
 import { ChainId } from '../chain/types'
+import type { NetworkConfig } from './types'
 
 export const infuraId = 'dea011a2bebb451ba3602b02994145c1'
 

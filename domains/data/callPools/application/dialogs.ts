@@ -1,6 +1,8 @@
-import { useDialog } from 'app/hooks/useDialog'
-import type { NFT } from 'domains/data/nft/types'
 import { useCallback, useState } from 'react'
+
+import { useDialog } from 'app/hooks/useDialog'
+
+import type { NFT } from 'domains/data/nft/types'
 
 const useNFTDialog = () => {
   const [nft, setNFT] = useState<NFT>()

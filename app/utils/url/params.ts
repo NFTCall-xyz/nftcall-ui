@@ -1,4 +1,5 @@
 import { isEmpty } from 'lodash'
+
 export const parseParams = (uri: string, params: Record<string, any>) => {
   if (isEmpty(params)) return uri
   const paramsArray: string[] = []

@@ -1,8 +1,9 @@
 import clsx from 'clsx'
-import { styled } from '@mui/material/styles'
+
+import CloseIcon from '@mui/icons-material/Close'
 import type { IconButtonProps } from '@mui/material/IconButton'
 import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
+import { styled } from '@mui/material/styles'
 
 export const CloseIconButton: FCC<IconButtonProps> = (props) => {
   return (

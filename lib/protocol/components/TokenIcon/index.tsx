@@ -1,6 +1,7 @@
 import Avatar from '@mui/material/Avatar'
 import type { SxProps, Theme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
+
 import { getAssetInfo } from './assets-list'
 
 export interface TokenIconProps {

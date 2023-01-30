@@ -1,5 +1,6 @@
-import type { WriteFileType } from './types'
 import prettier from 'prettier'
+
+import type { WriteFileType } from './types'
 
 const jsonFileSourceFormat = (source: any) => JSON.stringify(source, null, 2)
 const tsFileSourceFormat = (source: string) => prettier.format(source, { parser: 'typescript' })

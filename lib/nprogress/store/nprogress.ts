@@ -1,4 +1,5 @@
 import { createProgressSlice } from './helpers'
+
 const key = 'nprogress'
 
 export const {

@@ -1,4 +1,5 @@
 import { safeGet } from 'app/utils/get'
+
 import { NumberInput } from 'lib/math/components/NumberInput'
 
 type FormNumberFieldFieldProps = {

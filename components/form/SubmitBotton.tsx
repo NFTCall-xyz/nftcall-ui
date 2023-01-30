@@ -1,7 +1,7 @@
+import { useMemo } from 'react'
+
 import type { ButtonProps } from '@mui/material/Button'
 import Button from '@mui/material/Button'
-
-import { useMemo } from 'react'
 
 const SubmitBotton: FCC<ButtonProps & { isSubmitting: boolean }> = ({ children, isSubmitting, ...btnProps }) => {
   const text = useMemo(() => (isSubmitting ? 'Submitting' : children), [isSubmitting, children])

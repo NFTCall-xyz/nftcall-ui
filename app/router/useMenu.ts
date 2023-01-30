@@ -1,6 +1,6 @@
-import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useCallback, useMemo } from 'react'
 
 const MenuList = [
   {

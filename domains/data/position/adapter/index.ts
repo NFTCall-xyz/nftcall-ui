@@ -1,6 +1,8 @@
 import { getCurrentTimestamp } from 'app/constant'
+
 import type { PositionBaseData } from 'domains/data/position/types'
 import type { Position } from 'domains/data/position/types'
+
 import { getPositions } from './getPositions'
 
 type Props = {
