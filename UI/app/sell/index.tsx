@@ -7,6 +7,8 @@ import { H1, Paragraph } from 'components/Typography'
 import type { TabsProps } from 'components/tabs'
 import Tabs from 'components/tabs'
 
+import { useAppSell } from 'domains/pages/app'
+
 import DepositedNFTs from './DepositedNFTs'
 import Positions from './Positions'
 import Sold from './Sold'
@@ -14,6 +16,9 @@ import Stats from './Stats'
 import WalletNFTs from './WalletNFTs'
 
 const Sell: FC = () => {
+  const { usePageEffect } = useAppSell()
+  usePageEffect()
+
   const { t } = useTranslation('app-sell')
 
   const tabs = useMemo(() => {

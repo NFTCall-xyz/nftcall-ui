@@ -4,8 +4,7 @@ import type { FC } from 'react'
 
 import { Button, Grid, Stack } from '@mui/material'
 
-import { useCallPools } from 'domains/data'
-import { useUserStats } from 'domains/data/callPools/hooks/useUserStats'
+import { useAppSell } from 'domains/pages/app'
 
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
@@ -13,8 +12,7 @@ import TokenIcon from 'lib/protocol/components/TokenIcon'
 import StatsCard from './StatsCard'
 
 const Stats: FC = () => {
-  useUserStats()
-  const { allCallPool } = useCallPools()
+  const { stats } = useAppSell()
   const router = useRouter()
   const { t } = useTranslation('app-sell')
 
@@ -24,7 +22,7 @@ const Stats: FC = () => {
         <Stack spacing={2} direction="row" justifyContent="space-between">
           <Stack spacing={0.5} direction="row" alignItems="center">
             <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-            <NumberDisplay value={allCallPool.balanceOf} abbreviate={{}} />
+            <NumberDisplay value={stats.balanceOf} abbreviate={{}} />
           </Stack>
           <Button
             onClick={() => {
@@ -43,7 +41,7 @@ const Stats: FC = () => {
       price: (
         <Stack spacing={0.5} direction="row" alignItems="center">
           <TokenIcon symbol={'ETH'} sx={{ width: 24, height: 24 }} />
-          <NumberDisplay value={allCallPool.userStats.accumulativeEarnings} abbreviate={{}} />
+          <NumberDisplay value={stats.accumulativeEarnings} abbreviate={{}} />
         </Stack>
       ),
       title: 'accruedEarnings',
