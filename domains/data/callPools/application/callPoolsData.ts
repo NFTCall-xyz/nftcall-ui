@@ -31,7 +31,9 @@ const useCallPoolsSouceData = () => {
       const { id, address } = market
       const nftOracle = oracle.nftOracle.find((i) => i.nft === address.NFT) || ({} as undefined)
       const collection = collections[id]
-      address.CallPool = address.CallPoolForTest
+      if (process.env.NEXT_PUBLIC_ENV === 'stage') {
+        address.CallPool = address.CallPoolForTest
+      }
 
       const { value: balanceOf } =
         storeData.balanceOf.find((i) => i.callPool === address.CallPool) || ({ value: toBN(0) } as undefined)

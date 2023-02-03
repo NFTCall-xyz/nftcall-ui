@@ -4,14 +4,17 @@
   "Premium": "0x65ea3d95588a9f320f36f083d782546330823d89",
   "NTokenFactory": "0xa91fb0b7fd0fe16404910874e4168a1b3c98df50",
   "CallTokenFactory": "0x3857fa67d7fdccabfe910dd70c3d53317bbb98e6",
-  "CallFactoryForTest": "0x9b6b2fbd890cc028c04681b0946c35ba36e591a7",
+  "CallFactory": "0xc765762790fbb71c9228ffc595e53d95a24f3143",
+  "CallFactoryForTest": "0xefa7ba4a6efe4afcb9c4010ce3e51d6d0d04aa0c",
   "markets": {
     "BAYC": {
       "NFT": "0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978",
+      "CallPool": "0x28137E26A596BA68942426BA09dfAe292DA7304B",
       "CallPoolForTest": "0xb44c94f3A2AA87E48554ba99c5aE6A839139F664"
     },
     "MAYC": {
       "NFT": "0x88898d1596204a25C93CE4832D3fB98A99058Fe8",
+      "CallPool": "0x880071Fd6c8bD925E3C0E86B7Eb1D74581F2692B",
       "CallPoolForTest": "0x7b4057c09b7ceB5861b2Ee993E8B9e193b98612c"
     }
   }
