@@ -6,42 +6,10 @@ import ArrowForward from '@mui/icons-material/ArrowForward'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
 
 import { H1, H3, Span } from 'components/Typography'
 
 import ImageSrc from '../images/hero-pic.png'
-
-const BgGradient1 = styled(Box)`
-  position: absolute;
-  width: 35%;
-  height: 35%;
-  top: 5rem;
-  left: 15rem;
-  background: linear-gradient(90deg, #f4c4f3 0%, #fc67fa 100%);
-  filter: blur(900px);
-`
-
-const BgGradient2 = styled(Box)`
-  position: absolute;
-  width: 60%;
-  height: 80%;
-  left: 10rem;
-  bottom: 5rem;
-  background: rgba(255, 255, 255, 0.2);
-  filter: blur(750px);
-  border-radius: 9999px;
-`
-
-const BgGradient3 = styled(Box)`
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  right: 5rem;
-  bottom: 5rem;
-  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #214d76 100%);
-  filter: blur(123px);
-`
 
 const Hero: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'hero' })
@@ -82,9 +50,6 @@ const Hero: FC = () => {
               objectFit: 'contain',
             }}
           />
-          <BgGradient1 />
-          <BgGradient2 />
-          <BgGradient3 />
         </Box>
       </Stack>
       {/* <Stats /> */}

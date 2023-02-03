@@ -3,10 +3,8 @@ import Image from 'next/image'
 import React from 'react'
 
 import Avatar from '@mui/material/Avatar'
-import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material/styles'
-import { styled } from '@mui/material/styles'
 
 import { H2, Paragraph, Span } from 'components/Typography'
 
@@ -14,17 +12,6 @@ import AliceSrc from '../images/Alice.png'
 import BobSrc from '../images/Bob.png'
 import CharlieSrc from '../images/Charlie.png'
 import ImageSrc from '../images/quotes.svg'
-
-const BgGradient = styled(Box)`
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  right: -50%;
-  bottom: 10rem;
-  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #214d76 100%);
-  filter: blur(123px);
-  border-radius: 9999px;
-`
 
 type UseCaseProps = {
   title: string
@@ -92,7 +79,6 @@ const How: FC = () => {
           />
         ))}
       </Stack>
-      <BgGradient />
     </Stack>
   )
 }
