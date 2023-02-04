@@ -16,7 +16,7 @@ if (process.env.NEXT_PUBLIC_ENV === 'stage') {
 const useNetworkService = () => {
   const address = useAddress()
   const markets = useMemo(() => getMarkets(address), [address])
-  const provider = useProvider()
+  const provider = useProvider(address)
   const contracts = useContracts(provider)
 
   return {
