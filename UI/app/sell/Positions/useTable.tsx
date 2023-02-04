@@ -1,9 +1,8 @@
 import { useWallet } from 'domains'
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { usePost } from 'app/hooks/request'
-import { useMount } from 'app/hooks/useMount'
 import { safeGet } from 'app/utils/get'
 
 import type { BasicTableProps, TableColumnsProps } from 'components/table/BasicTable/types'
@@ -96,32 +95,43 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   }, [data.length, noMoreSourceData, skip])
   const { subgraphName } = useNetwork()
 
+  const onFetch = useCallback(
+    (pageIndex: number) => {
+      return dataFetcher
+        .post({
+          skip: pageIndex * pageSize,
+          first: pageSize,
+          nftOwnerAddress: networkAccount,
+          subgraphName,
+          isActive,
+        })
+        .then((rowData) => {
+          if (rowData.length < pageSize) setNoMoreSourceData(true)
+          setSourceData((data) => data.concat(rowData))
+        })
+    },
+    [dataFetcher, isActive, networkAccount, subgraphName]
+  )
+
   const loadMore = useMemo(() => {
     return {
       end,
       disabled: dataFetcher.loading,
       onLoadMore: () => {
-        setPageIndex(pageIndex + 1)
         if (noMoreSourceData) return Promise.resolve()
-        return dataFetcher
-          .post({
-            skip,
-            first: pageSize,
-            nftOwnerAddress: networkAccount,
-            subgraphName,
-            isActive,
-          })
-          .then((rowData) => {
-            if (rowData.length < pageSize) setNoMoreSourceData(true)
-            setSourceData((data) => data.concat(rowData))
-          })
+        setPageIndex(pageIndex + 1)
+        return onFetch(pageIndex)
       },
     }
-  }, [dataFetcher, end, isActive, networkAccount, noMoreSourceData, pageIndex, skip, subgraphName])
+  }, [dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex])
 
-  useMount(() => {
-    loadMore.onLoadMore()
-  })
+  useEffect(() => {
+    if (!networkAccount) return
+    setSourceData([])
+    setPageIndex(1)
+    onFetch(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [networkAccount])
 
   return {
     loading: dataFetcher.loading,
