@@ -79,7 +79,7 @@ const PositionNotExercisableDate: FC<PositionDateProps> = ({ position: { exercis
         <Tooltip title={t('exercisableDate')} placement="top">
           <Box>
             <Paragraph fontSize={14} color="text.secondary">
-              {format(exerciseTime, 'MMM dd hh:mm')}
+              {format(exerciseTime, 'MMM dd HH:mm')}
             </Paragraph>
           </Box>
         </Tooltip>
@@ -97,7 +97,7 @@ const PositionExercisedDate: FC<PositionDateProps> = ({ position: { updateTimest
         <Tooltip title={t('exercisedDate')}>
           <Box>
             <Paragraph fontSize={14} color="text.secondary">
-              {format(updateTimestamp, 'MMM dd hh:mm')}
+              {format(updateTimestamp, 'MMM dd HH:mm')}
             </Paragraph>
           </Box>
         </Tooltip>
@@ -113,14 +113,14 @@ const PositionExpiredDate: FC<PositionDateProps> = ({ position: { endTime, creat
         <Tooltip title={t('createdDate')}>
           <Box>
             <Paragraph fontSize={14} color="text.secondary">
-              {format(createTimestamp, 'MMM dd hh:mm')}
+              {format(createTimestamp, 'MMM dd HH:mm')}
             </Paragraph>
           </Box>
         </Tooltip>
         <Tooltip title={t('expiryDate')}>
           <Box>
             <Paragraph fontSize={14} color="text.secondary">
-              {format(endTime, 'MMM dd hh:mm')}
+              {format(endTime, 'MMM dd HH:mm')}
             </Paragraph>
           </Box>
         </Tooltip>

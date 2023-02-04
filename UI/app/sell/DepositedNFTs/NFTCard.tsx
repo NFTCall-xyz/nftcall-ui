@@ -144,7 +144,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
           <FlexBetween width={1}>
             <Stack spacing={0.3}>
               <Tiny>{t('nftcard.expiryDate')}</Tiny>
-              <Tiny color="text.primary">{format(endTime, 'MMM dd hh:mm')}</Tiny>
+              <Tiny color="text.primary">{format(endTime, 'MMM dd HH:mm')}</Tiny>
             </Stack>
             <IconButton aria-label="settings" onClick={openNFTSetting}>
               <SettingsIcon />

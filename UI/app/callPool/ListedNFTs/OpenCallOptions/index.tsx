@@ -213,7 +213,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
           <Stack spacing={1}>
             <FlexBetween>
               <Span fontWeight="bold">{t('openPanel.expiryDate')}</Span>
-              <Span>{safeGet(() => format(expriyTime, 'MMM dd hh:mm'))}</Span>
+              <Span>{safeGet(() => format(expriyTime, 'MMM dd HH:mm'))}</Span>
             </FlexBetween>
             <Select
               value={durationIdx}

@@ -75,7 +75,7 @@ export const dateCellRenderer: TableCellRenderer = ({ cellData }) => {
   return (
     <TableCell align="center" component="div">
       <Paragraph fontSize={14} color="text.secondary">
-        {format(cellData, 'MMM dd hh:mm')}
+        {format(cellData, 'MMM dd HH:mm')}
       </Paragraph>
     </TableCell>
   )
