@@ -43,11 +43,11 @@ export const statusCellRenderer = ({ rowData: { status } }: TableCellProps) => {
   )
 }
 
-export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent } }: TableCellProps) => {
-  if (PnL.isZero()) {
+export const pnlCellRenderer = ({ rowData: { PnL, PnLInPercent, status } }: TableCellProps) => {
+  if (PnL.isZero() || status === PositionStatusType.Exercised) {
     return (
       <TableCell align="center" component="div" sx={{ '& span': { fontSize: 14 } }}>
-        <NumberDisplay value={PnL} options="number" numberFormatOptions={{ signDisplay: 'always' }} />
+        <NumberDisplay value={0} options="number" numberFormatOptions={{ signDisplay: 'always' }} />
       </TableCell>
     )
   }
