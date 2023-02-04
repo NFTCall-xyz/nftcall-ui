@@ -1,5 +1,4 @@
 import { useWallet } from 'domains'
-import { merge } from 'lodash'
 import { useMemo } from 'react'
 
 import { log } from 'app/utils/dev'
@@ -88,7 +87,10 @@ export const useCallPoolsData = () => {
     const returnValue = callPoolsSouceData.map((callPool) => {
       const callPoolAddress = callPool.address.CallPool
       const cacheData = callPoolsCacheData.find((i) => i.callPoolAddress === callPoolAddress)
-      return merge(callPool, cacheData)
+      return {
+        ...callPool,
+        ...cacheData,
+      }
     })
     log('[CallPools]', returnValue)
     return returnValue
