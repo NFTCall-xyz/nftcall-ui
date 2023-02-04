@@ -132,16 +132,15 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
 
     returnValue.premiumToReserve = premiumTotal.multipliedBy(0.1)
     returnValue.premiumToOwner = premiumTotal.minus(returnValue.premiumToReserve)
-    if (returnValue.premiumToOwner.lt(0.001 * size)) {
-      setErrors(['Owner Premium is too small.'])
-    } else {
-      setErrors([])
-    }
+
     const minStrikePriceMap = MIN_STRIKE_PRICE_MAP.find((i) => i.value === strikePriceGapIdx)
     const maxExpriyTimeMap = MAX_EXPRIY_TIME_MAP.find((i) => i.value === durationIdx)
     if (!minStrikePriceMap || !maxExpriyTimeMap) return returnValue
     returnValue.strikePrice = price.multipliedBy(minStrikePriceMap.number)
-    if (limitOfStrikePriceSetting.min.multipliedBy(size).gt(returnValue.strikePrice)) {
+
+    if (returnValue.premiumToOwner.lt(0.001 * size)) {
+      setErrors(['Owner Premium is too small.'])
+    } else if (limitOfStrikePriceSetting.min.multipliedBy(size).gt(returnValue.strikePrice)) {
       setErrors([`#${limitOfStrikePriceSetting.tokenId} Strike Price is too small.`])
     } else {
       setErrors([])
