@@ -63,7 +63,7 @@ export const useAllCallPoolsData = (callPools: CallPool[]) => {
 
   const allCallPools = useMemo(() => {
     if (!allCallPoolsCacheData.length) return allCallPoolsSouceData
-    const returnValue = merge(allCallPoolsSouceData, allCallPoolsCacheData[0])
+    const returnValue = merge({}, allCallPoolsSouceData, allCallPoolsCacheData[0])
     log('[AllCallPoolsData]', returnValue)
     return returnValue
   }, [allCallPoolsCacheData, allCallPoolsSouceData])
@@ -71,12 +71,12 @@ export const useAllCallPoolsData = (callPools: CallPool[]) => {
   useCacheDataEffect(allCallPoolsSouceData, (data) => {
     const network = chainId
     if (!data.stats.totalDepositedNFTs) return
-    const items = {
+    const item = {
       ...data,
       network,
     }
-    delete items.userStats
-    return items
+    delete item.userStats
+    return item
   })
 
   return allCallPools
