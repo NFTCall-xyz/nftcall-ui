@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import balanceOfReducer from './balanceOf'
+import pausedReducer from './paused'
 import previewOpenCallReducer from './previewOpenCall'
 import statsReducer from './stats'
 import totalOpenInterestReducer from './totalOpenInterest'
@@ -12,5 +13,6 @@ const callPoolReducer = combineReducers({
   stats: statsReducer,
   userStats: userStatsReducer,
   totalOpenInterest: totalOpenInterestReducer,
+  paused: pausedReducer,
 })
 export default callPoolReducer

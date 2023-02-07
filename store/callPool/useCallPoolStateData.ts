@@ -3,6 +3,8 @@ import { useAppSelector } from 'store'
 
 import { balanceOfSelect } from './balanceOf'
 import { getBalanceOfData } from './balanceOf/adapter/getBalanceOfData'
+import { pausedSelect } from './paused'
+import { getPausedData } from './paused/adapter/getPausedData'
 import { previewOpenCallSelect } from './previewOpenCall'
 import { getPreviewOpenCallData } from './previewOpenCall/adapter/getPreviewOpenCallData'
 import { statsSelect } from './stats'
@@ -17,6 +19,7 @@ export const useCallPoolStateData = () => {
   const previewOpenCallBaseData = useAppSelector(previewOpenCallSelect.selectData)
   const statsBaseData = useAppSelector(statsSelect.selectData)
   const userStatsBaseData = useAppSelector(userStatsSelect.selectData)
+  const pausedBaseData = useAppSelector(pausedSelect.selectData)
   const totalOpenInterestBaseData = useAppSelector(totalOpenInterestSelect.selectData)
   const returnValue = useMemo(() => {
     return {
@@ -25,7 +28,15 @@ export const useCallPoolStateData = () => {
       stats: getStatsData(statsBaseData),
       userStats: getUserStatsData(userStatsBaseData),
       totalOpenInterest: getTotalOpenInterestData(totalOpenInterestBaseData),
+      paused: getPausedData(pausedBaseData),
     }
-  }, [balanceOfBaseData, previewOpenCallBaseData, statsBaseData, totalOpenInterestBaseData, userStatsBaseData])
+  }, [
+    balanceOfBaseData,
+    pausedBaseData,
+    previewOpenCallBaseData,
+    statsBaseData,
+    totalOpenInterestBaseData,
+    userStatsBaseData,
+  ])
   return returnValue
 }

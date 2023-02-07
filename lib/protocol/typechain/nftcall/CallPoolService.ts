@@ -18,6 +18,8 @@ export type BalanceOfProps = BaseCallPoolProps & {
   user: tEthereumAddress
 }
 
+export type PausedfProps = BaseCallPoolProps
+
 export type TotalOpenInterest = BaseCallPoolProps
 
 export type CheckAvailableProps = BaseCallPoolProps & {
@@ -104,6 +106,11 @@ export class CallPoolService extends BaseService<CallPool> {
   public balanceOf({ callPool, user }: BalanceOfProps) {
     const callPoolContract = this.getContractInstance(callPool)
     return callPoolContract.balanceOf(user)
+  }
+
+  public paused({ callPool }: PausedfProps) {
+    const callPoolContract = this.getContractInstance(callPool)
+    return callPoolContract.paused()
   }
 
   public totalOpenInterest({ callPool }: TotalOpenInterest) {
