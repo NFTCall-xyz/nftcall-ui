@@ -9,6 +9,7 @@
       }
     ],
     "no-extra-semi": "off",
+    "react-hooks/exhaustive-deps": "error",
     "react/no-unescaped-entities": "off",
     "@typescript-eslint/no-extra-semi": "off",
     "@typescript-eslint/consistent-type-imports": "error",

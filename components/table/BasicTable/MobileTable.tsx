@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 import type { FC } from 'react'
 import { useEffect } from 'react'
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -65,7 +66,7 @@ const CollapsibleHead: FC<CollapsibleHeadProps> = (props) => {
   )
 }
 const CollapsibleRow: FC<CollapsibleRowProps> = (props) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useImmer(false)
   const { columns, row, rowIndex, data } = props
 
   const columnsPrimary = columns.slice(0, columnsPrimaryNumber)
@@ -162,7 +163,7 @@ const DataFetcher: FC<{
   columns: any[]
   dataFetcher: (data: any) => Promise<any>
 }> = ({ data, rowIndex, dataFetcher, row, columns }) => {
-  const [rowData, setRowData] = useState(row)
+  const [rowData, setRowData] = useImmer(row)
   useEffect(() => {
     if (!dataFetcher) {
       setRowData(row)
@@ -170,7 +171,7 @@ const DataFetcher: FC<{
     } else {
       dataFetcher(row).then((data) => setRowData(data))
     }
-  }, [dataFetcher, row])
+  }, [dataFetcher, row, setRowData])
 
   return (
     <CollapsibleRow

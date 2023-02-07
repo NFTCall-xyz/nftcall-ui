@@ -1,23 +1,30 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
+import { useImmer } from 'use-immer'
 
 export const useIds = <T extends number | string = string>(defalutIds: Array<number | string> = []) => {
   const setRef = useRef(new Set(defalutIds))
-  const [size, setSize] = useState(0)
-  const add = useCallback((id: T) => {
-    const s = setRef.current
-    s.add(id)
-    setSize(s.size)
-  }, [])
-  const remove = useCallback((id: T) => {
-    const s = setRef.current
-    s.delete(id)
-    setSize(s.size)
-  }, [])
+  const [size, setSize] = useImmer(0)
+  const add = useCallback(
+    (id: T) => {
+      const s = setRef.current
+      s.add(id)
+      setSize(s.size)
+    },
+    [setSize]
+  )
+  const remove = useCallback(
+    (id: T) => {
+      const s = setRef.current
+      s.delete(id)
+      setSize(s.size)
+    },
+    [setSize]
+  )
   const clear = useCallback(() => {
     const s = setRef.current
     s.clear()
     setSize(0)
-  }, [])
+  }, [setSize])
   const has = useCallback((id: T) => {
     const s = setRef.current
     return s.has(id)

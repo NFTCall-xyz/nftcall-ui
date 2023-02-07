@@ -1,14 +1,18 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
+import { useImmer } from 'use-immer'
 
 import { createContext } from 'app/utils/createContext'
 
 const useSearchHeaderService = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useImmer('')
 
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-    const { value } = e.target
-    setValue(() => value)
-  }, [])
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      const { value } = e.target
+      setValue(() => value)
+    },
+    [setValue]
+  )
 
   return { value, setValue, onChange }
 }

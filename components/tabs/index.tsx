@@ -1,6 +1,5 @@
-import type { SyntheticEvent } from 'react'
 import { useMemo } from 'react'
-import { useState } from 'react'
+import { useImmer } from 'use-immer'
 
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import Grid from '@mui/material/Grid'
@@ -43,21 +42,23 @@ export type TabsProps = {
   sx?: any
 }
 const Tabs: FCC<TabsProps> = ({ tabs, Header, sx }) => {
-  const [value, setValue] = useState('0')
-  const handleChange = (event: SyntheticEvent, newValue: string) => {
-    setValue(newValue)
-  }
+  const [value, setValue] = useImmer('0')
   const tabList = useMemo(
     () => (
       <FlexBetween flexWrap="wrap">
-        <StyledTabList onChange={handleChange} sx={sx}>
+        <StyledTabList
+          onChange={(_event, newValue) => {
+            setValue(newValue)
+          }}
+          sx={sx}
+        >
           {tabs.map(({ title }, index) => {
             return <StyledTab key={title} label={title} value={index.toString()} />
           })}
         </StyledTabList>
       </FlexBetween>
     ),
-    [sx, tabs]
+    [setValue, sx, tabs]
   )
 
   return (

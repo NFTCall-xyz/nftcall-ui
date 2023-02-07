@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { useImmer } from 'use-immer'
 
 import LinearProgress from '@mui/material/LinearProgress'
 
@@ -56,7 +57,7 @@ export const ProgressBar = ({
   progress: defaultProgress,
   isIn,
 }: ProgressBarProps) => {
-  const [progress, setProgress] = useState(100)
+  const [progress, setProgress] = useImmer(100)
   const count = useRef(0)
   useEffect(() => {
     if (!isIn) return
@@ -84,7 +85,7 @@ export const ProgressBar = ({
     return () => {
       clearTimeout(timer)
     }
-  }, [closeToast, controlledProgress, delay, isIn, isRunning])
+  }, [closeToast, controlledProgress, delay, isIn, isRunning, setProgress])
 
   return (
     <LinearProgress

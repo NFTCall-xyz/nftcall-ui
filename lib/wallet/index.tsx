@@ -3,7 +3,8 @@ import type { Web3ReactContextInterface } from '@web3-react/core/dist/types'
 import * as PropTypes from 'prop-types'
 import type { ReactNode } from 'react'
 import * as React from 'react'
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
+import { useImmer } from 'use-immer'
 
 import { defaultMarket } from 'lib/protocol/market'
 import { getNetwork } from 'lib/protocol/network'
@@ -55,14 +56,14 @@ UseWalletProvider.defaultProps = {
 }
 
 function UseWalletProvider({ children, autoConnect }: UseWalletProviderProps) {
-  const [connector, setConnector] = useState<ProviderId | null>(null)
-  const [error, setError] = useState<Error | null>(null)
-  const [type, setType] = useState<AccountType | null>(null)
-  const [status, setStatus] = useState<Status>('disconnected')
+  const [connector, setConnector] = useImmer<ProviderId | null>(null)
+  const [error, setError] = useImmer<Error | null>(null)
+  const [type, setType] = useImmer<AccountType | null>(null)
+  const [status, setStatus] = useImmer<Status>('disconnected')
   const web3ReactContext = useWeb3React()
   const activationId = useRef<number>(0)
   const { account, chainId: web3ChainId, library, error: web3Error } = web3ReactContext
-  const [defaultChainId, setDefaultChainId] = useState(defaultMarket.chainId)
+  const [defaultChainId, setDefaultChainId] = useImmer(defaultMarket.chainId)
   useEffect(() => {
     if (__SERVER__ || !window.ethereum) return
     const { ethereum } = window
@@ -86,7 +87,7 @@ function UseWalletProvider({ children, autoConnect }: UseWalletProviderProps) {
       ethereum.removeListener('chainChanged', onchainChanged)
       clearTimeout(timer)
     }
-  }, [])
+  }, [setDefaultChainId])
 
   const chainId = useMemo(() => (web3ChainId ? web3ChainId : defaultChainId), [web3ChainId, defaultChainId])
 
@@ -98,7 +99,7 @@ function UseWalletProvider({ children, autoConnect }: UseWalletProviderProps) {
     setConnector(null)
     setError(null)
     setStatus('disconnected')
-  }, [web3ReactContext])
+  }, [setConnector, setError, setStatus, web3ReactContext])
 
   // if the user switched networks on the wallet itself
   // return unsupported error.
@@ -107,7 +108,7 @@ function UseWalletProvider({ children, autoConnect }: UseWalletProviderProps) {
       setStatus('error')
       setError(new ChainUnsupportedError(web3Error.message))
     }
-  }, [web3Error])
+  }, [setError, setStatus, web3Error])
 
   const connect = useCallback(
     async (connectorId: ProviderId = 'injected') => {
@@ -189,7 +190,7 @@ function UseWalletProvider({ children, autoConnect }: UseWalletProviderProps) {
         throwError(err as Error)
       }
     },
-    [reset, web3ReactContext]
+    [reset, setConnector, setError, setStatus, web3ReactContext]
   )
 
   useEffect(() => {
@@ -232,7 +233,7 @@ function UseWalletProvider({ children, autoConnect }: UseWalletProviderProps) {
       setStatus('disconnected')
       setType(null)
     }
-  }, [account, library])
+  }, [account, library, setStatus, setType])
 
   const wallet = useMemo(() => {
     let chainInfo: any = getNetwork(chainId)

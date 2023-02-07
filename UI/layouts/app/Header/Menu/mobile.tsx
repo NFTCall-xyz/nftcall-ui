@@ -1,6 +1,7 @@
 import { useApp } from 'app'
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import MenuIcon from '@mui/icons-material/Menu'
 import Box from '@mui/material/Box'
@@ -27,7 +28,7 @@ const ROOT = styled(Box)``
 const MenuMobile = () => {
   const { menu } = useApp()
   const { links } = useLinks()
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const [openDrawer, setOpenDrawer] = useImmer(false)
   const theme = useTheme()
 
   const list = useMemo(
@@ -72,7 +73,7 @@ const MenuMobile = () => {
         </ListItem>
       </List>
     ),
-    [links, menu, theme]
+    [links, menu, setOpenDrawer, theme.palette.text.secondary]
   )
 
   return (

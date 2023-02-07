@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useImmer } from 'use-immer'
 
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
@@ -22,10 +23,10 @@ const pageSize = 5
 export const useTable = (): BasicTableProps => {
   const { t } = useTranslation('app-callpool', { keyPrefix: 'history' })
   const { callPool } = useCallPoolDetails()
-  const [pageIndex, setPageIndex] = useState(0)
+  const [pageIndex, setPageIndex] = useImmer(0)
   const dataFetcher = usePost(request)
-  const [noMoreSourceData, setNoMoreSourceData] = useState(false)
-  const [sourceData, setSourceData] = useState([])
+  const [noMoreSourceData, setNoMoreSourceData] = useImmer(false)
+  const [sourceData, setSourceData] = useImmer([])
 
   const columns = useMemo(
     () =>
@@ -116,7 +117,18 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [callPool.address.CallPool, dataFetcher, end, noMoreSourceData, pageIndex, skip, subgraphName])
+  }, [
+    callPool.address.CallPool,
+    dataFetcher,
+    end,
+    noMoreSourceData,
+    pageIndex,
+    setNoMoreSourceData,
+    setPageIndex,
+    setSourceData,
+    skip,
+    subgraphName,
+  ])
 
   useMount(() => {
     loadMore.onLoadMore()

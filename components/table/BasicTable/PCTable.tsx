@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import Card from '@mui/material/Card'
 import Stack from '@mui/material/Stack'
@@ -22,7 +23,7 @@ const DataFetcher: FC<{
   columns: any[]
   dataFetcher: (data: any) => Promise<any>
 }> = ({ rowIndex, onRowClick, dataFetcher, row, columns }) => {
-  const [rowData, setRowData] = useState(row)
+  const [rowData, setRowData] = useImmer(row)
   useEffect(() => {
     if (!dataFetcher) {
       setRowData(row)
@@ -30,7 +31,7 @@ const DataFetcher: FC<{
     } else {
       dataFetcher(row).then((data) => setRowData(data))
     }
-  }, [dataFetcher, row])
+  }, [dataFetcher, row, setRowData])
 
   return (
     <TableRow

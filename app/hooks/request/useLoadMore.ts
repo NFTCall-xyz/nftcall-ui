@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import { usePost } from '.'
 
@@ -30,10 +31,10 @@ export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
   isNoValidQuery = isNoValidQuery || isNoValidQueryDefault
   isNoMoreData = isNoMoreData || isNoMoreDataDefault
 
-  const [data, setData] = useState<D>([] as any)
-  const [pageIndex, setPageIndex] = useState(0)
-  const [noMoreData, setNoMoreData] = useState(false)
-  const [onRestart, setRestart] = useState(false)
+  const [data, setData] = useImmer<D>([] as any)
+  const [pageIndex, setPageIndex] = useImmer(0)
+  const [noMoreData, setNoMoreData] = useImmer(false)
+  const [onRestart, setRestart] = useImmer(false)
   const skip = useMemo(() => pageIndex * pageSize, [pageIndex, pageSize])
   const { post, loading, cancel } = usePost(request)
 
@@ -46,7 +47,20 @@ export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
       if (isNoMoreData(pageSize, data)) setNoMoreData(true)
       setData((array) => array.concat(getData(data)) as any)
     })
-  }, [getData, getQuery, isNoMoreData, isNoValidQuery, noMoreData, pageIndex, pageSize, post, skip])
+  }, [
+    getData,
+    getQuery,
+    isNoMoreData,
+    isNoValidQuery,
+    noMoreData,
+    pageIndex,
+    pageSize,
+    post,
+    setData,
+    setNoMoreData,
+    setPageIndex,
+    skip,
+  ])
 
   const restart = useCallback(() => {
     cancel()
@@ -54,7 +68,7 @@ export const useLoadMore = <T extends any[], Q, D extends any[] = T>({
     setNoMoreData(false)
     setData(() => [] as any)
     setRestart(true)
-  }, [cancel])
+  }, [cancel, setData, setNoMoreData, setPageIndex, setRestart])
 
   useEffect(() => {
     if (!onRestart) return

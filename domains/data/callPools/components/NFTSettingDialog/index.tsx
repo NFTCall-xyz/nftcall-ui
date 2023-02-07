@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import HelpIcon from '@mui/icons-material/Help'
 import Button from '@mui/material/Button'
@@ -35,7 +36,7 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
   const { formik } = useForm()
   const { handleSubmit, isSubmitting } = formik
   const { tokenId, nftAddress, status: sourceStatus, actions } = safeGet(() => nftSetting.nft) || ({} as undefined)
-  const [status, setStatus] = useState(sourceStatus)
+  const [status, setStatus] = useImmer(sourceStatus)
   const nftActions = useMemo(
     () => ({
       ...actions,
@@ -48,7 +49,7 @@ const NFTSettingDialog: FC<NFTSettingDialogProps> = () => {
         actions?.setLoading(loading)
       },
     }),
-    [actions, formik]
+    [actions, formik, setStatus]
   )
   useEffect(() => {
     if (!tokenId) return

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useImmer } from 'use-immer'
 
 import { useUnmount } from 'app/hooks/useUnmount'
 
@@ -17,7 +18,7 @@ export const useCallPoolIdEffect = (props: any) => {
 }
 
 export const useCallPoolId = () => {
-  const [callPoolId, setCallPoolId] = useState('')
+  const [callPoolId, setCallPoolId] = useImmer('')
 
   return {
     value: callPoolId,

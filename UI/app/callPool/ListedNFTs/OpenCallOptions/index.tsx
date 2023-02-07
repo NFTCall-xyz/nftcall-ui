@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import { useWallet } from 'domains'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useEffect, useMemo } from 'react'
-import { useState } from 'react'
+import { useImmer } from 'use-immer'
 
 import { useTheme } from '@mui/material'
 import Alert from '@mui/material/Alert'
@@ -48,8 +48,8 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   const {
     balanceOf: { balanceOf },
   } = useUser()
-  const [strikePriceGapIdxSource, setStrikePriceGapIdx] = useState(1)
-  const [durationIdxSource, setDurationIdx] = useState(MAX_EXPRIY_TIME_MAP.length - 1)
+  const [strikePriceGapIdxSource, setStrikePriceGapIdx] = useImmer(1)
+  const [durationIdxSource, setDurationIdx] = useImmer(MAX_EXPRIY_TIME_MAP.length - 1)
   const { strikePriceSetting, durationSetting, limitOfStrikePriceSetting } = useMemo(() => {
     const strikePriceSetting = {
       min: 0,
@@ -110,7 +110,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   } = callPool
 
   const { updatePreviewOpenCall } = usePreviewOpenCall(callPool)
-  const [errors, setErrors] = useState<string[]>([])
+  const [errors, setErrors] = useImmer<string[]>([])
   useEffect(() => {
     updatePreviewOpenCall()
     if (!ids.length) setErrors([])
@@ -153,6 +153,7 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
     limitOfStrikePriceSetting.tokenId,
     nftOracle.price,
     premiums,
+    setErrors,
     size,
     strikePriceGapIdx,
   ])

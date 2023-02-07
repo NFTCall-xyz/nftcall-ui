@@ -1,6 +1,7 @@
 import { useWallet } from 'domains'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useImmer } from 'use-immer'
 
 import { usePost } from 'app/hooks/request'
 import { safeGet } from 'app/utils/get'
@@ -21,10 +22,10 @@ type PositionsProps = {
 }
 export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   const { t } = useTranslation('app-sell', { keyPrefix: 'positions' })
-  const [pageIndex, setPageIndex] = useState(0)
+  const [pageIndex, setPageIndex] = useImmer(0)
   const dataFetcher = usePost(request)
-  const [noMoreSourceData, setNoMoreSourceData] = useState(false)
-  const [sourceData, setSourceData] = useState([])
+  const [noMoreSourceData, setNoMoreSourceData] = useImmer(false)
+  const [sourceData, setSourceData] = useImmer([])
 
   const { callPools } = useCallPools()
   const { networkAccount } = useWallet()
@@ -110,7 +111,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           setSourceData((data) => data.concat(rowData))
         })
     },
-    [dataFetcher, isActive, networkAccount, subgraphName]
+    [dataFetcher, isActive, networkAccount, setNoMoreSourceData, setSourceData, subgraphName]
   )
 
   const loadMore = useMemo(() => {
@@ -123,7 +124,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
         return onFetch(pageIndex)
       },
     }
-  }, [dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex])
+  }, [dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex, setPageIndex])
 
   useEffect(() => {
     if (!networkAccount) return

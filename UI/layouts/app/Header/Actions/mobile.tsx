@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useState } from 'react'
+import { useImmer } from 'use-immer'
 
 import MenuIcon from '@mui/icons-material/Menu'
 import Drawer from '@mui/material/Drawer'
@@ -15,7 +15,7 @@ import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'
 const ROOT = styled(Stack)``
 
 const ActionsMobile: FC = () => {
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const [openDrawer, setOpenDrawer] = useImmer(false)
 
   return (
     <ROOT direction="row" spacing={2}>

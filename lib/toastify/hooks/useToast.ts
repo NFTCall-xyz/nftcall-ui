@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { DOMAttributes } from 'react'
-import { isValidElement, useEffect, useRef, useState } from 'react'
+import { isValidElement, useEffect, useRef } from 'react'
+import { useImmer } from 'use-immer'
 
 import type { ToastProps } from '../types'
 import { isFn } from '../utils'
@@ -29,8 +30,8 @@ function getY(e: DragEvent) {
 }
 
 export function useToast(props: ToastProps) {
-  const [isRunning, setIsRunning] = useState(true)
-  const [preventExitTransition, setPreventExitTransition] = useState(false)
+  const [isRunning, setIsRunning] = useImmer(true)
+  const [preventExitTransition, setPreventExitTransition] = useImmer(false)
   const toastRef = useRef<HTMLDivElement>(null)
   const drag = useKeeper<Draggable>({
     start: 0,

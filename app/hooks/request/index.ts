@@ -1,14 +1,18 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef } from 'react'
+import { useImmer } from 'use-immer'
 
 import { useObjectMemo } from 'app/hooks/useValues'
 
 export function usePost<T, A extends Array<any>>(fn: (...args: A) => Promise<T>) {
-  const [loading, setInternalLoading] = useState(false)
+  const [loading, setInternalLoading] = useImmer(false)
   const loadingRef = useRef(loading)
-  const setLoading = useCallback((value: boolean) => {
-    setInternalLoading(value)
-    loadingRef.current = value
-  }, [])
+  const setLoading = useCallback(
+    (value: boolean) => {
+      setInternalLoading(value)
+      loadingRef.current = value
+    },
+    [setInternalLoading]
+  )
   const isCanceledRef = useRef(false)
 
   const post = useCallback(

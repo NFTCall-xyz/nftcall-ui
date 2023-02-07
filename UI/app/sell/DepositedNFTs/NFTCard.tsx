@@ -3,8 +3,8 @@ import { useWallet } from 'domains'
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import { useCallback } from 'react'
-import { useState } from 'react'
 import { useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import SettingsIcon from '@mui/icons-material/Settings'
 import Button from '@mui/material/Button'
@@ -67,8 +67,8 @@ const NFTCard: FC<DepositedNFT> = (props) => {
   const { t } = useTranslation('app-sell')
   const { tokenId, status: sourceStatus, position, restart, callPoolAddress } = props
   const { endTime } = position || ({} as undefined)
-  const [status, setStatus] = useState(sourceStatus)
-  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useImmer(sourceStatus)
+  const [loading, setLoading] = useImmer(false)
   const { nftAssetsData } = useNFTAssetsData(props)
   const nftActions = useMemo(() => {
     const returnValue: NFTActions = {
@@ -77,7 +77,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       update: restart,
     }
     return returnValue
-  }, [restart])
+  }, [restart, setLoading, setStatus])
   const {
     dialogs: {
       nftSetting: { open },
@@ -113,7 +113,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
         close()
       })
       .finally(() => setLoading(false))
-  }, [callPoolAddress, callPoolService, networkAccount, sendTransaction, setStatus, tokenId])
+  }, [callPoolAddress, callPoolService, networkAccount, sendTransaction, setLoading, setStatus, tokenId])
 
   const actions = useMemo(() => {
     switch (status) {

@@ -1,6 +1,7 @@
 import { useWallet } from 'domains'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useImmer } from 'use-immer'
 
 import { usePost } from 'app/hooks/request'
 import { useMount } from 'app/hooks/useMount'
@@ -22,10 +23,10 @@ const pageSize = 5
 
 export const useTable = (): BasicTableProps => {
   const { t } = useTranslation('app-sell', { keyPrefix: 'history' })
-  const [pageIndex, setPageIndex] = useState(0)
+  const [pageIndex, setPageIndex] = useImmer(0)
   const dataFetcher = usePost(request)
-  const [noMoreSourceData, setNoMoreSourceData] = useState(false)
-  const [sourceData, setSourceData] = useState([])
+  const [noMoreSourceData, setNoMoreSourceData] = useImmer(false)
+  const [sourceData, setSourceData] = useImmer([])
   const { networkAccount } = useWallet()
 
   const columns = useMemo(
@@ -101,7 +102,18 @@ export const useTable = (): BasicTableProps => {
           })
       },
     }
-  }, [dataFetcher, end, networkAccount, noMoreSourceData, pageIndex, skip, subgraphName])
+  }, [
+    dataFetcher,
+    end,
+    networkAccount,
+    noMoreSourceData,
+    pageIndex,
+    setNoMoreSourceData,
+    setPageIndex,
+    setSourceData,
+    skip,
+    subgraphName,
+  ])
 
   useMount(() => {
     loadMore.onLoadMore()

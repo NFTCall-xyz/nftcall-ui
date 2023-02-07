@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
+import { useImmer } from 'use-immer'
 
 type DialogProps = {
   onOpen?: (...args: any[]) => void
@@ -8,7 +9,7 @@ type DialogProps = {
 }
 
 export const useDialog = ({ onOpen, onClose, beforeOpen, beforeClose }: DialogProps = {}) => {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useImmer(false)
 
   const open = useCallback(
     async (...args: any[]) => {
@@ -16,7 +17,7 @@ export const useDialog = ({ onOpen, onClose, beforeOpen, beforeClose }: DialogPr
       setVisible(true)
       if (onOpen) onOpen(...args)
     },
-    [beforeOpen, onOpen]
+    [beforeOpen, onOpen, setVisible]
   )
 
   const close = useCallback(
@@ -25,7 +26,7 @@ export const useDialog = ({ onOpen, onClose, beforeOpen, beforeClose }: DialogPr
       setVisible(false)
       if (onClose) onClose(...args)
     },
-    [beforeClose, onClose]
+    [beforeClose, onClose, setVisible]
   )
 
   return {
