@@ -10,6 +10,7 @@ import { useAllCallPoolsData } from './application/allCallPoolsData'
 import { useBalanceOf } from './application/balanceOf'
 import { useCallPoolsData } from './application/callPoolsData'
 import { useCallPoolsDialogs } from './application/dialogs'
+import { usePaused } from './application/paused'
 import { useStats } from './application/stats'
 import { useTotalOpenInterest } from './application/totalOpenInterest'
 
@@ -18,6 +19,7 @@ export type CallPool = Market & {
   // depositedItems: number
   nftOracle: NFTOracleData
 
+  paused: boolean
   balanceOf: BN
   stats: CallPoolStats & {
     totalListedNFTs?: number
@@ -32,10 +34,11 @@ const useCallPoolsService = () => {
 
   const allCallPool = useAllCallPoolsData(callPools)
   const balanceOf = useBalanceOf(callPools)
+  const paused = usePaused(callPools)
   const totalOpenInterest = useTotalOpenInterest(callPools)
   const stats = useStats(callPools)
 
-  return { callPools, allCallPool, balanceOf, totalOpenInterest, stats, dialogs }
+  return { callPools, allCallPool, balanceOf, totalOpenInterest, stats, dialogs, paused }
 }
 const { Provider: CallPoolsProvider, createUseContext } = createContext(useCallPoolsService)
 export const createCallPoolsContext = createUseContext

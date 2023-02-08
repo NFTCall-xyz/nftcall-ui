@@ -37,6 +37,9 @@ const useCallPoolsSouceData = () => {
       const { value: balanceOf } =
         storeData.balanceOf.find((i) => i.callPool === address.CallPool) || ({ value: toBN(0) } as undefined)
 
+      const { value: paused } =
+        storeData.paused.find((i) => i.callPool === address.CallPool) || ({ value: false } as undefined)
+
       const stats: CallPool['stats'] =
         storeData.stats.callPools.find((i) => i.callPool === address.CallPool) || ({} as undefined)
       const userStats =
@@ -55,6 +58,7 @@ const useCallPoolsSouceData = () => {
         collection,
         nftOracle,
         balanceOf,
+        paused,
         stats,
         userStats,
         totalOpenInterest,
@@ -67,6 +71,7 @@ const useCallPoolsSouceData = () => {
     markets,
     oracle.nftOracle,
     storeData.balanceOf,
+    storeData.paused,
     storeData.stats.callPools,
     storeData.totalOpenInterest,
     storeData.userStats.userCallPoolStat,
