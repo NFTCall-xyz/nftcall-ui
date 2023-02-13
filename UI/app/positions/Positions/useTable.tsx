@@ -1,4 +1,5 @@
 import { useWallet } from 'domains'
+import { cloneDeep } from 'lodash'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { TableCellRenderer } from 'react-virtualized'
@@ -161,7 +162,8 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   )
   const skip = useMemo(() => pageIndex * pageSize, [pageIndex])
   const data = useMemo(() => {
-    return sourceData.map((i) => {
+    return sourceData.map((data) => {
+      const i = cloneDeep(data)
       const floorPrice =
         safeGet(() => {
           if (!i.floorPrice.isZero()) return i.floorPrice
