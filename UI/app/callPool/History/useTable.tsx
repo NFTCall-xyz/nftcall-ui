@@ -60,7 +60,6 @@ export const useTable = (): BasicTableProps => {
           },
           {
             dataKey: 'premium',
-            cellData: 'premiumToOwner',
             width: 450,
             headerRenderer,
             cellRenderer: tokenIconCellRenderer,
