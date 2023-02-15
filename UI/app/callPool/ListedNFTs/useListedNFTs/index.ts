@@ -65,3 +65,5 @@ export const useListedNFTs = () => {
 
   return returnValue
 }
+
+export type UseListedNFTs = ReturnType<typeof useListedNFTs>
