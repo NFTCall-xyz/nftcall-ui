@@ -29,7 +29,7 @@ const BuyAndSell: FC = () => {
           </Paragraph>
         </Stack>
         <Box>
-          <Button variant="contained" endIcon={<ArrowForward />} href='/app'>
+          <Button variant="contained" endIcon={<ArrowForward />} href="/app">
             {t('tradeNow')}
           </Button>
         </Box>

@@ -36,7 +36,7 @@ const Hero: FC = () => {
             </H3>
           </Stack>
           <Box>
-            <Button variant="contained" size="large" endIcon={<ArrowForward />} href='/app'>
+            <Button variant="contained" size="large" endIcon={<ArrowForward />} href="/app">
               {t('tradeNow')}
             </Button>
           </Box>
