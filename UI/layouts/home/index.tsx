@@ -1,9 +1,9 @@
 import { Fragment } from 'react'
 
+import BgGradient from './BgGradient'
 import Footer from './Footer'
 import Header from './Header'
 import Main from './Main'
-import BgGradient from './BgGradient'
 
 const Layout: FCC = ({ children }) => {
   return (

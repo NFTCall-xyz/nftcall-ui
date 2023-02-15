@@ -11,7 +11,6 @@ import { H2, H3, Paragraph } from 'components/Typography'
 
 import ImageSrc from '../images/buy-and-sell.png'
 
-
 const BuyAndSell: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'buyAndSell' })
   return (
@@ -34,7 +33,7 @@ const BuyAndSell: FC = () => {
             {t('tradeNow')}
           </Button>
         </Box>
-      </Stack>   
+      </Stack>
     </Stack>
   )
 }

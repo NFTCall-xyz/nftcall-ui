@@ -1,8 +1,9 @@
-
+import Image from 'next/image'
 import { Fragment } from 'react'
+
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
-import Image from 'next/image'
+
 import HeroBgGradient from '../app/BgGradient'
 import BgGradientLeft01SVG from './images/bg-gradient-left01.svg'
 import BgGradientLeft02SVG from './images/bg-gradient-left02.svg'
@@ -46,17 +47,17 @@ const BgGradient: FC = () => {
     <Fragment>
       <HeroBgGradient />
       <BgGradientLeft1>
-        <Image src={BgGradientLeft01SVG} alt='bg-gradient-left01' />
+        <Image src={BgGradientLeft01SVG} alt="bg-gradient-left01" />
       </BgGradientLeft1>
       <BgGradientLeft2>
-        <Image src={BgGradientLeft02SVG} alt='bg-gradient02-left02' />
+        <Image src={BgGradientLeft02SVG} alt="bg-gradient02-left02" />
       </BgGradientLeft2>
       <BgGradientRight1>
-        <Image src={BgGradientRight01SVG} alt='bg-gradient-right01' />
+        <Image src={BgGradientRight01SVG} alt="bg-gradient-right01" />
       </BgGradientRight1>
       <BgGradientRight2>
-        <Image src={BgGradientRight02SVG} alt='bg-gradient02-right02' />
-      </BgGradientRight2>   
+        <Image src={BgGradientRight02SVG} alt="bg-gradient02-right02" />
+      </BgGradientRight2>
     </Fragment>
   )
 }

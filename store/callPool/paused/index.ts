@@ -1,6 +1,8 @@
-import { createStoreRequest } from "store/helpers/request";
-import type { PausedSliceState } from "./adapter";
-import { pausedRequest } from "./adapter";
+import { createStoreRequest } from 'store/helpers/request'
+
+import type { PausedSliceState } from './adapter'
+import { pausedRequest } from './adapter'
+
 const key = 'callPool.paused'
 const { reducer, select, useRequestController } = createStoreRequest<PausedSliceState>(key)(pausedRequest)
 export default reducer
