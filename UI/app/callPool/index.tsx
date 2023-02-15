@@ -4,22 +4,20 @@ import type { FC } from 'react'
 import { useMemo } from 'react'
 
 import Avatar from '@mui/material/Avatar'
-import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material/styles'
 
-import { H2, Paragraph } from 'components/Typography'
+import { H2 } from 'components/Typography'
 import BackButton from 'components/button/BackButton'
 import type { TabsProps } from 'components/tabs'
 import Tabs from 'components/tabs'
 
 import { useCallPoolDetails } from 'domains/data'
 
-import NumberDisplay from 'lib/math/components/NumberDisplay'
-import TokenIcon from 'lib/protocol/components/TokenIcon'
-
 import History from './History'
 import ListedNFTs from './ListedNFTs'
+import Stats from './Stats'
 
 type TitleProps = {
   name?: string
@@ -62,86 +60,41 @@ const CallPoolDetails: FC = () => {
 
   const {
     collection: { name, imageUrl },
-    nftOracle: { price, vol },
-    info: { symbol },
-    stats: { totalListedNFTs, totalTradingVolume },
   } = callPool
-
   return (
-    <>
+    <Stack spacing={2}>
       <Title name={name} />
-      <BackButton />
-      <Grid container pt={2}>
-        <Grid item xs={12}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
-            <Stack direction="row" alignItems="center">
-              <Avatar alt={name} src={imageUrl} sx={{ marginRight: 2, width: 60, height: 60, border: '' }}>
-                {name}
-              </Avatar>
-              <H2>{name}</H2>
-            </Stack>
-            <Stack spacing={4} direction="row">
-              <Stack spacing={1}>
-                <Paragraph color="text.secondary">{t('floorPrice')}</Paragraph>
-                <Stack spacing={0.5} direction="row" alignItems="center">
-                  <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
-                  <H2>
-                    <NumberDisplay value={price} />
-                  </H2>
-                </Stack>
-              </Stack>
-              <Stack spacing={1}>
-                <Paragraph color="text.secondary">{t('vol')}</Paragraph>
-                <Stack spacing={1} direction="row" alignItems="center">
-                  <H2>
-                    <NumberDisplay
-                      value={vol}
-                      options="percent"
-                      numberFormatOptions={{
-                        maximumFractionDigits: 0,
-                      }}
-                    />
-                  </H2>
-                </Stack>
-              </Stack>
-              <Stack spacing={1}>
-                <Paragraph color="text.secondary">{t('tradingVolume')}</Paragraph>
-                <Stack spacing={0.5} direction="row" alignItems="center">
-                  <TokenIcon symbol={symbol} sx={{ width: 24, height: 24 }} />
-                  <H2>
-                    <NumberDisplay value={totalTradingVolume} />
-                  </H2>
-                </Stack>
-              </Stack>
-              <Stack spacing={1}>
-                <Paragraph color="text.secondary">{t('depositedItems')}</Paragraph>
-                <H2>
-                  <NumberDisplay value={totalListedNFTs} />
-                </H2>
-              </Stack>
-            </Stack>
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <Tabs
-            tabs={tabs}
-            sx={{
-              [theme.breakpoints.up('sm')]: {
-                flex: 1,
-                '.MuiTabs-scroller': {
-                  justifyContent: { xs: 'center', sm: 'start' },
-                  alignItems: 'center',
-                  display: 'flex',
-                },
-                '.MuiButtonBase-root': {
-                  minWidth: 150,
-                },
+      <Box>
+        <BackButton />
+      </Box>
+      <Stack spacing={{ xs: 2, sm: 0 }} direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
+        <Stack direction="row" alignItems="center">
+          <Avatar alt={name} src={imageUrl} sx={{ marginRight: 2, width: 60, height: 60, border: '' }}>
+            {name}
+          </Avatar>
+          <H2>{name}</H2>
+        </Stack>
+        <Stats />
+      </Stack>
+      <Box>
+        <Tabs
+          tabs={tabs}
+          sx={{
+            [theme.breakpoints.up('sm')]: {
+              flex: 1,
+              '.MuiTabs-scroller': {
+                justifyContent: { xs: 'center', sm: 'start' },
+                alignItems: 'center',
+                display: 'flex',
               },
-            }}
-          />
-        </Grid>
-      </Grid>
-    </>
+              '.MuiButtonBase-root': {
+                minWidth: 150,
+              },
+            },
+          }}
+        />
+      </Box>
+    </Stack>
   )
 }
 
