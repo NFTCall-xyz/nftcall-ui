@@ -35,7 +35,7 @@ const CTA: FC = () => {
         </Paragraph>
       </Stack>
       <Box>
-        <Button variant="contained" size="large" endIcon={<ArrowForward />}>
+        <Button variant="contained" size="large" endIcon={<ArrowForward />} href='/app'>
           {t('tradeNow')}
         </Button>
       </Box>

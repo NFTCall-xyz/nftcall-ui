@@ -75,7 +75,7 @@ const Benefits: FC = () => {
           </Paragraph>
         </Stack>
         <Box>
-          <Button variant="contained" endIcon={<ArrowForward />}>
+          <Button variant="contained" endIcon={<ArrowForward />} href='/app'>
             {t('tradeNow')}
           </Button>
         </Box>
