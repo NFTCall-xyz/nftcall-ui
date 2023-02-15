@@ -8,6 +8,8 @@ export type UserCallPoolStat = {
 }
 export type UserStatsData = {
   accumulativeEarnings: BN
+  sellerYield: BN
+  totalDuration: BN
   userCallPoolStat: UserCallPoolStat[]
 }
 
@@ -22,6 +24,8 @@ export const getUserStatsData = (userStatsBaseData: UserStatsBaseData[]): UserSt
   const baseData = safeGet(() => userStatsBaseData[0])
   if (!baseData) return {} as undefined
   return {
+    ...getWeiToValueBN(baseData, ['totalDuration'], -3),
+    ...getWeiToValueBN(baseData, ['sellerYield'], 0),
     ...getWeiToValueBN(baseData, ['accumulativeEarnings'], 18),
     userCallPoolStat: getUserCallPoolStatData(baseData.userCallPoolStat),
   }

@@ -4,6 +4,8 @@ export type UserCallPoolStatBaseData = {
 }
 export type UserStatsBaseData = {
   accumulativeEarnings: string
+  sellerYield: string
+  totalDuration: string
   userCallPoolStat: UserCallPoolStatBaseData[]
 }
 

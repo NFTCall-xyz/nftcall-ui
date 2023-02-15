@@ -46,6 +46,10 @@ const Stats: FC = () => {
       ),
       title: 'accruedEarnings',
     },
+    {
+      price: <NumberDisplay value={stats.APY} options="percent" />,
+      title: 'APY',
+    },
   ]
 
   return (

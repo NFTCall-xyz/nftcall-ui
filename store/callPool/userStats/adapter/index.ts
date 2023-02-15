@@ -10,6 +10,8 @@ const getGqlQuery = ({ userAddress }: UserStatsProps) => {
   {
     userStats(where: { id: "${userAddress.toLowerCase()}" }) {
       accumulativeEarnings
+      sellerYield
+      totalDuration
       userCallPoolStat {
         accruedEarnings
         callPoolAddress
