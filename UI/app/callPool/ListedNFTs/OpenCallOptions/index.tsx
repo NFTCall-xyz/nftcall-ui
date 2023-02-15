@@ -18,6 +18,7 @@ import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPool
 import type { UseIds } from 'app/hooks/useIds'
 import { safeGet } from 'app/utils/get'
 
+import Scrollbar from 'components/ScrollBar'
 import { H3, Span } from 'components/Typography'
 import FlexBetween from 'components/flexbox/FlexBetween'
 
@@ -177,15 +178,17 @@ const OpenCallOptions: FC<OpenCallOptionsProps> = ({
   const theme = useTheme()
 
   return (
-    <Card sx={{ border: 'solid 1px', borderColor: theme.palette.divider }}>
+    <Card sx={{ border: 'solid 1px', borderColor: theme.palette.divider, position: 'sticky', top: theme.spacing(4) }}>
       <CardContent>
         <Stack spacing={4}>
           <H3>{t('openPanel.openCall')}</H3>
-          <Stack spacing={1}>
-            {ids.map((tokenId) => (
-              <NFTCard key={tokenId} tokenId={tokenId} data={nfts} onCheckChange={() => remove(tokenId)} />
-            ))}
-          </Stack>
+          <Scrollbar style={{ maxHeight: 150 }}>
+            <Stack spacing={1}>
+              {ids.map((tokenId) => (
+                <NFTCard key={tokenId} tokenId={tokenId} data={nfts} onCheckChange={() => remove(tokenId)} />
+              ))}
+            </Stack>
+          </Scrollbar>
           <Stack spacing={1}>
             <FlexBetween>
               <Span fontWeight="bold">{t('openPanel.strikePrice')}</Span>

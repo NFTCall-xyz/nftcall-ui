@@ -30,7 +30,7 @@ export const useIds = <T extends number | string = string>(defalutIds: Array<num
     return s.has(id)
   }, [])
   const values = useMemo(() => {
-    return Array.from(setRef.current.values()) as T[]
+    return Array.from(setRef.current.values()).reverse() as T[]
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size])
 
