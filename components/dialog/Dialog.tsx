@@ -1,3 +1,4 @@
+import type { Breakpoint } from '@mui/material'
 import MaterialDialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
@@ -7,9 +8,11 @@ import type { DialogValues } from 'app/hooks/useDialog'
 
 import { DialogCloseIconButton } from 'components/btn/IconButton'
 
-const Dialog: FCC<DialogValues & { title: string; actions?: any }> = ({ visible, close, title, children, actions }) => {
+const Dialog: FCC<
+  DialogValues & { title: string; actions?: any; maxWidth?: false | Breakpoint; fullScreen?: boolean }
+> = ({ visible, close, title, children, actions, maxWidth, fullScreen }) => {
   return (
-    <MaterialDialog open={visible} onClose={close} maxWidth={false}>
+    <MaterialDialog open={visible} onClose={close} maxWidth={maxWidth || false} fullScreen={fullScreen}>
       <DialogCloseIconButton onClick={close} />
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>

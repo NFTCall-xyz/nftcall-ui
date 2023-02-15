@@ -17,15 +17,15 @@ type Props = {
 const ListedNFTs: FC<Props> = ({ listedNFTs: { data, onLoadMore, noMoreData, disabled, restart }, nfts, ids }) => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={8}>
+      <Grid item sm={8}>
         <Grid container spacing={2}>
           {nfts.map((nft) => (
-            <Grid item xs={6} sm={3} key={nft.nftAddress + nft.tokenId}>
+            <Grid item sm={3} key={nft.nftAddress + nft.tokenId}>
               <NFTCard {...{ ...nft, ids }} />
             </Grid>
           ))}
         </Grid>
-        <Grid item xs={12} paddingTop={2}>
+        <Grid item paddingTop={2}>
           <LoadMoreButton
             {...{
               onLoadMore,
@@ -35,7 +35,7 @@ const ListedNFTs: FC<Props> = ({ listedNFTs: { data, onLoadMore, noMoreData, dis
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item sm={4}>
         <OpenCallOptions
           {...{
             request: () => {
