@@ -3,6 +3,7 @@ import App from 'app'
 import DomainsProvider from 'domains'
 import 'rc-image/assets/index.css'
 import { Provider as StoreProvider } from 'react-redux'
+import 'simplebar-react/dist/simplebar.min.css'
 import store from 'store'
 import 'styles/global.css'
 
