@@ -4,7 +4,8 @@
   "stats": {
     "claimable": "Claimable Earnings",
     "accruedEarnings": "Accrued Earnings",
-    "claim": "Claim"
+    "claim": "Claim",
+    "APY": "Estimated APY"
   },
   "callPools": {
     "floorPrice": "Floor Price",
