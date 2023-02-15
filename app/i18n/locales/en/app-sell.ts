@@ -6,6 +6,7 @@ const locale = {
     claimable: 'Claimable Earnings',
     accruedEarnings: 'Accrued Earnings',
     claim: 'Claim',
+    APY: 'Estimated APY',
   },
   callPools: {
     floorPrice: 'Floor Price',

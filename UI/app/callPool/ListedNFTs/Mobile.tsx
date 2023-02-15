@@ -4,7 +4,6 @@ import { useImmer } from 'use-immer'
 
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
 import { Box, Fab, Grid, Stack, Zoom } from '@mui/material'
-import { green } from '@mui/material/colors'
 
 import { useDialog } from 'app/hooks/useDialog'
 import type { UseIds } from 'app/hooks/useIds'
@@ -53,9 +52,9 @@ const ListedNFTs: FC<Props> = ({ listedNFTs: { data, onLoadMore, noMoreData, dis
             bottom: 16,
             right: 16,
             color: 'common.white',
-            bgcolor: green[500],
+            bgcolor: 'primary.main',
             '&:hover': {
-              bgcolor: green[600],
+              bgcolor: 'primary.light',
             },
           }}
           size="large"
