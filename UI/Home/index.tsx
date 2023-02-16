@@ -5,8 +5,7 @@ import BuyAndSell from './BuyAndSell'
 import CTA from './CTA'
 import Hero from './Hero'
 import SpeculateAndHedge from './SpeculateAndHedge'
-
-// import How from './How'
+import Roadmap from './Roadmap'
 
 const Home = () => {
   return (
@@ -15,7 +14,7 @@ const Home = () => {
       <Benefits />
       <BuyAndSell />
       <SpeculateAndHedge />
-      {/* <How /> */}
+      <Roadmap />
       <CTA />
     </Stack>
   )

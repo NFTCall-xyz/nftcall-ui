@@ -79,6 +79,29 @@ const locale = {
       },
     },
   },
+  roadmap: {
+    title: 'Roadmap',
+    list: {
+      0: {
+        title: 'Testnet & Mainnet Launch',
+        desc: 
+          'Complete the code audit and launch the NFTCall protocol on the testnet for Beta testing. After fixing potential issues, we will launch on the Ethereum mainnet.',
+        tag: '2023 Q1',
+      },
+      1: {
+        title: 'Cash-settled NFT Options',
+        desc:
+          'Launch the NFTCall protocol on the Layer-2 Arbitrum with a liquidty pool for cash-settled NFT options.',
+        tag: '2023 Q2',
+      },
+      2: {
+        title: 'NFT Perpetuals',
+        desc:
+          'Develop our NFT perpetual trading platform based on the peer-to-pool model, providing more liquidity and flexibility for NFT speculation and hedging purpose.',
+        tag: '2023 Q3 & Q4',
+      },
+    },
+  },
   cta: {
     title: 'Start Trading Now!',
     subTitle: 'Speculate, hedge and earn income from NFT options.',
