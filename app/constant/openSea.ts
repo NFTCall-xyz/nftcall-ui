@@ -22,8 +22,8 @@ export const getOpenSeaMainNetworkAddress = (address: string) => {
       return utils.getAddress('0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949')
     case '0xa76EA6E4991b6E99cf0b8A8E9B39AE284BB800AA': // Potatoz
       return utils.getAddress('0x39ee2c7b3cb80254225884ca001f57118c8f21b6')
-    case '0x231d3559aa848bf10366fb9868590f01d34bf240': // Valhalla
-      return utils.getAddress('0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949')
+    case '0xab5Be10ce171107f186626BbCD52443518c02c85': // Valhalla
+      return utils.getAddress('0x231d3559aa848bf10366fb9868590f01d34bf240')
     case '0xa05BC3bb9BCC1c50DAE47951792e4829D4Ba5B2C': // Checks
       return utils.getAddress('0x34eebee6942d8def3c125458d1a86e0a897fd6f9')
     case '0x3a18b9Bc84792083Ed69aCa64eadD6156Ff0ef26': // Otherdeed
