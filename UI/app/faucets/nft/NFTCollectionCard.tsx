@@ -1,3 +1,4 @@
+import { useWallet } from 'domains'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -10,7 +11,11 @@ import Stack from '@mui/material/Stack'
 
 import { H3 } from 'components/Typography'
 
+import { transaction } from 'domains/controllers/adapter/transaction'
+import { useNetwork } from 'domains/data'
 import type { CallPool } from 'domains/data/callPools'
+
+import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 
 // root component interface
 interface NFTCollectionCardProps {
@@ -21,8 +26,16 @@ const NFTCollectionCard: FC<React.PropsWithChildren<NFTCollectionCardProps>> = (
   const { t } = useTranslation('app-faucets-nft', { keyPrefix: 'nftCollections' })
   const {
     collection: { name, bannerImageUrl, imageUrl },
+    address: { NFT },
   } = callPool
   const theme = useTheme()
+
+  const { networkAccount } = useWallet()
+  const {
+    contracts: { mockNFTService },
+  } = useNetwork()
+
+  const sendTransaction = useSendTransaction()
 
   return (
     <Card
@@ -41,7 +54,23 @@ const NFTCollectionCard: FC<React.PropsWithChildren<NFTCollectionCardProps>> = (
       <CardContent>
         <Stack spacing={2}>
           <H3>{name}</H3>
-          <Button variant="contained">{t('mint')}</Button>
+          <Button
+            variant="contained"
+            disabled={!networkAccount}
+            onClick={() => {
+              return transaction({
+                createTransaction: mockNFTService.mint({
+                  userAddress: networkAccount,
+                  nftAddress: NFT,
+                }),
+                setStatus: () => {},
+                sendTransaction,
+                isOnlyApprove: false,
+              })
+            }}
+          >
+            {t('mint')}
+          </Button>
         </Stack>
       </CardContent>
     </Card>
