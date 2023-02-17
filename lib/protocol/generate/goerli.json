@@ -7,18 +7,6 @@
   "CallFactory": "0xc9a0e44bdec3d2bf4ab2abcd732895555803715f",
   "CallFactoryForTest": "0x96732e0b7e8a6115166bb018a6bbb253e830ca71",
   "markets": {
-    "Azuki": {
-      "NFT": "0x00b079829eCB2fdBBf6FE08f86C9752e201cc0a4"
-    },
-    "CloneX": {
-      "NFT": "0xdca23A2687BB19680D6F9e9edfAA408dE3503746"
-    },
-    "Doodles": {
-      "NFT": "0xcdC5C31aE4318d5906FfcF19f964f4672d570c4A"
-    },
-    "Moonbirds": {
-      "NFT": "0x442Dd4Af25528d8E6A3531E980a0Ff6C38e403eb"
-    },
     "Beanz": {
       "NFT": "0x734cea5fB4e4DabbC290d0418c035a6490532bEd",
       "CallPool": "0x570A31EE6fB311bD1ae07674f99A36679ddDA1C9"
@@ -37,9 +25,6 @@
     "Checks": {
       "NFT": "0xa05BC3bb9BCC1c50DAE47951792e4829D4Ba5B2C",
       "CallPool": "0xe67f5188d41855012dbe794683cDdc69b5911272"
-    },
-    "AKCB": {
-      "NFT": "0x828f9a67B9266b25e3379565465a02a031b7aC34"
     },
     "Otherdeed": {
       "NFT": "0x3a18b9Bc84792083Ed69aCa64eadD6156Ff0ef26",

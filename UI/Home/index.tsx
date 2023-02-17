@@ -4,8 +4,8 @@ import Benefits from './Benefits'
 import BuyAndSell from './BuyAndSell'
 import CTA from './CTA'
 import Hero from './Hero'
-import SpeculateAndHedge from './SpeculateAndHedge'
 import Roadmap from './Roadmap'
+import SpeculateAndHedge from './SpeculateAndHedge'
 
 const Home = () => {
   return (

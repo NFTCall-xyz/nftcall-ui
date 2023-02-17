@@ -27,9 +27,9 @@ export const getStaticPaths: GetStaticPaths = ({ locales }) => {
   const paths = [] as any
   const ids: string[] = []
   Object.values(MARKETS).forEach((market) => {
-    Object.values(market.markets).forEach((callPool) => {
-      ids.push(callPool.CallPool)
-      ids.push(callPool.CallPoolForTest)
+    Object.values(market.markets).forEach((callPool: any) => {
+      if (callPool.CallPool) ids.push(callPool.CallPool)
+      if (callPool.CallPoolForTest) ids.push(callPool.CallPoolForTest)
     })
   })
 

@@ -4,7 +4,7 @@ import React from 'react'
 import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material/styles'
 
-import { H2, Paragraph, H3 } from 'components/Typography'
+import { H2, H3, Paragraph } from 'components/Typography'
 
 type MilestoneProps = {
   title: string
@@ -24,12 +24,12 @@ const Milestone: React.FC<MilestoneProps> = ({ title, tag, desc }) => {
           background: theme.palette.background.paper,
         },
         borderRadius: '20px',
-        width: '100%'
+        width: '100%',
       }}
     >
       <H3 color="primary.main">{tag}</H3>
       <H3 fontSize={20}>{title}</H3>
-      <Paragraph fontSize={16} lineHeight={1.8} color='text.secondary'>
+      <Paragraph fontSize={16} lineHeight={1.8} color="text.secondary">
         {desc}
       </Paragraph>
     </Stack>
@@ -40,10 +40,8 @@ const Roadmap: FC = () => {
   const { t } = useTranslation('home', { keyPrefix: 'roadmap' })
   return (
     <Stack component="section" spacing={10} position="relative">
-      <Stack spacing={{ xs: 2, md: 20 }} direction={{ xs: 'column', md: 'row' }} justifyContent='center'>
-        <H2 fontSize={36}>
-          {t('title')}
-        </H2>
+      <Stack spacing={{ xs: 2, md: 20 }} direction={{ xs: 'column', md: 'row' }} justifyContent="center">
+        <H2 fontSize={36}>{t('title')}</H2>
       </Stack>
       <Stack spacing={2} direction={{ xs: 'column', md: 'row' }}>
         {[0, 1, 2].map((index) => (
