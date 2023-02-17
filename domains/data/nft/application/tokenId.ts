@@ -52,7 +52,7 @@ export const useTokendId = () => {
   const updateWallet = useCallback(() => {
     const chainId = address.chainId
     const nfts = markets.map((market) => market.address.NFT)
-    if (!networkAccount || !chainId || !nfts.length) return
+    if (!networkAccount || !chainId || !nfts.length) return Promise.resolve()
     return tokenId.wallet.single.run({
       chainId,
       user: networkAccount,
