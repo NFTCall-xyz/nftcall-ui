@@ -29,7 +29,7 @@ export const getAssetsBaseData = (storeCacheData: AssetsData[], nftAddress: stri
       image_url,
       permalink,
       token_metadata,
-      asset_contract,
+      collection,
     }) => {
       const assetsData: AssetsBaseData = {
         nftAddress,
@@ -40,7 +40,7 @@ export const getAssetsBaseData = (storeCacheData: AssetsData[], nftAddress: stri
         image_url,
         permalink,
         token_metadata,
-        contractName: safeGet(() => asset_contract.name),
+        contractName: safeGet(() => collection.name),
       }
       returnValue.push(assetsData)
     },
