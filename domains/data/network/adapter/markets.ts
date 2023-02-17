@@ -1,6 +1,6 @@
 import type { AddressData } from 'lib/protocol/market'
 
-export type MarketId = 'MAYC' | 'BAYC'
+export type MarketId = 'Beanz'
 
 export type MarketInfo = {
   symbol: string
@@ -29,7 +29,7 @@ export type Market = {
 
 export const getMarkets = (address: AddressData) => {
   return Object.keys(address.markets)
-    .filter((key) => address.markets[key as 'BAYC'].CallPool)
+    .filter((key) => address.markets[key as 'Valhalla'].CallPool)
     .map((key) => {
       const id: MarketId = key as any
       const info = getMarketInfo(id)
@@ -38,7 +38,7 @@ export const getMarkets = (address: AddressData) => {
         id,
         info,
         address: {
-          ...address.markets[id],
+          ...(address.markets[id as 'Valhalla'] as any),
         } as ContractsAddress,
       }
     })

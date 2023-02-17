@@ -1,6 +1,7 @@
 import { useControllers, useWallet } from 'domains'
 import { useCallback, useEffect, useMemo } from 'react'
 
+import { getOpenSeaMainNetworkAddress } from 'app/constant/openSea'
 import { log } from 'app/utils/dev'
 
 import { getUseCacheMemo } from 'database/helpers'
@@ -73,7 +74,7 @@ export const useTokendId = () => {
           await tokenId.assets.single.run({
             chainId: address.chainId,
             getStoreCacheData,
-            nftAddress,
+            nftAddress: getOpenSeaMainNetworkAddress(nftAddress),
             tokenIds,
           })
         }
