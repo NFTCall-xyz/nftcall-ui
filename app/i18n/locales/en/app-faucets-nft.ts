@@ -1,9 +1,10 @@
 const locale = {
   title: 'Mint Test NFTs',
   subTitle:
-    'Get NFTs for testing the options selling feature. Make sure to have ETH for the Goerli network, or get some from the faucets.',
+    'Get NFTs for testing the options selling feature. Make sure to have ETH for the Goerli network, or get some from <1>the faucets</1>',
+  faucet: 'the faucets',
   nftCollections: {
-    mint: 'Mint Test NFTs',
+    mint: 'Mint Test NFT',
   },
 }
 
