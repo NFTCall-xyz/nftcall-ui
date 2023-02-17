@@ -30,6 +30,10 @@ const MenuList = [
     linkTo: '/app/claim',
   },
   {
+    key: 'NFTFaucets',
+    linkTo: '/app/faucets/nft',
+  },
+  {
     key: 'CallPoolDetail',
     linkTo: '/callPool/[id]',
     hide: true,

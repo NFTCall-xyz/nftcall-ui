@@ -4,6 +4,7 @@ const locale = {
   Sell: 'Sell',
   Positions: 'Positions',
   Claim: 'Claim',
+  NFTFaucets: 'Test NFT',
   launchApp: 'Launch App',
 }
 
