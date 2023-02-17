@@ -16,6 +16,7 @@ export const getOpenSeaUrl = (chainId: ChainId, uri: string) => {
 }
 
 export const getOpenSeaMainNetworkAddress = (address: string) => {
+  if (!address) return
   switch (utils.getAddress(address)) {
     case '0x734cea5fB4e4DabbC290d0418c035a6490532bEd': // Beanz
       return utils.getAddress('0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949')
