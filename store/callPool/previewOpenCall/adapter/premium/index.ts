@@ -28,7 +28,7 @@ type GetPremiumProps = {
 }
 export const getPremium = ({ curveIdx, vol }: GetPremiumProps) => {
   const volatility = toBN(vol)
-  const samplingPrecision = toBN(0.05)
+  const samplingPrecision = toBN(0.1)
   if (curveIdx >= 24) throw 'Index of Premium Curve exceeds limit'
   const volIdx = Math.floor(volatility.dividedBy(samplingPrecision).toNumber())
   if (volIdx >= 99) throw 'Vol exceeds limit'
@@ -40,7 +40,8 @@ export const getPremium = ({ curveIdx, vol }: GetPremiumProps) => {
       .plus(
         toBN(premiumMesh[curveIdx][volIdx + 1]).multipliedBy(volatility.minus(samplingPrecision.multipliedBy(volIdx)))
       )
-      .dividedBy(samplingPrecision),
+      .dividedBy(samplingPrecision)
+      .multipliedBy(2),
     5
   )
 }
