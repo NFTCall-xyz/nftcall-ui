@@ -13,6 +13,19 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'Activate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: 'address',
         name: 'user',
@@ -88,15 +101,33 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'strikePriceGap',
-        type: 'uint256',
+        internalType: 'uint8',
+        name: 'strikePriceGapIdx',
+        type: 'uint8',
+      },
+      {
+        indexed: false,
+        internalType: 'uint8',
+        name: 'durationIdx',
+        type: 'uint8',
       },
       {
         indexed: false,
         internalType: 'uint256',
-        name: 'duration',
+        name: 'exercisePrice',
         type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint40',
+        name: 'exercisePeriodBegin',
+        type: 'uint40',
+      },
+      {
+        indexed: false,
+        internalType: 'uint40',
+        name: 'exercisePeriodEnd',
+        type: 'uint40',
       },
     ],
     name: 'CallOpened',
@@ -125,6 +156,19 @@ const _abi = [
       },
     ],
     name: 'CollectProtocol',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'Deactivate',
     type: 'event',
   },
   {
@@ -231,6 +275,43 @@ const _abi = [
       },
     ],
     name: 'OnMarket',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'nft',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint8',
+        name: 'lowerStrikePriceGapIdx',
+        type: 'uint8',
+      },
+      {
+        indexed: false,
+        internalType: 'uint8',
+        name: 'upperDurationIdx',
+        type: 'uint8',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minimumStrikePrice',
+        type: 'uint256',
+      },
+    ],
+    name: 'PreferenceUpdated',
     type: 'event',
   },
   {

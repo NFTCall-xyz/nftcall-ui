@@ -20,30 +20,17 @@ import type {
 
 import type { OnEvent, PromiseOrValue, TypedEvent, TypedEventFilter, TypedListener } from '../common'
 
-export type CallInfoStruct = {
-  exerciseTime: PromiseOrValue<BigNumberish>
-  endTime: PromiseOrValue<BigNumberish>
-  strikePrice: PromiseOrValue<BigNumberish>
-}
-
-export type CallInfoStructOutput = [BigNumber, BigNumber, BigNumber] & {
-  exerciseTime: BigNumber
-  endTime: BigNumber
-  strikePrice: BigNumber
-}
-
 export interface CallTokenInterface extends utils.Interface {
   functions: {
     'approve(address,uint256)': FunctionFragment
     'balanceOf(address)': FunctionFragment
     'burn(uint256)': FunctionFragment
     'getApproved(uint256)': FunctionFragment
-    'getCallInfo(uint256)': FunctionFragment
     'isApprovedForAll(address,address)': FunctionFragment
     'mint(address,uint256)': FunctionFragment
     'name()': FunctionFragment
     'nft()': FunctionFragment
-    'open(address,uint256,uint256,uint256,uint256)': FunctionFragment
+    'open(address,uint256)': FunctionFragment
     'owner()': FunctionFragment
     'ownerOf(uint256)': FunctionFragment
     'renounceOwnership()': FunctionFragment
@@ -66,7 +53,6 @@ export interface CallTokenInterface extends utils.Interface {
       | 'balanceOf'
       | 'burn'
       | 'getApproved'
-      | 'getCallInfo'
       | 'isApprovedForAll'
       | 'mint'
       | 'name'
@@ -95,7 +81,6 @@ export interface CallTokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'balanceOf', values: [PromiseOrValue<string>]): string
   encodeFunctionData(functionFragment: 'burn', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'getApproved', values: [PromiseOrValue<BigNumberish>]): string
-  encodeFunctionData(functionFragment: 'getCallInfo', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(
     functionFragment: 'isApprovedForAll',
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
@@ -103,16 +88,7 @@ export interface CallTokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'mint', values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'name', values?: undefined): string
   encodeFunctionData(functionFragment: 'nft', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'open',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
-  ): string
+  encodeFunctionData(functionFragment: 'open', values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
   encodeFunctionData(functionFragment: 'ownerOf', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
@@ -147,7 +123,6 @@ export interface CallTokenInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'getCallInfo', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
@@ -173,7 +148,6 @@ export interface CallTokenInterface extends utils.Interface {
     'ApprovalForAll(address,address,bool)': EventFragment
     'Burn(address,uint256)': EventFragment
     'Mint(address,uint256)': EventFragment
-    'Open(address,uint256,uint256,uint256,uint256)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Transfer(address,address,uint256)': EventFragment
   }
@@ -182,7 +156,6 @@ export interface CallTokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'ApprovalForAll'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Mint'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'Open'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
 }
@@ -220,17 +193,6 @@ export interface MintEventObject {
 export type MintEvent = TypedEvent<[string, BigNumber], MintEventObject>
 
 export type MintEventFilter = TypedEventFilter<MintEvent>
-
-export interface OpenEventObject {
-  user: string
-  tokenId: BigNumber
-  exercisePrice: BigNumber
-  exercisePeriodBegin: BigNumber
-  exercisePeriodEnd: BigNumber
-}
-export type OpenEvent = TypedEvent<[string, BigNumber, BigNumber, BigNumber, BigNumber], OpenEventObject>
-
-export type OpenEventFilter = TypedEventFilter<OpenEvent>
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string
@@ -287,8 +249,6 @@ export interface CallToken extends BaseContract {
 
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string]>
 
-    getCallInfo(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[CallInfoStructOutput]>
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -308,9 +268,6 @@ export interface CallToken extends BaseContract {
     open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -385,8 +342,6 @@ export interface CallToken extends BaseContract {
 
   getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
 
-  getCallInfo(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<CallInfoStructOutput>
-
   isApprovedForAll(
     owner: PromiseOrValue<string>,
     operator: PromiseOrValue<string>,
@@ -406,9 +361,6 @@ export interface CallToken extends BaseContract {
   open(
     user: PromiseOrValue<string>,
     tokenId: PromiseOrValue<BigNumberish>,
-    strikePrice: PromiseOrValue<BigNumberish>,
-    duration: PromiseOrValue<BigNumberish>,
-    exercisePeriodProportion: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -476,8 +428,6 @@ export interface CallToken extends BaseContract {
 
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
 
-    getCallInfo(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<CallInfoStructOutput>
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -490,14 +440,7 @@ export interface CallToken extends BaseContract {
 
     nft(overrides?: CallOverrides): Promise<string>
 
-    open(
-      user: PromiseOrValue<string>,
-      tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>
+    open(user: PromiseOrValue<string>, tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
 
     owner(overrides?: CallOverrides): Promise<string>
 
@@ -587,21 +530,6 @@ export interface CallToken extends BaseContract {
     ): MintEventFilter
     Mint(user?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): MintEventFilter
 
-    'Open(address,uint256,uint256,uint256,uint256)'(
-      user?: PromiseOrValue<string> | null,
-      tokenId?: PromiseOrValue<BigNumberish> | null,
-      exercisePrice?: null,
-      exercisePeriodBegin?: null,
-      exercisePeriodEnd?: null
-    ): OpenEventFilter
-    Open(
-      user?: PromiseOrValue<string> | null,
-      tokenId?: PromiseOrValue<BigNumberish> | null,
-      exercisePrice?: null,
-      exercisePeriodBegin?: null,
-      exercisePeriodEnd?: null
-    ): OpenEventFilter
-
     'OwnershipTransferred(address,address)'(
       previousOwner?: PromiseOrValue<string> | null,
       newOwner?: PromiseOrValue<string> | null
@@ -639,8 +567,6 @@ export interface CallToken extends BaseContract {
 
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
 
-    getCallInfo(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -660,9 +586,6 @@ export interface CallToken extends BaseContract {
     open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -738,8 +661,6 @@ export interface CallToken extends BaseContract {
 
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getCallInfo(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
-
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -759,9 +680,6 @@ export interface CallToken extends BaseContract {
     open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 

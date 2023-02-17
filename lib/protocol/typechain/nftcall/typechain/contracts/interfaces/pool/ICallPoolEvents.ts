@@ -13,31 +13,44 @@ export interface ICallPoolEventsInterface extends utils.Interface {
   functions: {}
 
   events: {
+    'Activate(address)': EventFragment
     'BalanceChangedETH(address,uint256)': EventFragment
     'CallClosed(address,address,address,uint256,uint256)': EventFragment
-    'CallOpened(address,address,uint256,uint256,uint256)': EventFragment
+    'CallOpened(address,address,uint256,uint8,uint8,uint256,uint40,uint40)': EventFragment
     'CollectProtocol(address,address,uint256)': EventFragment
+    'Deactivate(address)': EventFragment
     'Deposit(address,address,address,uint256)': EventFragment
     'DepositETH(address,address,uint256)': EventFragment
     'OffMarket(address,address,uint256)': EventFragment
     'OnMarket(address,address,uint256)': EventFragment
+    'PreferenceUpdated(address,uint256,uint8,uint8,uint256)': EventFragment
     'PremiumReceived(address,address,uint256,uint256,uint256)': EventFragment
     'Withdraw(address,address,address,uint256)': EventFragment
     'WithdrawETH(address,address,uint256)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'Activate'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'BalanceChangedETH'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallClosed'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CallOpened'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'CollectProtocol'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Deactivate'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Deposit'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'DepositETH'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OffMarket'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OnMarket'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'PreferenceUpdated'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'PremiumReceived'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Withdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'WithdrawETH'): EventFragment
 }
+
+export interface ActivateEventObject {
+  account: string
+}
+export type ActivateEvent = TypedEvent<[string], ActivateEventObject>
+
+export type ActivateEventFilter = TypedEventFilter<ActivateEvent>
 
 export interface BalanceChangedETHEventObject {
   user: string
@@ -62,10 +75,16 @@ export interface CallOpenedEventObject {
   nft: string
   user: string
   tokenId: BigNumber
-  strikePriceGap: BigNumber
-  duration: BigNumber
+  strikePriceGapIdx: number
+  durationIdx: number
+  exercisePrice: BigNumber
+  exercisePeriodBegin: number
+  exercisePeriodEnd: number
 }
-export type CallOpenedEvent = TypedEvent<[string, string, BigNumber, BigNumber, BigNumber], CallOpenedEventObject>
+export type CallOpenedEvent = TypedEvent<
+  [string, string, BigNumber, number, number, BigNumber, number, number],
+  CallOpenedEventObject
+>
 
 export type CallOpenedEventFilter = TypedEventFilter<CallOpenedEvent>
 
@@ -77,6 +96,13 @@ export interface CollectProtocolEventObject {
 export type CollectProtocolEvent = TypedEvent<[string, string, BigNumber], CollectProtocolEventObject>
 
 export type CollectProtocolEventFilter = TypedEventFilter<CollectProtocolEvent>
+
+export interface DeactivateEventObject {
+  account: string
+}
+export type DeactivateEvent = TypedEvent<[string], DeactivateEventObject>
+
+export type DeactivateEventFilter = TypedEventFilter<DeactivateEvent>
 
 export interface DepositEventObject {
   nft: string
@@ -114,6 +140,20 @@ export interface OnMarketEventObject {
 export type OnMarketEvent = TypedEvent<[string, string, BigNumber], OnMarketEventObject>
 
 export type OnMarketEventFilter = TypedEventFilter<OnMarketEvent>
+
+export interface PreferenceUpdatedEventObject {
+  nft: string
+  tokenId: BigNumber
+  lowerStrikePriceGapIdx: number
+  upperDurationIdx: number
+  minimumStrikePrice: BigNumber
+}
+export type PreferenceUpdatedEvent = TypedEvent<
+  [string, BigNumber, number, number, BigNumber],
+  PreferenceUpdatedEventObject
+>
+
+export type PreferenceUpdatedEventFilter = TypedEventFilter<PreferenceUpdatedEvent>
 
 export interface PremiumReceivedEventObject {
   nft: string
@@ -175,6 +215,9 @@ export interface ICallPoolEvents extends BaseContract {
   callStatic: {}
 
   filters: {
+    'Activate(address)'(account?: null): ActivateEventFilter
+    Activate(account?: null): ActivateEventFilter
+
     'BalanceChangedETH(address,uint256)'(
       user?: PromiseOrValue<string> | null,
       newBalance?: null
@@ -196,19 +239,25 @@ export interface ICallPoolEvents extends BaseContract {
       price?: null
     ): CallClosedEventFilter
 
-    'CallOpened(address,address,uint256,uint256,uint256)'(
+    'CallOpened(address,address,uint256,uint8,uint8,uint256,uint40,uint40)'(
       nft?: PromiseOrValue<string> | null,
       user?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null,
-      strikePriceGap?: null,
-      duration?: null
+      strikePriceGapIdx?: null,
+      durationIdx?: null,
+      exercisePrice?: null,
+      exercisePeriodBegin?: null,
+      exercisePeriodEnd?: null
     ): CallOpenedEventFilter
     CallOpened(
       nft?: PromiseOrValue<string> | null,
       user?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null,
-      strikePriceGap?: null,
-      duration?: null
+      strikePriceGapIdx?: null,
+      durationIdx?: null,
+      exercisePrice?: null,
+      exercisePeriodBegin?: null,
+      exercisePeriodEnd?: null
     ): CallOpenedEventFilter
 
     'CollectProtocol(address,address,uint256)'(
@@ -221,6 +270,9 @@ export interface ICallPoolEvents extends BaseContract {
       recipient?: PromiseOrValue<string> | null,
       amount?: null
     ): CollectProtocolEventFilter
+
+    'Deactivate(address)'(account?: null): DeactivateEventFilter
+    Deactivate(account?: null): DeactivateEventFilter
 
     'Deposit(address,address,address,uint256)'(
       nft?: PromiseOrValue<string> | null,
@@ -267,6 +319,21 @@ export interface ICallPoolEvents extends BaseContract {
       owner?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null
     ): OnMarketEventFilter
+
+    'PreferenceUpdated(address,uint256,uint8,uint8,uint256)'(
+      nft?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
+      lowerStrikePriceGapIdx?: null,
+      upperDurationIdx?: null,
+      minimumStrikePrice?: null
+    ): PreferenceUpdatedEventFilter
+    PreferenceUpdated(
+      nft?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
+      lowerStrikePriceGapIdx?: null,
+      upperDurationIdx?: null,
+      minimumStrikePrice?: null
+    ): PreferenceUpdatedEventFilter
 
     'PremiumReceived(address,address,uint256,uint256,uint256)'(
       nft?: PromiseOrValue<string> | null,

@@ -8,9 +8,9 @@ import { useContracts } from './application/contracts'
 import { useProvider } from './application/provider'
 
 //   'https://gateway.testnet.thegraph.com/api/693f585e54ce023909dcce542bb2ef6a/subgraphs/id/8psvhQk9V2oy1FBh8hJ6eTCPth8ffaf2x18Vz3vU1nTN',
-let subgraphName = 'https://api.thegraph.com/subgraphs/name/rockgold0911/nftcall'
+let subgraphName = 'https://api.thegraph.com/subgraphs/name/gordon199404/nftcall'
 if (process.env.NEXT_PUBLIC_ENV === 'stage') {
-  subgraphName = 'https://api.thegraph.com/subgraphs/name/rockgold0911/nftcall-stage'
+  subgraphName = 'https://api.thegraph.com/subgraphs/name/gordon199404/nftcall-stage'
 }
 
 const useNetworkService = () => {

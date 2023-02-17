@@ -51,6 +51,7 @@ export interface NFTOracleInterface extends utils.Interface {
     'owner()': FunctionFragment
     'paused()': FunctionFragment
     'renounceOwnership()': FunctionFragment
+    'replaceAsset(address,address)': FunctionFragment
     'setEmergencyAdmin(address,bool)': FunctionFragment
     'setOperator(address)': FunctionFragment
     'setPause(bool)': FunctionFragment
@@ -74,6 +75,7 @@ export interface NFTOracleInterface extends utils.Interface {
       | 'owner'
       | 'paused'
       | 'renounceOwnership'
+      | 'replaceAsset'
       | 'setEmergencyAdmin'
       | 'setOperator'
       | 'setPause'
@@ -101,6 +103,7 @@ export interface NFTOracleInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
   encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
+  encodeFunctionData(functionFragment: 'replaceAsset', values: [PromiseOrValue<string>, PromiseOrValue<string>]): string
   encodeFunctionData(
     functionFragment: 'setEmergencyAdmin',
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
@@ -124,6 +127,7 @@ export interface NFTOracleInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'replaceAsset', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'setEmergencyAdmin', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'setOperator', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'setPause', data: BytesLike): Result
@@ -133,6 +137,7 @@ export interface NFTOracleInterface extends utils.Interface {
     'ChangeOperator(address,address)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
+    'ReplaceAsset(address,address)': EventFragment
     'SetAssetData(uint256[],tuple[][])': EventFragment
     'SetEmergencyAdmin(address,bool)': EventFragment
     'Unpaused(address)': EventFragment
@@ -141,6 +146,7 @@ export interface NFTOracleInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'ChangeOperator'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ReplaceAsset'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'SetAssetData'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'SetEmergencyAdmin'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
@@ -168,6 +174,14 @@ export interface PausedEventObject {
 export type PausedEvent = TypedEvent<[string], PausedEventObject>
 
 export type PausedEventFilter = TypedEventFilter<PausedEvent>
+
+export interface ReplaceAssetEventObject {
+  oldAsset: string
+  newAsset: string
+}
+export type ReplaceAssetEvent = TypedEvent<[string, string], ReplaceAssetEventObject>
+
+export type ReplaceAssetEventFilter = TypedEventFilter<ReplaceAssetEvent>
 
 export interface SetAssetDataEventObject {
   indexes: BigNumber[]
@@ -269,6 +283,12 @@ export interface NFTOracle extends BaseContract {
 
     renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
+    replaceAsset(
+      oldAsset: PromiseOrValue<string>,
+      newAsset: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
+
     setEmergencyAdmin(
       admin: PromiseOrValue<string>,
       enabled: PromiseOrValue<boolean>,
@@ -339,6 +359,12 @@ export interface NFTOracle extends BaseContract {
 
   renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
 
+  replaceAsset(
+    oldAsset: PromiseOrValue<string>,
+    newAsset: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
   setEmergencyAdmin(
     admin: PromiseOrValue<string>,
     enabled: PromiseOrValue<boolean>,
@@ -406,6 +432,12 @@ export interface NFTOracle extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
+    replaceAsset(
+      oldAsset: PromiseOrValue<string>,
+      newAsset: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     setEmergencyAdmin(
       admin: PromiseOrValue<string>,
       enabled: PromiseOrValue<boolean>,
@@ -440,6 +472,15 @@ export interface NFTOracle extends BaseContract {
 
     'Paused(address)'(account?: null): PausedEventFilter
     Paused(account?: null): PausedEventFilter
+
+    'ReplaceAsset(address,address)'(
+      oldAsset?: PromiseOrValue<string> | null,
+      newAsset?: PromiseOrValue<string> | null
+    ): ReplaceAssetEventFilter
+    ReplaceAsset(
+      oldAsset?: PromiseOrValue<string> | null,
+      newAsset?: PromiseOrValue<string> | null
+    ): ReplaceAssetEventFilter
 
     'SetAssetData(uint256[],tuple[][])'(indexes?: null, inputs?: null): SetAssetDataEventFilter
     SetAssetData(indexes?: null, inputs?: null): SetAssetDataEventFilter
@@ -496,6 +537,12 @@ export interface NFTOracle extends BaseContract {
     paused(overrides?: CallOverrides): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
+
+    replaceAsset(
+      oldAsset: PromiseOrValue<string>,
+      newAsset: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
 
     setEmergencyAdmin(
       admin: PromiseOrValue<string>,
@@ -561,6 +608,12 @@ export interface NFTOracle extends BaseContract {
     paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>
+
+    replaceAsset(
+      oldAsset: PromiseOrValue<string>,
+      newAsset: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
 
     setEmergencyAdmin(
       admin: PromiseOrValue<string>,

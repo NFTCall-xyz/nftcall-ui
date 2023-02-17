@@ -12,7 +12,7 @@ const getGqlQuery = ({ first, skip, nft }: ListedNFTsProps) => {
     tokenId
     strikePriceGapIdx
     durationIdx
-    lowerLimitOfStrikePrice
+    lowerLimitOfStrikePrice: minimumStrikePrice
     status
     nftAddress
   }

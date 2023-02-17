@@ -25,7 +25,7 @@ export interface ICallTokenInterface extends utils.Interface {
     'burn(uint256)': FunctionFragment
     'mint(address,uint256)': FunctionFragment
     'nft()': FunctionFragment
-    'open(address,uint256,uint256,uint256,uint256)': FunctionFragment
+    'open(address,uint256)': FunctionFragment
   }
 
   getFunction(nameOrSignatureOrTopic: 'burn' | 'mint' | 'nft' | 'open'): FunctionFragment
@@ -33,16 +33,7 @@ export interface ICallTokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'burn', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'mint', values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'nft', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'open',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
-  ): string
+  encodeFunctionData(functionFragment: 'open', values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string
 
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
@@ -52,12 +43,10 @@ export interface ICallTokenInterface extends utils.Interface {
   events: {
     'Burn(address,uint256)': EventFragment
     'Mint(address,uint256)': EventFragment
-    'Open(address,uint256,uint256,uint256,uint256)': EventFragment
   }
 
   getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Mint'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'Open'): EventFragment
 }
 
 export interface BurnEventObject {
@@ -75,17 +64,6 @@ export interface MintEventObject {
 export type MintEvent = TypedEvent<[string, BigNumber], MintEventObject>
 
 export type MintEventFilter = TypedEventFilter<MintEvent>
-
-export interface OpenEventObject {
-  user: string
-  tokenId: BigNumber
-  exercisePrice: BigNumber
-  exercisePeriodBegin: BigNumber
-  exercisePeriodEnd: BigNumber
-}
-export type OpenEvent = TypedEvent<[string, BigNumber, BigNumber, BigNumber, BigNumber], OpenEventObject>
-
-export type OpenEventFilter = TypedEventFilter<OpenEvent>
 
 export interface ICallToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this
@@ -126,9 +104,6 @@ export interface ICallToken extends BaseContract {
     open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
   }
@@ -149,9 +124,6 @@ export interface ICallToken extends BaseContract {
   open(
     user: PromiseOrValue<string>,
     tokenId: PromiseOrValue<BigNumberish>,
-    strikePrice: PromiseOrValue<BigNumberish>,
-    duration: PromiseOrValue<BigNumberish>,
-    exercisePeriodProportion: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -162,14 +134,7 @@ export interface ICallToken extends BaseContract {
 
     nft(overrides?: CallOverrides): Promise<string>
 
-    open(
-      user: PromiseOrValue<string>,
-      tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>
+    open(user: PromiseOrValue<string>, tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
   }
 
   filters: {
@@ -184,21 +149,6 @@ export interface ICallToken extends BaseContract {
       tokenId?: PromiseOrValue<BigNumberish> | null
     ): MintEventFilter
     Mint(user?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): MintEventFilter
-
-    'Open(address,uint256,uint256,uint256,uint256)'(
-      user?: PromiseOrValue<string> | null,
-      tokenId?: PromiseOrValue<BigNumberish> | null,
-      exercisePrice?: null,
-      exercisePeriodBegin?: null,
-      exercisePeriodEnd?: null
-    ): OpenEventFilter
-    Open(
-      user?: PromiseOrValue<string> | null,
-      tokenId?: PromiseOrValue<BigNumberish> | null,
-      exercisePrice?: null,
-      exercisePeriodBegin?: null,
-      exercisePeriodEnd?: null
-    ): OpenEventFilter
   }
 
   estimateGas: {
@@ -218,9 +168,6 @@ export interface ICallToken extends BaseContract {
     open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
   }
@@ -242,9 +189,6 @@ export interface ICallToken extends BaseContract {
     open(
       user: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
-      exercisePeriodProportion: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
   }

@@ -13,6 +13,19 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'Activate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: 'address',
         name: 'user',
@@ -88,15 +101,33 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'strikePriceGap',
-        type: 'uint256',
+        internalType: 'uint8',
+        name: 'strikePriceGapIdx',
+        type: 'uint8',
+      },
+      {
+        indexed: false,
+        internalType: 'uint8',
+        name: 'durationIdx',
+        type: 'uint8',
       },
       {
         indexed: false,
         internalType: 'uint256',
-        name: 'duration',
+        name: 'exercisePrice',
         type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint40',
+        name: 'exercisePeriodBegin',
+        type: 'uint40',
+      },
+      {
+        indexed: false,
+        internalType: 'uint40',
+        name: 'exercisePeriodEnd',
+        type: 'uint40',
       },
     ],
     name: 'CallOpened',
@@ -125,6 +156,19 @@ const _abi = [
       },
     ],
     name: 'CollectProtocol',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'Deactivate',
     type: 'event',
   },
   {
@@ -231,6 +275,43 @@ const _abi = [
       },
     ],
     name: 'OnMarket',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'nft',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint8',
+        name: 'lowerStrikePriceGapIdx',
+        type: 'uint8',
+      },
+      {
+        indexed: false,
+        internalType: 'uint8',
+        name: 'upperDurationIdx',
+        type: 'uint8',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minimumStrikePrice',
+        type: 'uint256',
+      },
+    ],
+    name: 'PreferenceUpdated',
     type: 'event',
   },
   {
@@ -377,7 +458,7 @@ const _abi = [
       },
       {
         internalType: 'uint256',
-        name: 'lowerLimitOfStrikePrice',
+        name: 'minimumStrikePrice',
         type: 'uint256',
       },
     ],
@@ -452,7 +533,7 @@ const _abi = [
       },
       {
         internalType: 'uint256',
-        name: 'lowerLimitOfStrikePrice',
+        name: 'minimumStrikePrice',
         type: 'uint256',
       },
     ],
@@ -495,32 +576,68 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'getNFTStatus',
+    name: 'getEndTime',
     outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-      {
-        internalType: 'uint8',
-        name: '',
-        type: 'uint8',
-      },
-      {
-        internalType: 'uint8',
-        name: '',
-        type: 'uint8',
-      },
       {
         internalType: 'uint256',
         name: '',
         type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
+      },
+    ],
+    name: 'getNFTStatus',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'bool',
+            name: 'ifOnMarket',
+            type: 'bool',
+          },
+          {
+            internalType: 'uint8',
+            name: 'minimumStrikeGapIdx',
+            type: 'uint8',
+          },
+          {
+            internalType: 'uint8',
+            name: 'maximumDurationIdx',
+            type: 'uint8',
+          },
+          {
+            internalType: 'uint256',
+            name: 'exerciseTime',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'endTime',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'minimumStrikePrice',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'strikePrice',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct DataTypes.NFTStatusOutput',
+        name: '',
+        type: 'tuple',
       },
     ],
     stateMutability: 'view',
@@ -560,14 +677,14 @@ const _abi = [
         type: 'uint256',
       },
       {
-        internalType: 'uint256',
-        name: 'strikePrice',
-        type: 'uint256',
+        internalType: 'uint8',
+        name: 'strikePriceIdx',
+        type: 'uint8',
       },
       {
-        internalType: 'uint256',
-        name: 'duration',
-        type: 'uint256',
+        internalType: 'uint8',
+        name: 'durationIdx',
+        type: 'uint8',
       },
     ],
     name: 'openCall',
@@ -583,14 +700,14 @@ const _abi = [
         type: 'uint256[]',
       },
       {
-        internalType: 'uint256[]',
+        internalType: 'uint8[]',
         name: 'strikePrices',
-        type: 'uint256[]',
+        type: 'uint8[]',
       },
       {
-        internalType: 'uint256[]',
+        internalType: 'uint8[]',
         name: 'durations',
-        type: 'uint256[]',
+        type: 'uint8[]',
       },
     ],
     name: 'openCallBatch',
@@ -632,14 +749,14 @@ const _abi = [
         type: 'uint256',
       },
       {
-        internalType: 'uint256',
+        internalType: 'uint8',
         name: 'strikePriceGapIdx',
-        type: 'uint256',
+        type: 'uint8',
       },
       {
-        internalType: 'uint256',
+        internalType: 'uint8',
         name: 'durationIdx',
-        type: 'uint256',
+        type: 'uint8',
       },
     ],
     name: 'previewOpenCall',
@@ -663,6 +780,50 @@ const _abi = [
         internalType: 'uint256',
         name: 'errorCode',
         type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'uint8[]',
+        name: 'strikePriceGaps',
+        type: 'uint8[]',
+      },
+      {
+        internalType: 'uint8[]',
+        name: 'durations',
+        type: 'uint8[]',
+      },
+    ],
+    name: 'previewOpenCallBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'strikePrices',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'premiumsToOwner',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'premiumsToReserve',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
       },
     ],
     stateMutability: 'view',

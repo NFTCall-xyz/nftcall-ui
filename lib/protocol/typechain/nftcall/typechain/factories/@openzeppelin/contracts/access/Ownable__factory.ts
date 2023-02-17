@@ -44,7 +44,7 @@ const _abi = [
   {
     inputs: [] as any,
     name: 'renounceOwnership',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -57,7 +57,7 @@ const _abi = [
       },
     ],
     name: 'transferOwnership',
-    outputs: [],
+    outputs: [] as any,
     stateMutability: 'nonpayable',
     type: 'function',
   },

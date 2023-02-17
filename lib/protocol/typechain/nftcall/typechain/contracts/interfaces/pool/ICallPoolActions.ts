@@ -27,8 +27,8 @@ export interface ICallPoolActionsInterface extends utils.Interface {
     'deposit(address,uint256)': FunctionFragment
     'depositWithPreference(address,uint256,uint8,uint8,uint256)': FunctionFragment
     'exerciseCall(uint256)': FunctionFragment
-    'openCall(uint256,uint256,uint256)': FunctionFragment
-    'openCallBatch(uint256[],uint256[],uint256[])': FunctionFragment
+    'openCall(uint256,uint8,uint8)': FunctionFragment
+    'openCallBatch(uint256[],uint8[],uint8[])': FunctionFragment
     'relistNFT(uint256)': FunctionFragment
     'takeNFTOffMarket(uint256)': FunctionFragment
     'withdraw(address,uint256)': FunctionFragment
@@ -133,7 +133,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -148,7 +148,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -159,8 +159,8 @@ export interface ICallPoolActions extends BaseContract {
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
+      strikePriceIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -198,7 +198,7 @@ export interface ICallPoolActions extends BaseContract {
     tokenId: PromiseOrValue<BigNumberish>,
     lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
     upperDurationIdx: PromiseOrValue<BigNumberish>,
-    lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+    minimumStrikePrice: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -213,7 +213,7 @@ export interface ICallPoolActions extends BaseContract {
     tokenId: PromiseOrValue<BigNumberish>,
     lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
     upperDurationIdx: PromiseOrValue<BigNumberish>,
-    lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+    minimumStrikePrice: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -224,8 +224,8 @@ export interface ICallPoolActions extends BaseContract {
 
   openCall(
     tokenId: PromiseOrValue<BigNumberish>,
-    strikePrice: PromiseOrValue<BigNumberish>,
-    duration: PromiseOrValue<BigNumberish>,
+    strikePriceIdx: PromiseOrValue<BigNumberish>,
+    durationIdx: PromiseOrValue<BigNumberish>,
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -263,7 +263,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -278,7 +278,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -286,8 +286,8 @@ export interface ICallPoolActions extends BaseContract {
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
+      strikePriceIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -322,7 +322,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -337,7 +337,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -348,8 +348,8 @@ export interface ICallPoolActions extends BaseContract {
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
+      strikePriceIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -388,7 +388,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
@@ -403,7 +403,7 @@ export interface ICallPoolActions extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       lowerStrikePriceGapIdx: PromiseOrValue<BigNumberish>,
       upperDurationIdx: PromiseOrValue<BigNumberish>,
-      lowerLimitOfStrikePrice: PromiseOrValue<BigNumberish>,
+      minimumStrikePrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
@@ -414,8 +414,8 @@ export interface ICallPoolActions extends BaseContract {
 
     openCall(
       tokenId: PromiseOrValue<BigNumberish>,
-      strikePrice: PromiseOrValue<BigNumberish>,
-      duration: PromiseOrValue<BigNumberish>,
+      strikePriceIdx: PromiseOrValue<BigNumberish>,
+      durationIdx: PromiseOrValue<BigNumberish>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 

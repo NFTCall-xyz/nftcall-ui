@@ -11,10 +11,12 @@ import type { OnEvent, PromiseOrValue, TypedEvent, TypedEventFilter, TypedListen
 
 export interface ErrorCodesInterface extends utils.Interface {
   functions: {
+    'CP_ACTIVATED()': FunctionFragment
     'CP_ARRAY_LENGTH_UNMATCHED()': FunctionFragment
     'CP_CALLER_IS_NOT_FACTORY_OWNER()': FunctionFragment
     'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT()': FunctionFragment
     'CP_CAN_NOT_OPEN_CALL()': FunctionFragment
+    'CP_DEACTIVATED()': FunctionFragment
     'CP_DID_NOT_SEND_ENOUGHT_ETH()': FunctionFragment
     'CP_DURATION_TOO_LONG()': FunctionFragment
     'CP_GAP_OR_DURATION_OUT_OF_INDEX()': FunctionFragment
@@ -25,6 +27,7 @@ export interface ErrorCodesInterface extends utils.Interface {
     'CP_NOT_IN_THE_EXERCISE_PERIOD()': FunctionFragment
     'CP_NOT_THE_OWNER()': FunctionFragment
     'CP_PREMIUM_AND_ETH_UNEQUAL()': FunctionFragment
+    'CP_PRICE_TOO_HIGH()': FunctionFragment
     'CP_STRIKE_GAP_TOO_LOW()': FunctionFragment
     'CP_STRIKE_PRICE_TOO_LOW()': FunctionFragment
     'CP_TOO_LITTLE_PREMIUM_TO_OWNER()': FunctionFragment
@@ -32,10 +35,12 @@ export interface ErrorCodesInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | 'CP_ACTIVATED'
       | 'CP_ARRAY_LENGTH_UNMATCHED'
       | 'CP_CALLER_IS_NOT_FACTORY_OWNER'
       | 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT'
       | 'CP_CAN_NOT_OPEN_CALL'
+      | 'CP_DEACTIVATED'
       | 'CP_DID_NOT_SEND_ENOUGHT_ETH'
       | 'CP_DURATION_TOO_LONG'
       | 'CP_GAP_OR_DURATION_OUT_OF_INDEX'
@@ -46,15 +51,18 @@ export interface ErrorCodesInterface extends utils.Interface {
       | 'CP_NOT_IN_THE_EXERCISE_PERIOD'
       | 'CP_NOT_THE_OWNER'
       | 'CP_PREMIUM_AND_ETH_UNEQUAL'
+      | 'CP_PRICE_TOO_HIGH'
       | 'CP_STRIKE_GAP_TOO_LOW'
       | 'CP_STRIKE_PRICE_TOO_LOW'
       | 'CP_TOO_LITTLE_PREMIUM_TO_OWNER'
   ): FunctionFragment
 
+  encodeFunctionData(functionFragment: 'CP_ACTIVATED', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_ARRAY_LENGTH_UNMATCHED', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_CALLER_IS_NOT_FACTORY_OWNER', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_CAN_NOT_OPEN_CALL', values?: undefined): string
+  encodeFunctionData(functionFragment: 'CP_DEACTIVATED', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_DID_NOT_SEND_ENOUGHT_ETH', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_DURATION_TOO_LONG', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_GAP_OR_DURATION_OUT_OF_INDEX', values?: undefined): string
@@ -65,14 +73,17 @@ export interface ErrorCodesInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'CP_NOT_IN_THE_EXERCISE_PERIOD', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_NOT_THE_OWNER', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_PREMIUM_AND_ETH_UNEQUAL', values?: undefined): string
+  encodeFunctionData(functionFragment: 'CP_PRICE_TOO_HIGH', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_STRIKE_GAP_TOO_LOW', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_STRIKE_PRICE_TOO_LOW', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_TOO_LITTLE_PREMIUM_TO_OWNER', values?: undefined): string
 
+  decodeFunctionResult(functionFragment: 'CP_ACTIVATED', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_ARRAY_LENGTH_UNMATCHED', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_CALLER_IS_NOT_FACTORY_OWNER', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_CAN_NOT_OPEN_CALL', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CP_DEACTIVATED', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_DID_NOT_SEND_ENOUGHT_ETH', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_DURATION_TOO_LONG', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_GAP_OR_DURATION_OUT_OF_INDEX', data: BytesLike): Result
@@ -83,6 +94,7 @@ export interface ErrorCodesInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'CP_NOT_IN_THE_EXERCISE_PERIOD', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_NOT_THE_OWNER', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_PREMIUM_AND_ETH_UNEQUAL', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CP_PRICE_TOO_HIGH', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_STRIKE_GAP_TOO_LOW', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_STRIKE_PRICE_TOO_LOW', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_TOO_LITTLE_PREMIUM_TO_OWNER', data: BytesLike): Result
@@ -113,6 +125,8 @@ export interface ErrorCodes extends BaseContract {
   removeListener: OnEvent<this>
 
   functions: {
+    CP_ACTIVATED(overrides?: CallOverrides): Promise<[BigNumber]>
+
     CP_ARRAY_LENGTH_UNMATCHED(overrides?: CallOverrides): Promise<[BigNumber]>
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<[BigNumber]>
@@ -120,6 +134,8 @@ export interface ErrorCodes extends BaseContract {
     CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<[BigNumber]>
 
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    CP_DEACTIVATED(overrides?: CallOverrides): Promise<[BigNumber]>
 
     CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -141,12 +157,16 @@ export interface ErrorCodes extends BaseContract {
 
     CP_PREMIUM_AND_ETH_UNEQUAL(overrides?: CallOverrides): Promise<[BigNumber]>
 
+    CP_PRICE_TOO_HIGH(overrides?: CallOverrides): Promise<[BigNumber]>
+
     CP_STRIKE_GAP_TOO_LOW(overrides?: CallOverrides): Promise<[BigNumber]>
 
     CP_STRIKE_PRICE_TOO_LOW(overrides?: CallOverrides): Promise<[BigNumber]>
 
     CP_TOO_LITTLE_PREMIUM_TO_OWNER(overrides?: CallOverrides): Promise<[BigNumber]>
   }
+
+  CP_ACTIVATED(overrides?: CallOverrides): Promise<BigNumber>
 
   CP_ARRAY_LENGTH_UNMATCHED(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -155,6 +175,8 @@ export interface ErrorCodes extends BaseContract {
   CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<BigNumber>
 
   CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<BigNumber>
+
+  CP_DEACTIVATED(overrides?: CallOverrides): Promise<BigNumber>
 
   CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -176,6 +198,8 @@ export interface ErrorCodes extends BaseContract {
 
   CP_PREMIUM_AND_ETH_UNEQUAL(overrides?: CallOverrides): Promise<BigNumber>
 
+  CP_PRICE_TOO_HIGH(overrides?: CallOverrides): Promise<BigNumber>
+
   CP_STRIKE_GAP_TOO_LOW(overrides?: CallOverrides): Promise<BigNumber>
 
   CP_STRIKE_PRICE_TOO_LOW(overrides?: CallOverrides): Promise<BigNumber>
@@ -183,6 +207,8 @@ export interface ErrorCodes extends BaseContract {
   CP_TOO_LITTLE_PREMIUM_TO_OWNER(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
+    CP_ACTIVATED(overrides?: CallOverrides): Promise<BigNumber>
+
     CP_ARRAY_LENGTH_UNMATCHED(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<BigNumber>
@@ -190,6 +216,8 @@ export interface ErrorCodes extends BaseContract {
     CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<BigNumber>
+
+    CP_DEACTIVATED(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -210,6 +238,8 @@ export interface ErrorCodes extends BaseContract {
     CP_NOT_THE_OWNER(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_PREMIUM_AND_ETH_UNEQUAL(overrides?: CallOverrides): Promise<BigNumber>
+
+    CP_PRICE_TOO_HIGH(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_STRIKE_GAP_TOO_LOW(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -221,6 +251,8 @@ export interface ErrorCodes extends BaseContract {
   filters: {}
 
   estimateGas: {
+    CP_ACTIVATED(overrides?: CallOverrides): Promise<BigNumber>
+
     CP_ARRAY_LENGTH_UNMATCHED(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<BigNumber>
@@ -228,6 +260,8 @@ export interface ErrorCodes extends BaseContract {
     CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<BigNumber>
+
+    CP_DEACTIVATED(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -249,6 +283,8 @@ export interface ErrorCodes extends BaseContract {
 
     CP_PREMIUM_AND_ETH_UNEQUAL(overrides?: CallOverrides): Promise<BigNumber>
 
+    CP_PRICE_TOO_HIGH(overrides?: CallOverrides): Promise<BigNumber>
+
     CP_STRIKE_GAP_TOO_LOW(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_STRIKE_PRICE_TOO_LOW(overrides?: CallOverrides): Promise<BigNumber>
@@ -257,6 +293,8 @@ export interface ErrorCodes extends BaseContract {
   }
 
   populateTransaction: {
+    CP_ACTIVATED(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     CP_ARRAY_LENGTH_UNMATCHED(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_CALLER_IS_NOT_FACTORY_OWNER(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -264,6 +302,8 @@ export interface ErrorCodes extends BaseContract {
     CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_CAN_NOT_OPEN_CALL(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    CP_DEACTIVATED(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
@@ -284,6 +324,8 @@ export interface ErrorCodes extends BaseContract {
     CP_NOT_THE_OWNER(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_PREMIUM_AND_ETH_UNEQUAL(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    CP_PRICE_TOO_HIGH(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_STRIKE_GAP_TOO_LOW(overrides?: CallOverrides): Promise<PopulatedTransaction>
 

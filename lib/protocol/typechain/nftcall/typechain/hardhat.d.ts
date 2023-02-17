@@ -83,6 +83,10 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CallTokenFactory__factory>
     getContractFactory(
+      name: 'DataTypes',
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DataTypes__factory>
+    getContractFactory(
       name: 'ErrorCodes',
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ErrorCodes__factory>
@@ -254,6 +258,7 @@ declare module 'hardhat/types/runtime' {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.CallTokenFactory>
+    getContractAt(name: 'DataTypes', address: string, signer?: ethers.Signer): Promise<Contracts.DataTypes>
     getContractAt(name: 'ErrorCodes', address: string, signer?: ethers.Signer): Promise<Contracts.ErrorCodes>
     getContractAt(name: 'Errors', address: string, signer?: ethers.Signer): Promise<Contracts.Errors>
     getContractAt(name: 'ICallFactory', address: string, signer?: ethers.Signer): Promise<Contracts.ICallFactory>

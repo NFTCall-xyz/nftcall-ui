@@ -18,29 +18,66 @@ import type {
 
 import type { OnEvent, PromiseOrValue, TypedEvent, TypedEventFilter, TypedListener } from '../../../common'
 
+export declare namespace DataTypes {
+  export type NFTStatusOutputStruct = {
+    ifOnMarket: PromiseOrValue<boolean>
+    minimumStrikeGapIdx: PromiseOrValue<BigNumberish>
+    maximumDurationIdx: PromiseOrValue<BigNumberish>
+    exerciseTime: PromiseOrValue<BigNumberish>
+    endTime: PromiseOrValue<BigNumberish>
+    minimumStrikePrice: PromiseOrValue<BigNumberish>
+    strikePrice: PromiseOrValue<BigNumberish>
+  }
+
+  export type NFTStatusOutputStructOutput = [boolean, number, number, BigNumber, BigNumber, BigNumber, BigNumber] & {
+    ifOnMarket: boolean
+    minimumStrikeGapIdx: number
+    maximumDurationIdx: number
+    exerciseTime: BigNumber
+    endTime: BigNumber
+    minimumStrikePrice: BigNumber
+    strikePrice: BigNumber
+  }
+}
+
 export interface ICallPoolStateInterface extends utils.Interface {
   functions: {
     'balanceOf(address)': FunctionFragment
+    'getEndTime(uint256)': FunctionFragment
     'getNFTStatus(uint256)': FunctionFragment
-    'previewOpenCall(uint256,uint256,uint256)': FunctionFragment
+    'previewOpenCall(uint256,uint8,uint8)': FunctionFragment
+    'previewOpenCallBatch(uint256[],uint8[],uint8[])': FunctionFragment
     'totalOpenInterest()': FunctionFragment
   }
 
   getFunction(
-    nameOrSignatureOrTopic: 'balanceOf' | 'getNFTStatus' | 'previewOpenCall' | 'totalOpenInterest'
+    nameOrSignatureOrTopic:
+      | 'balanceOf'
+      | 'getEndTime'
+      | 'getNFTStatus'
+      | 'previewOpenCall'
+      | 'previewOpenCallBatch'
+      | 'totalOpenInterest'
   ): FunctionFragment
 
   encodeFunctionData(functionFragment: 'balanceOf', values: [PromiseOrValue<string>]): string
+  encodeFunctionData(functionFragment: 'getEndTime', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'getNFTStatus', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(
     functionFragment: 'previewOpenCall',
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string
+  encodeFunctionData(
+    functionFragment: 'previewOpenCallBatch',
+    values: [PromiseOrValue<BigNumberish>[], PromiseOrValue<BigNumberish>[], PromiseOrValue<BigNumberish>[]]
+  ): string
   encodeFunctionData(functionFragment: 'totalOpenInterest', values?: undefined): string
 
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getEndTime', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'getNFTStatus', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'previewOpenCall', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'previewOpenCallBatch', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'totalOpenInterest', data: BytesLike): Result
 
   events: {}
@@ -71,10 +108,12 @@ export interface ICallPoolState extends BaseContract {
   functions: {
     balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>
 
+    getEndTime(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber]>
+
     getNFTStatus(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number, BigNumber]>
+    ): Promise<[DataTypes.NFTStatusOutputStructOutput]>
 
     previewOpenCall(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -90,15 +129,31 @@ export interface ICallPoolState extends BaseContract {
       }
     >
 
+    previewOpenCallBatch(
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      strikePriceGaps: PromiseOrValue<BigNumberish>[],
+      durations: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber[], BigNumber[], BigNumber[], BigNumber[]] & {
+        strikePrices: BigNumber[]
+        premiumsToOwner: BigNumber[]
+        premiumsToReserve: BigNumber[]
+        errorCodes: BigNumber[]
+      }
+    >
+
     totalOpenInterest(overrides?: CallOverrides): Promise<[BigNumber]>
   }
 
   balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
 
+  getEndTime(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
+
   getNFTStatus(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<[boolean, boolean, number, number, BigNumber]>
+  ): Promise<DataTypes.NFTStatusOutputStructOutput>
 
   previewOpenCall(
     tokenId: PromiseOrValue<BigNumberish>,
@@ -114,15 +169,31 @@ export interface ICallPoolState extends BaseContract {
     }
   >
 
+  previewOpenCallBatch(
+    tokenIds: PromiseOrValue<BigNumberish>[],
+    strikePriceGaps: PromiseOrValue<BigNumberish>[],
+    durations: PromiseOrValue<BigNumberish>[],
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber[], BigNumber[], BigNumber[], BigNumber[]] & {
+      strikePrices: BigNumber[]
+      premiumsToOwner: BigNumber[]
+      premiumsToReserve: BigNumber[]
+      errorCodes: BigNumber[]
+    }
+  >
+
   totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
     balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
 
+    getEndTime(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
+
     getNFTStatus(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[boolean, boolean, number, number, BigNumber]>
+    ): Promise<DataTypes.NFTStatusOutputStructOutput>
 
     previewOpenCall(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -138,6 +209,20 @@ export interface ICallPoolState extends BaseContract {
       }
     >
 
+    previewOpenCallBatch(
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      strikePriceGaps: PromiseOrValue<BigNumberish>[],
+      durations: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber[], BigNumber[], BigNumber[], BigNumber[]] & {
+        strikePrices: BigNumber[]
+        premiumsToOwner: BigNumber[]
+        premiumsToReserve: BigNumber[]
+        errorCodes: BigNumber[]
+      }
+    >
+
     totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
   }
 
@@ -145,6 +230,8 @@ export interface ICallPoolState extends BaseContract {
 
   estimateGas: {
     balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
+
+    getEndTime(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
 
     getNFTStatus(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
 
@@ -155,11 +242,20 @@ export interface ICallPoolState extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    previewOpenCallBatch(
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      strikePriceGaps: PromiseOrValue<BigNumberish>[],
+      durations: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     totalOpenInterest(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   populateTransaction: {
     balanceOf(user: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    getEndTime(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getNFTStatus(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
@@ -167,6 +263,13 @@ export interface ICallPoolState extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       strikePriceGapIdx: PromiseOrValue<BigNumberish>,
       durationIdx: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    previewOpenCallBatch(
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      strikePriceGaps: PromiseOrValue<BigNumberish>[],
+      durations: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 

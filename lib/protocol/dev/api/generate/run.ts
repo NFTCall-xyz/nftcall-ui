@@ -10,6 +10,7 @@ const DEPLOYED_CONTRACTS_PATH = path.resolve(SOURCE_BASE_PATH, 'deployed-contrac
 const DEPLOYED_MARKET_CONTRACTS_PATH = path.resolve(SOURCE_BASE_PATH, 'deployed-contracts-pool.json')
 
 const TARGET_BASE_PATH = path.resolve(ROOT_PATH, 'lib/protocol/generate')
+const SUBGRAPH_TARGET_BASE_PATH = path.resolve(ROOT_PATH, 'lib/protocol/generate/dist')
 
 export const run = async () => {
   const a = requireFromPath(DEPLOYED_CONTRACTS_PATH)
@@ -44,11 +45,113 @@ export const run = async () => {
     })
   })
 
-  Object.keys(networks).forEach((name) => {
-    writeFile(path.resolve(TARGET_BASE_PATH, `${name}.json`), {
-      ...networks[name],
-      markets: markets[name],
+  Object.keys(networks).forEach((networkName) => {
+    const marketConfig = markets[networkName]
+    const config = {
+      ...networks[networkName],
+      markets: marketConfig,
+    }
+    writeFile(path.resolve(TARGET_BASE_PATH, `${networkName}.json`), config)
+
+    if (networkName != 'goerli') return
+
+    let subgraph = `
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+    `
+    let subgraphStage = `
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+    `
+    const getSubgraohDataSource = (networkName: string, nftName: string, address: string) => {
+      return `
+  - kind: ethereum
+    name: ${nftName}CallPool
+    network: ${networkName}
+    source:
+      address: "${address}"
+      abi: CallPool
+      startBlock: 8477156
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Activate
+        - BalanceChangedETH
+        - CallClosed
+        - CallOpened
+        - CollectProtocol
+        - Deactivate
+        - Deposit
+        - DepositETH
+        - OffMarket
+        - OnMarket
+        - Paused
+        - PreferenceUpdated
+        - PremiumReceived
+        - Unpaused
+        - Withdraw
+        - WithdrawETH
+      abis:
+        - name: CallPool
+          file: ./abis/CallPool.json
+        - name: NFTOracle
+          file: ./abis/NFTOracle.json
+      eventHandlers:
+        - event: Activate(address)
+          handler: handleActivate
+        - event: BalanceChangedETH(indexed address,uint256)
+          handler: handleBalanceChangedETH
+        - event: CallClosed(indexed address,indexed address,address,indexed uint256,uint256)
+          handler: handleCallClosed
+        - event: CallOpened(indexed address,indexed address,indexed uint256,uint8,uint8,uint256,uint40,uint40)
+          handler: handleCallOpened
+        - event: CollectProtocol(indexed address,indexed address,uint256)
+          handler: handleCollectProtocol
+        - event: Deactivate(address)
+          handler: handleDeactivate
+        - event: Deposit(indexed address,address,indexed address,indexed uint256)
+          handler: handleDeposit
+        - event: DepositETH(indexed address,indexed address,uint256)
+          handler: handleDepositETH
+        - event: OffMarket(indexed address,indexed address,indexed uint256)
+          handler: handleOffMarket
+        - event: OnMarket(indexed address,indexed address,indexed uint256)
+          handler: handleOnMarket
+        - event: Paused(address)
+          handler: handlePaused
+        - event: PreferenceUpdated(indexed address,indexed uint256,uint8,uint8,uint256)
+          handler: handlePreferenceUpdated
+        - event: PremiumReceived(indexed address,indexed address,indexed uint256,uint256,uint256)
+          handler: handlePremiumReceived
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Withdraw(indexed address,indexed address,address,indexed uint256)
+          handler: handleWithdraw
+        - event: WithdrawETH(indexed address,indexed address,uint256)
+          handler: handleWithdrawETH
+      file: ./src/call-pool.ts
+`
+    }
+
+    Object.keys(marketConfig).forEach((nftName) => {
+      const callPool = marketConfig[nftName]
+      const { CallPool, CallPoolForTest } = callPool
+
+      if (CallPool) {
+        subgraph += getSubgraohDataSource(networkName, nftName, CallPool)
+      }
+      if (CallPoolForTest) {
+        subgraphStage += getSubgraohDataSource(networkName, nftName, CallPoolForTest)
+      }
     })
+    writeFile(path.resolve(SUBGRAPH_TARGET_BASE_PATH, `subgraph.yaml`), subgraph, 'text')
+    writeFile(path.resolve(SUBGRAPH_TARGET_BASE_PATH, `subgraph-stage.yaml`), subgraphStage, 'text')
   })
 
   console.log('[api/protocol/generate] output to', TARGET_BASE_PATH)

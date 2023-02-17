@@ -48,43 +48,6 @@ const _abi = [
     type: 'event',
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'exercisePrice',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'exercisePeriodBegin',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'exercisePeriodEnd',
-        type: 'uint256',
-      },
-    ],
-    name: 'Open',
-    type: 'event',
-  },
-  {
     inputs: [
       {
         internalType: 'uint256',
@@ -138,21 +101,6 @@ const _abi = [
       {
         internalType: 'uint256',
         name: 'tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'strikePrice',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'duration',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'exercisePeriodProportion',
         type: 'uint256',
       },
     ],
