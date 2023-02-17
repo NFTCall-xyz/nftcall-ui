@@ -28,16 +28,18 @@ export type Market = {
 }
 
 export const getMarkets = (address: AddressData) => {
-  return Object.keys(address.markets).map((key) => {
-    const id: MarketId = key as any
-    const info = getMarketInfo(id)
+  return Object.keys(address.markets)
+    .filter((key) => address.markets[key as 'BAYC'].CallPool)
+    .map((key) => {
+      const id: MarketId = key as any
+      const info = getMarketInfo(id)
 
-    return {
-      id,
-      info,
-      address: {
-        ...address.markets[id],
-      } as ContractsAddress,
-    }
-  })
+      return {
+        id,
+        info,
+        address: {
+          ...address.markets[id],
+        } as ContractsAddress,
+      }
+    })
 }

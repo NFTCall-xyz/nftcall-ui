@@ -1,0 +1,46 @@
+{
+  "banner_image_url": "https://openseauserdata.com/files/0703089115b28a94fbd44402ff1c162f.svg",
+  "chat_url": null,
+  "created_date": "2023-01-03T17:33:39.266693+00:00",
+  "default_to_fiat": false,
+  "description": "This artwork may or may not be notable.",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "250",
+  "discord_url": null,
+  "display_data": {
+    "card_display_style": "cover",
+    "images": null
+  },
+  "external_url": "https://checks.art",
+  "featured": false,
+  "featured_image_url": "https://openseauserdata.com/files/f69dc9b3f5b593e6e45934f5c0bf1b78.svg",
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gcs/files/864dce41a43d14e0c083ad9434cb8261.png?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": "https://openseauserdata.com/files/f69dc9b3f5b593e6e45934f5c0bf1b78.svg",
+  "medium_username": null,
+  "name": "Checks - VV Edition",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": "250",
+  "payout_address": null,
+  "require_email": false,
+  "short_description": null,
+  "slug": "vv-checks",
+  "telegram_url": null,
+  "twitter_username": "jackbutcher",
+  "instagram_username": null,
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xc8f8e2f59dd95ff67c3d39109eca2e2a017d4c8a": 250
+    },
+    "opensea_fees": {
+      "0x0000a26b00c1f0df003000390027140000faa719": 250
+    }
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": false
+}

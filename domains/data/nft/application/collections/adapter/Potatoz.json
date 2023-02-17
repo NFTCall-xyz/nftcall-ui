@@ -1,0 +1,46 @@
+{
+  "banner_image_url": "https://i.seadn.io/gcs/files/0cd2021f9a1c94061f9fdf69dc1f0a2b.gif?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2022-07-21T03:21:35.182770+00:00",
+  "default_to_fiat": false,
+  "description": "9,999 SMALL SPECIES LEADING THE WAY TO MEMELAND.\n\nA long time ago, in a memetaverse far, far away… Memeland was a deserted land unsuitable for life. Until [redacted] years ago, early lifeforms started to appear. Memeland's first residents, it turns out, were a bunch of Potatoz. Who left the Potatoz there?\n\nThe Potatoz is a collection of 9,999 utility-enabled PFPs. Each Potatoz is your entry ticket into the great [Memeland](https://www.memeland.com/) ecosystem. They make for a great side dish, but some may feel a calling to become the main course. Rumour has it they are secretly related to the Memelist, $MEME, [MVP](https://opensea.io/collection/youtherealmvp), and more!",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "333",
+  "discord_url": "https://discord.gg/memeland",
+  "display_data": {
+    "card_display_style": "cover",
+    "images": null
+  },
+  "external_url": "https://www.memeland.com/potatoz",
+  "featured": false,
+  "featured_image_url": "https://i.seadn.io/gcs/files/774b6b9daa7064a64b00811b191fed00.gif?w=500&auto=format",
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gcs/files/129b97582f0071212ee7cf440644fc28.gif?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": "https://i.seadn.io/gcs/files/774b6b9daa7064a64b00811b191fed00.gif?w=500&auto=format",
+  "medium_username": null,
+  "name": "The Potatoz",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": "250",
+  "payout_address": "0xf3b985336fd574a0aa6e02cbe61c609861e923d6",
+  "require_email": false,
+  "short_description": null,
+  "slug": "thepotatoz",
+  "telegram_url": null,
+  "twitter_username": "memeland",
+  "instagram_username": "memeland",
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xf3b985336fd574a0aa6e02cbe61c609861e923d6": 333
+    },
+    "opensea_fees": {
+      "0x0000a26b00c1f0df003000390027140000faa719": 250
+    }
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": true
+}

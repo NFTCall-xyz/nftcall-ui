@@ -1,0 +1,45 @@
+{
+  "banner_image_url": "https://i.seadn.io/gae/E_XVuM8mX1RuqBym2JEX4RBg_sj9KbTFBAi0qU4eBr2E3VCC0bwpWrgHqBOaWsKGTf4-DBseuZJGvsCVBnzLjxqgq7rAb_93zkZ-?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2022-04-29T13:58:31.855081+00:00",
+  "default_to_fiat": false,
+  "description": "Otherdeed is the key to claiming land in Otherside. Each have a unique blend of environment and sediment — some with resources, some home to powerful artifacts. And on a very few, a Koda roams.",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "500",
+  "discord_url": "https://discord.gg/the-otherside",
+  "display_data": {
+    "card_display_style": "contain"
+  },
+  "external_url": "https://otherside.xyz",
+  "featured": false,
+  "featured_image_url": null,
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gae/yIm-M5-BpSDdTEIJRt5D6xphizhIdozXjqSITgK4phWq7MmAU3qE7Nw7POGCiPGyhtJ3ZFP8iJ29TFl-RLcGBWX5qI4-ZcnCPcsY4zI?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": null,
+  "medium_username": null,
+  "name": "Otherdeed for Otherside",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": "250",
+  "payout_address": "0x37ceb4ba093d40234c6fb312d9791b67c04ef49a",
+  "require_email": false,
+  "short_description": null,
+  "slug": "otherdeed",
+  "telegram_url": null,
+  "twitter_username": "othersidemeta",
+  "instagram_username": null,
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0x37ceb4ba093d40234c6fb312d9791b67c04ef49a": 500
+    },
+    "opensea_fees": {
+      "0x0000a26b00c1f0df003000390027140000faa719": 250
+    }
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": true
+}

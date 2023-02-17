@@ -1,0 +1,46 @@
+{
+  "banner_image_url": "https://i.seadn.io/gcs/files/b506eaca01f32365901c233181e69d93.png?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2022-08-23T19:48:25.689876+00:00",
+  "default_to_fiat": false,
+  "description": "Valhalla is a crypto native brand for gamers. \r\n\r\nValhalla represents more than a collection of digital avatars. It represents decades of gaming culture: the clutch plays, the ELO grind, the OT wins. Visit joinvalhalla.com for more details.",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "500",
+  "discord_url": "https://discord.gg/joinvalhalla",
+  "display_data": {
+    "card_display_style": "contain",
+    "images": null
+  },
+  "external_url": "http://joinvalhalla.com",
+  "featured": false,
+  "featured_image_url": "https://i.seadn.io/gcs/files/47fd89fb8ec028bcccd88f46b599b8d8.png?w=500&auto=format",
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gcs/files/d7936464d55988206c1b16c6929856f6.jpg?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": "https://i.seadn.io/gcs/files/47fd89fb8ec028bcccd88f46b599b8d8.png?w=500&auto=format",
+  "medium_username": null,
+  "name": "Valhalla",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": "250",
+  "payout_address": null,
+  "require_email": false,
+  "short_description": null,
+  "slug": "valhalla",
+  "telegram_url": null,
+  "twitter_username": "valhalla",
+  "instagram_username": null,
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xff59b4b3d52728f78020414c720164a17c08f499": 500
+    },
+    "opensea_fees": {
+      "0x0000a26b00c1f0df003000390027140000faa719": 250
+    }
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": true
+}

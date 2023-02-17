@@ -1,0 +1,45 @@
+{
+  "banner_image_url": "https://i.seadn.io/gae/WRcl2YH8E3_7884mcJ0DRN7STGqA8xZQKd-0MFmPftlxUR6i1xB9todMXRW2M6SIpXKAZ842UqKDm1UrkKG8nr7l9NjCkIw-GLQSFQ?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2022-03-31T05:32:31.772609+00:00",
+  "default_to_fiat": false,
+  "description": "BEANZ are a small species that sprouts from the dirt in the garden. They make for a great sidekick to an Azuki, although some like to kick it alone. They're earnestly driven by the desire to help. However, certain BEANZ feel a calling to pave their own path...",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "500",
+  "discord_url": null,
+  "display_data": {
+    "card_display_style": "contain"
+  },
+  "external_url": null,
+  "featured": false,
+  "featured_image_url": null,
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gae/_R4fuC4QGYd14-KwX2bD1wf-AWjDF2VMabfqWFJhIgiN2FnAUpnD5PLdJORrhQ8gly7KcjhQZZpuzYVPF7CDSzsqmDh97z84j2On?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": null,
+  "medium_username": null,
+  "name": "BEANZ Official",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": "250",
+  "payout_address": "0xb4d24dacbdffa1bbf9a624044484b3feeb7fdf74",
+  "require_email": false,
+  "short_description": null,
+  "slug": "beanzofficial",
+  "telegram_url": null,
+  "twitter_username": "AzukiOfficial",
+  "instagram_username": null,
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xb4d24dacbdffa1bbf9a624044484b3feeb7fdf74": 500
+    },
+    "opensea_fees": {
+      "0x0000a26b00c1f0df003000390027140000faa719": 250
+    }
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": true
+}
