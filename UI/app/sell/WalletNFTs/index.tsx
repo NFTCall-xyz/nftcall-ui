@@ -19,7 +19,7 @@ import NFTCard from './NFTCard'
 const WalletNFTs = () => {
   const { t } = useTranslation('app-sell')
   const {
-    tokenId: { wallet, updateAssets },
+    tokenId: { wallet, updateAssets, updateWallet },
   } = useNFT()
   const {
     callPools,
@@ -59,6 +59,7 @@ const WalletNFTs = () => {
   }, [wallet, callPools, action])
 
   useEffect(() => {
+    updateWallet().catch(() => {})
     const stop = updateAssets(wallet)
     return () => stop()
     // eslint-disable-next-line react-hooks/exhaustive-deps
