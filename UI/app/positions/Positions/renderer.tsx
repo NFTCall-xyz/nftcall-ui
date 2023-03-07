@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import TableCell from '@mui/material/TableCell'
 import Tooltip from '@mui/material/Tooltip'
 
-import { Paragraph } from 'components/Typography'
+import { TooltipSpan } from 'components/Typography'
 
 import NFTCell from 'domains/data/nft/components/NFTCell'
 import PositionStatus from 'domains/data/position/components/PositionStatus'
@@ -78,9 +78,9 @@ const PositionNotExercisableDate: FC<PositionDateProps> = ({ position: { exercis
       <Stack spacing={1}>
         <Tooltip title={t('exercisableDate')} placement="top">
           <Box>
-            <Paragraph fontSize={14} color="text.secondary">
+            <TooltipSpan>
               {format(exerciseTime, 'MMM dd HH:mm')}
-            </Paragraph>
+            </TooltipSpan>
           </Box>
         </Tooltip>
         <span>-</span>
@@ -96,9 +96,9 @@ const PositionExercisedDate: FC<PositionDateProps> = ({ position: { updateTimest
         <span>-</span>
         <Tooltip title={t('exercisedDate')}>
           <Box>
-            <Paragraph fontSize={14} color="text.secondary">
+            <TooltipSpan>
               {format(updateTimestamp, 'MMM dd HH:mm')}
-            </Paragraph>
+            </TooltipSpan>
           </Box>
         </Tooltip>
       </Stack>
@@ -112,16 +112,16 @@ const PositionExpiredDate: FC<PositionDateProps> = ({ position: { endTime, creat
       <Stack spacing={1}>
         <Tooltip title={t('createdDate')}>
           <Box>
-            <Paragraph fontSize={14} color="text.secondary">
+            <TooltipSpan>
               {format(createTimestamp, 'MMM dd HH:mm')}
-            </Paragraph>
+            </TooltipSpan>
           </Box>
         </Tooltip>
         <Tooltip title={t('expiryDate')}>
           <Box>
-            <Paragraph fontSize={14} color="text.secondary">
+            <TooltipSpan>
               {format(endTime, 'MMM dd HH:mm')}
-            </Paragraph>
+            </TooltipSpan>
           </Box>
         </Tooltip>
       </Stack>
@@ -183,6 +183,25 @@ export const positionDate2HeaderRenderer = () => {
   return (
     <TableCell align="center" component="div" variant="head">
       <PositionDate2Header />
+    </TableCell>
+  )
+}
+
+const PNLHeader: FC = () => {
+  const { t } = useTranslation('app-positions', { keyPrefix: 'table' })
+  return (
+    <Tooltip title={t('PNLTip')}>
+      <Box>
+        <TooltipSpan>{t('PNL')}</TooltipSpan>
+      </Box>
+    </Tooltip>
+  )
+}
+
+export const pnlHeaderRenderer = () => {
+  return (
+    <TableCell align="center" component="div" variant="head">
+      <PNLHeader />
     </TableCell>
   )
 }

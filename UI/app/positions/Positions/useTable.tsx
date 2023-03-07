@@ -28,6 +28,7 @@ import type { ExerciseCallProps } from 'lib/protocol/typechain/nftcall'
 import {
   nftCellRenderer,
   pnlCellRenderer,
+  pnlHeaderRenderer,
   positionDate1CellRenderer,
   positionDate1HeaderRenderer,
   positionDate2CellRenderer,
@@ -137,7 +138,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           {
             dataKey: 'PNL',
             width: 240,
-            headerRenderer,
+            headerRenderer: pnlHeaderRenderer,
             cellRenderer: pnlCellRenderer,
           },
           {

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 
 import type { BoxProps } from '@mui/material'
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 
 const createEllipsisStyle = () =>
   ({
@@ -199,6 +199,32 @@ export const Tiny: React.FC<BoxProps & Props> = (props) => {
       {...{
         ...(ellipsis ? createEllipsisStyle() : {}),
         ...others,
+      }}
+    >
+      {children}
+    </Box>
+  )
+}
+
+export const TooltipSpan: React.FC<BoxProps & Props> = (props) => {
+  const { ellipsis, children, className, ...others } = props
+  const theme = useTheme()
+  return (
+    <Box
+      fontSize={14}
+      component="span"
+      fontWeight={400}
+      color="text.secondary"
+      className={clsx({ [className || '']: true })}
+      {...{
+        ...(ellipsis ? createEllipsisStyle() : {}),
+        ...others,
+      }}
+      sx={{
+        textDecoration: 'underline',
+        textDecorationStyle: 'dotted',
+        textDecorationColor: theme.palette.text.disabled,
+        cursor: 'help',
       }}
     >
       {children}

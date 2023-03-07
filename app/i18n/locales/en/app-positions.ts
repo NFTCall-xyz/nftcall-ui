@@ -11,6 +11,7 @@ const locale = {
     createdDate: 'Created Date',
     premium: 'Premium',
     PNL: 'PNL',
+    PNLTip: 'PNL = Options payoff - premium',
     status: 'Status',
     action: 'Action',
     exercise: 'Exercise',

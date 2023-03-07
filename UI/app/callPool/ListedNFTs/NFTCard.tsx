@@ -7,12 +7,14 @@ import CardContent from '@mui/material/CardContent'
 import Checkbox from '@mui/material/Checkbox'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import Tooltip from '@mui/material/Tooltip'
 
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 import type { UseIds } from 'app/hooks/useIds'
 import { safeGet } from 'app/utils/get'
 
-import { Paragraph, Tiny } from 'components/Typography'
+import { Paragraph, Tiny, TooltipSpan } from 'components/Typography'
 import FlexBetween from 'components/flexbox/FlexBetween'
 
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
@@ -87,11 +89,19 @@ const NFTCard: FC<NFTCardProps> = (props) => {
         <Stack spacing={0.5}>
           <Paragraph>{title}</Paragraph>
           <FlexBetween>
-            <Tiny color="text.secondary">{t('openPanel.minStrikePrice')}</Tiny>
+            <Tooltip title={t('openPanel.minStrikePriceTip')}>
+              <Box>
+                <TooltipSpan fontSize={12}>{t('openPanel.minStrikePrice')}</TooltipSpan>
+              </Box>
+            </Tooltip>
             <Tiny color="text.secondary">+{minStrikePriceLabel}</Tiny>
           </FlexBetween>
           <FlexBetween>
-            <Tiny color="text.secondary">{t('openPanel.lowerLimitOfStrikePrice')}</Tiny>
+            <Tooltip title={t('openPanel.lowerLimitOfStrikePriceTip')}>
+              <Box>
+                <TooltipSpan fontSize={12}>{t('openPanel.lowerLimitOfStrikePrice')}</TooltipSpan>
+              </Box>
+            </Tooltip>
             {!lowerLimitOfStrikePrice.isZero() ? (
               <Stack spacing={0.5} direction="row" alignItems="center">
                 <TokenIcon symbol="ETH" sx={{ width: 12, height: 12 }} />
@@ -104,7 +114,11 @@ const NFTCard: FC<NFTCardProps> = (props) => {
             )}
           </FlexBetween>
           <FlexBetween>
-            <Tiny color="text.secondary">{t('openPanel.maxExpiryTime')}</Tiny>
+            <Tooltip title={t('openPanel.maxExpiryTimeTip')}>
+              <Box>
+                <TooltipSpan fontSize={12}>{t('openPanel.maxExpiryTime')}</TooltipSpan>
+              </Box>
+            </Tooltip>
             <Tiny color="text.secondary">{maxExpriyTimeMapLabel}</Tiny>
           </FlexBetween>
         </Stack>

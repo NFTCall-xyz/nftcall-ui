@@ -1,10 +1,11 @@
 const locale = {
   callPools: {
     settingsDialog: {
-      title: 'Options selling config',
+      title: 'Options selling settings',
       submit: 'Submit',
       cancel: 'Cancel',
       listOnMarket: 'List on Market',
+      listOnMartetTip: "If you don't want to your NFTs listed on the market for the options selling, you can toggle off the option at any time as long as your NFTs are not locked by the ongoing options contracts.",
     },
     depositDialog: {
       title: 'Deposit NFTs to sell call opitons',
