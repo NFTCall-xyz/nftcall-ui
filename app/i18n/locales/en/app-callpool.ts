@@ -29,6 +29,11 @@ const locale = {
     lowerLimitOfStrikePrice: 'Min. price:',
     unlimit: 'Unlimit',
   },
+  errors: {
+    strikePriceLimit: 'The strike price for #{{ tokenId }} must be greater than the limit.',
+    premiumLimit: 'The premium must be greater than {{ limit }} ETH.',
+    general: 'Something wrong happened, please join our Discord for help.',
+  }
 }
 
 export default locale
