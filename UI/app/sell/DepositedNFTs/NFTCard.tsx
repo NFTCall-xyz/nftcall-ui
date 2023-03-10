@@ -30,6 +30,7 @@ import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import type { BaseNFT, NFTActions } from 'domains/data/nft/types'
 import { NFTStatus } from 'domains/data/nft/types'
+import { getNFTId } from 'domains/data/nft/utils/id'
 
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 
@@ -170,12 +171,14 @@ const NFTCard: FC<DepositedNFT> = (props) => {
   if (status === 'Removed') return null
   const title = `#${tokenId}`
   const collection = safeGet(() => nftAssetsData.contractName) || ''
-  const checked = has(tokenId)
+  const id = getNFTId(props)
+
+  const checked = has(id)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      add(tokenId)
+      add(id)
     } else {
-      remove(tokenId)
+      remove(id)
     }
   }
 

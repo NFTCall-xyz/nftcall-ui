@@ -18,14 +18,15 @@ import { Paragraph, Span } from 'components/Typography'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import type { BaseNFT } from 'domains/data/nft/types'
+import { getNFTId } from 'domains/data/nft/utils/id'
 
 export type WalletNFT = BaseNFT & {
   callPoolAddress: string
 }
 
 export type NFTCardProps = WalletNFT & {
-  action: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
-  ids: UseIds
+  action?: { name?: string; onClick?: any; disabled?: boolean; tip?: any }
+  ids?: UseIds
 }
 
 const ROOT = styled(Card)(({ theme }) => ({
@@ -65,13 +66,14 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
   }, [action, props])
   const title = '#' + tokenId
   const collection = safeGet(() => nftAssetsData.contractName) || ''
+  const id = getNFTId(props)
 
-  const checked = has(tokenId)
+  const checked = has(id)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      add(tokenId)
+      add(id)
     } else {
-      remove(tokenId)
+      remove(id)
     }
   }
 
