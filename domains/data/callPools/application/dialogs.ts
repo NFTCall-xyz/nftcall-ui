@@ -22,13 +22,34 @@ const useNFTDialog = () => {
     nft,
   }
 }
+const useNFTBatchDialog = () => {
+  const [nfts, setNFTs] = useImmer<NFT[]>([])
+  const onOpen = useCallback(
+    (nfts: NFT[]) => {
+      setNFTs(() => nfts)
+    },
+    [setNFTs]
+  )
+  const onClose = useCallback(() => {
+    setNFTs(() => [])
+  }, [setNFTs])
+  const dialog = useDialog({ onOpen, onClose })
+  return {
+    ...dialog,
+    nfts,
+  }
+}
 
 export const useCallPoolsDialogs = () => {
   const nftDeposit = useNFTDialog()
   const nftSetting = useNFTDialog()
+  const nftBatchDeposit = useNFTBatchDialog()
+  const nftBatchSetting = useNFTBatchDialog()
 
   return {
     nftDeposit,
     nftSetting,
+    nftBatchDeposit,
+    nftBatchSetting,
   }
 }
