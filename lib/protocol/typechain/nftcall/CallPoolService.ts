@@ -74,9 +74,12 @@ export type RelistNFTProps = BaseCallPoolProps & {
 export type ChangePreferenceProps = BaseCallPoolProps & {
   user: tEthereumAddress
   tokenIds: string[]
-  lowerStrikePriceGapIdx: number
-  upperDurationIdx: number
-  lowerLimitOfStrikePrice: string
+  lowerStrikePriceGapIdx?: number
+  upperDurationIdx?: number
+  lowerLimitOfStrikePrice?: string
+  lowerStrikePriceGapIdxs?: number[]
+  upperDurationIdxs?: number[]
+  lowerLimitOfStrikePrices?: string[]
 }
 
 export type PreviewOpenCallProps = BaseCallPoolProps & {
@@ -356,9 +359,14 @@ export class CallPoolService extends BaseService<CallPool> {
     lowerStrikePriceGapIdx,
     upperDurationIdx,
     lowerLimitOfStrikePrice,
+    lowerStrikePriceGapIdxs,
+    upperDurationIdxs,
+    lowerLimitOfStrikePrices,
   }: ChangePreferenceProps) {
     let txCallback: () => Promise<transactionType>
     const callPoolContract = this.getContractInstance(callPool)
+    const isSingleParameter = !lowerStrikePriceGapIdxs
+
     if (tokenIds.length === 1) {
       const tokenId = tokenIds[0]
       txCallback = this.generateTxCallback({
@@ -373,14 +381,16 @@ export class CallPoolService extends BaseService<CallPool> {
         value: DEFAULT_NULL_VALUE_ON_TX,
       })
     } else {
-      const lowerStrikePriceGapIdxs: number[] = []
-      const upperDurationIdxs: number[] = []
-      const lowerLimitOfStrikePrices: string[] = []
+      if (isSingleParameter) {
+        lowerStrikePriceGapIdxs = []
+        upperDurationIdxs = []
+        lowerLimitOfStrikePrices = []
 
-      for (let i = 0; i < tokenIds.length; i++) {
-        lowerStrikePriceGapIdxs.push(lowerStrikePriceGapIdx)
-        upperDurationIdxs.push(upperDurationIdx)
-        lowerLimitOfStrikePrices.push(lowerLimitOfStrikePrice)
+        for (let i = 0; i < tokenIds.length; i++) {
+          lowerStrikePriceGapIdxs.push(lowerStrikePriceGapIdx)
+          upperDurationIdxs.push(upperDurationIdx)
+          lowerLimitOfStrikePrices.push(lowerLimitOfStrikePrice)
+        }
       }
       txCallback = this.generateTxCallback({
         rawTxMethod: async () =>
