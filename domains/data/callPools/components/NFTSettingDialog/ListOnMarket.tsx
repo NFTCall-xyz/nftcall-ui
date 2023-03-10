@@ -30,7 +30,7 @@ const ListOnMarket: FC<ListOnMarketProps> = ({ checked, loading, nft, nftActions
     () => ({
       callPool: callPoolAddress,
       user: networkAccount,
-      tokenId,
+      tokenIds: [tokenId],
     }),
     [callPoolAddress, networkAccount, tokenId]
   )

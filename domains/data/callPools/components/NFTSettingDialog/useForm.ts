@@ -45,7 +45,7 @@ export const useForm = () => {
         createTransaction: callPoolService.changePreference({
           callPool: callPoolAddress,
           user: networkAccount,
-          tokenId,
+          tokenIds: [tokenId],
           lowerLimitOfStrikePrice: safeGet(() => valueToWei(values.lowerLimitOfStrikePrice).toString()) || '0',
           lowerStrikePriceGapIdx: values.minStrikePrice,
           upperDurationIdx: values.maxExpriyTime,

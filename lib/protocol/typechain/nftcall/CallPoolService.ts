@@ -7,6 +7,7 @@ import BaseService from '../commons/BaseService'
 import type { ApproveType, EthereumTransactionTypeExtended, tEthereumAddress, transactionType } from '../commons/types'
 import { eEthereumTxType } from '../commons/types'
 import { DEFAULT_NULL_VALUE_ON_TX } from '../commons/utils'
+import type { IsApprovalForAll, SetApprovalForAll } from '../erc721-contract'
 import type { CallPool } from './typechain'
 import { CallPool__factory } from './typechain'
 
@@ -27,7 +28,7 @@ export type CheckAvailableProps = BaseCallPoolProps & {
 }
 
 export type DepositProps = BaseCallPoolProps & {
-  tokenId: tEthereumAddress
+  tokenIds: tEthereumAddress[]
   user: tEthereumAddress
   nft: tEthereumAddress
   lowerStrikePriceGapIdx: number
@@ -35,13 +36,15 @@ export type DepositProps = BaseCallPoolProps & {
   lowerLimitOfStrikePrice: string
   approveService: {
     approve: (args: ApproveType) => EthereumTransactionTypeExtended
+    setApprovalForAll: (args: SetApprovalForAll) => EthereumTransactionTypeExtended[]
     isApproved: (args: ApproveType) => Promise<boolean>
+    isApprovedForAll: (args: IsApprovalForAll) => Promise<boolean>
   }
 }
 
 export type WithdrawProps = BaseCallPoolProps & {
   user: tEthereumAddress
-  tokenId: string
+  tokenIds: string[]
 }
 
 export type ExerciseCallProps = BaseCallPoolProps & {
@@ -57,17 +60,17 @@ export type ClaimProps = BaseCallPoolProps & {
 
 export type TakeNFTOffMarketProps = BaseCallPoolProps & {
   user: tEthereumAddress
-  tokenId: string
+  tokenIds: string[]
 }
 
 export type RelistNFTProps = BaseCallPoolProps & {
   user: tEthereumAddress
-  tokenId: string
+  tokenIds: string[]
 }
 
 export type ChangePreferenceProps = BaseCallPoolProps & {
   user: tEthereumAddress
-  tokenId: string
+  tokenIds: string[]
   lowerStrikePriceGapIdx: number
   upperDurationIdx: number
   lowerLimitOfStrikePrice: string
@@ -127,67 +130,138 @@ export class CallPoolService extends BaseService<CallPool> {
     callPool,
     user,
     nft,
-    tokenId,
-    approveService: { isApproved, approve },
+    tokenIds,
+    approveService: { isApproved, approve, isApprovedForAll, setApprovalForAll },
     lowerStrikePriceGapIdx,
     upperDurationIdx,
     lowerLimitOfStrikePrice,
   }: DepositProps) {
     const txs: EthereumTransactionTypeExtended[] = []
     const callPoolContract = this.getContractInstance(callPool)
-    const approveProps = {
-      user,
-      spender: callPool,
-      token: nft,
-      tokenId,
-    }
-    const approved = await isApproved(approveProps)
-    if (!approved) {
-      const approveTx: EthereumTransactionTypeExtended = approve(approveProps)
-      txs.push(approveTx)
-    }
 
-    if (lowerStrikePriceGapIdx === 1 && upperDurationIdx === 3 && lowerLimitOfStrikePrice === '0') {
-      const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-        rawTxMethod: async () => callPoolContract.populateTransaction.deposit(user, tokenId),
-        from: user,
-        value: DEFAULT_NULL_VALUE_ON_TX,
-      })
+    if (!tokenIds.length) return txs
 
-      txs.push({
-        tx: txCallback,
-        txType: eEthereumTxType.DLP,
-      })
+    const isDefaultDeposit = lowerStrikePriceGapIdx === 1 && upperDurationIdx === 3 && lowerLimitOfStrikePrice === '0'
+    if (tokenIds.length === 1) {
+      const tokenId = tokenIds[0]
+      const approveProps = {
+        user,
+        spender: callPool,
+        token: nft,
+        tokenId,
+      }
+      const approved = await isApproved(approveProps)
+      if (!approved) {
+        const approveTx: EthereumTransactionTypeExtended = approve(approveProps)
+        txs.push(approveTx)
+      }
+
+      if (isDefaultDeposit) {
+        const txCallback: () => Promise<transactionType> = this.generateTxCallback({
+          rawTxMethod: async () => callPoolContract.populateTransaction.deposit(user, tokenId),
+          from: user,
+          value: DEFAULT_NULL_VALUE_ON_TX,
+        })
+
+        txs.push({
+          tx: txCallback,
+          txType: eEthereumTxType.DLP,
+        })
+      } else {
+        const txCallback: () => Promise<transactionType> = this.generateTxCallback({
+          rawTxMethod: async () =>
+            callPoolContract.populateTransaction.depositWithPreference(
+              user,
+              tokenId,
+              lowerStrikePriceGapIdx,
+              upperDurationIdx,
+              lowerLimitOfStrikePrice
+            ),
+          from: user,
+          value: DEFAULT_NULL_VALUE_ON_TX,
+        })
+
+        txs.push({
+          tx: txCallback,
+          txType: eEthereumTxType.DLP,
+        })
+      }
     } else {
-      const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-        rawTxMethod: async () =>
-          callPoolContract.populateTransaction.depositWithPreference(
-            user,
-            tokenId,
-            lowerStrikePriceGapIdx,
-            upperDurationIdx,
-            lowerLimitOfStrikePrice
-          ),
-        from: user,
-        value: DEFAULT_NULL_VALUE_ON_TX,
-      })
+      const approveProps = {
+        user,
+        spender: callPool,
+        token: nft,
+        value: true,
+      }
+      const approved = await isApprovedForAll(approveProps)
+      if (!approved) {
+        const approveTx: EthereumTransactionTypeExtended = setApprovalForAll(approveProps)[0]
+        txs.push(approveTx)
+      }
 
-      txs.push({
-        tx: txCallback,
-        txType: eEthereumTxType.DLP,
-      })
+      if (isDefaultDeposit) {
+        const txCallback: () => Promise<transactionType> = this.generateTxCallback({
+          rawTxMethod: async () => callPoolContract.populateTransaction.depositBatch(user, tokenIds),
+          from: user,
+          value: DEFAULT_NULL_VALUE_ON_TX,
+        })
+
+        txs.push({
+          tx: txCallback,
+          txType: eEthereumTxType.DLP,
+        })
+      } else {
+        const lowerStrikePriceGapIdxs: number[] = []
+        const upperDurationIdxs: number[] = []
+        const lowerLimitOfStrikePrices: string[] = []
+
+        for (let i = 0; i < tokenIds.length; i++) {
+          lowerStrikePriceGapIdxs.push(lowerStrikePriceGapIdx)
+          upperDurationIdxs.push(upperDurationIdx)
+          lowerLimitOfStrikePrices.push(lowerLimitOfStrikePrice)
+        }
+
+        const txCallback: () => Promise<transactionType> = this.generateTxCallback({
+          rawTxMethod: async () =>
+            callPoolContract.populateTransaction.depositWithPreferenceBatch(
+              user,
+              tokenIds,
+              lowerStrikePriceGapIdxs,
+              upperDurationIdxs,
+              lowerLimitOfStrikePrices
+            ),
+          from: user,
+          value: DEFAULT_NULL_VALUE_ON_TX,
+        })
+
+        txs.push({
+          tx: txCallback,
+          txType: eEthereumTxType.DLP,
+        })
+      }
     }
 
     return txs
   }
 
-  public async withdraw({ callPool, user, tokenId }: WithdrawProps) {
+  public async withdraw({ callPool, user, tokenIds }: WithdrawProps) {
     const callPoolContract = this.getContractInstance(callPool)
-    const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContract.populateTransaction.withdraw(user, tokenId),
-      from: user,
-      value: DEFAULT_NULL_VALUE_ON_TX,
-    })
+    let txCallback: () => Promise<transactionType>
+    if (tokenIds.length === 1) {
+      const tokenId = tokenIds[0]
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () => callPoolContract.populateTransaction.withdraw(user, tokenId),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    } else {
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () => callPoolContract.populateTransaction.withdrawBatch(user, tokenIds),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    }
+
     return [
       {
         tx: txCallback,
@@ -214,13 +288,23 @@ export class CallPoolService extends BaseService<CallPool> {
     ]
   }
 
-  public async takeNFTOffMarket({ callPool, tokenId, user }: TakeNFTOffMarketProps) {
+  public async takeNFTOffMarket({ callPool, tokenIds, user }: TakeNFTOffMarketProps) {
     const callPoolContract = this.getContractInstance(callPool)
-    const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContract.populateTransaction.takeNFTOffMarket(tokenId),
-      from: user,
-      value: DEFAULT_NULL_VALUE_ON_TX,
-    })
+    let txCallback: () => Promise<transactionType>
+    if (tokenIds.length === 1) {
+      const tokenId = tokenIds[0]
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () => callPoolContract.populateTransaction.takeNFTOffMarket(tokenId),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    } else {
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () => callPoolContract.populateTransaction.takeNFTOffMarketBatch(tokenIds),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    }
     return [
       {
         tx: txCallback,
@@ -229,13 +313,23 @@ export class CallPoolService extends BaseService<CallPool> {
     ]
   }
 
-  public async relistNFT({ callPool, tokenId, user }: RelistNFTProps) {
+  public async relistNFT({ callPool, tokenIds, user }: RelistNFTProps) {
     const callPoolContract = this.getContractInstance(callPool)
-    const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => callPoolContract.populateTransaction.relistNFT(tokenId),
-      from: user,
-      value: DEFAULT_NULL_VALUE_ON_TX,
-    })
+    let txCallback: () => Promise<transactionType>
+    if (tokenIds.length === 1) {
+      const tokenId = tokenIds[0]
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () => callPoolContract.populateTransaction.relistNFT(tokenId),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    } else {
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () => callPoolContract.populateTransaction.relistNFTBatch(tokenIds),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    }
     return [
       {
         tx: txCallback,
@@ -247,23 +341,48 @@ export class CallPoolService extends BaseService<CallPool> {
   public async changePreference({
     callPool,
     user,
-    tokenId,
+    tokenIds,
     lowerStrikePriceGapIdx,
     upperDurationIdx,
     lowerLimitOfStrikePrice,
   }: ChangePreferenceProps) {
+    let txCallback: () => Promise<transactionType>
     const callPoolContract = this.getContractInstance(callPool)
-    const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () =>
-        callPoolContract.populateTransaction.changePreference(
-          tokenId,
-          lowerStrikePriceGapIdx,
-          upperDurationIdx,
-          lowerLimitOfStrikePrice
-        ),
-      from: user,
-      value: DEFAULT_NULL_VALUE_ON_TX,
-    })
+    if (tokenIds.length === 1) {
+      const tokenId = tokenIds[0]
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () =>
+          callPoolContract.populateTransaction.changePreference(
+            tokenId,
+            lowerStrikePriceGapIdx,
+            upperDurationIdx,
+            lowerLimitOfStrikePrice
+          ),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    } else {
+      const lowerStrikePriceGapIdxs: number[] = []
+      const upperDurationIdxs: number[] = []
+      const lowerLimitOfStrikePrices: string[] = []
+
+      for (let i = 0; i < tokenIds.length; i++) {
+        lowerStrikePriceGapIdxs.push(lowerStrikePriceGapIdx)
+        upperDurationIdxs.push(upperDurationIdx)
+        lowerLimitOfStrikePrices.push(lowerLimitOfStrikePrice)
+      }
+      txCallback = this.generateTxCallback({
+        rawTxMethod: async () =>
+          callPoolContract.populateTransaction.changePreferenceBatch(
+            tokenIds,
+            lowerStrikePriceGapIdxs,
+            upperDurationIdxs,
+            lowerLimitOfStrikePrices
+          ),
+        from: user,
+        value: DEFAULT_NULL_VALUE_ON_TX,
+      })
+    }
     return [
       {
         tx: txCallback,

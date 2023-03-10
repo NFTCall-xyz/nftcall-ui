@@ -48,7 +48,7 @@ export const useForm = () => {
           callPool: callPoolAddress,
           user: networkAccount,
           nft: nftAddress,
-          tokenId,
+          tokenIds: [tokenId],
           approveService: erc721Service as any,
           lowerLimitOfStrikePrice: safeGet(() => valueToWei(values.lowerLimitOfStrikePrice).toString()) || '0',
           lowerStrikePriceGapIdx: values.minStrikePrice,
