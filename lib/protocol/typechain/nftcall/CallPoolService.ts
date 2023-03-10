@@ -31,9 +31,12 @@ export type DepositProps = BaseCallPoolProps & {
   tokenIds: tEthereumAddress[]
   user: tEthereumAddress
   nft: tEthereumAddress
-  lowerStrikePriceGapIdx: number
-  upperDurationIdx: number
-  lowerLimitOfStrikePrice: string
+  lowerStrikePriceGapIdx?: number
+  upperDurationIdx?: number
+  lowerLimitOfStrikePrice?: string
+  lowerStrikePriceGapIdxs?: number[]
+  upperDurationIdxs?: number[]
+  lowerLimitOfStrikePrices?: string[]
   approveService: {
     approve: (args: ApproveType) => EthereumTransactionTypeExtended
     setApprovalForAll: (args: SetApprovalForAll) => EthereumTransactionTypeExtended[]
@@ -135,13 +138,19 @@ export class CallPoolService extends BaseService<CallPool> {
     lowerStrikePriceGapIdx,
     upperDurationIdx,
     lowerLimitOfStrikePrice,
+    lowerStrikePriceGapIdxs,
+    upperDurationIdxs,
+    lowerLimitOfStrikePrices,
   }: DepositProps) {
     const txs: EthereumTransactionTypeExtended[] = []
     const callPoolContract = this.getContractInstance(callPool)
 
     if (!tokenIds.length) return txs
 
-    const isDefaultDeposit = lowerStrikePriceGapIdx === 1 && upperDurationIdx === 3 && lowerLimitOfStrikePrice === '0'
+    const isSingleParameter = !lowerStrikePriceGapIdxs
+
+    const isDefaultDeposit =
+      !isSingleParameter && lowerStrikePriceGapIdx === 1 && upperDurationIdx === 3 && lowerLimitOfStrikePrice === '0'
     if (tokenIds.length === 1) {
       const tokenId = tokenIds[0]
       const approveProps = {
@@ -211,14 +220,16 @@ export class CallPoolService extends BaseService<CallPool> {
           txType: eEthereumTxType.DLP,
         })
       } else {
-        const lowerStrikePriceGapIdxs: number[] = []
-        const upperDurationIdxs: number[] = []
-        const lowerLimitOfStrikePrices: string[] = []
+        if (isSingleParameter) {
+          lowerStrikePriceGapIdxs = []
+          upperDurationIdxs = []
+          lowerLimitOfStrikePrices = []
 
-        for (let i = 0; i < tokenIds.length; i++) {
-          lowerStrikePriceGapIdxs.push(lowerStrikePriceGapIdx)
-          upperDurationIdxs.push(upperDurationIdx)
-          lowerLimitOfStrikePrices.push(lowerLimitOfStrikePrice)
+          for (let i = 0; i < tokenIds.length; i++) {
+            lowerStrikePriceGapIdxs.push(lowerStrikePriceGapIdx)
+            upperDurationIdxs.push(upperDurationIdx)
+            lowerLimitOfStrikePrices.push(lowerLimitOfStrikePrice)
+          }
         }
 
         const txCallback: () => Promise<transactionType> = this.generateTxCallback({
