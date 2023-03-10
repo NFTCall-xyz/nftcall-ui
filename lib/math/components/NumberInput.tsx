@@ -18,6 +18,7 @@ export function NumberInput({ value, onChange, disabled, onBlur, error, helperTe
         sx={{ padding: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
       >
         <InputBase
+          disabled={disabled}
           name={name}
           aria-describedby="helper-text"
           value={value}
