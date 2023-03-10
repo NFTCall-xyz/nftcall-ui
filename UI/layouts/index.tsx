@@ -3,7 +3,9 @@ import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
 import { Fragment, useMemo } from 'react'
 
+import NFTDepositBatchDialog from 'domains/data/callPools/components/NFTDepositBatchDialog'
 import NFTDepositDialog from 'domains/data/callPools/components/NFTDepositDialog'
+import NFTSettingBatchDialog from 'domains/data/callPools/components/NFTSettingBatchDialog'
 import NFTSettingDialog from 'domains/data/callPools/components/NFTSettingDialog'
 
 import NProgress from 'lib/nprogress/components/NProgress'
@@ -64,6 +66,8 @@ const Layout: FCC = ({ children }) => {
         <ChainDialog />
         <ConnectDialog />
         <NFTDepositDialog />
+        <NFTDepositBatchDialog />
+        <NFTSettingBatchDialog />
         <NFTSettingDialog />
       </ActiveLayout>
     </Fragment>
