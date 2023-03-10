@@ -1,7 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo } from 'react'
 
+import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
+import { Stack } from '@mui/system'
 
 import { useIds } from 'app/hooks/useIds'
 import { log } from 'app/utils/dev'
@@ -11,6 +13,7 @@ import { Paragraph } from 'components/Typography'
 import FlexRowAlign from 'components/flexbox/FlexRowAlign'
 
 import { useCallPools, useNFT } from 'domains/data'
+import { getNFTId } from 'domains/data/nft/utils/id'
 
 import { getWalletDataKeyByNFTs } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 
@@ -27,6 +30,7 @@ const WalletNFTs = () => {
     callPools,
     dialogs: {
       nftDeposit: { open },
+      nftBatchDeposit,
     },
   } = useCallPools()
 
@@ -48,7 +52,6 @@ const WalletNFTs = () => {
           tokenId,
           nftAddress,
           action,
-          ids,
           callPoolAddress: safeGet(() => callPool.address.CallPool),
         })
       })
@@ -59,7 +62,7 @@ const WalletNFTs = () => {
       key,
       nfts,
     }
-  }, [wallet, callPools, action, ids])
+  }, [wallet, callPools, action])
 
   useEffect(() => {
     updateWallet().catch(() => {})
@@ -70,10 +73,29 @@ const WalletNFTs = () => {
 
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Stack spacing={2} direction="row-reverse">
+          <Button
+            variant="outlined"
+            disabled={!ids.size}
+            onClick={() => {
+              nftBatchDeposit.open(ids.values.map((id) => nfts.find((nft) => getNFTId(nft) === id)).filter((i) => !!i))
+              ids.clear()
+            }}
+          >
+            {t('tabs.depositSelected')}
+          </Button>
+          {!!ids.size && (
+            <Button variant="outlined" onClick={() => ids.clear()}>
+              {t('tabs.clearSelected')}
+            </Button>
+          )}
+        </Stack>
+      </Grid>
       {nfts.length ? (
         nfts.map((nft) => (
           <Grid item xs={6} sm={3} md={2.4} key={nft.nftAddress + nft.tokenId}>
-            <NFTCard {...{ ...nft }} />
+            <NFTCard {...{ ...nft, ids }} />
           </Grid>
         ))
       ) : (
