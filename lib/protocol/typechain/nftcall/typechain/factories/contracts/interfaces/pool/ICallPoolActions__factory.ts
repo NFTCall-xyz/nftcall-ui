@@ -43,6 +43,40 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'uint256[]',
+        name: 'tokenId',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'uint8[]',
+        name: 'lowerStrikePriceGapIdxList',
+        type: 'uint8[]',
+      },
+      {
+        internalType: 'uint8[]',
+        name: 'upperDurationIdxList',
+        type: 'uint8[]',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'minimumStrikePriceList',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'changePreferenceBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: 'onBehalfOf',
         type: 'address',
@@ -55,6 +89,30 @@ const _abi = [
     ],
     name: 'deposit',
     outputs: [] as any,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'onBehalfOf',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'depositBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
+      },
+    ],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -94,6 +152,45 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: 'onBehalfOf',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'uint8[]',
+        name: 'lowerStrikePriceGapIdxList',
+        type: 'uint8[]',
+      },
+      {
+        internalType: 'uint8[]',
+        name: 'upperDurationIdxList',
+        type: 'uint8[]',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'minimumStrikePriceList',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'depositWithPreferenceBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint256',
         name: 'tokenId',
         type: 'uint256',
@@ -101,6 +198,25 @@ const _abi = [
     ],
     name: 'exerciseCall',
     outputs: [] as any,
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'exerciseCallBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
+      },
+    ],
     stateMutability: 'payable',
     type: 'function',
   },
@@ -166,6 +282,25 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'relistNFTBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint256',
         name: 'tokenId',
         type: 'uint256',
@@ -173,6 +308,25 @@ const _abi = [
     ],
     name: 'takeNFTOffMarket',
     outputs: [] as any,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'takeNFTOffMarketBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
+      },
+    ],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -191,6 +345,30 @@ const _abi = [
     ],
     name: 'withdraw',
     outputs: [] as any,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'withdrawBatch',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'errorCodes',
+        type: 'uint256[]',
+      },
+    ],
     stateMutability: 'nonpayable',
     type: 'function',
   },

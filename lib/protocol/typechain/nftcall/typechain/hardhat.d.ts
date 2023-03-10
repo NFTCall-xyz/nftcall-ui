@@ -123,10 +123,6 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IPriceOracle__factory>
     getContractFactory(
-      name: 'IPriceOracleGetter',
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IPriceOracleGetter__factory>
-    getContractFactory(
       name: 'ICallPoolActions',
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ICallPoolActions__factory>
@@ -272,11 +268,6 @@ declare module 'hardhat/types/runtime' {
     getContractAt(name: 'INToken', address: string, signer?: ethers.Signer): Promise<Contracts.INToken>
     getContractAt(name: 'IPremium', address: string, signer?: ethers.Signer): Promise<Contracts.IPremium>
     getContractAt(name: 'IPriceOracle', address: string, signer?: ethers.Signer): Promise<Contracts.IPriceOracle>
-    getContractAt(
-      name: 'IPriceOracleGetter',
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IPriceOracleGetter>
     getContractAt(
       name: 'ICallPoolActions',
       address: string,

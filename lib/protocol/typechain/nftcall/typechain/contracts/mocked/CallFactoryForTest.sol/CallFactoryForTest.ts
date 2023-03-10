@@ -58,7 +58,7 @@ export interface CallFactoryForTestInterface extends utils.Interface {
 
   events: {
     'OwnershipTransferred(address,address)': EventFragment
-    'PoolCreated(address,address,address,address)': EventFragment
+    'PoolCreated(address,address,address,address,address,address)': EventFragment
   }
 
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
@@ -78,8 +78,10 @@ export interface PoolCreatedEventObject {
   oracle: string
   pool: string
   premium: string
+  ntoken: string
+  calltoken: string
 }
-export type PoolCreatedEvent = TypedEvent<[string, string, string, string], PoolCreatedEventObject>
+export type PoolCreatedEvent = TypedEvent<[string, string, string, string, string, string], PoolCreatedEventObject>
 
 export type PoolCreatedEventFilter = TypedEventFilter<PoolCreatedEvent>
 
@@ -203,17 +205,21 @@ export interface CallFactoryForTest extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter
 
-    'PoolCreated(address,address,address,address)'(
+    'PoolCreated(address,address,address,address,address,address)'(
       erc721token?: PromiseOrValue<string> | null,
       oracle?: null,
       pool?: null,
-      premium?: null
+      premium?: null,
+      ntoken?: null,
+      calltoken?: null
     ): PoolCreatedEventFilter
     PoolCreated(
       erc721token?: PromiseOrValue<string> | null,
       oracle?: null,
       pool?: null,
-      premium?: null
+      premium?: null,
+      ntoken?: null,
+      calltoken?: null
     ): PoolCreatedEventFilter
   }
 

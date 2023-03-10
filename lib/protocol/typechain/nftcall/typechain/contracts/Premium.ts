@@ -21,16 +21,19 @@ import type { OnEvent, PromiseOrValue, TypedEvent, TypedEventFilter, TypedListen
 export interface PremiumInterface extends utils.Interface {
   functions: {
     'getPremium(uint256,uint256)': FunctionFragment
+    'precision()': FunctionFragment
   }
 
-  getFunction(nameOrSignatureOrTopic: 'getPremium'): FunctionFragment
+  getFunction(nameOrSignatureOrTopic: 'getPremium' | 'precision'): FunctionFragment
 
   encodeFunctionData(
     functionFragment: 'getPremium',
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string
+  encodeFunctionData(functionFragment: 'precision', values?: undefined): string
 
   decodeFunctionResult(functionFragment: 'getPremium', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'precision', data: BytesLike): Result
 
   events: {}
 }
@@ -63,6 +66,8 @@ export interface Premium extends BaseContract {
       vol: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
+
+    precision(overrides?: CallOverrides): Promise<[BigNumber]>
   }
 
   getPremium(
@@ -71,12 +76,16 @@ export interface Premium extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+  precision(overrides?: CallOverrides): Promise<BigNumber>
+
   callStatic: {
     getPremium(
       curveIdx: PromiseOrValue<BigNumberish>,
       vol: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    precision(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   filters: {}
@@ -87,6 +96,8 @@ export interface Premium extends BaseContract {
       vol: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    precision(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   populateTransaction: {
@@ -95,5 +106,7 @@ export interface Premium extends BaseContract {
       vol: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
+
+    precision(overrides?: CallOverrides): Promise<PopulatedTransaction>
   }
 }

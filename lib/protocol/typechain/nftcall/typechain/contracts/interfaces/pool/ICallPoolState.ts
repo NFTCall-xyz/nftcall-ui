@@ -45,6 +45,7 @@ export interface ICallPoolStateInterface extends utils.Interface {
     'balanceOf(address)': FunctionFragment
     'getEndTime(uint256)': FunctionFragment
     'getNFTStatus(uint256)': FunctionFragment
+    'getNFTStatusBatch(uint256[])': FunctionFragment
     'previewOpenCall(uint256,uint8,uint8)': FunctionFragment
     'previewOpenCallBatch(uint256[],uint8[],uint8[])': FunctionFragment
     'totalOpenInterest()': FunctionFragment
@@ -55,6 +56,7 @@ export interface ICallPoolStateInterface extends utils.Interface {
       | 'balanceOf'
       | 'getEndTime'
       | 'getNFTStatus'
+      | 'getNFTStatusBatch'
       | 'previewOpenCall'
       | 'previewOpenCallBatch'
       | 'totalOpenInterest'
@@ -63,6 +65,7 @@ export interface ICallPoolStateInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'balanceOf', values: [PromiseOrValue<string>]): string
   encodeFunctionData(functionFragment: 'getEndTime', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'getNFTStatus', values: [PromiseOrValue<BigNumberish>]): string
+  encodeFunctionData(functionFragment: 'getNFTStatusBatch', values: [PromiseOrValue<BigNumberish>[]]): string
   encodeFunctionData(
     functionFragment: 'previewOpenCall',
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
@@ -76,6 +79,7 @@ export interface ICallPoolStateInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'getEndTime', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'getNFTStatus', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getNFTStatusBatch', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'previewOpenCall', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'previewOpenCallBatch', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'totalOpenInterest', data: BytesLike): Result
@@ -114,6 +118,11 @@ export interface ICallPoolState extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[DataTypes.NFTStatusOutputStructOutput]>
+
+    getNFTStatusBatch(
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<[DataTypes.NFTStatusOutputStructOutput[]]>
 
     previewOpenCall(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -155,6 +164,11 @@ export interface ICallPoolState extends BaseContract {
     overrides?: CallOverrides
   ): Promise<DataTypes.NFTStatusOutputStructOutput>
 
+  getNFTStatusBatch(
+    tokenIds: PromiseOrValue<BigNumberish>[],
+    overrides?: CallOverrides
+  ): Promise<DataTypes.NFTStatusOutputStructOutput[]>
+
   previewOpenCall(
     tokenId: PromiseOrValue<BigNumberish>,
     strikePriceGapIdx: PromiseOrValue<BigNumberish>,
@@ -194,6 +208,11 @@ export interface ICallPoolState extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<DataTypes.NFTStatusOutputStructOutput>
+
+    getNFTStatusBatch(
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<DataTypes.NFTStatusOutputStructOutput[]>
 
     previewOpenCall(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -235,6 +254,8 @@ export interface ICallPoolState extends BaseContract {
 
     getNFTStatus(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
 
+    getNFTStatusBatch(tokenIds: PromiseOrValue<BigNumberish>[], overrides?: CallOverrides): Promise<BigNumber>
+
     previewOpenCall(
       tokenId: PromiseOrValue<BigNumberish>,
       strikePriceGapIdx: PromiseOrValue<BigNumberish>,
@@ -258,6 +279,11 @@ export interface ICallPoolState extends BaseContract {
     getEndTime(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getNFTStatus(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    getNFTStatusBatch(
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
 
     previewOpenCall(
       tokenId: PromiseOrValue<BigNumberish>,

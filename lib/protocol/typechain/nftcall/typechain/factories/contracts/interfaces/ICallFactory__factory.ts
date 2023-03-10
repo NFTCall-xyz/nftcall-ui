@@ -36,6 +36,18 @@ const _abi = [
         name: 'premium',
         type: 'address',
       },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'ntoken',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'calltoken',
+        type: 'address',
+      },
     ],
     name: 'PoolCreated',
     type: 'event',

@@ -1,9 +1,8 @@
-import { useTranslation, Trans } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
+import Link from 'next/link'
 
 import { Box, Grid } from '@mui/material'
 import Stack from '@mui/material/Stack'
-import Link from 'next/link'
-
 
 import { H1, Paragraph } from 'components/Typography'
 
@@ -20,8 +19,16 @@ const FaucetsNFT: FC = () => {
       <Stack spacing={2}>
         <H1>{t('title')}</H1>
         <Paragraph color="text.secondary">
-          <Trans i18nKey='subtitle'>
-            Get NFTs for testing the options selling feature. Make sure to have ETH for the Goerli network, or get some from <Link href='https://docs.nftcall.xyz/guide/testnet#how-do-i-get-eth-for-testing' target='_blank' color='primary.main'>the faucets</Link>
+          <Trans i18nKey="subtitle">
+            Get NFTs for testing the options selling feature. Make sure to have ETH for the Goerli network, or get some
+            from{' '}
+            <Link
+              href="https://docs.nftcall.xyz/guide/testnet#how-do-i-get-eth-for-testing"
+              target="_blank"
+              color="primary.main"
+            >
+              the faucets
+            </Link>
           </Trans>
         </Paragraph>
       </Stack>

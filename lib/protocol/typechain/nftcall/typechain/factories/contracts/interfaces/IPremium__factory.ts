@@ -33,6 +33,19 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
+  {
+    inputs: [] as any,
+    name: 'precision',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'pure',
+    type: 'function',
+  },
 ]
 
 export class IPremium__factory {

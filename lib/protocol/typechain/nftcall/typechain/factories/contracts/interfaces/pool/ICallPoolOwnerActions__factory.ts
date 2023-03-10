@@ -36,6 +36,29 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'collection',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'recipient',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
+      },
+    ],
+    name: 'transferERC721',
+    outputs: [] as any,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
 ]
 
 export class ICallPoolOwnerActions__factory {

@@ -17,12 +17,12 @@ export interface ErrorsInterface extends utils.Interface {
     'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT()': FunctionFragment
     'CP_CAN_NOT_OPEN_CALL()': FunctionFragment
     'CP_DEACTIVATED()': FunctionFragment
-    'CP_DID_NOT_SEND_ENOUGHT_ETH()': FunctionFragment
+    'CP_DID_NOT_SEND_ENOUGH_ETH()': FunctionFragment
     'CP_DURATION_TOO_LONG()': FunctionFragment
     'CP_GAP_OR_DURATION_OUT_OF_INDEX()': FunctionFragment
     'CP_INVALID_AMOUNT()': FunctionFragment
     'CP_INVALID_RECEIVER()': FunctionFragment
-    'CP_NFT_ON_MARKET_OR_UNABAILABLE()': FunctionFragment
+    'CP_NFT_ON_MARKET_OR_UNAVAILABLE()': FunctionFragment
     'CP_NOT_ENOUGH_BALANCE()': FunctionFragment
     'CP_NOT_IN_THE_EXERCISE_PERIOD()': FunctionFragment
     'CP_NOT_THE_OWNER()': FunctionFragment
@@ -31,6 +31,8 @@ export interface ErrorsInterface extends utils.Interface {
     'CP_STRIKE_GAP_TOO_LOW()': FunctionFragment
     'CP_STRIKE_PRICE_TOO_LOW()': FunctionFragment
     'CP_TOO_LITTLE_PREMIUM_TO_OWNER()': FunctionFragment
+    'CP_UNABLE_TO_TRANSFER_ETH()': FunctionFragment
+    'CP_ZERO_SIZED_ARRAY()': FunctionFragment
   }
 
   getFunction(
@@ -41,12 +43,12 @@ export interface ErrorsInterface extends utils.Interface {
       | 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT'
       | 'CP_CAN_NOT_OPEN_CALL'
       | 'CP_DEACTIVATED'
-      | 'CP_DID_NOT_SEND_ENOUGHT_ETH'
+      | 'CP_DID_NOT_SEND_ENOUGH_ETH'
       | 'CP_DURATION_TOO_LONG'
       | 'CP_GAP_OR_DURATION_OUT_OF_INDEX'
       | 'CP_INVALID_AMOUNT'
       | 'CP_INVALID_RECEIVER'
-      | 'CP_NFT_ON_MARKET_OR_UNABAILABLE'
+      | 'CP_NFT_ON_MARKET_OR_UNAVAILABLE'
       | 'CP_NOT_ENOUGH_BALANCE'
       | 'CP_NOT_IN_THE_EXERCISE_PERIOD'
       | 'CP_NOT_THE_OWNER'
@@ -55,6 +57,8 @@ export interface ErrorsInterface extends utils.Interface {
       | 'CP_STRIKE_GAP_TOO_LOW'
       | 'CP_STRIKE_PRICE_TOO_LOW'
       | 'CP_TOO_LITTLE_PREMIUM_TO_OWNER'
+      | 'CP_UNABLE_TO_TRANSFER_ETH'
+      | 'CP_ZERO_SIZED_ARRAY'
   ): FunctionFragment
 
   encodeFunctionData(functionFragment: 'CP_ACTIVATED', values?: undefined): string
@@ -63,12 +67,12 @@ export interface ErrorsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_CAN_NOT_OPEN_CALL', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_DEACTIVATED', values?: undefined): string
-  encodeFunctionData(functionFragment: 'CP_DID_NOT_SEND_ENOUGHT_ETH', values?: undefined): string
+  encodeFunctionData(functionFragment: 'CP_DID_NOT_SEND_ENOUGH_ETH', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_DURATION_TOO_LONG', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_GAP_OR_DURATION_OUT_OF_INDEX', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_INVALID_AMOUNT', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_INVALID_RECEIVER', values?: undefined): string
-  encodeFunctionData(functionFragment: 'CP_NFT_ON_MARKET_OR_UNABAILABLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'CP_NFT_ON_MARKET_OR_UNAVAILABLE', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_NOT_ENOUGH_BALANCE', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_NOT_IN_THE_EXERCISE_PERIOD', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_NOT_THE_OWNER', values?: undefined): string
@@ -77,6 +81,8 @@ export interface ErrorsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'CP_STRIKE_GAP_TOO_LOW', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_STRIKE_PRICE_TOO_LOW', values?: undefined): string
   encodeFunctionData(functionFragment: 'CP_TOO_LITTLE_PREMIUM_TO_OWNER', values?: undefined): string
+  encodeFunctionData(functionFragment: 'CP_UNABLE_TO_TRANSFER_ETH', values?: undefined): string
+  encodeFunctionData(functionFragment: 'CP_ZERO_SIZED_ARRAY', values?: undefined): string
 
   decodeFunctionResult(functionFragment: 'CP_ACTIVATED', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_ARRAY_LENGTH_UNMATCHED', data: BytesLike): Result
@@ -84,12 +90,12 @@ export interface ErrorsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'CP_CAN_NOT_OPEN_A_POSITION_ON_SELF_OWNED_NFT', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_CAN_NOT_OPEN_CALL', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_DEACTIVATED', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'CP_DID_NOT_SEND_ENOUGHT_ETH', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CP_DID_NOT_SEND_ENOUGH_ETH', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_DURATION_TOO_LONG', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_GAP_OR_DURATION_OUT_OF_INDEX', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_INVALID_AMOUNT', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_INVALID_RECEIVER', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'CP_NFT_ON_MARKET_OR_UNABAILABLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CP_NFT_ON_MARKET_OR_UNAVAILABLE', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_NOT_ENOUGH_BALANCE', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_NOT_IN_THE_EXERCISE_PERIOD', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_NOT_THE_OWNER', data: BytesLike): Result
@@ -98,6 +104,8 @@ export interface ErrorsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'CP_STRIKE_GAP_TOO_LOW', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_STRIKE_PRICE_TOO_LOW', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'CP_TOO_LITTLE_PREMIUM_TO_OWNER', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CP_UNABLE_TO_TRANSFER_ETH', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CP_ZERO_SIZED_ARRAY', data: BytesLike): Result
 
   events: {}
 }
@@ -137,7 +145,7 @@ export interface Errors extends BaseContract {
 
     CP_DEACTIVATED(overrides?: CallOverrides): Promise<[string]>
 
-    CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<[string]>
+    CP_DID_NOT_SEND_ENOUGH_ETH(overrides?: CallOverrides): Promise<[string]>
 
     CP_DURATION_TOO_LONG(overrides?: CallOverrides): Promise<[string]>
 
@@ -147,7 +155,7 @@ export interface Errors extends BaseContract {
 
     CP_INVALID_RECEIVER(overrides?: CallOverrides): Promise<[string]>
 
-    CP_NFT_ON_MARKET_OR_UNABAILABLE(overrides?: CallOverrides): Promise<[string]>
+    CP_NFT_ON_MARKET_OR_UNAVAILABLE(overrides?: CallOverrides): Promise<[string]>
 
     CP_NOT_ENOUGH_BALANCE(overrides?: CallOverrides): Promise<[string]>
 
@@ -164,6 +172,10 @@ export interface Errors extends BaseContract {
     CP_STRIKE_PRICE_TOO_LOW(overrides?: CallOverrides): Promise<[string]>
 
     CP_TOO_LITTLE_PREMIUM_TO_OWNER(overrides?: CallOverrides): Promise<[string]>
+
+    CP_UNABLE_TO_TRANSFER_ETH(overrides?: CallOverrides): Promise<[string]>
+
+    CP_ZERO_SIZED_ARRAY(overrides?: CallOverrides): Promise<[string]>
   }
 
   CP_ACTIVATED(overrides?: CallOverrides): Promise<string>
@@ -178,7 +190,7 @@ export interface Errors extends BaseContract {
 
   CP_DEACTIVATED(overrides?: CallOverrides): Promise<string>
 
-  CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<string>
+  CP_DID_NOT_SEND_ENOUGH_ETH(overrides?: CallOverrides): Promise<string>
 
   CP_DURATION_TOO_LONG(overrides?: CallOverrides): Promise<string>
 
@@ -188,7 +200,7 @@ export interface Errors extends BaseContract {
 
   CP_INVALID_RECEIVER(overrides?: CallOverrides): Promise<string>
 
-  CP_NFT_ON_MARKET_OR_UNABAILABLE(overrides?: CallOverrides): Promise<string>
+  CP_NFT_ON_MARKET_OR_UNAVAILABLE(overrides?: CallOverrides): Promise<string>
 
   CP_NOT_ENOUGH_BALANCE(overrides?: CallOverrides): Promise<string>
 
@@ -206,6 +218,10 @@ export interface Errors extends BaseContract {
 
   CP_TOO_LITTLE_PREMIUM_TO_OWNER(overrides?: CallOverrides): Promise<string>
 
+  CP_UNABLE_TO_TRANSFER_ETH(overrides?: CallOverrides): Promise<string>
+
+  CP_ZERO_SIZED_ARRAY(overrides?: CallOverrides): Promise<string>
+
   callStatic: {
     CP_ACTIVATED(overrides?: CallOverrides): Promise<string>
 
@@ -219,7 +235,7 @@ export interface Errors extends BaseContract {
 
     CP_DEACTIVATED(overrides?: CallOverrides): Promise<string>
 
-    CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<string>
+    CP_DID_NOT_SEND_ENOUGH_ETH(overrides?: CallOverrides): Promise<string>
 
     CP_DURATION_TOO_LONG(overrides?: CallOverrides): Promise<string>
 
@@ -229,7 +245,7 @@ export interface Errors extends BaseContract {
 
     CP_INVALID_RECEIVER(overrides?: CallOverrides): Promise<string>
 
-    CP_NFT_ON_MARKET_OR_UNABAILABLE(overrides?: CallOverrides): Promise<string>
+    CP_NFT_ON_MARKET_OR_UNAVAILABLE(overrides?: CallOverrides): Promise<string>
 
     CP_NOT_ENOUGH_BALANCE(overrides?: CallOverrides): Promise<string>
 
@@ -246,6 +262,10 @@ export interface Errors extends BaseContract {
     CP_STRIKE_PRICE_TOO_LOW(overrides?: CallOverrides): Promise<string>
 
     CP_TOO_LITTLE_PREMIUM_TO_OWNER(overrides?: CallOverrides): Promise<string>
+
+    CP_UNABLE_TO_TRANSFER_ETH(overrides?: CallOverrides): Promise<string>
+
+    CP_ZERO_SIZED_ARRAY(overrides?: CallOverrides): Promise<string>
   }
 
   filters: {}
@@ -263,7 +283,7 @@ export interface Errors extends BaseContract {
 
     CP_DEACTIVATED(overrides?: CallOverrides): Promise<BigNumber>
 
-    CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<BigNumber>
+    CP_DID_NOT_SEND_ENOUGH_ETH(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_DURATION_TOO_LONG(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -273,7 +293,7 @@ export interface Errors extends BaseContract {
 
     CP_INVALID_RECEIVER(overrides?: CallOverrides): Promise<BigNumber>
 
-    CP_NFT_ON_MARKET_OR_UNABAILABLE(overrides?: CallOverrides): Promise<BigNumber>
+    CP_NFT_ON_MARKET_OR_UNAVAILABLE(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_NOT_ENOUGH_BALANCE(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -290,6 +310,10 @@ export interface Errors extends BaseContract {
     CP_STRIKE_PRICE_TOO_LOW(overrides?: CallOverrides): Promise<BigNumber>
 
     CP_TOO_LITTLE_PREMIUM_TO_OWNER(overrides?: CallOverrides): Promise<BigNumber>
+
+    CP_UNABLE_TO_TRANSFER_ETH(overrides?: CallOverrides): Promise<BigNumber>
+
+    CP_ZERO_SIZED_ARRAY(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   populateTransaction: {
@@ -305,7 +329,7 @@ export interface Errors extends BaseContract {
 
     CP_DEACTIVATED(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    CP_DID_NOT_SEND_ENOUGHT_ETH(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    CP_DID_NOT_SEND_ENOUGH_ETH(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_DURATION_TOO_LONG(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
@@ -315,7 +339,7 @@ export interface Errors extends BaseContract {
 
     CP_INVALID_RECEIVER(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    CP_NFT_ON_MARKET_OR_UNABAILABLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    CP_NFT_ON_MARKET_OR_UNAVAILABLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_NOT_ENOUGH_BALANCE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
@@ -332,5 +356,9 @@ export interface Errors extends BaseContract {
     CP_STRIKE_PRICE_TOO_LOW(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     CP_TOO_LITTLE_PREMIUM_TO_OWNER(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    CP_UNABLE_TO_TRANSFER_ETH(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    CP_ZERO_SIZED_ARRAY(overrides?: CallOverrides): Promise<PopulatedTransaction>
   }
 }

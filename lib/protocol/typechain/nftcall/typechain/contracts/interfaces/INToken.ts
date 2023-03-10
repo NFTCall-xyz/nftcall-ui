@@ -25,9 +25,10 @@ export interface INTokenInterface extends utils.Interface {
     'burn(address,address,uint256)': FunctionFragment
     'mint(address,uint256)': FunctionFragment
     'nft()': FunctionFragment
+    'transferERC721(address,address,uint256)': FunctionFragment
   }
 
-  getFunction(nameOrSignatureOrTopic: 'burn' | 'mint' | 'nft'): FunctionFragment
+  getFunction(nameOrSignatureOrTopic: 'burn' | 'mint' | 'nft' | 'transferERC721'): FunctionFragment
 
   encodeFunctionData(
     functionFragment: 'burn',
@@ -35,18 +36,25 @@ export interface INTokenInterface extends utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'mint', values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'nft', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'transferERC721',
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string
 
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'nft', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferERC721', data: BytesLike): Result
 
   events: {
     'Burn(address,address,uint256)': EventFragment
     'Mint(address,uint256)': EventFragment
+    'NFTTransfered(address,address,uint256)': EventFragment
   }
 
   getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Mint'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'NFTTransfered'): EventFragment
 }
 
 export interface BurnEventObject {
@@ -65,6 +73,15 @@ export interface MintEventObject {
 export type MintEvent = TypedEvent<[string, BigNumber], MintEventObject>
 
 export type MintEventFilter = TypedEventFilter<MintEvent>
+
+export interface NFTTransferedEventObject {
+  collection: string
+  recipient: string
+  tokenId: BigNumber
+}
+export type NFTTransferedEvent = TypedEvent<[string, string, BigNumber], NFTTransferedEventObject>
+
+export type NFTTransferedEventFilter = TypedEventFilter<NFTTransferedEvent>
 
 export interface INToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this
@@ -103,6 +120,13 @@ export interface INToken extends BaseContract {
     ): Promise<ContractTransaction>
 
     nft(overrides?: CallOverrides): Promise<[string]>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
   }
 
   burn(
@@ -120,6 +144,13 @@ export interface INToken extends BaseContract {
 
   nft(overrides?: CallOverrides): Promise<string>
 
+  transferERC721(
+    collection: PromiseOrValue<string>,
+    recipient: PromiseOrValue<string>,
+    tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
   callStatic: {
     burn(
       user: PromiseOrValue<string>,
@@ -131,6 +162,13 @@ export interface INToken extends BaseContract {
     mint(user: PromiseOrValue<string>, tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
 
     nft(overrides?: CallOverrides): Promise<string>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>
   }
 
   filters: {
@@ -143,6 +181,17 @@ export interface INToken extends BaseContract {
 
     'Mint(address,uint256)'(from?: PromiseOrValue<string> | null, tokenId?: null): MintEventFilter
     Mint(from?: PromiseOrValue<string> | null, tokenId?: null): MintEventFilter
+
+    'NFTTransfered(address,address,uint256)'(
+      collection?: PromiseOrValue<string> | null,
+      recipient?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): NFTTransferedEventFilter
+    NFTTransfered(
+      collection?: PromiseOrValue<string> | null,
+      recipient?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): NFTTransferedEventFilter
   }
 
   estimateGas: {
@@ -160,6 +209,13 @@ export interface INToken extends BaseContract {
     ): Promise<BigNumber>
 
     nft(overrides?: CallOverrides): Promise<BigNumber>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
   }
 
   populateTransaction: {
@@ -177,5 +233,12 @@ export interface INToken extends BaseContract {
     ): Promise<PopulatedTransaction>
 
     nft(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
   }
 }

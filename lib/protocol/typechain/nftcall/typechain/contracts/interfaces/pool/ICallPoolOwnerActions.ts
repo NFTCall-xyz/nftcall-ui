@@ -23,16 +23,22 @@ import type { OnEvent, PromiseOrValue, TypedEvent, TypedEventFilter, TypedListen
 export interface ICallPoolOwnerActionsInterface extends utils.Interface {
   functions: {
     'collectProtocol(address,uint256)': FunctionFragment
+    'transferERC721(address,address,uint256)': FunctionFragment
   }
 
-  getFunction(nameOrSignatureOrTopic: 'collectProtocol'): FunctionFragment
+  getFunction(nameOrSignatureOrTopic: 'collectProtocol' | 'transferERC721'): FunctionFragment
 
   encodeFunctionData(
     functionFragment: 'collectProtocol',
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string
+  encodeFunctionData(
+    functionFragment: 'transferERC721',
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string
 
   decodeFunctionResult(functionFragment: 'collectProtocol', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferERC721', data: BytesLike): Result
 
   events: {}
 }
@@ -65,11 +71,25 @@ export interface ICallPoolOwnerActions extends BaseContract {
       amountRequested: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
   }
 
   collectProtocol(
     recipient: PromiseOrValue<string>,
     amountRequested: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
+  transferERC721(
+    collection: PromiseOrValue<string>,
+    recipient: PromiseOrValue<string>,
+    tokenId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -79,6 +99,13 @@ export interface ICallPoolOwnerActions extends BaseContract {
       amountRequested: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>
   }
 
   filters: {}
@@ -89,12 +116,26 @@ export interface ICallPoolOwnerActions extends BaseContract {
       amountRequested: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
   }
 
   populateTransaction: {
     collectProtocol(
       recipient: PromiseOrValue<string>,
       amountRequested: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
   }

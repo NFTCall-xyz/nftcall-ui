@@ -106,6 +106,62 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'uint256[]',
+        name: 'tokenIds',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'getNFTStatusBatch',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'bool',
+            name: 'ifOnMarket',
+            type: 'bool',
+          },
+          {
+            internalType: 'uint8',
+            name: 'minimumStrikeGapIdx',
+            type: 'uint8',
+          },
+          {
+            internalType: 'uint8',
+            name: 'maximumDurationIdx',
+            type: 'uint8',
+          },
+          {
+            internalType: 'uint256',
+            name: 'exerciseTime',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'endTime',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'minimumStrikePrice',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'strikePrice',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct DataTypes.NFTStatusOutput[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint256',
         name: 'tokenId',
         type: 'uint256',

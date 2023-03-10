@@ -20,7 +20,6 @@ export interface ICallPoolEventsInterface extends utils.Interface {
     'CollectProtocol(address,address,uint256)': EventFragment
     'Deactivate(address)': EventFragment
     'Deposit(address,address,address,uint256)': EventFragment
-    'DepositETH(address,address,uint256)': EventFragment
     'OffMarket(address,address,uint256)': EventFragment
     'OnMarket(address,address,uint256)': EventFragment
     'PreferenceUpdated(address,uint256,uint8,uint8,uint256)': EventFragment
@@ -36,7 +35,6 @@ export interface ICallPoolEventsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'CollectProtocol'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Deactivate'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Deposit'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'DepositETH'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OffMarket'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OnMarket'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'PreferenceUpdated'): EventFragment
@@ -113,15 +111,6 @@ export interface DepositEventObject {
 export type DepositEvent = TypedEvent<[string, string, string, BigNumber], DepositEventObject>
 
 export type DepositEventFilter = TypedEventFilter<DepositEvent>
-
-export interface DepositETHEventObject {
-  user: string
-  receiver: string
-  amount: BigNumber
-}
-export type DepositETHEvent = TypedEvent<[string, string, BigNumber], DepositETHEventObject>
-
-export type DepositETHEventFilter = TypedEventFilter<DepositETHEvent>
 
 export interface OffMarketEventObject {
   nft: string
@@ -286,17 +275,6 @@ export interface ICallPoolEvents extends BaseContract {
       onBehalfOf?: PromiseOrValue<string> | null,
       tokenId?: PromiseOrValue<BigNumberish> | null
     ): DepositEventFilter
-
-    'DepositETH(address,address,uint256)'(
-      user?: PromiseOrValue<string> | null,
-      receiver?: PromiseOrValue<string> | null,
-      amount?: null
-    ): DepositETHEventFilter
-    DepositETH(
-      user?: PromiseOrValue<string> | null,
-      receiver?: PromiseOrValue<string> | null,
-      amount?: null
-    ): DepositETHEventFilter
 
     'OffMarket(address,address,uint256)'(
       nft?: PromiseOrValue<string> | null,

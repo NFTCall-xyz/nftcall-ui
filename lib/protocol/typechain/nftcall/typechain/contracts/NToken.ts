@@ -40,6 +40,7 @@ export interface NTokenInterface extends utils.Interface {
     'supportsInterface(bytes4)': FunctionFragment
     'symbol()': FunctionFragment
     'tokenURI(uint256)': FunctionFragment
+    'transferERC721(address,address,uint256)': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
   }
@@ -64,6 +65,7 @@ export interface NTokenInterface extends utils.Interface {
       | 'supportsInterface'
       | 'symbol'
       | 'tokenURI'
+      | 'transferERC721'
       | 'transferFrom'
       | 'transferOwnership'
   ): FunctionFragment
@@ -108,6 +110,10 @@ export interface NTokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(functionFragment: 'tokenURI', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(
+    functionFragment: 'transferERC721',
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string
+  encodeFunctionData(
     functionFragment: 'transferFrom',
     values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string
@@ -131,6 +137,7 @@ export interface NTokenInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferERC721', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result
 
@@ -139,6 +146,7 @@ export interface NTokenInterface extends utils.Interface {
     'ApprovalForAll(address,address,bool)': EventFragment
     'Burn(address,address,uint256)': EventFragment
     'Mint(address,uint256)': EventFragment
+    'NFTTransfered(address,address,uint256)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Transfer(address,address,uint256)': EventFragment
   }
@@ -147,6 +155,7 @@ export interface NTokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'ApprovalForAll'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Mint'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'NFTTransfered'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
 }
@@ -185,6 +194,15 @@ export interface MintEventObject {
 export type MintEvent = TypedEvent<[string, BigNumber], MintEventObject>
 
 export type MintEventFilter = TypedEventFilter<MintEvent>
+
+export interface NFTTransferedEventObject {
+  collection: string
+  recipient: string
+  tokenId: BigNumber
+}
+export type NFTTransferedEvent = TypedEvent<[string, string, BigNumber], NFTTransferedEventObject>
+
+export type NFTTransferedEventFilter = TypedEventFilter<NFTTransferedEvent>
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string
@@ -300,6 +318,13 @@ export interface NToken extends BaseContract {
 
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string]>
 
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
+
     transferFrom(
       from: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
@@ -387,6 +412,13 @@ export interface NToken extends BaseContract {
 
   tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
 
+  transferERC721(
+    collection: PromiseOrValue<string>,
+    recipient: PromiseOrValue<string>,
+    tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
   transferFrom(
     from: PromiseOrValue<string>,
     to: PromiseOrValue<string>,
@@ -466,6 +498,13 @@ export interface NToken extends BaseContract {
 
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
 
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     transferFrom(
       from: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
@@ -508,6 +547,17 @@ export interface NToken extends BaseContract {
 
     'Mint(address,uint256)'(from?: PromiseOrValue<string> | null, tokenId?: null): MintEventFilter
     Mint(from?: PromiseOrValue<string> | null, tokenId?: null): MintEventFilter
+
+    'NFTTransfered(address,address,uint256)'(
+      collection?: PromiseOrValue<string> | null,
+      recipient?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): NFTTransferedEventFilter
+    NFTTransfered(
+      collection?: PromiseOrValue<string> | null,
+      recipient?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null
+    ): NFTTransferedEventFilter
 
     'OwnershipTransferred(address,address)'(
       previousOwner?: PromiseOrValue<string> | null,
@@ -605,6 +655,13 @@ export interface NToken extends BaseContract {
 
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
 
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
+
     transferFrom(
       from: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
@@ -692,6 +749,13 @@ export interface NToken extends BaseContract {
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     tokenURI(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    transferERC721(
+      collection: PromiseOrValue<string>,
+      recipient: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
 
     transferFrom(
       from: PromiseOrValue<string>,
