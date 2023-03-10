@@ -64,7 +64,7 @@ const Tabs: FCC<TabsProps> = ({ tabs, Header, sx }) => {
   return (
     <TabContext value={value}>
       {Header ? <Header>{tabList}</Header> : tabList}
-      <Grid container pt={4}>
+      <Grid container marginTop={2}>
         <Grid item xs={12}>
           {tabs.map(({ title, children }, index) => {
             return (
