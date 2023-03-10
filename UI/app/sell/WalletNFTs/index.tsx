@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react'
 
 import Grid from '@mui/material/Grid'
 
+import { useIds } from 'app/hooks/useIds'
 import { log } from 'app/utils/dev'
 import { safeGet } from 'app/utils/get'
 
@@ -17,6 +18,7 @@ import type { NFTCardProps, WalletNFT } from './NFTCard'
 import NFTCard from './NFTCard'
 
 const WalletNFTs = () => {
+  const ids = useIds()
   const { t } = useTranslation('app-sell')
   const {
     tokenId: { wallet, updateAssets, updateWallet },
@@ -46,6 +48,7 @@ const WalletNFTs = () => {
           tokenId,
           nftAddress,
           action,
+          ids,
           callPoolAddress: safeGet(() => callPool.address.CallPool),
         })
       })
@@ -56,7 +59,7 @@ const WalletNFTs = () => {
       key,
       nfts,
     }
-  }, [wallet, callPools, action])
+  }, [wallet, callPools, action, ids])
 
   useEffect(() => {
     updateWallet().catch(() => {})

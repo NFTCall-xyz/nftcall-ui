@@ -11,12 +11,14 @@ import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
+import Checkbox from '@mui/material/Checkbox'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 
+import type { UseIds } from 'app/hooks/useIds'
 import { safeGet } from 'app/utils/get'
 
 import { Paragraph, Span, Tiny } from 'components/Typography'
@@ -32,6 +34,7 @@ import { NFTStatus } from 'domains/data/nft/types'
 import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 
 export type DepositedNFT = BaseNFT & {
+  ids: UseIds
   callPoolAddress: string
   minStrikePrice: number
   maxExpriyTime: number
@@ -58,14 +61,22 @@ const ROOT = styled(Card)(({ theme }) => ({
   },
   '& .checkbox': {
     position: 'absolute',
-    right: '0.5rem',
-    top: '0.5rem',
+    zIndex: 1,
+    right: '0.75rem',
+    top: '0.75rem',
   },
 }))
 
 const NFTCard: FC<DepositedNFT> = (props) => {
   const { t } = useTranslation('app-sell')
-  const { tokenId, status: sourceStatus, position, restart, callPoolAddress } = props
+  const {
+    tokenId,
+    status: sourceStatus,
+    position,
+    restart,
+    callPoolAddress,
+    ids: { has, add, remove },
+  } = props
   const { endTime } = position || ({} as undefined)
   const [status, setStatus] = useImmer(sourceStatus)
   const [loading, setLoading] = useImmer(false)
@@ -102,7 +113,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
       createTransaction: callPoolService.withdraw({
         callPool: callPoolAddress,
         user: networkAccount,
-        tokenId,
+        tokenIds: [tokenId],
       }),
       setStatus: () => {},
       sendTransaction,
@@ -159,10 +170,19 @@ const NFTCard: FC<DepositedNFT> = (props) => {
   if (status === 'Removed') return null
   const title = `#${tokenId}`
   const collection = safeGet(() => nftAssetsData.contractName) || ''
+  const checked = has(tokenId)
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      add(tokenId)
+    } else {
+      remove(tokenId)
+    }
+  }
 
   return (
     <Grid item xs={6} sm={3} md={2.5}>
       <ROOT>
+        <Checkbox className="checkbox" checked={checked} onChange={handleChange} />
         <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
         <CardContent sx={{ padding: 2, paddingTop: 0 }}>
           <Stack>
