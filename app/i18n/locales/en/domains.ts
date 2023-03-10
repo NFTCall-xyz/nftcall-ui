@@ -11,6 +11,16 @@ const locale = {
       deposit: 'Deposit',
       cancel: 'Cancel',
     },
+    depositBatchDialog: {
+      title: 'Deposit NFTs to sell call opitons',
+      setting: {
+        title: 'Setting All',
+        btn: 'Setting',
+      },
+      deposit: 'Deposit',
+      deposited: 'Deposited',
+      cancel: 'Cancel',
+    },
   },
   position: {
     status: {
