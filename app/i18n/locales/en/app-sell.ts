@@ -15,6 +15,7 @@ const locale = {
   tabs: {
     walletNFTs: 'Wallet',
     depositedNFTs: 'Deposited',
+    settingSelected: 'Setting Selected',
     depositSelected: 'Deposit Selected',
     clearSelected: 'Clear Selected',
     sold: 'NFTs Sold',

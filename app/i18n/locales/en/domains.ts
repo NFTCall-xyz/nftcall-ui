@@ -21,6 +21,16 @@ const locale = {
       deposited: 'Deposited',
       cancel: 'Cancel',
     },
+    settingBatchDialog: {
+      title: 'Options selling config',
+      setting: {
+        title: 'Setting All',
+        btn: 'Setting',
+      },
+      withdraw: 'Withdraw',
+      withdrew: 'withdrew',
+      cancel: 'Cancel',
+    },
   },
   position: {
     status: {

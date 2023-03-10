@@ -24,11 +24,13 @@ const useNFTDialog = () => {
 }
 const useNFTBatchDialog = () => {
   const [nfts, setNFTs] = useImmer<NFT[]>([])
+  const [update, setUpdate] = useImmer<() => void>(() => {})
   const onOpen = useCallback(
-    (nfts: NFT[]) => {
+    (nfts: NFT[], update: () => void) => {
       setNFTs(() => nfts)
+      setUpdate(() => update)
     },
-    [setNFTs]
+    [setNFTs, setUpdate]
   )
   const onClose = useCallback(() => {
     setNFTs(() => [])
@@ -37,6 +39,7 @@ const useNFTBatchDialog = () => {
   return {
     ...dialog,
     nfts,
+    update,
   }
 }
 
