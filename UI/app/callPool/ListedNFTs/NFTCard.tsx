@@ -25,6 +25,7 @@ import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 export type ListedNFT = BaseNFT & {
+  userAddress: string
   minStrikePrice: number
   maxExpriyTime: number
   lowerLimitOfStrikePrice: BN

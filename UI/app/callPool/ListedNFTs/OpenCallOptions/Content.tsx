@@ -42,7 +42,8 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
   } = useUser()
   const [strikePriceGapIdxSource, setStrikePriceGapIdx] = useImmer(1)
   const [durationIdxSource, setDurationIdx] = useImmer(MAX_EXPRIY_TIME_MAP.length - 1)
-  const { strikePriceSetting, durationSetting, limitOfStrikePriceSetting } = useMemo(() => {
+  const { networkAccount } = useWallet()
+  const { strikePriceSetting, durationSetting, limitOfStrikePriceSetting, nftOwnerIsUser } = useMemo(() => {
     const strikePriceSetting = {
       min: 0,
       max: MIN_STRIKE_PRICE_MAP.length - 1,
@@ -55,24 +56,31 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
       tokenId: '',
       min: toBN(0),
     }
+    const nftOwnerIsUser = {
+      tokenId: '',
+    }
 
     ids.forEach((id) => {
       const nft = nfts.find((i) => i.tokenId === id)
       if (!nft) return
-      const { maxExpriyTime, minStrikePrice, lowerLimitOfStrikePrice } = nft
+      const { maxExpriyTime, minStrikePrice, lowerLimitOfStrikePrice, userAddress } = nft
       if (maxExpriyTime < durationSetting.max) durationSetting.max = maxExpriyTime
       if (minStrikePrice > strikePriceSetting.min) strikePriceSetting.min = minStrikePrice
       if (lowerLimitOfStrikePrice.gt(limitOfStrikePriceSetting.min)) {
         limitOfStrikePriceSetting.min = lowerLimitOfStrikePrice
         limitOfStrikePriceSetting.tokenId = id
       }
+      if (networkAccount && userAddress === networkAccount.toLocaleLowerCase()) {
+        nftOwnerIsUser.tokenId = id
+      }
     })
     return {
       strikePriceSetting,
       durationSetting,
       limitOfStrikePriceSetting,
+      nftOwnerIsUser,
     }
-  }, [ids, nfts])
+  }, [ids, nfts, networkAccount])
   const { strikePriceGapIdx, durationIdx } = useMemo(() => {
     let strikePriceGapIdx = strikePriceGapIdxSource
     let durationIdx = durationIdxSource
@@ -118,6 +126,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
     const curveIdx = strikePriceGapIdx * 4 + durationIdx
     const premium = premiums.find((i) => i.curveIdx === curveIdx)
     if (!premium) return returnValue
+
     const { currentPremium } = premium
     const price = nftOracle.price.multipliedBy(size)
     const premiumTotal = price.multipliedBy(currentPremium)
@@ -130,7 +139,9 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
     if (!minStrikePriceMap || !maxExpriyTimeMap) return returnValue
     returnValue.strikePrice = price.multipliedBy(minStrikePriceMap.number)
 
-    if (returnValue.premiumToOwner.lt(0.001 * size)) {
+    if (nftOwnerIsUser.tokenId) {
+      setErrors([t('errors.ownerLimit', { tokenId: nftOwnerIsUser.tokenId })])
+    } else if (returnValue.premiumToOwner.lt(0.001 * size)) {
       setErrors([t('errors.premiumLimit', { limit: 0.001 })])
     } else if (limitOfStrikePriceSetting.min.multipliedBy(size).gt(returnValue.strikePrice)) {
       setErrors([t('errors.strikePriceLimit', { tokenId: limitOfStrikePriceSetting.tokenId })])
@@ -140,18 +151,18 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
     returnValue.expriyTime = getCurrentTime() + maxExpriyTimeMap.number
     return returnValue
   }, [
-    t,
+    strikePriceGapIdx,
     durationIdx,
+    premiums,
+    nftOwnerIsUser.tokenId,
+    nftOracle.price,
+    size,
     limitOfStrikePriceSetting.min,
     limitOfStrikePriceSetting.tokenId,
-    nftOracle.price,
-    premiums,
     setErrors,
-    size,
-    strikePriceGapIdx,
+    t,
   ])
 
-  const { networkAccount } = useWallet()
   const {
     contracts: { callPoolService },
   } = useNetwork()

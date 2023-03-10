@@ -29,12 +29,13 @@ export const useListedNFTs = () => {
 
   const getData = useCallback((sourceData: ListedNFTs) => {
     return sourceData.map((nft) => {
-      const { tokenId, nftAddress, strikePriceGapIdx, durationIdx, status } = nft
+      const { tokenId, nftAddress, strikePriceGapIdx, durationIdx, status, userAddress } = nft
       const timestamps = getNumber(nft, ['updateTimestamp'])
       return {
         minStrikePrice: strikePriceGapIdx,
         maxExpriyTime: durationIdx,
         nftAddress,
+        userAddress,
         tokenId,
         status,
         ...timestamps,

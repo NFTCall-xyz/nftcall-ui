@@ -15,6 +15,7 @@ const getGqlQuery = ({ first, skip, nft }: ListedNFTsProps) => {
     lowerLimitOfStrikePrice: minimumStrikePrice
     status
     nftAddress
+    userAddress
   }
 
   {
@@ -56,6 +57,7 @@ export const getListedNFTs = (
     durationIdx: number
     status: NFTStatus
     nftAddress: string
+    userAddress: string
     updateTimestamp: number
   }>
 > => {
