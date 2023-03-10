@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 
 import CssBaseline from '@mui/material/CssBaseline'
 
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { useRouteChange } from 'lib/nprogress/router'
 import { ToastContainer } from 'lib/toastify'
@@ -18,7 +18,7 @@ export function useAppService() {
   return { menu }
 }
 
-export const { Context, Provider: APP, createUseContext } = createContext(useAppService)
+export const { Context, Provider: APP, createUseContext } = createContextWithProvider(useAppService)
 export const useApp = createUseContext()
 
 export type MyAppProps = AppProps & {

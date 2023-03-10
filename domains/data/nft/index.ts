@@ -1,4 +1,4 @@
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { useCollections } from './application/collections'
 import { useOracle } from './application/oracle'
@@ -10,7 +10,7 @@ const useNFTService = () => {
   const tokenId = useTokendId()
   return { collections, oracle, tokenId }
 }
-const { Provider: NFTProvider, createUseContext } = createContext(useNFTService)
+const { Provider: NFTProvider, createUseContext } = createContextWithProvider(useNFTService)
 export const createNFTContext = createUseContext
 
 export default NFTProvider

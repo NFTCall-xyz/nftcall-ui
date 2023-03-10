@@ -23,7 +23,7 @@ export function toBN(amount: BNValue): BigNumber {
 }
 
 export function valueToWei(n: BNValue, decimals = 18): BigNumber {
-  return toBN(toBN(n).shiftedBy(decimals).toFixed(0))
+  return toBN(toBN(n).shiftedBy(decimals).integerValue())
 }
 
 export function weiToValue(n: BNValue, decimals = 18): BigNumber {

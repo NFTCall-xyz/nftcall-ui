@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { useWalletBase } from 'lib/wallet'
 
@@ -30,7 +30,7 @@ export const {
   Context,
   Provider: WalletProvider,
   createUseContext: createWalletContext,
-} = createContext(useWalletService)
+} = createContextWithProvider(useWalletService)
 
 export const Provider: FCC = (props) => {
   return (

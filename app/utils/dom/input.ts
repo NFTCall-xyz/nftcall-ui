@@ -1,7 +1,10 @@
-import { triggerEvents } from './triggerEvents'
+import { triggerEvent } from './triggerEvent'
 
 export const inputSetValue = (input: HTMLInputElement, value: string) => {
-  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set
-  nativeInputValueSetter.call(input, value)
-  triggerEvents(input, 'input')
+  if (!input) return
+  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set
+  if (nativeInputValueSetter) {
+    nativeInputValueSetter.call(input, value)
+    triggerEvent(input, 'input')
+  }
 }

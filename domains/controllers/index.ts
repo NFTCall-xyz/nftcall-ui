@@ -1,4 +1,4 @@
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { usePageProgressController } from 'lib/nprogress/store/nprogress'
 
@@ -16,7 +16,7 @@ export const useControllersService = () => {
   return { pageProcess, nft, tokenId, user, callPool }
 }
 
-const { Provider: ControllersProvider, createUseContext } = createContext(useControllersService)
+const { Provider: ControllersProvider, createUseContext } = createContextWithProvider(useControllersService)
 
 export const createControllersContext = createUseContext
 export default ControllersProvider

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { useCallPools } from 'domains/data'
 import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
@@ -42,7 +42,7 @@ const useBuyService = () => {
     usePageEffect,
   }
 }
-const { Provider: BuyProvider, createUseContext } = createContext(useBuyService)
+const { Provider: BuyProvider, createUseContext } = createContextWithProvider(useBuyService)
 export const createBuyContext = createUseContext
 
 export default BuyProvider

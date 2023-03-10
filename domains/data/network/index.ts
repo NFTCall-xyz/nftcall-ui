@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { getMarkets } from './adapter/markets'
 import { useAddress } from './application/address'
@@ -27,7 +27,7 @@ const useNetworkService = () => {
     subgraphName,
   }
 }
-const { Provider: NetworkProvider, createUseContext } = createContext(useNetworkService)
+const { Provider: NetworkProvider, createUseContext } = createContextWithProvider(useNetworkService)
 export const createNetworkContext = createUseContext
 
 export default NetworkProvider

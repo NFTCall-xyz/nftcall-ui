@@ -1,4 +1,4 @@
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { useCallPools } from 'domains/data'
 
@@ -16,7 +16,7 @@ const useFaucetsService = () => {
     usePageEffect,
   }
 }
-const { Provider: FaucetsProvider, createUseContext } = createContext(useFaucetsService)
+const { Provider: FaucetsProvider, createUseContext } = createContextWithProvider(useFaucetsService)
 export const createFaucetsContext = createUseContext
 
 export default FaucetsProvider

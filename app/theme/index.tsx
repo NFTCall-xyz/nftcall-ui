@@ -3,7 +3,7 @@ import { useAppSelector } from 'store'
 
 import { ThemeProvider } from '@mui/material/styles'
 
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { selectData } from './store'
 import { createThemeOptions, getTheme, themes } from './themes'
@@ -34,7 +34,7 @@ export const useThemeService = () => {
   }
 }
 
-export const { Context, Provider: BaseThemeProvider, createUseContext } = createContext(useThemeService)
+export const { Context, Provider: BaseThemeProvider, createUseContext } = createContextWithProvider(useThemeService)
 export const useBaseTheme = createUseContext()
 
 const Theme: FCC = (props) => {

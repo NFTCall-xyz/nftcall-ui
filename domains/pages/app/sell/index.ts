@@ -1,4 +1,4 @@
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import { useUserStats } from 'domains/data/callPools/hooks/useUserStats'
 
@@ -12,7 +12,7 @@ const useSellService = () => {
   const stats = useSellStats()
   return { stats, usePageEffect }
 }
-const { Provider: SellProvider, createUseContext } = createContext(useSellService)
+const { Provider: SellProvider, createUseContext } = createContextWithProvider(useSellService)
 export const createSellContext = createUseContext
 
 export default SellProvider

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 import { log } from 'app/utils/dev'
 import { safeGet } from 'app/utils/get'
 
@@ -43,7 +43,7 @@ const useCallPoolDetailsService = () => {
     callPoolId,
   }
 }
-const { Provider: CallPoolDetailsProvider, createUseContext } = createContext(useCallPoolDetailsService)
+const { Provider: CallPoolDetailsProvider, createUseContext } = createContextWithProvider(useCallPoolDetailsService)
 export const createCallPoolDetailsContext = createUseContext
 
 export default CallPoolDetailsProvider

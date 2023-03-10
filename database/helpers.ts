@@ -1,6 +1,6 @@
 import type { Table } from 'dexie'
 import { useLiveQuery } from 'dexie-react-hooks'
-import { cloneDeep, isEmpty } from 'lodash'
+import { cloneDeep } from 'lodash'
 import { useEffect } from 'react'
 
 import { toBN } from 'lib/math'
@@ -9,47 +9,49 @@ const BNToBNSaveArray = (obj: any[]) => {
   const arr = cloneDeep(obj)
   return arr.map((item) => BNToBNSave(item))
 }
+
 const BNToBNSave = (obj: any) => {
   if (typeof obj !== 'object') return obj
   const o: any = {}
-  Object.keys(obj).forEach((k) => {
-    if (!obj[k]) return
-    if (obj[k]._isBigNumber) {
+  for (const [k, v] of Object.entries<any>(obj)) {
+    if (!v) continue
+    if (v._isBigNumber) {
       o[k] = {
-        value: obj[k].toString(),
+        value: v.toString(),
         _isBigNumber: true,
       }
-    } else if (obj[k] instanceof Array) {
-      if (isEmpty(obj[k])) return
-      o[k] = BNToBNSaveArray(obj[k])
-    } else if (typeof obj[k] === 'object') {
-      if (isEmpty(obj[k])) return
-      o[k] = BNToBNSave(obj[k])
+    } else if (v instanceof Array) {
+      if (v.length === 0) continue
+      o[k] = BNToBNSaveArray(v)
+    } else if (typeof v === 'object') {
+      if (Object.keys(v).length === 0) continue
+      o[k] = BNToBNSave(v)
     } else {
-      o[k] = obj[k]
+      o[k] = v
     }
-  })
+  }
   return o
 }
 
 const BNSaveToBNArray = (arr: any[]) => {
   return arr.map((item) => BNSaveToBN(item))
 }
+
 const BNSaveToBN = (obj: any) => {
   if (typeof obj !== 'object') return obj
   const o: any = {}
-  Object.keys(obj).forEach((k) => {
-    if (!obj[k]) return
-    if (obj[k]._isBigNumber) {
-      o[k] = toBN(obj[k].value)
-    } else if (obj[k] instanceof Array) {
-      o[k] = BNSaveToBNArray(obj[k])
-    } else if (typeof obj[k] === 'object') {
-      o[k] = BNSaveToBN(obj[k])
+  for (const [k, v] of Object.entries<any>(obj)) {
+    if (!v) continue
+    if (v._isBigNumber) {
+      o[k] = toBN(v.value)
+    } else if (v instanceof Array) {
+      o[k] = BNSaveToBNArray(v)
+    } else if (typeof v === 'object') {
+      o[k] = BNSaveToBN(v)
     } else {
-      o[k] = obj[k]
+      o[k] = v
     }
-  })
+  }
   return o
 }
 

@@ -1,4 +1,4 @@
-import { createContext } from 'app/utils/createContext'
+import { createContextWithProvider } from 'app/utils/createContext'
 
 import type { CallPoolStats } from 'store/callPool/stats/adapter/getStatsData'
 import type { UserCallPoolStat } from 'store/callPool/userStats/adapter/getUserStatsData'
@@ -40,7 +40,7 @@ const useCallPoolsService = () => {
 
   return { callPools, allCallPool, balanceOf, totalOpenInterest, stats, dialogs, paused }
 }
-const { Provider: CallPoolsProvider, createUseContext } = createContext(useCallPoolsService)
+const { Provider: CallPoolsProvider, createUseContext } = createContextWithProvider(useCallPoolsService)
 export const createCallPoolsContext = createUseContext
 
 export default CallPoolsProvider

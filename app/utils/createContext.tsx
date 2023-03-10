@@ -1,9 +1,15 @@
-import { createContext as c, useContext } from 'react'
+import { createContext, useContext } from 'react'
 
-export function createContext<T>(fn: (...args: any[]) => T, initialValue: T | undefined = undefined) {
-  const Context = c(initialValue as T)
+type ContextWithProvider<T> = {
+  Context: React.Context<T>
+  Provider: FCC
+  createUseContext: () => () => T
+}
+
+export function createContextWithProvider<T>(fn: (...args: any[]) => T, initialValue?: T): ContextWithProvider<T> {
+  const Context = createContext(initialValue as T)
   const Provider: FCC = ({ children }) => <Context.Provider value={fn()}>{children}</Context.Provider>
-  const createUseContext = () => () => useContext(Context)
+  const createUseContext = (): (() => T) => () => useContext(Context)
   return {
     Context,
     Provider,
