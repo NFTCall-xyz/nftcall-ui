@@ -5,30 +5,17 @@
   "NTokenFactory": "0x11ae45f3f35ebf4a2a77beb86b369fdfaa4d23bc",
   "CallTokenFactory": "0x3da02ee9eaae24dfb1e58e63362d0e46c2885905",
   "CallFactory": "0xc9a0e44bdec3d2bf4ab2abcd732895555803715f",
-  "CallFactoryForTest": "0x96732e0b7e8a6115166bb018a6bbb253e830ca71",
+  "CallFactoryForTest": "0xc3a0dcc81b2faab57bc9ecc84060dfa0203f5af0",
   "markets": {
-    "Beanz": {
-      "NFT": "0x734cea5fB4e4DabbC290d0418c035a6490532bEd",
-      "CallPool": "0x570A31EE6fB311bD1ae07674f99A36679ddDA1C9"
+    "BAYC": {
+      "NFT": "0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978",
+      "CallPool": "0x28137E26A596BA68942426BA09dfAe292DA7304B",
+      "CallPoolForTest": "0xB15D5F2cb7FE748AA39f86D72459122Ff7B4eB60"
     },
-    "Potatoz": {
-      "NFT": "0xa76EA6E4991b6E99cf0b8A8E9B39AE284BB800AA",
-      "CallPool": "0xFEB94488C31c5002aBd5c98205B061Ca3003e806"
-    },
-    "Valhalla": {
-      "NFT": "0xab5Be10ce171107f186626BbCD52443518c02c85",
-      "CallPool": "0xd6314163989675CC71f16e4A6060c1C3b0829Ae4"
-    },
-    "Dooplicator": {
-      "NFT": "0x70DF9B848C86853fC6a56eb58cBc10240801FC71"
-    },
-    "Checks": {
-      "NFT": "0xa05BC3bb9BCC1c50DAE47951792e4829D4Ba5B2C",
-      "CallPool": "0xe67f5188d41855012dbe794683cDdc69b5911272"
-    },
-    "Otherdeed": {
-      "NFT": "0x3a18b9Bc84792083Ed69aCa64eadD6156Ff0ef26",
-      "CallPool": "0x6C2E49A9a997F118468926A7a1C6998e85Af81c1"
+    "MAYC": {
+      "NFT": "0x88898d1596204a25C93CE4832D3fB98A99058Fe8",
+      "CallPool": "0x880071Fd6c8bD925E3C0E86B7Eb1D74581F2692B",
+      "CallPoolForTest": "0x9D4ec2DB311F303FE2E63318Fb39d0101A1FEf83"
     }
   }
 }
