@@ -1,21 +1,21 @@
 {
   "NFTOracleImpl": "0xe9e25ffa51ea113d29bf5ad721c87576be09e0c6",
-  "NFTOracle": "0xc280bb9d06e6488effe98356958fa5e52db1003b",
+  "NFTOracle": "0x0d3652de0d8b1b83b42e2c0a9e099f5188cf0936",
   "Premium": "0x0d5c16e7fbb96e8464081ec785fd9c17c22569a1",
-  "NTokenFactory": "0x11ae45f3f35ebf4a2a77beb86b369fdfaa4d23bc",
-  "CallTokenFactory": "0x3da02ee9eaae24dfb1e58e63362d0e46c2885905",
-  "CallFactory": "0xc9a0e44bdec3d2bf4ab2abcd732895555803715f",
+  "NTokenFactory": "0x22504c9edff264fc31a565a8d49ff92386ac9dfb",
+  "CallTokenFactory": "0x0c8beb1a7c6ba06981c53ca4fd4a5203e57e40c9",
+  "CallFactory": "0x6e6350e15a957541adb879296624e401990c96e1",
   "CallFactoryForTest": "0xc3a0dcc81b2faab57bc9ecc84060dfa0203f5af0",
   "markets": {
-    "BAYC": {
-      "NFT": "0x445b465bA8E68C6f2d50C29DB5B629E40F6e9978",
-      "CallPool": "0x28137E26A596BA68942426BA09dfAe292DA7304B",
-      "CallPoolForTest": "0xB15D5F2cb7FE748AA39f86D72459122Ff7B4eB60"
+    "CloneX": {
+      "NFT": "0x10DBCd5310FCE7bb9D16E7E4B4fDE9a1A15AF5B0",
+      "CallPool": "0x07A25d47C815746A2794A5B053d121c529b14CA1",
+      "CallPoolForTest": "0x07A25d47C815746A2794A5B053d121c529b14CA1"
     },
-    "MAYC": {
-      "NFT": "0x88898d1596204a25C93CE4832D3fB98A99058Fe8",
-      "CallPool": "0x880071Fd6c8bD925E3C0E86B7Eb1D74581F2692B",
-      "CallPoolForTest": "0x9D4ec2DB311F303FE2E63318Fb39d0101A1FEf83"
+    "Moonbirds": {
+      "NFT": "0x85E3FCe05eE614f39133fA685798354df9A7f85A",
+      "CallPool": "0x1fDE610Ee201EA4144923172650026b9C1f0ad8B",
+      "CallPoolForTest": "0x1fDE610Ee201EA4144923172650026b9C1f0ad8B"
     }
   }
 }
