@@ -1,0 +1,44 @@
+{
+  "banner_image_url": "https://i.seadn.io/gae/ouzjfA0LotbHC92vuDph9JDeg7Z4ZFo12Pr9GJpfSAZSrnXDOubJn0eTvinwzUTPsWhnLLq5ocjcDSrpNV0_MYIjueVJrzFlE6p0?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2022-04-15T17:27:27.561334+00:00",
+  "default_to_fiat": false,
+  "description": "A collection of 10,000 PFPs which grant their holders access to the digital and IRL Moonbirds community. Community members can nest their birds to signal their commitment, in return for exclusive perks—which so far have included trait-based physical and digital drops, the Oddities, and time-based nesting rewards.\r\n\r\nMoonbird art is entirely in-chain, meaning the images are outputted directly from the smart contract, with no need for storage on IPFS or the like. There are also special gradient backgrounds available to Proof Collective pass holders, which will disappear when the bird is transfered. You can check what each bird looks like with and without this background (and see if they have any unclaimed rewards!) on our [site](https://proof.xyz/moonbirds)",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "500",
+  "discord_url": "https://discord.gg/proof",
+  "display_data": {
+    "card_display_style": "contain",
+    "images": null
+  },
+  "external_url": "https://proof.xyz/moonbirds",
+  "featured": false,
+  "featured_image_url": "https://i.seadn.io/gae/So80zwi42fQxZVYRhedjI8U5mjV2_dMCA26MCm5SpVv2YoTuVg4daRMY-NSjxaJ8I4uxRXzeQKREb-xIxp_HgJq30ETsMFTMJnPdsg?w=500&auto=format",
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gae/H-eyNE1MwL5ohL-tCfn_Xa1Sl9M9B4612tLYeUlQubzt4ewhr4huJIR5OLuyO3Z5PpJFSwdm7rq-TikAh7f5eUw338A2cy6HRH75?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": "https://i.seadn.io/gae/So80zwi42fQxZVYRhedjI8U5mjV2_dMCA26MCm5SpVv2YoTuVg4daRMY-NSjxaJ8I4uxRXzeQKREb-xIxp_HgJq30ETsMFTMJnPdsg?w=500&auto=format",
+  "medium_username": null,
+  "name": "Moonbirds",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": 0,
+  "payout_address": "0xd1d507b688b518d2b7a4f65007799a5e9d80e974",
+  "require_email": false,
+  "short_description": null,
+  "slug": "proof-moonbirds",
+  "telegram_url": null,
+  "twitter_username": "moonbirds",
+  "instagram_username": null,
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xd1d507b688b518d2b7a4f65007799a5e9d80e974": 500
+    },
+    "opensea_fees": {}
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": false
+}

@@ -1,0 +1,44 @@
+{
+  "banner_image_url": "https://i.seadn.io/gae/4elUtz8UyFYDH34vDxd4hpQX8S-EdkFq8s9ombkuQTDBWLwHvsjRM_RXWT2zX8Vt2bAiO2BHslwN57FyTW1JIn_FyFI0BsZfmvmeJQ?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2021-12-12T18:32:58.410707+00:00",
+  "default_to_fiat": false,
+  "description": "🧬 CLONE X 🧬\r\n\r\n20,000 next-gen Avatars, by RTFKT and Takashi Murakami 🌸",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "500",
+  "discord_url": "https://discord.gg/rtfkt",
+  "display_data": {
+    "card_display_style": "contain",
+    "images": null
+  },
+  "external_url": "http://www.rtfkt.com",
+  "featured": false,
+  "featured_image_url": "https://i.seadn.io/gae/IUO8EeKXUXiy0lAtp5qnNJa4KoUu-Nu_kYqcl5JUxw29YKPABYAuhQi-ihQR3j6IFrEJHAhKQ_e9s940frbA5jb1l0SHih3nP2UV5jw?w=500&auto=format",
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gae/XN0XuD8Uh3jyRWNtPTFeXJg_ht8m5ofDx6aHklOiy4amhFuWUa0JaR6It49AH8tlnYS386Q0TW_-Lmedn0UET_ko1a3CbJGeu5iHMg?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": "https://i.seadn.io/gae/IUO8EeKXUXiy0lAtp5qnNJa4KoUu-Nu_kYqcl5JUxw29YKPABYAuhQi-ihQR3j6IFrEJHAhKQ_e9s940frbA5jb1l0SHih3nP2UV5jw?w=500&auto=format",
+  "medium_username": null,
+  "name": "CLONE X - X TAKASHI MURAKAMI",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": 0,
+  "payout_address": "0xe65b6865dbce299ae6a20efcc7543362540741d8",
+  "require_email": false,
+  "short_description": null,
+  "slug": "clonex",
+  "telegram_url": null,
+  "twitter_username": "RTFKT",
+  "instagram_username": "rtfkt",
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xe65b6865dbce299ae6a20efcc7543362540741d8": 500
+    },
+    "opensea_fees": {}
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": false
+}

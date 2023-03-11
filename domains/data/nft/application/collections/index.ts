@@ -4,7 +4,9 @@ import { useMemo } from 'react'
 import BAYC from './adapter/BAYC.json'
 import Beanz from './adapter/Beanz.json'
 import Checks from './adapter/Checks.json'
+import CloneX from './adapter/CloneX.json'
 import MAYC from './adapter/MAYC.json'
+import Moonbirds from './adapter/Moonbirds.json'
 import Otherdeed from './adapter/Otherdeed.json'
 import Potatoz from './adapter/Potatoz.json'
 import Valhalla from './adapter/Valhalla.json'
@@ -20,6 +22,8 @@ export const useCollections = () => {
       Valhalla: getCollection('0x231d3559aa848bf10366fb9868590f01d34bf240', Valhalla),
       Checks: getCollection('0x34eebee6942d8def3c125458d1a86e0a897fd6f9', Checks),
       Otherdeed: getCollection('0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258', Otherdeed),
+      CloneX: getCollection('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B', CloneX),
+      Moonbirds: getCollection('0x23581767a106ae21c074b2276D25e5C3e136a68b', Moonbirds),
     }
   }, [])
   return returnValue
