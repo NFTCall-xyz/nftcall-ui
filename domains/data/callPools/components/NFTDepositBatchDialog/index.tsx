@@ -2,6 +2,7 @@ import { groupBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useMemo } from 'react'
 
+import { useMediaQuery, useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 
@@ -25,11 +26,14 @@ const NFTDepositBatchDialog: FC<NFTDepositBatchDialogProps> = () => {
     return returnValue
   }, [nfts])
 
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.up('md'))
+
   return (
     <Dialog
       {...{ ...nftBatchDeposit, title: t('title') }}
       fullWidth
-      maxWidth='lg'
+      fullScreen={!matches}
       actions={
         <Fragment>
           <Button variant="outlined" onClick={close}>

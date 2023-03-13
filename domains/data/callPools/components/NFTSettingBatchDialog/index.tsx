@@ -2,6 +2,7 @@ import { groupBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useMemo } from 'react'
 
+import { useMediaQuery, useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 
@@ -25,11 +26,14 @@ const NFTSettingBatchDialog: FC<NFTSettingBatchDialogProps> = () => {
     return returnValue
   }, [nfts])
 
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.up('md'))
+
   return (
     <Dialog
       {...{ ...nftBatchSetting, title: t('title') }}
+      fullScreen={!matches}
       fullWidth
-      maxWidth='lg'
       actions={
         <Fragment>
           <Button variant="outlined" onClick={close}>
@@ -38,7 +42,7 @@ const NFTSettingBatchDialog: FC<NFTSettingBatchDialogProps> = () => {
         </Fragment>
       }
     >
-      <Grid container spacing={2}>
+      <Grid container spacing={2} marginTop={2}>
         {callPools.map((nfts, index) => (
           <Grid item xs={12} sm={6} key={index}>
             <CallPools key={index} nfts={nfts} update={update} />

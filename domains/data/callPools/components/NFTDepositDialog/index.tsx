@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { Fragment } from 'react'
 
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
@@ -19,7 +20,6 @@ import { useCallPools } from 'domains/data'
 
 import NFTCard from './NFTCard'
 import { useForm } from './useForm'
-import Box from '@mui/material/Box'
 
 type NFTDepositDialogProps = {}
 const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
@@ -35,6 +35,8 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
   return (
     <Dialog
       {...{ ...nftDeposit, title: t('depositDialog.title') }}
+      fullWidth
+      maxWidth="sm"
       actions={
         <Fragment>
           <Button variant="outlined" onClick={close}>
@@ -47,13 +49,15 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
       }
     >
       <form onSubmit={handleSubmit}>
-        <Stack spacing={4} sx={{ width: '100vw', maxWidth: '450px', paddingTop: 2 }}>
+        <Stack spacing={4} sx={{ paddingTop: 2 }}>
           <NFTCard tokenId={tokenId} nftAddress={nftAddress} />
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
               <Tooltip title={tNFT('minStrikePriceTip')}>
                 <Box>
-                  <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('minStrikePrice')}</TooltipSpan>
+                  <TooltipSpan fontWeight="medium" color="text.priamry">
+                    {tNFT('minStrikePrice')}
+                  </TooltipSpan>
                 </Box>
               </Tooltip>
             </Stack>
@@ -76,7 +80,9 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
             <Stack alignItems="center" spacing={0.5} direction="row">
               <Tooltip title={tNFT('lowerLimitOfStrikePriceTip')}>
                 <Box>
-                  <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('lowerLimitOfStrikePrice')}</TooltipSpan>
+                  <TooltipSpan fontWeight="medium" color="text.priamry">
+                    {tNFT('lowerLimitOfStrikePrice')}
+                  </TooltipSpan>
                 </Box>
               </Tooltip>
             </Stack>
@@ -87,7 +93,9 @@ const NFTDepositDialog: FC<NFTDepositDialogProps> = () => {
               {/* <Span fontWeight="bold">{tNFT('maxExpiryTime')}</Span> */}
               <Tooltip title={tNFT('maxExpiryTimeTip')}>
                 <Box>
-                  <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('maxExpiryTime')}</TooltipSpan>
+                  <TooltipSpan fontWeight="medium" color="text.priamry">
+                    {tNFT('maxExpiryTime')}
+                  </TooltipSpan>
                 </Box>
               </Tooltip>
             </Stack>
