@@ -9,10 +9,10 @@ import type { DialogValues } from 'app/hooks/useDialog'
 import { DialogCloseIconButton } from 'components/btn/IconButton'
 
 const Dialog: FCC<
-  DialogValues & { title: string; actions?: any; maxWidth?: false | Breakpoint; fullScreen?: boolean }
-> = ({ visible, close, title, children, actions, maxWidth, fullScreen }) => {
+  DialogValues & { title: string; actions?: any; maxWidth?: false | Breakpoint; fullScreen?: boolean, fullWidth?: boolean }
+> = ({ visible, close, title, children, actions, maxWidth, fullScreen, fullWidth }) => {
   return (
-    <MaterialDialog open={visible} onClose={close} maxWidth={maxWidth || false} fullScreen={fullScreen}>
+    <MaterialDialog open={visible} onClose={close} maxWidth={maxWidth || false} fullScreen={fullScreen} fullWidth={fullWidth}>
       <DialogCloseIconButton onClick={close} />
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>

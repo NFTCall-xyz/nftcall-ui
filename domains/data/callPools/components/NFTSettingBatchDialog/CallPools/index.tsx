@@ -76,16 +76,16 @@ const CallPools: FC<CallPoolsProps> = (props: CallPoolsProps) => {
           ))}
         </Box>
         {isWithdrew ? (
-          <Button variant="contained" disabled fullWidth>
+          <Button variant="outlined" disabled fullWidth>
             {t('withdrew')}
           </Button>
         ) : (
           <Stack spacing={2} direction="row">
-            <Button variant="contained" fullWidth onClick={() => handleWithdrawSubmit()} disabled={loading}>
+            <Button variant="outlined" fullWidth onClick={() => handleWithdrawSubmit()} disabled={loading}>
               {t('withdraw')}
             </Button>
             <Button variant="contained" fullWidth onClick={() => handleSettingSubmit()} disabled={loading}>
-              {t('setting.btn')}
+              {t('setting.update')}
             </Button>
           </Stack>
         )}

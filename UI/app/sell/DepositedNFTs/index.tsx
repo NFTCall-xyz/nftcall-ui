@@ -24,22 +24,31 @@ const DepositedNFTs = () => {
     dialogs: { nftBatchSetting },
   } = useCallPools()
 
+  const openDialog = () => {
+    nftBatchSetting.open(
+      ids.values.map((id) => data.find((nft) => getNFTId(nft) === id)).filter((i) => !!i),
+      restart
+    )
+    ids.clear()
+  }
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Stack spacing={2} direction="row-reverse">
+        <Stack spacing={2} direction="row">
           <Button
-            variant="outlined"
+            variant="contained"
             disabled={!ids.size}
-            onClick={() => {
-              nftBatchSetting.open(
-                ids.values.map((id) => data.find((nft) => getNFTId(nft) === id)).filter((i) => !!i),
-                restart
-              )
-              ids.clear()
-            }}
+            onClick={openDialog}
           >
             {t('tabs.settingSelected')}
+          </Button>
+          <Button
+            variant="contained"
+            disabled={!ids.size}
+            onClick={openDialog}
+          >
+            {t('tabs.withdrawSelected')}
           </Button>
           {!!ids.size && (
             <Button variant="outlined" onClick={() => ids.clear()}>

@@ -28,7 +28,8 @@ const NFTDepositBatchDialog: FC<NFTDepositBatchDialogProps> = () => {
   return (
     <Dialog
       {...{ ...nftBatchDeposit, title: t('title') }}
-      fullScreen
+      fullWidth
+      maxWidth='lg'
       actions={
         <Fragment>
           <Button variant="outlined" onClick={close}>
@@ -39,7 +40,7 @@ const NFTDepositBatchDialog: FC<NFTDepositBatchDialogProps> = () => {
     >
       <Grid container spacing={2}>
         {callPools.map((nfts, index) => (
-          <Grid item xs={12} lg={4} md={6} key={index}>
+          <Grid item xs={12} sm={6} key={index}>
             <CallPools key={index} nfts={nfts} />
           </Grid>
         ))}

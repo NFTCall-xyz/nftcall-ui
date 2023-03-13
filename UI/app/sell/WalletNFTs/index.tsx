@@ -74,9 +74,9 @@ const WalletNFTs = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Stack spacing={2} direction="row-reverse">
+        <Stack spacing={2} direction="row">
           <Button
-            variant="outlined"
+            variant="contained"
             disabled={!ids.size}
             onClick={() => {
               nftBatchDeposit.open(ids.values.map((id) => nfts.find((nft) => getNFTId(nft) === id)).filter((i) => !!i))

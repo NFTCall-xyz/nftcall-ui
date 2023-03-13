@@ -2,7 +2,7 @@
   "callPools": {
     "settingsDialog": {
       "title": "Options selling settings",
-      "submit": "Submit",
+      "submit": "Update Settings",
       "cancel": "Cancel",
       "listOnMarket": "List on Market",
       "listOnMartetTip": "If you don't want to your NFTs listed on the market for the options selling, you can toggle off the option at any time as long as your NFTs are not locked by the ongoing options contracts."
@@ -15,18 +15,19 @@
     "depositBatchDialog": {
       "title": "Deposit NFTs to sell call opitons",
       "setting": {
-        "title": "Setting All",
-        "btn": "Setting"
+        "title": "Collection Settings",
+        "btn": "Apply Settings"
       },
       "deposit": "Deposit",
       "deposited": "Deposited",
       "cancel": "Cancel"
     },
     "settingBatchDialog": {
-      "title": "Options selling config",
+      "title": "Options selling settings",
       "setting": {
-        "title": "Setting All",
-        "btn": "Setting"
+        "title": "Collection Settings",
+        "btn": "Apply Settings",
+        "update": "Update Settings"
       },
       "withdraw": "Withdraw",
       "withdrew": "withdrew",

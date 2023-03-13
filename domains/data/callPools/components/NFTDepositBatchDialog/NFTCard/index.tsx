@@ -2,18 +2,17 @@ import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import HelpIcon from '@mui/icons-material/Help'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import MenuItem from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
+import Box from '@mui/material/Box'
 
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 
-import { H3 } from 'components/Typography'
-import { Span } from 'components/Typography'
+import { H5, TooltipSpan } from 'components/Typography'
 import FormNumberFieldField from 'components/form/FormNumberField'
 import FormTextField from 'components/form/FormTextField'
 
@@ -36,17 +35,18 @@ const NFTCard: FC<NFTCardProps> = (props) => {
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ padding: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
-          <NFTIcon nftAssetsData={nftAssetsData} sx={{ width: '60px' }} />
-          <H3>{title}</H3>
+          <NFTIcon nftAssetsData={nftAssetsData} sx={{ width: '40px' }} />
+          <H5>{title}</H5>
         </Stack>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: 2 }}>
         <Stack spacing={2}>
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{t('minStrikePrice')}</Span>
               <Tooltip title={t('minStrikePriceTip')}>
-                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+                <Box>
+                  <TooltipSpan fontWeight="medium" color='text.priamry'>{t('minStrikePrice')}</TooltipSpan>
+                </Box>
               </Tooltip>
             </Stack>
             <FormTextField
@@ -67,18 +67,20 @@ const NFTCard: FC<NFTCardProps> = (props) => {
           </Stack>
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{t('lowerLimitOfStrikePrice')}</Span>
               <Tooltip title={t('lowerLimitOfStrikePriceTip')}>
-                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+                <Box>
+                  <TooltipSpan fontWeight="medium" color='text.priamry'>{t('lowerLimitOfStrikePrice')}</TooltipSpan>
+                </Box>
               </Tooltip>
             </Stack>
             <FormNumberFieldField formik={formik} fieldKey="lowerLimitOfStrikePrice" disabled={formDisabled} />
           </Stack>
           <Stack spacing={1}>
             <Stack alignItems="center" spacing={0.5} direction="row">
-              <Span fontWeight="bold">{t('maxExpiryTime')}</Span>
               <Tooltip title={t('maxExpiryTimeTip')}>
-                <HelpIcon sx={{ color: 'text.secondary', width: 16 }} />
+                <Box>
+                  <TooltipSpan fontWeight="medium" color='text.priamry'>{t('maxExpiryTime')}</TooltipSpan>
+                </Box>
               </Tooltip>
             </Stack>
             <FormTextField
