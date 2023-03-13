@@ -369,6 +369,12 @@ export class CallPoolService extends BaseService<CallPool> {
 
     if (tokenIds.length === 1) {
       const tokenId = tokenIds[0]
+      if (!isSingleParameter) {
+        lowerStrikePriceGapIdx = lowerStrikePriceGapIdx || lowerStrikePriceGapIdxs[0]
+        upperDurationIdx = upperDurationIdx || upperDurationIdxs[0]
+        lowerLimitOfStrikePrice = lowerLimitOfStrikePrice || lowerLimitOfStrikePrices[0]
+      }
+
       txCallback = this.generateTxCallback({
         rawTxMethod: async () =>
           callPoolContract.populateTransaction.changePreference(
