@@ -1,0 +1,43 @@
+{
+  "banner_image_url": "https://i.seadn.io/gae/svc_rQkHVGf3aMI14v3pN-ZTI7uDRwN-QayvixX-nHSMZBgb1L1LReSg1-rXj4gNLJgAB0-yD8ERoT-Q2Gu4cy5AuSg-RdHF9bOxFDw?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2021-10-17T13:00:47.419945+00:00",
+  "default_to_fiat": false,
+  "description": "A community-driven collectibles project featuring art by Burnt Toast. Doodles come in a joyful range of colors, traits and sizes with a collection size of 10,000. Each Doodle allows its owner to vote for experiences and activations paid for by the Doodles Community Treasury.",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "500",
+  "discord_url": "https://discord.gg/doodles",
+  "display_data": {
+    "card_display_style": "contain"
+  },
+  "external_url": "https://doodles.app",
+  "featured": false,
+  "featured_image_url": "https://i.seadn.io/gcs/files/ad1e55ac8d380714566a3ecfe2a7dbcb.png?w=500&auto=format",
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gae/7B0qai02OdHA8P_EOVK672qUliyjQdQDGNrACxs7WnTgZAkJa_wWURnIFKeOh5VTf8cfTqW3wQpozGedaC9mteKphEOtztls02RlWQ?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": "https://i.seadn.io/gae/svc_rQkHVGf3aMI14v3pN-ZTI7uDRwN-QayvixX-nHSMZBgb1L1LReSg1-rXj4gNLJgAB0-yD8ERoT-Q2Gu4cy5AuSg-RdHF9bOxFDw?w=500&auto=format",
+  "medium_username": null,
+  "name": "Doodles",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": 0,
+  "payout_address": "0xd1f124cc900624e1ff2d923180b3924147364380",
+  "require_email": false,
+  "short_description": null,
+  "slug": "doodles-official",
+  "telegram_url": null,
+  "twitter_username": "doodles",
+  "instagram_username": null,
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xd1f124cc900624e1ff2d923180b3924147364380": 500
+    },
+    "opensea_fees": {}
+  },
+  "is_rarity_enabled": true,
+  "is_creator_fees_enforced": false
+}

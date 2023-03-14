@@ -36,6 +36,8 @@ export const getOpenSeaMainNetworkAddress = (address: string) => {
       return utils.getAddress('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B')
     case '0x85E3FCe05eE614f39133fA685798354df9A7f85A': // Moonbirds
       return utils.getAddress('0x23581767a106ae21c074b2276D25e5C3e136a68b')
+    case '0x00E08ef200F274604F0201B7F780a43Df9cDEBbf': // Doodles
+      return utils.getAddress('0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e')
     default:
       return address
   }

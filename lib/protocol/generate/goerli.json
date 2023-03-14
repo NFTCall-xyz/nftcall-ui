@@ -2,15 +2,20 @@
   "NFTOracleImpl": "0xe9e25ffa51ea113d29bf5ad721c87576be09e0c6",
   "NFTOracle": "0x0d3652de0d8b1b83b42e2c0a9e099f5188cf0936",
   "Premium": "0x0d5c16e7fbb96e8464081ec785fd9c17c22569a1",
-  "NTokenFactory": "0x22504c9edff264fc31a565a8d49ff92386ac9dfb",
-  "CallTokenFactory": "0x0c8beb1a7c6ba06981c53ca4fd4a5203e57e40c9",
-  "CallFactory": "0x6e6350e15a957541adb879296624e401990c96e1",
+  "NTokenFactory": "0x3d1aa5831feadec7dcd92f73f6bf783828192825",
+  "CallTokenFactory": "0x6bf6c4ac375f752fca2042b007cc24e2d40a81d5",
+  "CallFactory": "0xcbd5dfecc1457c0a0adf402d632609ae1e5209a2",
   "CallFactoryForTest": "0xc3a0dcc81b2faab57bc9ecc84060dfa0203f5af0",
   "markets": {
     "CloneX": {
       "NFT": "0x10DBCd5310FCE7bb9D16E7E4B4fDE9a1A15AF5B0",
       "CallPool": "0x07A25d47C815746A2794A5B053d121c529b14CA1",
       "CallPoolForTest": "0x07A25d47C815746A2794A5B053d121c529b14CA1"
+    },
+    "Doodles": {
+      "NFT": "0x00E08ef200F274604F0201B7F780a43Df9cDEBbf",
+      "CallPool": "0x2Bd403c8f0a3B0Bd847b16b813Eb97E5807786CF",
+      "CallPoolForTest": "0x2Bd403c8f0a3B0Bd847b16b813Eb97E5807786CF"
     },
     "Moonbirds": {
       "NFT": "0x85E3FCe05eE614f39133fA685798354df9A7f85A",

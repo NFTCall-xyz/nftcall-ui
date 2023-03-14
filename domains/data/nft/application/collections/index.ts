@@ -5,6 +5,7 @@ import BAYC from './adapter/BAYC.json'
 import Beanz from './adapter/Beanz.json'
 import Checks from './adapter/Checks.json'
 import CloneX from './adapter/CloneX.json'
+import Doodles from './adapter/Doodles.json'
 import MAYC from './adapter/MAYC.json'
 import Moonbirds from './adapter/Moonbirds.json'
 import Otherdeed from './adapter/Otherdeed.json'
@@ -24,6 +25,7 @@ export const useCollections = () => {
       Otherdeed: getCollection('0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258', Otherdeed),
       CloneX: getCollection('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B', CloneX),
       Moonbirds: getCollection('0x23581767a106ae21c074b2276D25e5C3e136a68b', Moonbirds),
+      Doodles: getCollection('0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e', Doodles),
     }
   }, [])
   return returnValue
