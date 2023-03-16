@@ -57,7 +57,7 @@ const CallPoolCard: FCC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPoo
       close()
     })
   }, [close, formik, formikStorage])
-  
+
   const theme = useTheme()
 
   return (
@@ -87,7 +87,9 @@ const CallPoolCard: FCC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPoo
                   <Stack alignItems="center" spacing={0.5} direction="row">
                     <Tooltip title={tNFT('minStrikePriceTip')}>
                       <Box>
-                        <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('minStrikePrice')}</TooltipSpan>
+                        <TooltipSpan fontWeight="medium" color="text.priamry">
+                          {tNFT('minStrikePrice')}
+                        </TooltipSpan>
                       </Box>
                     </Tooltip>
                   </Stack>
@@ -110,7 +112,9 @@ const CallPoolCard: FCC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPoo
                   <Stack alignItems="center" spacing={0.5} direction="row">
                     <Tooltip title={tNFT('lowerLimitOfStrikePriceTip')}>
                       <Box>
-                        <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('lowerLimitOfStrikePrice')}</TooltipSpan>
+                        <TooltipSpan fontWeight="medium" color="text.priamry">
+                          {tNFT('lowerLimitOfStrikePrice')}
+                        </TooltipSpan>
                       </Box>
                     </Tooltip>
                   </Stack>
@@ -120,7 +124,9 @@ const CallPoolCard: FCC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPoo
                   <Stack alignItems="center" spacing={0.5} direction="row">
                     <Tooltip title={tNFT('maxExpiryTimeTip')}>
                       <Box>
-                        <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('maxExpiryTime')}</TooltipSpan>
+                        <TooltipSpan fontWeight="medium" color="text.priamry">
+                          {tNFT('maxExpiryTime')}
+                        </TooltipSpan>
                       </Box>
                     </Tooltip>
                   </Stack>

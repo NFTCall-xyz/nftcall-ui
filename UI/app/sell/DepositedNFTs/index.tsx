@@ -36,18 +36,10 @@ const DepositedNFTs = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Stack spacing={2} direction="row">
-          <Button
-            variant="contained"
-            disabled={!ids.size}
-            onClick={openDialog}
-          >
+          <Button variant="contained" disabled={!ids.size} onClick={openDialog}>
             {t('tabs.settingSelected')}
           </Button>
-          <Button
-            variant="contained"
-            disabled={!ids.size}
-            onClick={openDialog}
-          >
+          <Button variant="contained" disabled={!ids.size} onClick={openDialog}>
             {t('tabs.withdrawSelected')}
           </Button>
           {!!ids.size && (

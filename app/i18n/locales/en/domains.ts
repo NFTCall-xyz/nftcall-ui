@@ -5,7 +5,8 @@ const locale = {
       submit: 'Update Settings',
       cancel: 'Cancel',
       listOnMarket: 'List on Market',
-      listOnMartetTip: "If you don't want to your NFTs listed on the market for the options selling, you can toggle off the option at any time as long as your NFTs are not locked by the ongoing options contracts.",
+      listOnMartetTip:
+        "If you don't want to your NFTs listed on the market for the options selling, you can toggle off the option at any time as long as your NFTs are not locked by the ongoing options contracts.",
     },
     depositDialog: {
       title: 'Deposit NFTs to sell call opitons',
@@ -27,7 +28,7 @@ const locale = {
       setting: {
         title: 'Collection Settings',
         btn: 'Apply Settings',
-        update: 'Update Settings'
+        update: 'Update Settings',
       },
       withdraw: 'Withdraw',
       withdrew: 'withdrew',

@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton'
 import ListItem from '@mui/material/ListItem'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
+import { useTheme } from '@mui/material/styles'
 
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 import { useAnchorMenu } from 'app/hooks/useAnchor'
@@ -19,7 +20,6 @@ import { H4, TooltipSpan } from 'components/Typography'
 import { H3 } from 'components/Typography'
 import FormNumberFieldField from 'components/form/FormNumberField'
 import FormTextField from 'components/form/FormTextField'
-import { useTheme } from '@mui/material/styles'
 
 import type { CallPool } from 'domains/data/callPools'
 
@@ -87,7 +87,9 @@ const CallPoolCard: FCC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPoo
                   <Stack alignItems="center" spacing={0.5} direction="row">
                     <Tooltip title={tNFT('minStrikePriceTip')}>
                       <Box>
-                        <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('minStrikePrice')}</TooltipSpan>
+                        <TooltipSpan fontWeight="medium" color="text.priamry">
+                          {tNFT('minStrikePrice')}
+                        </TooltipSpan>
                       </Box>
                     </Tooltip>
                   </Stack>
@@ -110,7 +112,9 @@ const CallPoolCard: FCC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPoo
                   <Stack alignItems="center" spacing={0.5} direction="row">
                     <Tooltip title={tNFT('lowerLimitOfStrikePriceTip')}>
                       <Box>
-                        <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('lowerLimitOfStrikePrice')}</TooltipSpan>
+                        <TooltipSpan fontWeight="medium" color="text.priamry">
+                          {tNFT('lowerLimitOfStrikePrice')}
+                        </TooltipSpan>
                       </Box>
                     </Tooltip>
                   </Stack>
@@ -120,7 +124,9 @@ const CallPoolCard: FCC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPoo
                   <Stack alignItems="center" spacing={0.5} direction="row">
                     <Tooltip title={tNFT('maxExpiryTimeTip')}>
                       <Box>
-                        <TooltipSpan fontWeight="medium" color='text.priamry'>{tNFT('maxExpiryTime')}</TooltipSpan>
+                        <TooltipSpan fontWeight="medium" color="text.priamry">
+                          {tNFT('maxExpiryTime')}
+                        </TooltipSpan>
                       </Box>
                     </Tooltip>
                   </Stack>

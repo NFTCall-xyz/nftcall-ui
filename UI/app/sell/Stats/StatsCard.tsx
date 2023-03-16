@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Stack, useTheme, Tooltip, Box } from '@mui/material'
+import { Box, Stack, Tooltip, useTheme } from '@mui/material'
 
 import { H2, TooltipSpan } from 'components/Typography'
 

@@ -36,7 +36,7 @@ const Stats: FC = () => {
         </Stack>
       ),
       title: 'claimable',
-      tip: 'claimableTip'
+      tip: 'claimableTip',
     },
     {
       price: (
@@ -46,12 +46,12 @@ const Stats: FC = () => {
         </Stack>
       ),
       title: 'accruedEarnings',
-      tip: 'accruedEarningsTip'
+      tip: 'accruedEarningsTip',
     },
     {
       price: <NumberDisplay value={stats.APY} options="percent" />,
       title: 'APY',
-      tip: 'APYTip'
+      tip: 'APYTip',
     },
   ]
 

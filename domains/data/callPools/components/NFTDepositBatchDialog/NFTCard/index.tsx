@@ -5,10 +5,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
+import Box from '@mui/material/Box'
 import MenuItem from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
-import Box from '@mui/material/Box'
 
 import { MAX_EXPRIY_TIME_MAP, MIN_STRIKE_PRICE_MAP } from 'app/constant/callPools'
 
@@ -45,7 +45,9 @@ const NFTCard: FC<NFTCardProps> = (props) => {
             <Stack alignItems="center" spacing={0.5} direction="row">
               <Tooltip title={t('minStrikePriceTip')}>
                 <Box>
-                  <TooltipSpan fontWeight="medium" color='text.priamry'>{t('minStrikePrice')}</TooltipSpan>
+                  <TooltipSpan fontWeight="medium" color="text.priamry">
+                    {t('minStrikePrice')}
+                  </TooltipSpan>
                 </Box>
               </Tooltip>
             </Stack>
@@ -69,7 +71,9 @@ const NFTCard: FC<NFTCardProps> = (props) => {
             <Stack alignItems="center" spacing={0.5} direction="row">
               <Tooltip title={t('lowerLimitOfStrikePriceTip')}>
                 <Box>
-                  <TooltipSpan fontWeight="medium" color='text.priamry'>{t('lowerLimitOfStrikePrice')}</TooltipSpan>
+                  <TooltipSpan fontWeight="medium" color="text.priamry">
+                    {t('lowerLimitOfStrikePrice')}
+                  </TooltipSpan>
                 </Box>
               </Tooltip>
             </Stack>
@@ -79,7 +83,9 @@ const NFTCard: FC<NFTCardProps> = (props) => {
             <Stack alignItems="center" spacing={0.5} direction="row">
               <Tooltip title={t('maxExpiryTimeTip')}>
                 <Box>
-                  <TooltipSpan fontWeight="medium" color='text.priamry'>{t('maxExpiryTime')}</TooltipSpan>
+                  <TooltipSpan fontWeight="medium" color="text.priamry">
+                    {t('maxExpiryTime')}
+                  </TooltipSpan>
                 </Box>
               </Tooltip>
             </Stack>

@@ -32,12 +32,12 @@ const components = (theme: Theme): any => {
           },
           '&::-webkit-scrollbar-track': {
             backgroundColor: theme.palette.background.paper,
-            width: '1em'
+            width: '1em',
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: theme.palette.divider,
             borderRadius: 10,
-          }
+          },
         },
         html: {
           width: '100%',
@@ -46,8 +46,8 @@ const components = (theme: Theme): any => {
           MozOsxFontSmoothing: 'grayscale',
           WebkitFontSmoothing: 'antialiased',
         },
-        body: { 
-          minWidth: '100%', 
+        body: {
+          minWidth: '100%',
           minHeight: '100%',
         },
         a: { textDecoration: 'none', color: primary.main },

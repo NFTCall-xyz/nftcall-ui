@@ -27,7 +27,7 @@ export type MyAppProps = AppProps & {
 export const Provider: FCC<MyAppProps> = ({ Component, pageProps }) => {
   return (
     <ThemeProvider>
-      <CssBaseline enableColorScheme/>
+      <CssBaseline enableColorScheme />
       <APP>
         <ActiveLayout>
           <Component {...pageProps} />
