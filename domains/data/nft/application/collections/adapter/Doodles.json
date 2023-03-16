@@ -39,5 +39,8 @@
     "opensea_fees": {}
   },
   "is_rarity_enabled": true,
-  "is_creator_fees_enforced": false
+  "is_creator_fees_enforced": false,
+  "callTokenImageUrl": "https://gateway.pinata.cloud/ipfs/QmbTYJS5dZaitNA991UaCVGVwJDQqYCGfQ9djArQH4Jui8/doodles.jpg",
+  "tokenMetaUrl": "https://ipfs.io/ipfs/QmPMc4tcBsMqLRuCQtPmPe84bpSjrC3Ky7t3JWuHXYB4aS/:id",
+  "symbol": "doodle"
 }

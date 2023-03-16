@@ -40,5 +40,8 @@
     "opensea_fees": {}
   },
   "is_rarity_enabled": false,
-  "is_creator_fees_enforced": false
+  "is_creator_fees_enforced": false,
+  "callTokenImageUrl": "https://gateway.pinata.cloud/ipfs/QmbTYJS5dZaitNA991UaCVGVwJDQqYCGfQ9djArQH4Jui8/moonbirds.jpg",
+  "tokenMetaUrl": "https://live---metadata-5covpqijaa-uc.a.run.app/images/:id",
+  "symbol": "moonbird"
 }
