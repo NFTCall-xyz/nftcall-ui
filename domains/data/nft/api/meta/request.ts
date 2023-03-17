@@ -49,7 +49,7 @@ export const getCallNFT = (props: GetCallNFTProps): Promise<CallNFT> => {
       credentials: 'omit',
     }).then((data) => data.json())
   return fn().then(({ data }) => {
-    if (data.nfts[0]) {
+    if (data.nfts[0] && data.nfts[0].position) {
       const { position } = data.nfts[0]
 
       const timestamps = getNumber(position, ['endTime'])

@@ -26,14 +26,7 @@ const resloveCollectionId = (collectionId: string) => {
   }
 }
 
-type GetCallTokenJsonProps = {
-  collection: BaseCollection
-  callPool: {
-    NFT: string
-    CallPool: string
-  }
-  tokenId: string
-  symbol: string
+type GetCallTokenJsonProps = GetDefalutCallTokenJsonProps & {
   callNFT: CallNFT
 }
 const getCallTokenJson = ({
@@ -44,16 +37,17 @@ const getCallTokenJson = ({
   callNFT: { position },
 }: GetCallTokenJsonProps) => {
   const strikePrice = position.strikePrice.toFixed(2)
-  const expiringTime = formatInTimeZone(position.endTime, '', 'dd/MM/yy')
+  const expiringDate = formatInTimeZone(position.endTime, '', 'dd/MM/yy')
+  const expiringTime = `${formatInTimeZone(position.endTime, '', 'dd/MM/yyyy HH:mm')} (UTC)`
   return {
-    name: `${symbol} ${strikePrice} Call ${expiringTime}`,
-    description: `${collectionName} ${strikePrice} ETH strike call expiring on ${expiringTime}`,
+    name: `${symbol} ${strikePrice} Call ${expiringDate}`,
+    description: `${collectionName} #${tokenId} ${strikePrice} ETH strike call expiring on ${expiringTime}`,
     external_url: baseURL + '/app/callPool/' + callPool.CallPool,
     image: callTokenImageUrl.replace(':id', tokenId),
     attributes: [
       {
-        trait_type: 'Collection Name',
-        value: 'Underlying NFT',
+        trait_type: 'Underlying NFT',
+        value: collectionName,
       },
       {
         trait_type: 'NFT Address',
@@ -77,7 +71,59 @@ const getCallTokenJson = ({
       },
       {
         trait_type: 'Expiration Date',
-        value: `${formatInTimeZone(position.endTime, '', 'dd/MM/yyyy HH:mm')} (UTC)`,
+        value: expiringTime,
+      },
+    ],
+  }
+}
+type GetDefalutCallTokenJsonProps = {
+  collection: BaseCollection
+  callPool: {
+    NFT: string
+    CallPool: string
+  }
+  tokenId: string
+  symbol: string
+}
+const getDefalutCallTokenJson = ({
+  symbol,
+  collection: { name: collectionName, mainNetworkAddress, callTokenImageUrl },
+  callPool,
+  tokenId,
+}: GetDefalutCallTokenJsonProps) => {
+  return {
+    name: `${symbol} Call`,
+    description: `${collectionName} #${tokenId} Call (Contract Terms Unspecified)`,
+    external_url: baseURL + '/app/callPool/' + callPool.CallPool,
+    image: callTokenImageUrl.replace(':id', tokenId),
+    attributes: [
+      {
+        trait_type: 'Underlying NFT',
+        value: collectionName,
+      },
+      {
+        trait_type: 'NFT Address',
+        value: mainNetworkAddress,
+      },
+      {
+        trait_type: 'Token ID',
+        value: tokenId,
+      },
+      {
+        trait_type: 'Currency',
+        value: 'ETH',
+      },
+      {
+        trait_type: 'Option Type',
+        value: 'Call',
+      },
+      {
+        trait_type: 'Strike Price',
+        value: 'Unspecified',
+      },
+      {
+        trait_type: 'Expiration Date',
+        value: 'Unspecified',
       },
     ],
   }
@@ -95,8 +141,11 @@ export function handler(req: NextApiRequest, res: NextApiResponse) {
   if (isCallToken) {
     return getCallNFT({ subgraphName, tokenId, nft: callPool.NFT })
       .then((callNFT) => {
-        if (!callNFT) return res.status(404).end()
-        res.json(getCallTokenJson({ symbol, collection, callPool, tokenId, callNFT }))
+        if (!callNFT || !callNFT.position) {
+          return res.json(getDefalutCallTokenJson({ symbol, collection, callPool, tokenId }))
+        } else {
+          res.json(getCallTokenJson({ symbol, collection, callPool, tokenId, callNFT }))
+        }
       })
       .catch((e) => {
         res.status(400).json(e)
@@ -108,7 +157,7 @@ export function handler(req: NextApiRequest, res: NextApiResponse) {
         res.json(data)
       })
       .catch((e) => {
-        console.log(e, tokenMetaUrl)
+        console.log(tokenMetaUrl.replace(':id', tokenId))
         res.status(400).json(e)
       })
   }
