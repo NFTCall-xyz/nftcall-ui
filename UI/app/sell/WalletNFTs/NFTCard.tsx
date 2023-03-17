@@ -15,6 +15,7 @@ import { safeGet } from 'app/utils/get'
 
 import { Paragraph, Span } from 'components/Typography'
 
+import CollectionName from 'domains/data/nft/components/CollectionName'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import type { BaseNFT } from 'domains/data/nft/types'
@@ -84,7 +85,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack>
           <Paragraph>{title}</Paragraph>
-          <Span color="text.secondary">{collection}</Span>
+          <CollectionName component={Span} color="text.secondary" name={collection} />
         </Stack>
       </CardContent>
       <Divider />

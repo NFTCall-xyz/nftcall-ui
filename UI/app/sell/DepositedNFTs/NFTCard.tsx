@@ -26,6 +26,7 @@ import FlexBetween from 'components/flexbox/FlexBetween'
 
 import { transaction } from 'domains/controllers/adapter/transaction'
 import { useCallPools, useNetwork } from 'domains/data'
+import CollectionName from 'domains/data/nft/components/CollectionName'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import type { BaseNFT, NFTActions } from 'domains/data/nft/types'
@@ -190,7 +191,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
         <CardContent sx={{ padding: 2, paddingTop: 0 }}>
           <Stack>
             <Paragraph>{title}</Paragraph>
-            <Span color="text.secondary">{collection}</Span>
+            <CollectionName component={Span} color="text.secondary" name={collection} />
           </Stack>
         </CardContent>
         <Divider />

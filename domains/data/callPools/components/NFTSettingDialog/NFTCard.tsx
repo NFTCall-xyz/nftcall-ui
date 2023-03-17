@@ -7,8 +7,9 @@ import { styled } from '@mui/material/styles'
 
 import { safeGet } from 'app/utils/get'
 
-import { H3, Paragraph } from 'components/Typography'
+import { H3 } from 'components/Typography'
 
+import CollectionName from 'domains/data/nft/components/CollectionName'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import type { BaseNFT } from 'domains/data/nft/types'
@@ -31,7 +32,7 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
         <Grid item xs={9}>
           <Stack spacing={2}>
             <H3>{title}</H3>
-            <Paragraph color="text.secondary">{safeGet(() => nftAssetsData.contractName) || ''}</Paragraph>
+            <CollectionName color="text.secondary" name={safeGet(() => nftAssetsData.contractName)} />
           </Stack>
         </Grid>
       </Grid>

@@ -13,6 +13,7 @@ import { H3, Tiny } from 'components/Typography'
 import FlexBetween from 'components/flexbox/FlexBetween'
 
 import type { CallPool } from 'domains/data/callPools'
+import CollectionName from 'domains/data/nft/components/CollectionName'
 
 import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
@@ -56,7 +57,7 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
       </Avatar>
       <CardContent>
         <Stack spacing={2}>
-          <H3>{name}</H3>
+          <CollectionName component={H3} name={name} />
           <Stack spacing={1} direction="row">
             <NFTList callPool={callPool} />
           </Stack>

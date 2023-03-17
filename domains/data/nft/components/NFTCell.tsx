@@ -7,6 +7,7 @@ import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
 
 import { useNFTAssetsData } from '../hooks/useNFTAssetsData'
 import type { BaseNFT } from '../types'
+import CollectionName from './CollectionName'
 import NFTIcon from './NFTIcon'
 
 export type NFTCellProps = {
@@ -21,9 +22,14 @@ const NFTCell = (props: NFTCellProps) => {
   return (
     <Stack spacing={1} direction="row">
       <NFTIcon nftAssetsData={nftAssetsData} sx={sx} />
-      <Stack alignItems="start">
+      <Stack alignItems="start" textAlign="left">
         <Paragraph>#{nft.tokenId}</Paragraph>
-        <Span color="text.secondary">{contractName}</Span>
+        <CollectionName
+          component={Span}
+          color="text.secondary"
+          name={contractName}
+          width={{ lg: 100, md: 80, sm: 150, xs: 150 }}
+        />
       </Stack>
     </Stack>
   )

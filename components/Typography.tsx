@@ -1,11 +1,11 @@
 import clsx from 'clsx'
-import React from 'react'
 
 import type { BoxProps } from '@mui/material'
 import { Box, useTheme } from '@mui/material'
 
 const createEllipsisStyle = () =>
   ({
+    display: 'block',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
@@ -13,7 +13,9 @@ const createEllipsisStyle = () =>
 
 type Props = { ellipsis?: boolean }
 
-export const H1: React.FC<BoxProps & Props> = (props) => {
+export type Typography = FCC<BoxProps & Props>
+
+export const H1: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -32,7 +34,7 @@ export const H1: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const H2: React.FC<BoxProps & Props> = (props) => {
+export const H2: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -51,7 +53,7 @@ export const H2: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const H3: React.FC<BoxProps & Props> = (props) => {
+export const H3: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -70,7 +72,7 @@ export const H3: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const H4: React.FC<BoxProps & Props> = (props) => {
+export const H4: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -89,7 +91,7 @@ export const H4: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const H5: React.FC<BoxProps & Props> = (props) => {
+export const H5: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -109,7 +111,7 @@ export const H5: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const H6: React.FC<BoxProps & Props> = (props) => {
+export const H6: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -128,7 +130,7 @@ export const H6: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const Paragraph: React.FC<BoxProps & Props> = (props) => {
+export const Paragraph: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -147,7 +149,7 @@ export const Paragraph: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const Small: React.FC<BoxProps & Props> = (props) => {
+export const Small: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -167,7 +169,7 @@ export const Small: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const Span: React.FC<BoxProps & Props> = (props) => {
+export const Span: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -185,7 +187,7 @@ export const Span: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const Tiny: React.FC<BoxProps & Props> = (props) => {
+export const Tiny: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
 
   return (
@@ -206,7 +208,7 @@ export const Tiny: React.FC<BoxProps & Props> = (props) => {
   )
 }
 
-export const TooltipSpan: React.FC<BoxProps & Props> = (props) => {
+export const TooltipSpan: Typography = (props) => {
   const { ellipsis, children, className, ...others } = props
   const theme = useTheme()
   return (
