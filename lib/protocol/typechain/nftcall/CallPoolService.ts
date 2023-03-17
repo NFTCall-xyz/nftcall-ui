@@ -117,11 +117,6 @@ export class CallPoolService extends BaseService<CallPool> {
     return callPoolContract.balanceOf(user)
   }
 
-  public paused({ callPool }: PausedfProps) {
-    const callPoolContract = this.getContractInstance(callPool)
-    return callPoolContract.paused()
-  }
-
   public totalOpenInterest({ callPool }: TotalOpenInterest) {
     const callPoolContract = this.getContractInstance(callPool)
     return callPoolContract.totalOpenInterest()

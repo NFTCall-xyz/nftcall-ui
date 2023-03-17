@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 
 import { useBalanceOfController } from './balanceOf'
-import { usePausedController } from './paused'
 import { usePreviewOpenCallController } from './previewOpenCall'
 import { useStatsController } from './stats'
 import { useTotalOpenInterestController } from './totalOpenInterest'
@@ -13,7 +12,6 @@ export const useCallPoolController = () => {
   const statsController = useStatsController()
   const userStatsController = useUserStatsController()
   const totalOpenInterestController = useTotalOpenInterestController()
-  const pausedController = usePausedController()
   const updateData = useCallback(() => {}, [])
   return {
     balanceOf: balanceOfController,
@@ -21,7 +19,6 @@ export const useCallPoolController = () => {
     stats: statsController,
     userStats: userStatsController,
     totalOpenInterest: totalOpenInterestController,
-    paused: pausedController,
     updateData,
   }
 }
