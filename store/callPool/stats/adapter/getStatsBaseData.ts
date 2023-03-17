@@ -2,6 +2,8 @@ import type { BaseNFT } from 'domains/data/nft/types'
 
 type CallPoolStats = {
   id: string
+  paused: boolean
+  deactivate: boolean
   accumulativePremium: string
   totalTradingVolume: string
   totalDepositedNFTs: number
@@ -10,6 +12,8 @@ type CallPoolStats = {
 }
 export type StatsBaseData = {
   callPool: string
+  paused: boolean
+  deactivate: boolean
   accumulativePremium: string
   totalTradingVolume: string
   totalDepositedNFTs: number

@@ -21,6 +21,8 @@ const getGqlQuery = ({ callPools }: StatsProps) => {
       totalTradingVolume
       totalDepositedNFTs
       totalListedNFTs
+      paused
+      deactivate
       nfts(
         first: 5
         orderBy: updateTimestamp

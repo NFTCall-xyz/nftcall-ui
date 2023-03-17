@@ -8,6 +8,8 @@ import type { StatsBaseData } from './getStatsBaseData'
 
 export type CallPoolStats = {
   callPool?: string
+  paused: boolean
+  deactivate: boolean
   accumulativePremium: BN
   totalTradingVolume: BN
   totalDepositedNFTs: number
@@ -27,6 +29,8 @@ export const getStatsData = (statsBaseData: StatsBaseData[]): StatsData => {
     totalDepositedNFTs: 0,
     totalListedNFTs: 0,
     nfts: [],
+    paused: false,
+    deactivate: false,
   }
   const callPools = statsBaseData.map((i) => {
     const returnValue = {
