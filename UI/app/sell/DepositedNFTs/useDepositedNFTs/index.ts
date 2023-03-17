@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 import { getCurrentTimestamp } from 'app/constant'
 import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 import { useLoadMore } from 'app/hooks/request/useLoadMore'
-import { getAddresses, getNumber, getWeiToValueBN } from 'app/utils/get'
+import { getAddresses, getNumber, getWeiToValueBN, safeGet } from 'app/utils/get'
 
 import { useCallPools, useNetwork } from 'domains/data'
 import { NFTStatus } from 'domains/data/nft/types'
@@ -33,28 +33,34 @@ export const useDepositedNFTs = () => {
     [nfts.join(','), networkAccount, subgraphName]
   )
 
-  const getData = useCallback((sourceData: DepositedNFTs) => {
-    const now = getCurrentTimestamp()
-    return sourceData.map((data) => {
-      const { tokenId, strikePriceGapIdx, durationIdx, position } = data
-      let { status } = data
-      if (status === NFTStatus.Called && position && position.endTime < now) {
-        status = NFTStatus.Listed
-      }
-      return {
-        minStrikePrice: strikePriceGapIdx,
-        maxExpriyTime: durationIdx,
-        ...getWeiToValueBN(data, ['lowerLimitOfStrikePrice'], 18),
-        ...getAddresses(data, ['nftAddress', 'callPoolAddress']),
-        tokenId,
-        status,
-        position: position && {
-          ...getWeiToValueBN(position, ['premiumToOwner', 'strikePrice'], 18),
-          ...getNumber(position, ['endTime']),
-        },
-      } as DepositedNFT
-    })
-  }, [])
+  const getData = useCallback(
+    (sourceData: DepositedNFTs) => {
+      const now = getCurrentTimestamp()
+      return sourceData.map((data) => {
+        const { tokenId, strikePriceGapIdx, durationIdx, position, nftAddress } = data
+        let { status } = data
+        if (status === NFTStatus.Called && position && position.endTime < now) {
+          status = NFTStatus.Listed
+        }
+        const callPool = callPools.find((callPool) => callPool.address.NFT.toLowerCase() === nftAddress)
+        return {
+          minStrikePrice: strikePriceGapIdx,
+          maxExpriyTime: durationIdx,
+          ...getWeiToValueBN(data, ['lowerLimitOfStrikePrice'], 18),
+          ...getAddresses(data, ['nftAddress', 'callPoolAddress']),
+          tokenId,
+          status,
+          position: position && {
+            ...getWeiToValueBN(position, ['premiumToOwner', 'strikePrice'], 18),
+            ...getNumber(position, ['endTime']),
+          },
+          deactivate: safeGet(() => callPool.stats.deactivate),
+          paused: safeGet(() => callPool.stats.paused),
+        } as DepositedNFT
+      })
+    },
+    [callPools]
+  )
 
   const isNoValidQuery = useCallback(({ user, subgraphName, nfts }: DepositedNFTsProps) => {
     return !user || !subgraphName || !nfts || !nfts.length

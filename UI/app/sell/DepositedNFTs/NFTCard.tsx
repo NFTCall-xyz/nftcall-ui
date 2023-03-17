@@ -37,6 +37,8 @@ import { useSendTransaction } from 'lib/protocol/hooks/sendTransaction'
 
 export type DepositedNFT = BaseNFT & {
   ids: UseIds
+  deactivate: boolean
+  paused: boolean
   callPoolAddress: string
   minStrikePrice: number
   maxExpriyTime: number

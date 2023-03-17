@@ -53,6 +53,8 @@ const WalletNFTs = () => {
           nftAddress,
           action,
           callPoolAddress: safeGet(() => callPool.address.CallPool),
+          deactivate: safeGet(() => callPool.stats.deactivate),
+          paused: safeGet(() => callPool.stats.paused),
         })
       })
     })

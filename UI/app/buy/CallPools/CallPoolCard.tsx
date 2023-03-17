@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useTheme } from '@mui/material'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
+import { IconButton, Tooltip, useTheme } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -27,15 +29,20 @@ interface CallPoolCardProps {
 
 const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool }) => {
   const { t } = useTranslation('app-buy', { keyPrefix: 'callPools' })
+  const { t: tNFT } = useTranslation('domains', { keyPrefix: 'nft' })
   const {
     nftOracle: { price: floorPrice },
     collection: { name, bannerImageUrl, imageUrl },
     info: { symbol },
-    stats: { totalTradingVolume },
+    stats: { totalTradingVolume, paused, deactivate },
     address,
   } = callPool
   const router = useRouter()
   const theme = useTheme()
+  const tip = useMemo(() => {
+    if (paused) return tNFT('paused')
+    if (deactivate) return tNFT('deactivate')
+  }, [deactivate, paused, tNFT])
 
   return (
     <Card
@@ -43,6 +50,7 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
         router.push('/app/callPool/' + address.CallPool)
       }}
       sx={{
+        position: 'relative',
         cursor: 'pointer',
         border: `solid 1px ${theme.palette.divider}`,
         '&:hover': {
@@ -51,6 +59,13 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
         },
       }}
     >
+      {tip && (
+        <Tooltip title={tip}>
+          <IconButton sx={{ position: 'absolute', right: 2, top: 2 }}>
+            <WarningAmberIcon />
+          </IconButton>
+        </Tooltip>
+      )}
       <CardMedia sx={{ height: 140 }} image={bannerImageUrl} title={name} />
       <Avatar alt={name} src={imageUrl} sx={{ marginTop: '-35px', marginLeft: 2, width: 70, height: 70, border: '' }}>
         {name}

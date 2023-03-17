@@ -107,6 +107,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
     info: { symbol },
     premiums,
     nftOracle,
+    stats: { paused, deactivate },
   } = callPool
 
   const { updatePreviewOpenCall } = usePreviewOpenCall(callPool)
@@ -122,6 +123,11 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
       premiumToReserve: toBN(0),
       strikePrice: toBN(0),
       expriyTime: 0,
+    }
+    if (paused || deactivate) {
+      if (paused) setErrors([t('errors.paused')])
+      if (deactivate) setErrors([t('errors.deactivate')])
+      return returnValue
     }
     const curveIdx = strikePriceGapIdx * 4 + durationIdx
     const premium = premiums.find((i) => i.curveIdx === curveIdx)
@@ -151,12 +157,14 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
     returnValue.expriyTime = getCurrentTime() + maxExpriyTimeMap.number
     return returnValue
   }, [
+    paused,
+    deactivate,
     strikePriceGapIdx,
     durationIdx,
     premiums,
-    nftOwnerIsUser.tokenId,
     nftOracle.price,
     size,
+    nftOwnerIsUser.tokenId,
     limitOfStrikePriceSetting.min,
     limitOfStrikePriceSetting.tokenId,
     setErrors,
@@ -253,7 +261,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
       </Stack>
       <Button
         variant="contained"
-        disabled={strikePrice.isZero() || !!errors.length}
+        disabled={strikePrice.isZero() || !!errors.length || paused || deactivate}
         onClick={() => {
           fn({
             callPool: address.CallPool,

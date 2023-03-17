@@ -1,13 +1,17 @@
+import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import { useMemo } from 'react'
 
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Checkbox from '@mui/material/Checkbox'
 import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 
 import type { UseIds } from 'app/hooks/useIds'
@@ -23,6 +27,8 @@ import { getNFTId } from 'domains/data/nft/utils/id'
 
 export type WalletNFT = BaseNFT & {
   callPoolAddress: string
+  deactivate: boolean
+  paused: boolean
 }
 
 export type NFTCardProps = WalletNFT & {
@@ -51,7 +57,14 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
     tokenId,
     action,
     ids: { has, add, remove },
+    paused,
+    deactivate,
   } = props
+  const { t: tNFT } = useTranslation('domains', { keyPrefix: 'nft' })
+  const tip = useMemo(() => {
+    if (paused) return tNFT('paused')
+    if (deactivate) return tNFT('deactivate')
+  }, [deactivate, paused, tNFT])
   const { nftAssetsData } = useNFTAssetsData(props)
 
   const actions = useMemo(() => {
@@ -60,11 +73,16 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
     if (tip) return tip
 
     return (
-      <Button variant="contained" size="small" disabled={disabled} onClick={() => onClick(props)}>
+      <Button
+        variant="contained"
+        size="small"
+        disabled={disabled || paused || deactivate}
+        onClick={() => onClick(props)}
+      >
         {name}
       </Button>
     )
-  }, [action, props])
+  }, [action, deactivate, paused, props])
   const title = '#' + tokenId
   const collection = safeGet(() => nftAssetsData.contractName) || ''
   const id = getNFTId(props)
@@ -80,7 +98,15 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
 
   return (
     <ROOT>
-      <Checkbox className="checkbox" checked={checked} onChange={handleChange} />
+      {tip ? (
+        <Tooltip title={tip}>
+          <IconButton sx={{ position: 'absolute', right: 2, top: 2 }}>
+            <WarningAmberIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Checkbox className="checkbox" checked={checked} onChange={handleChange} />
+      )}
       <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
       <CardContent sx={{ padding: 2, paddingTop: 0 }}>
         <Stack>
