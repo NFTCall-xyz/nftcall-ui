@@ -83,8 +83,8 @@ const locale = {
     title: 'Roadmap',
     list: {
       0: {
-        title: 'Testnet & Mainnet Launch',
-        desc: 'Complete the code audit and launch the NFTCall protocol on the testnet for Beta testing. After fixing potential issues, we will launch on the Ethereum mainnet.',
+        title: 'Mainnet Launch',
+        desc: 'Complete the code audit and launch the NFTCall protocol on the Ethereum mainnet.',
         tag: '2023 Q1',
       },
       1: {

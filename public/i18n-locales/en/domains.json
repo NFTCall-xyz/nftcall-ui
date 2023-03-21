@@ -48,6 +48,8 @@
     "maxExpiryTime": "Maximum expiration duration",
     "maxExpiryTimeTip": "The longest expiration duration that option buyers can choose when opening a call option on your NFT.",
     "lowerLimitOfStrikePrice": "Minimum strike price",
-    "lowerLimitOfStrikePriceTip": "The minimum strike price you would like to receive, namely the lowest strike price that option buyers can choose when opening a call option on your NFT."
+    "lowerLimitOfStrikePriceTip": "The minimum strike price you would like to receive, namely the lowest strike price that option buyers can choose when opening a call option on your NFT.",
+    "paused": "CallPool is paused",
+    "deactivate": "CallPool is Deactivate"
   }
 }
