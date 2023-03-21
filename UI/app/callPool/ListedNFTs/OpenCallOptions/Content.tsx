@@ -111,12 +111,13 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
   } = callPool
 
   const { updatePreviewOpenCall } = usePreviewOpenCall(callPool)
-  const [errors, setErrors] = useImmer<string[]>([])
   useEffect(() => {
     updatePreviewOpenCall()
     if (!ids.length) setErrors([])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids])
+
+  const [errors, setErrors] = useImmer<string[]>([])
   const { premiumToOwner, premiumToReserve, strikePrice, expriyTime } = useMemo(() => {
     const returnValue = {
       premiumToOwner: toBN(0),

@@ -10,6 +10,7 @@ const nextConfig = {
   modularizeImports: {
     lodash: {
       transform: 'lodash/{{member}}',
+      preventFullImport: true,
     },
   },
   compiler: {
