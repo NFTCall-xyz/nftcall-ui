@@ -53,8 +53,8 @@ const locale = {
     lowerLimitOfStrikePrice: 'Minimum strike price',
     lowerLimitOfStrikePriceTip:
       'The minimum strike price you would like to receive, namely the lowest strike price that option buyers can choose when opening a call option on your NFT.',
-    paused: 'CallPool is paused',
-    deactivate: 'CallPool is Deactivate',
+    paused: 'Paused',
+    deactivated: 'Deactivated',
   },
 }
 

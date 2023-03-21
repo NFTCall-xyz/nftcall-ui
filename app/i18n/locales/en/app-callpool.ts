@@ -40,6 +40,8 @@ const locale = {
     strikePriceLimit: 'The strike price for #{{ tokenId }} must be greater than the limit.',
     premiumLimit: 'The premium must be greater than {{ limit }} ETH.',
     general: 'Something wrong happened, please join our Discord for help.',
+    paused: 'For safety reasons, the pool is temporarily suspended, please follow us on Twitter for the latest news.',
+    deactivated: 'The pool is deactivated, please withdraw all your NFTs.',
   },
 }
 

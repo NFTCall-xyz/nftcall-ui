@@ -3,13 +3,13 @@ import type { FC } from 'react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
-import { IconButton, Tooltip, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
 
 import { H3, Tiny } from 'components/Typography'
 import FlexBetween from 'components/flexbox/FlexBetween'
@@ -39,10 +39,20 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
   } = callPool
   const router = useRouter()
   const theme = useTheme()
-  const tip = useMemo(() => {
-    if (paused) return tNFT('paused')
-    if (deactivate) return tNFT('deactivate')
-  }, [deactivate, paused, tNFT])
+  const poolStatus = useMemo(() => {
+    if (paused) { 
+      return {
+        status: tNFT('paused'),
+        color: theme.palette.warning.main
+      }
+    }
+    if (deactivate) {
+      return {
+        status: tNFT('deactivated'),
+        color: theme.palette.error.main
+      }
+    }
+  }, [deactivate, paused, tNFT, theme.palette])
 
   return (
     <Card
@@ -59,12 +69,20 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
         },
       }}
     >
-      {tip && (
-        <Tooltip title={tip}>
-          <IconButton sx={{ position: 'absolute', right: 2, top: 2 }}>
-            <WarningAmberIcon />
-          </IconButton>
-        </Tooltip>
+      {poolStatus && (
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            right: 10, 
+            top: 10, 
+            padding: '3px 7px', 
+            backgroundColor: poolStatus.color,
+            borderRadius: '5px',
+            boxShadow: theme.shadows[1],
+          }}
+        >
+          <Tiny color='text.primary' fontSize={10} fontWeight='medium'>{poolStatus.status}</Tiny>
+        </Box>
       )}
       <CardMedia sx={{ height: 140 }} image={bannerImageUrl} title={name} />
       <Avatar alt={name} src={imageUrl} sx={{ marginTop: '-35px', marginLeft: 2, width: 70, height: 70, border: '' }}>

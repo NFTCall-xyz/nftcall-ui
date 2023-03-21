@@ -126,7 +126,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
     }
     if (paused || deactivate) {
       if (paused) setErrors([t('errors.paused')])
-      if (deactivate) setErrors([t('errors.deactivate')])
+      if (deactivate) setErrors([t('errors.deactivated')])
       return returnValue
     }
     const curveIdx = strikePriceGapIdx * 4 + durationIdx
