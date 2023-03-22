@@ -1,5 +1,5 @@
-import ethereum from 'lib/protocol/generate/mainnet.json'
 import goerli from 'lib/protocol/generate/goerli.json'
+import ethereum from 'lib/protocol/generate/mainnet.json'
 
 import { ChainId } from '../chain/types'
 
