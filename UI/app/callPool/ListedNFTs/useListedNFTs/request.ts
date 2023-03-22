@@ -3,7 +3,7 @@ import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 
 import type { NFTStatus } from 'domains/data/nft/types'
 
-export type ListedNFTsProps = { subgraphName: string; nft: string } & GetQueryProps
+export type ListedNFTsProps = { thegraphUrl: string; nft: string } & GetQueryProps
 
 const getGqlQuery = ({ first, skip, nft }: ListedNFTsProps) => {
   const nowTimestamp = getCurrentTimestamp()
@@ -61,10 +61,10 @@ export const getListedNFTs = (
     updateTimestamp: number
   }>
 > => {
-  const { subgraphName } = props
+  const { thegraphUrl } = props
 
   const fn = (): Promise<any> =>
-    fetch('' + subgraphName, {
+    fetch('' + thegraphUrl, {
       headers: {
         accept: 'application/json, multipart/mixed',
         'accept-language': 'zh-CN,zh;q=0.9',

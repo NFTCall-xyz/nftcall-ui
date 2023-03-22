@@ -6,7 +6,7 @@ import type { Position } from 'domains/data/position/types'
 import { getPositions } from './getPositions'
 
 type Props = {
-  subgraphName: string
+  thegraphUrl: string
   skip: number
   first: number
 } & Partial<{
@@ -16,7 +16,7 @@ type Props = {
   nftOwnerAddress: string
 }>
 export const request = ({
-  subgraphName,
+  thegraphUrl,
   skip,
   first,
   callPoolAddress,
@@ -24,11 +24,11 @@ export const request = ({
   userAddress,
   nftOwnerAddress,
 }: Props) => {
-  if (!subgraphName) return Promise.reject({ message: 'network error' })
+  if (!thegraphUrl) return Promise.reject({ message: 'network error' })
   let returnValue: Position[] = []
   const promises = []
   promises.push(
-    fetch(subgraphName, {
+    fetch(thegraphUrl, {
       headers: {
         accept: '*/*',
         'accept-language': 'zh-CN,zh;q=0.9',

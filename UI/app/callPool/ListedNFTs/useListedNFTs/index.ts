@@ -12,19 +12,19 @@ import { getListedNFTs } from './request'
 
 const pageSize = 30
 export const useListedNFTs = () => {
-  const { subgraphName } = useNetwork()
+  const { thegraphUrl } = useNetwork()
   const { callPool } = useCallPoolDetails()
   const getQuery = useCallback(
     (props: GetQueryProps) => {
       const query: ListedNFTsProps = {
         ...props,
-        subgraphName,
+        thegraphUrl,
         nft: callPool.address.NFT,
       }
       return query
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [safeGet(() => callPool.address.NFT), subgraphName]
+    [safeGet(() => callPool.address.NFT), thegraphUrl]
   )
 
   const getData = useCallback((sourceData: ListedNFTs) => {
@@ -44,8 +44,8 @@ export const useListedNFTs = () => {
     })
   }, [])
 
-  const isNoValidQuery = useCallback(({ subgraphName, nft }: ListedNFTsProps) => {
-    return !subgraphName || !nft
+  const isNoValidQuery = useCallback(({ thegraphUrl, nft }: ListedNFTsProps) => {
+    return !thegraphUrl || !nft
   }, [])
 
   const isNoMoreData = useCallback((pageSize: number, data: ListedNFTs) => !data.length, [])

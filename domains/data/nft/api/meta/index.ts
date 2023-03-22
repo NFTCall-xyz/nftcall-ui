@@ -10,7 +10,7 @@ import { getCallNFT, getNFTToken } from './request'
 
 const collections = getCollections()
 const baseURL = 'https://stage.nftcall.xyz'
-const subgraphName = 'https://api.thegraph.com/subgraphs/name/gordon199404/nftcall-stage'
+const thegraphUrl = 'https://api.thegraph.com/subgraphs/name/gordon199404/nftcall-stage'
 
 const resloveCollectionId = (collectionId: string) => {
   const [collectionType, collectionSymbol] = collectionId.split('_')
@@ -139,7 +139,7 @@ export function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!isCallToken && !isNToken) return res.status(404).end()
 
   if (isCallToken) {
-    return getCallNFT({ subgraphName, tokenId, nft: callPool.NFT })
+    return getCallNFT({ thegraphUrl, tokenId, nft: callPool.NFT })
       .then((callNFT) => {
         if (!callNFT || !callNFT.position) {
           return res.json(getDefalutCallTokenJson({ symbol, collection, callPool, tokenId }))

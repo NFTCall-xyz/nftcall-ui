@@ -1,7 +1,7 @@
 import { getStatsBaseData } from './getStatsBaseData'
 
 export type StatsProps = {
-  subgraphName: string
+  thegraphUrl: string
   callPools: string[]
 }
 
@@ -38,8 +38,8 @@ const getGqlQuery = ({ callPools }: StatsProps) => {
 }
 
 export const statsRequest = (props: StatsProps) => {
-  const { subgraphName, callPools } = props
-  return fetch(subgraphName, {
+  const { thegraphUrl, callPools } = props
+  return fetch(thegraphUrl, {
     headers: {
       accept: '*/*',
       'accept-language': 'zh-CN,zh;q=0.9',

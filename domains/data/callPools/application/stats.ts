@@ -9,17 +9,17 @@ import type { CallPool } from '..'
 
 export const useStats = (callPools: CallPool[]) => {
   const { callPool } = useControllers()
-  const { subgraphName } = useNetwork()
+  const { thegraphUrl } = useNetwork()
 
   const query: StatsProps = useMemo(
     () => ({
       callPools: callPools.map((callPool) => callPool.address.CallPool),
-      subgraphName,
+      thegraphUrl,
     }),
-    [callPools, subgraphName]
+    [callPools, thegraphUrl]
   )
 
-  callPool.stats.usePolling(query, (query) => !query.callPools.length || !query.subgraphName, 1000 * 60)
+  callPool.stats.usePolling(query, (query) => !query.callPools.length || !query.thegraphUrl, 1000 * 60)
 
   const updateStats = useCallback(() => {
     callPool.stats.polling.restart()

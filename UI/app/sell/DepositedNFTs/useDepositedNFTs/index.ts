@@ -15,7 +15,7 @@ import { getDepositedNFTs } from './request'
 
 const pageSize = 30
 export const useDepositedNFTs = () => {
-  const { subgraphName } = useNetwork()
+  const { thegraphUrl } = useNetwork()
   const { networkAccount } = useWallet()
   const { callPools } = useCallPools()
   const nfts = useMemo(() => callPools.map((callPool) => callPool.address.NFT), [callPools])
@@ -23,14 +23,14 @@ export const useDepositedNFTs = () => {
     (props: GetQueryProps) => {
       const query: DepositedNFTsProps = {
         ...props,
-        subgraphName,
+        thegraphUrl,
         user: networkAccount,
         nfts,
       }
       return query
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nfts.join(','), networkAccount, subgraphName]
+    [nfts.join(','), networkAccount, thegraphUrl]
   )
 
   const getData = useCallback(
@@ -62,8 +62,8 @@ export const useDepositedNFTs = () => {
     [callPools]
   )
 
-  const isNoValidQuery = useCallback(({ user, subgraphName, nfts }: DepositedNFTsProps) => {
-    return !user || !subgraphName || !nfts || !nfts.length
+  const isNoValidQuery = useCallback(({ user, thegraphUrl, nfts }: DepositedNFTsProps) => {
+    return !user || !thegraphUrl || !nfts || !nfts.length
   }, [])
 
   const returnValue = useLoadMore({

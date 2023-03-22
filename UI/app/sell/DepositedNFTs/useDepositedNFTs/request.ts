@@ -2,7 +2,7 @@ import type { GetQueryProps } from 'app/hooks/request/useLoadMore'
 
 import type { NFTStatus } from 'domains/data/nft/types'
 
-export type DepositedNFTsProps = { subgraphName: string; user: string; nfts: string[] } & GetQueryProps
+export type DepositedNFTsProps = { thegraphUrl: string; user: string; nfts: string[] } & GetQueryProps
 const getGqlQuery = ({ first, skip, nfts, user }: DepositedNFTsProps) => {
   return `
   {
@@ -51,10 +51,10 @@ export const getDepositedNFTs = (
     }
   }>
 > => {
-  const { subgraphName } = props
+  const { thegraphUrl } = props
 
   const fn = (): Promise<any> =>
-    fetch('' + subgraphName, {
+    fetch('' + thegraphUrl, {
       headers: {
         accept: 'application/json, multipart/mixed',
         'accept-language': 'zh-CN,zh;q=0.9',

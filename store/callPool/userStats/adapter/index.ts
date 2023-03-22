@@ -2,7 +2,7 @@ import { getUserStatsBaseData } from './getUserStatsBaseData'
 
 export type UserStatsProps = {
   userAddress: string
-  subgraphName: string
+  thegraphUrl: string
 }
 
 const getGqlQuery = ({ userAddress }: UserStatsProps) => {
@@ -22,8 +22,8 @@ const getGqlQuery = ({ userAddress }: UserStatsProps) => {
 }
 
 export const userStatsRequest = (prop: UserStatsProps) => {
-  const { subgraphName } = prop
-  return fetch(subgraphName, {
+  const { thegraphUrl } = prop
+  return fetch(thegraphUrl, {
     headers: {
       accept: '*/*',
       'accept-language': 'zh-CN,zh;q=0.9',

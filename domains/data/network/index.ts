@@ -6,25 +6,21 @@ import { getMarkets } from './adapter/markets'
 import { useAddress } from './application/address'
 import { useContracts } from './application/contracts'
 import { useProvider } from './application/provider'
-
-//   'https://gateway.testnet.thegraph.com/api/693f585e54ce023909dcce542bb2ef6a/subgraphs/id/8psvhQk9V2oy1FBh8hJ6eTCPth8ffaf2x18Vz3vU1nTN',
-let subgraphName = 'https://api.thegraph.com/subgraphs/name/gordon199404/nftcall'
-if (process.env.NEXT_PUBLIC_ENV === 'stage') {
-  subgraphName = 'https://api.thegraph.com/subgraphs/name/gordon199404/nftcall-stage'
-}
+import { useThegraphUrl } from './application/thegraphUrl'
 
 const useNetworkService = () => {
   const address = useAddress()
   const markets = useMemo(() => getMarkets(address), [address])
   const provider = useProvider(address)
   const contracts = useContracts(provider)
+  const thegraphUrl = useThegraphUrl()
 
   return {
     address,
     markets,
     provider,
     contracts,
-    subgraphName,
+    thegraphUrl,
   }
 }
 const { Provider: NetworkProvider, createUseContext } = createContextWithProvider(useNetworkService)

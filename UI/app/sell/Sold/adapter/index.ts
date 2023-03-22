@@ -1,7 +1,7 @@
 import { getAddresses, getNumber, getWeiToValueBN } from 'app/utils/get'
 
 type Props = {
-  subgraphName: string
+  thegraphUrl: string
   skip: number
   first: number
   userAddress: string
@@ -13,12 +13,12 @@ export type SliceState = Array<{
   createTimestamp: number
   transactionHash: string
 }>
-export const request = ({ subgraphName, skip, first, userAddress }: Props) => {
-  if (!subgraphName) return Promise.reject({ message: 'network error' })
+export const request = ({ thegraphUrl, skip, first, userAddress }: Props) => {
+  if (!thegraphUrl) return Promise.reject({ message: 'network error' })
   let returnValue: NFTTransaction[] = []
   const promises = []
   promises.push(
-    fetch(subgraphName, {
+    fetch(thegraphUrl, {
       headers: {
         accept: '*/*',
         'accept-language': 'zh-CN,zh;q=0.9',

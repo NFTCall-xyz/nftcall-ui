@@ -2,7 +2,7 @@ import { getNumber } from 'app/utils/get'
 
 import { weiToValue } from 'lib/math'
 
-export type GetCallNFTProps = { subgraphName: string; tokenId: string; nft: string }
+export type GetCallNFTProps = { thegraphUrl: string; tokenId: string; nft: string }
 
 const getGqlQuery = ({ tokenId, nft }: GetCallNFTProps) => {
   return `
@@ -35,9 +35,9 @@ const getGqlQuery = ({ tokenId, nft }: GetCallNFTProps) => {
 }
 
 export const getCallNFT = (props: GetCallNFTProps): Promise<CallNFT> => {
-  const { subgraphName } = props
+  const { thegraphUrl } = props
   const fn = (): Promise<any> =>
-    fetch(subgraphName, {
+    fetch(thegraphUrl, {
       headers: {
         accept: 'application/json, multipart/mixed',
         'content-type': 'application/json',

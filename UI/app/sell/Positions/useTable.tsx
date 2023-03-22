@@ -94,7 +94,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
     if (!noMoreSourceData) return false
     return skip > data.length
   }, [data.length, noMoreSourceData, skip])
-  const { subgraphName } = useNetwork()
+  const { thegraphUrl } = useNetwork()
 
   const onFetch = useCallback(
     (pageIndex: number) => {
@@ -103,7 +103,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           skip: pageIndex * pageSize,
           first: pageSize,
           nftOwnerAddress: networkAccount,
-          subgraphName,
+          thegraphUrl,
           isActive,
         })
         .then((rowData) => {
@@ -111,7 +111,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           setSourceData((data) => data.concat(rowData))
         })
     },
-    [dataFetcher, isActive, networkAccount, setNoMoreSourceData, setSourceData, subgraphName]
+    [dataFetcher, isActive, networkAccount, setNoMoreSourceData, setSourceData, thegraphUrl]
   )
 
   const loadMore = useMemo(() => {

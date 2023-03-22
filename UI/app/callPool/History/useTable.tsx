@@ -87,7 +87,7 @@ export const useTable = (): BasicTableProps => {
     if (!noMoreSourceData) return false
     return skip > data.length
   }, [data.length, noMoreSourceData, skip])
-  const { subgraphName } = useNetwork()
+  const { thegraphUrl } = useNetwork()
 
   const loadMore = useMemo(() => {
     return {
@@ -102,7 +102,7 @@ export const useTable = (): BasicTableProps => {
             skip,
             first: pageSize,
             callPoolAddress,
-            subgraphName,
+            thegraphUrl,
           })
           .then((data) => {
             // const { symbol } = portfolio
@@ -126,7 +126,7 @@ export const useTable = (): BasicTableProps => {
     setPageIndex,
     setSourceData,
     skip,
-    subgraphName,
+    thegraphUrl,
   ])
 
   useMount(() => {
