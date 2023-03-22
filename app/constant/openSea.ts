@@ -4,6 +4,8 @@ import { ChainId } from 'lib/protocol/chain/types'
 
 const getBaseUrl = (chainId: ChainId) => {
   switch (chainId) {
+    case ChainId.ethereum:
+      return 'https://api.opensea.io'
     case ChainId.goerli:
       // return 'https://testnets-api.opensea.io'
       return 'https://api.opensea.io'

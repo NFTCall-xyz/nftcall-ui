@@ -1,0 +1,14 @@
+{
+  "NFTOracle": "0xe667b21b5695341a563d7c5eb4f21741584030c0",
+  "Premium": "0x7053339ef20ac035c9011b5619ca0884360829b4",
+  "NTokenFactory": "0x6c13354621f9fffb386a1242eeb97d8340070c59",
+  "CallTokenFactory": "0xa134c9b5eed4a37c49c3c5c94efd076f86a0957e",
+  "CallFactory": "0x17c26d84485701104fe98cbc8991b047ae4d75d3",
+  "markets": {
+    "Doodles": {
+      "NFT": "0x8a90cab2b38dba80c64b7734e58ee1db38b8992e",
+      "CallPool": "0xfe28895eD8ABecb4A30b1E392032F05B96190D67",
+      "CallPoolForTest": "0xfe28895eD8ABecb4A30b1E392032F05B96190D67"
+    }
+  }
+}
