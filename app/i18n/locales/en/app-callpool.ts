@@ -14,6 +14,7 @@ const locale = {
   tabs: {
     listedNFTs: 'Listed NFTs',
     history: 'History',
+    floorPriceTrends: 'Floor Price',
   },
   openPanel: {
     openCall: 'Buy Call Options',
@@ -42,6 +43,13 @@ const locale = {
     general: 'Something wrong happened, please join our Discord for help.',
     paused: 'For safety reasons, the pool is temporarily suspended, please follow us on Twitter for the latest news.',
     deactivated: 'The pool is deactivated, please withdraw all your NFTs.',
+  },
+  floorPriceTrends: {
+    floorPrice: 'Floor Price',
+    title: 'Floor Price Trends',
+    change24h: '24h Change',
+    days: 'D',
+    loading: 'loading',
   },
 }
 

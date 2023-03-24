@@ -15,6 +15,7 @@ import Tabs from 'components/tabs'
 
 import { useCallPoolDetails } from 'domains/data'
 
+import FloorPriceTrends from './FloorPriceTrends'
 import History from './History'
 import ListedNFTs from './ListedNFTs'
 import Stats from './Stats'
@@ -46,6 +47,12 @@ const CallPoolDetails: FC = () => {
         title: 'history',
         children: {
           component: History,
+        },
+      },
+      {
+        title: 'floorPriceTrends',
+        children: {
+          component: FloorPriceTrends,
         },
       },
     ]
