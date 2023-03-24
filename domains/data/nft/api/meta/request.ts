@@ -1,65 +1,26 @@
+import { JsonRpcProvider } from '@ethersproject/providers'
+
 import { getNumber } from 'app/utils/get'
 
 import { weiToValue } from 'lib/math'
+import { CallPool__factory } from 'lib/protocol/typechain/nftcall/typechain'
 
-export type GetCallNFTProps = { thegraphUrl: string; tokenId: string; nft: string }
+export type GetCallNFTProps = { jsonRpcUrl: string; tokenId: string; callPoolAddress: string }
 
-const getGqlQuery = ({ tokenId, nft }: GetCallNFTProps) => {
-  return `
-  fragment nftInfo on NFT {
-    tokenId
-    strikePriceGapIdx
-    durationIdx
-    lowerLimitOfStrikePrice: minimumStrikePrice
-    nftAddress
-    userAddress
-  }
+export const getCallNFT = (props: GetCallNFTProps) => {
+  const provider = new JsonRpcProvider({
+    url: props.jsonRpcUrl,
+  })
+  const callPool = CallPool__factory.connect(props.callPoolAddress, provider)
 
-  {
-    nfts(
-      first: 1
-      where: {
-        nftAddress: "${nft.toLowerCase()}"
-        tokenId: "${tokenId}"
-      }
-    ) {
-      ...nftInfo
-      position {
-        premiumToOwner
-        strikePrice
-        endTime
-      }
-    }
-  }
-  `
-}
+  return callPool.getNFTStatus(props.tokenId).then((position) => {
+    const timestamps = getNumber(position, ['endTime'])
 
-export const getCallNFT = (props: GetCallNFTProps): Promise<CallNFT> => {
-  const { thegraphUrl } = props
-  const fn = (): Promise<any> =>
-    fetch(thegraphUrl, {
-      headers: {
-        accept: 'application/json, multipart/mixed',
-        'content-type': 'application/json',
+    return {
+      position: {
+        strikePrice: weiToValue(position.strikePrice),
+        endTime: timestamps.endTime,
       },
-
-      body: JSON.stringify({ query: getGqlQuery(props) }),
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'omit',
-    }).then((data) => data.json())
-  return fn().then(({ data }) => {
-    if (data.nfts[0] && data.nfts[0].position) {
-      const { position } = data.nfts[0]
-
-      const timestamps = getNumber(position, ['endTime'])
-
-      position.strikePrice = weiToValue(position.strikePrice)
-      position.premiumToOwner = weiToValue(position.premiumToOwner)
-      position.endTime = timestamps.endTime
-
-      data.nfts[0].position = position
-      return data.nfts[0]
     }
   })
 }

@@ -2,32 +2,50 @@ import { formatInTimeZone } from 'date-fns-tz'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import goerli from 'lib/protocol/generate/goerli.json'
+import mainnet from 'lib/protocol/generate/mainnet.json'
 
 import type { BaseCollection } from '../../application/collections/adapter/getCollection'
 import { getCollections } from '../../application/collections/constant/collections'
-import type { CallNFT } from './request'
-import { getCallNFT, getNFTToken } from './request'
+import { getCallNFT } from './request'
 
 const collections = getCollections()
-const baseURL = 'https://stage.nftcall.xyz'
-const thegraphUrl = 'https://api.thegraph.com/subgraphs/name/gordon199404/nftcall-stage'
+const baseURL = 'https://nftcall.xyz'
 
-const resloveCollectionId = (collectionId: string) => {
+const resloveCollectionId = (network: string, collectionId: string) => {
+  const isMainnet = network === 'ethereum' || network === 'mainnet'
+  const isGoerli = network === 'goerli'
+  if (!isMainnet && !isGoerli) return {} as undefined
+
   const [collectionType, collectionSymbol] = collectionId.split('_')
   const [symbol, collection] = Object.entries(collections).find(([, i]) => i.symbol === collectionSymbol) || []
 
-  const callPool = goerli.markets[symbol as 'CloneX']
+  let callPool = undefined as typeof mainnet.markets['Doodles']
+  let jsonRpcUrl = ''
+
+  if (isMainnet) {
+    callPool = mainnet.markets[symbol as 'Doodles']
+    jsonRpcUrl = 'https://eth.llamarpc.com'
+  } else if (isGoerli) {
+    callPool = goerli.markets[symbol as 'Doodles']
+    jsonRpcUrl = 'https://rpc.ankr.com/eth_goerli'
+  }
 
   return {
     symbol,
     callPool,
+    jsonRpcUrl,
     collectionType,
     collection,
   }
 }
 
 type GetCallTokenJsonProps = GetDefalutCallTokenJsonProps & {
-  callNFT: CallNFT
+  callNFT: {
+    position: {
+      strikePrice: BN
+      endTime: number
+    }
+  }
 }
 const getCallTokenJson = ({
   symbol,
@@ -130,34 +148,23 @@ const getDefalutCallTokenJson = ({
 }
 
 export function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { tokenId, collectionId } = req.query
+  const { tokenId, collectionId, network } = req.query
   if (typeof tokenId !== 'string' || typeof collectionId !== 'string') return res.status(404).end()
-  const { symbol, callPool, collection, collectionType } = resloveCollectionId(collectionId)
+  const { symbol, callPool, collection, collectionType, jsonRpcUrl } = resloveCollectionId(network as any, collectionId)
   if (!symbol || !callPool || !collection) return res.status(404).end()
   const isCallToken = collectionType === 'call'
-  const isNToken = collectionType === 'n'
-  if (!isCallToken && !isNToken) return res.status(404).end()
+  if (!isCallToken) return res.status(404).end()
 
   if (isCallToken) {
-    return getCallNFT({ thegraphUrl, tokenId, nft: callPool.NFT })
+    return getCallNFT({ tokenId, callPoolAddress: callPool.CallPool, jsonRpcUrl })
       .then((callNFT) => {
-        if (!callNFT || !callNFT.position) {
+        if (!callNFT || !callNFT.position || !callNFT.position.endTime) {
           return res.json(getDefalutCallTokenJson({ symbol, collection, callPool, tokenId }))
         } else {
           res.json(getCallTokenJson({ symbol, collection, callPool, tokenId, callNFT }))
         }
       })
       .catch((e) => {
-        res.status(400).json(e)
-      })
-  } else if (isNToken) {
-    const { tokenMetaUrl } = collection
-    return getNFTToken({ tokenId, tokenMetaUrl })
-      .then((data) => {
-        res.json(data)
-      })
-      .catch((e) => {
-        console.log(tokenMetaUrl.replace(':id', tokenId))
         res.status(400).json(e)
       })
   }
