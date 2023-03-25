@@ -5,10 +5,20 @@
   "CallTokenFactory": "0xa134c9b5eed4a37c49c3c5c94efd076f86a0957e",
   "CallFactory": "0x17c26d84485701104fe98cbc8991b047ae4d75d3",
   "markets": {
+    "Azuki": {
+      "NFT": "0xed5af388653567af2f388e6224dc7c4b3241c544",
+      "CallPool": "0xFb51B9d5CaDA2DcFAd8aBe0c69A7F2C38D39D25B",
+      "CallPoolForTest": "0xFb51B9d5CaDA2DcFAd8aBe0c69A7F2C38D39D25B"
+    },
     "Doodles": {
       "NFT": "0x8a90cab2b38dba80c64b7734e58ee1db38b8992e",
       "CallPool": "0xfe28895eD8ABecb4A30b1E392032F05B96190D67",
       "CallPoolForTest": "0xfe28895eD8ABecb4A30b1E392032F05B96190D67"
+    },
+    "CloneX": {
+      "NFT": "0x49cf6f5d44e70224e2e23fdcdd2c053f30ada28b",
+      "CallPool": "0xe93948B6e3Cc2C24ff284a1c82723aA1EC2669aa",
+      "CallPoolForTest": "0xe93948B6e3Cc2C24ff284a1c82723aA1EC2669aa"
     }
   }
 }
