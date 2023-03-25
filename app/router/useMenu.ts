@@ -1,6 +1,9 @@
+import { useWallet } from 'domains'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
+
+import { ChainId } from 'lib/protocol/chain/types'
 
 const MenuList = [
   {
@@ -32,6 +35,7 @@ const MenuList = [
   {
     key: 'NFTFaucets',
     linkTo: '/app/faucets/nft',
+    network: ChainId.goerli,
   },
   {
     key: 'CallPoolDetail',
@@ -43,10 +47,14 @@ const MenuList = [
 export function useMenu() {
   const { t } = useTranslation()
   const router = useRouter()
+  const { chainId } = useWallet()
 
   const list = useMemo(() => {
-    return MenuList.map((menu) => ({ ...menu, label: t('router:' + menu.key) }))
-  }, [t])
+    return MenuList.filter((i) => {
+      if (!i.network) return true
+      return i.network === chainId
+    }).map((menu) => ({ ...menu, label: t('router:' + menu.key) }))
+  }, [chainId, t])
 
   const current = useMemo(() => {
     const linkTo = router.route
