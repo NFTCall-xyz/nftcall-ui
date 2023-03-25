@@ -1,4 +1,5 @@
-// https://api.opensea.io/api/v1/asset_contract/0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D
+// https://api.opensea.io/api/v1/asset_contract/0xed5af388653567af2f388e6224dc7c4b3241c544
+import Azuki from '../adapter/Azuki.json'
 import BAYC from '../adapter/BAYC.json'
 import Beanz from '../adapter/Beanz.json'
 import Checks from '../adapter/Checks.json'
@@ -22,4 +23,5 @@ export const getCollections = () => ({
   CloneX: getCollection('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B', CloneX),
   Moonbirds: getCollection('0x23581767a106ae21c074b2276D25e5C3e136a68b', Moonbirds),
   Doodles: getCollection('0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e', Doodles),
+  Azuki: getCollection('0xed5af388653567af2f388e6224dc7c4b3241c544', Azuki),
 })

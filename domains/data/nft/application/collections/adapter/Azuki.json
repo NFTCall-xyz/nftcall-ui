@@ -1,0 +1,46 @@
+{
+  "banner_image_url": "https://i.seadn.io/gae/O0XkiR_Z2--OPa_RA6FhXrR16yBOgIJqSLdHTGA0-LAhyzjSYcb3WEPaCYZHeh19JIUEAUazofVKXcY2qOylWCdoeBN6IfGZLJ3I4A?w=500&auto=format",
+  "chat_url": null,
+  "created_date": "2022-01-12T04:18:22.531632+00:00",
+  "default_to_fiat": false,
+  "description": "Take the red bean to join the garden. View the collection at [azuki.com/gallery](https://azuki.com/gallery).\r\n\r\nAzuki starts with a collection of 10,000 avatars that give you membership access to The Garden: a corner of the internet where artists, builders, and web3 enthusiasts meet to create a decentralized future. Azuki holders receive access to exclusive drops, experiences, and more. Visit [azuki.com](https://azuki.com) for more details.\r\n\r\nWe rise together. We build together. We grow together.",
+  "dev_buyer_fee_basis_points": "0",
+  "dev_seller_fee_basis_points": "500",
+  "discord_url": "https://discord.gg/azuki",
+  "display_data": {
+    "card_display_style": "contain"
+  },
+  "external_url": "http://www.azuki.com",
+  "featured": false,
+  "featured_image_url": null,
+  "hidden": false,
+  "safelist_request_status": "verified",
+  "image_url": "https://i.seadn.io/gae/H8jOCJuQokNqGBpkBN5wk1oZwO7LM8bNnrHCaekV2nKjnCqw6UB5oaH8XyNeBDj6bA_n1mjejzhFQUP3O1NfjFLHr3FOaeHcTOOT?w=500&auto=format",
+  "is_subject_to_whitelist": false,
+  "large_image_url": null,
+  "medium_username": null,
+  "name": "Azuki",
+  "only_proxied_transfers": false,
+  "opensea_buyer_fee_basis_points": "0",
+  "opensea_seller_fee_basis_points": 0,
+  "payout_address": "0xb4d24dacbdffa1bbf9a624044484b3feeb7fdf74",
+  "require_email": false,
+  "short_description": null,
+  "slug": "azuki",
+  "telegram_url": null,
+  "twitter_username": "Azuki",
+  "instagram_username": "azuki",
+  "wiki_url": null,
+  "is_nsfw": false,
+  "fees": {
+    "seller_fees": {
+      "0xb4d24dacbdffa1bbf9a624044484b3feeb7fdf74": 500
+    },
+    "opensea_fees": {}
+  },
+  "is_rarity_enabled": false,
+  "is_creator_fees_enforced": false,
+  "callTokenImageUrl": "https://gateway.pinata.cloud/ipfs/QmbTYJS5dZaitNA991UaCVGVwJDQqYCGfQ9djArQH4Jui8/azuki.jpg",
+  "tokenMetaUrl": "https://ipfs.io/ipfs/QmZcH4YvBVVRJtdn4RdbaqgspFU8gH6P9vomDpBVpAL3u4/:id",
+  "symbol": "azuki"
+}
