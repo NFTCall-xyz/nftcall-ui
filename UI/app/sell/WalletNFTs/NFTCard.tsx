@@ -12,7 +12,7 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 
 import type { UseIds } from 'app/hooks/useIds'
 import { safeGet } from 'app/utils/get'
@@ -61,10 +61,21 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
     deactivate,
   } = props
   const { t: tNFT } = useTranslation('domains', { keyPrefix: 'nft' })
-  const tip = useMemo(() => {
-    if (paused) return tNFT('paused')
-    if (deactivate) return tNFT('deactivate')
-  }, [deactivate, paused, tNFT])
+  const theme = useTheme()
+  const poolStatus = useMemo(() => {
+    if (paused) {
+      return {
+        status: tNFT('paused'),
+        color: theme.palette.warning.main,
+      }
+    }
+    if (deactivate) {
+      return {
+        status: tNFT('deactivated'),
+        color: theme.palette.error.main,
+      }
+    }
+  }, [deactivate, paused, tNFT, theme.palette])
   const { nftAssetsData } = useNFTAssetsData(props)
 
   const actions = useMemo(() => {
@@ -98,9 +109,9 @@ const NFTCard: FC<NFTCardProps> = (props: NFTCardProps) => {
 
   return (
     <ROOT>
-      {tip ? (
-        <Tooltip title={tip}>
-          <IconButton sx={{ position: 'absolute', right: 2, top: 2 }}>
+      {poolStatus ? (
+        <Tooltip title={poolStatus.status}>
+          <IconButton sx={{ position: 'absolute', right: 2, top: 2, zIndex: 1, color: poolStatus.color }}>
             <WarningAmberIcon />
           </IconButton>
         </Tooltip>
