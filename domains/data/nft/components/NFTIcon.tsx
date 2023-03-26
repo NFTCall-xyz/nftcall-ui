@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { useMemo } from 'react'
 
 import type { BoxProps } from '@mui/material/Box'
@@ -72,7 +73,11 @@ const NFTAssetsDataIcon = ({ nftAssetsData, sx }: NFTIconProps) => {
 
   return (
     <ROOT sx={sx}>
-      <ImageWrap>{image}</ImageWrap>
+      <ImageWrap>
+        <m.div whileHover={{ scale: 1.2 }}>
+          <ImageWrap>{image}</ImageWrap>
+        </m.div>
+      </ImageWrap>
     </ROOT>
   )
 }
