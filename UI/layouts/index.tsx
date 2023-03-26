@@ -1,4 +1,6 @@
+import type { MyAppProps } from 'app'
 import { useApp } from 'app'
+import { m } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
 import { Fragment, useMemo } from 'react'
@@ -28,7 +30,7 @@ const ActiveLayout: FCC = (props) => {
   }
 }
 
-const Layout: FCC = ({ children }) => {
+const Layout: FC<MyAppProps> = ({ Component, pageProps }) => {
   const { t } = useTranslation()
   const {
     menu: { current },
@@ -40,6 +42,22 @@ const Layout: FCC = ({ children }) => {
     () => (current.key === 'Home' ? seoTitle : `NFTCall | ${t('router:' + current.key)}`),
     [current.key, t]
   )
+
+  const Page = useMemo(() => {
+    const PageTransition: FC = () => (
+      <m.div
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0, y: -20 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+        }}
+      >
+        <Component {...pageProps} />
+      </m.div>
+    )
+    return PageTransition
+  }, [Component, pageProps])
 
   return (
     <Fragment>
@@ -62,7 +80,7 @@ const Layout: FCC = ({ children }) => {
         <meta name="twitter:site" content="@nftcall_xyz" />
       </Head>
       <ActiveLayout>
-        {children}
+        <Page />
         <ChainDialog />
         <ConnectDialog />
         <NFTDepositDialog />

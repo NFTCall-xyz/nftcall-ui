@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 
 import { createContextWithProvider } from 'app/utils/createContext'
 
+import MotionProvider from 'lib/framer-motion'
 import { useRouteChange } from 'lib/nprogress/router'
 import { ToastContainer } from 'lib/toastify'
 
@@ -24,16 +25,16 @@ export const useApp = createUseContext()
 export type MyAppProps = AppProps & {
   emotionCache: any
 }
-export const Provider: FCC<MyAppProps> = ({ Component, pageProps }) => {
+export const Provider: FCC<MyAppProps> = (props) => {
   return (
     <ThemeProvider>
       <CssBaseline enableColorScheme />
-      <APP>
-        <ActiveLayout>
-          <Component {...pageProps} />
-        </ActiveLayout>
-        <ToastContainer />
-      </APP>
+      <MotionProvider>
+        <APP>
+          <ActiveLayout {...props} />
+          <ToastContainer />
+        </APP>
+      </MotionProvider>
     </ThemeProvider>
   )
 }
