@@ -1,4 +1,4 @@
-import type { Provider } from 'lib/protocol/provider/common-static-json-rpc-provider'
+import type { Provider } from 'lib/wallet/provider/common-static-json-rpc-provider'
 
 import { getBalanceOfBaseData } from './getBalanceOfBaseData'
 

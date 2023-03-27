@@ -1,4 +1,3 @@
-import { useWeb3React } from '@web3-react/core'
 import { useWallet } from 'domains'
 import type { FC } from 'react'
 import { Fragment, useMemo } from 'react'
@@ -9,8 +8,7 @@ import DialogContent from '@mui/material/DialogContent'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 
-import { ChainId } from 'lib/protocol/chain/types'
-import { getNetwork } from 'lib/protocol/network'
+import { ChainId, getChainInformationByChainId } from 'lib/wallet/constant/chains'
 import { switchEthereumChain } from 'lib/wallet/utils'
 
 import ChainIcon from '../ChainIcon'
@@ -45,24 +43,27 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 const ChainButton: FC<{ chainId: ChainId }> = (props) => {
   const {
+    provider,
     dialogs: {
       chainDialog: { close },
     },
+    setDefalutChainId,
   } = useWallet()
-  const { provider } = useWeb3React()
   const onSwitchEthereumChain = useCallback(
     (chainId: ChainId) => {
       if (provider) return switchEthereumChain(provider, chainId)
+      return Promise.resolve()
     },
     [provider]
   )
-  const network = useMemo(() => getNetwork(props.chainId), [props.chainId])
+  const network = useMemo(() => getChainInformationByChainId(props.chainId), [props.chainId])
 
   return (
     <StyledButton
       color="inherit"
       startIcon={<ChainIcon chainName={network.name} />}
-      onClick={() =>
+      onClick={() => {
+        setDefalutChainId(props.chainId)
         onSwitchEthereumChain(props.chainId).then(() => {
           // if (ChainId.ethereum === props.chainId) {
           //   router.push({
@@ -71,9 +72,9 @@ const ChainButton: FC<{ chainId: ChainId }> = (props) => {
           // }
           close()
         })
-      }
+      }}
     >
-      {network.fullName}
+      {network.name}
     </StyledButton>
   )
 }

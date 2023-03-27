@@ -1,4 +1,4 @@
-import type { ChainId } from 'lib/protocol/chain/types'
+import type { ChainId } from 'lib/wallet/constant/chains'
 
 import type { Currency } from '../currency/types'
 

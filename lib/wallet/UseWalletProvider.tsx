@@ -14,6 +14,8 @@ const connectors: [MetaMask | WalletConnectV2 | CoinbaseWallet, Web3ReactHooks][
   [coinbaseWallet, coinbaseWalletHooks],
 ]
 
-const Provider: FCC = ({ children }) => <Web3ReactProvider connectors={connectors}>{children}</Web3ReactProvider>
+const UseWalletProvider: FCC = ({ children }) => (
+  <Web3ReactProvider connectors={connectors}>{children}</Web3ReactProvider>
+)
 
-export default Provider
+export default UseWalletProvider

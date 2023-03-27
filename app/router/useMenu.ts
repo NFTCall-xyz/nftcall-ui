@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
 
-import { ChainId } from 'lib/protocol/chain/types'
+import { ChainId } from 'lib/wallet/constant/chains'
 
 const MenuList = [
   {

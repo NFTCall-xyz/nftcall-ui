@@ -1,14 +1,11 @@
 import { useControllers, useWallet } from 'domains'
 import { useCallback, useMemo } from 'react'
 
-import { useNetwork } from 'domains/data'
-
 import { useUserStateData } from 'store/user/useUserStateData'
 
 export const useBalanceOf = () => {
   const returnValue = useUserStateData()
-  const { provider } = useNetwork()
-  const { account } = useWallet()
+  const { account, provider } = useWallet()
   const {
     user: { balanceOf },
   } = useControllers()

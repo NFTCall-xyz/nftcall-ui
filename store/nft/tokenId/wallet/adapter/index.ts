@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { utils } from 'ethers'
 
-import type { ChainId } from 'lib/protocol/chain/types'
+import type { ChainId } from 'lib/wallet/constant/chains'
 
 import { getWalletBaseData } from './getWalletBaseData'
 

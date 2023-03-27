@@ -1,17 +1,20 @@
 import { useWeb3React } from '@web3-react/core'
 import { useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import { useMount } from 'app/hooks/useMount'
 import { createContextWithProvider } from 'app/utils/createContext'
 
 import { defaultMarket } from 'lib/protocol/market'
 
-import UseWalletProvider from './Provider'
+import UseWalletProvider from './UseWalletProvider'
 import { useWalletDialogs } from './application/dialogs'
 import { WalletStatus } from './constant'
 import { getChainInformationByChainId } from './constant/chains'
+import { getProvider } from './provider'
 
 const useWalletService = () => {
+  const [defalutChainId, setDefalutChainId] = useImmer(defaultMarket.chainId)
   const dialogs = useWalletDialogs()
   const {
     connector,
@@ -19,11 +22,14 @@ const useWalletService = () => {
     accounts,
     isActivating,
     isActive,
-    provider,
+    provider: walletProvider,
     ENSNames,
     ENSName,
     account,
   } = useWeb3React()
+
+  const chainId = useMemo(() => walletChainId || defalutChainId, [walletChainId, defalutChainId])
+  const provider = useMemo(() => walletProvider || getProvider(chainId), [chainId, walletProvider])
 
   const status = useMemo(() => {
     if (isActivating) {
@@ -34,7 +40,6 @@ const useWalletService = () => {
     return WalletStatus.disconnected
   }, [isActivating, isActive])
 
-  const chainId = useMemo(() => walletChainId || defaultMarket.chainId, [walletChainId])
   const network = useMemo(() => {
     return getChainInformationByChainId(chainId)
   }, [chainId])
@@ -61,6 +66,8 @@ const useWalletService = () => {
     ENSName,
     account,
     status,
+
+    setDefalutChainId,
   }
 }
 

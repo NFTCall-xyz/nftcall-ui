@@ -1,7 +1,7 @@
 import { FallbackProvider } from '@ethersproject/providers'
 
-import type { ChainId } from '../chain/types'
-import { getNetwork } from '../network'
+import type { ChainId } from '../constant/chains'
+import { getChainInformationByChainId } from '../constant/chains'
 import type { Provider } from './common-static-json-rpc-provider'
 import { CommonStaticJsonRpcProvider } from './common-static-json-rpc-provider'
 
@@ -18,7 +18,7 @@ export const getProvider = (chainId: ChainId) => {
   if (cacheProvider) return cacheProvider
 
   let provider: Provider
-  const network = getNetwork(chainId)
+  const network = getChainInformationByChainId(chainId)
 
   if (network.publicJsonRPCUrl) {
     if (typeof network.publicJsonRPCUrl === 'string') {

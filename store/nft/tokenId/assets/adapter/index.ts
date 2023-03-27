@@ -6,7 +6,7 @@ import { getOpenSeaUrl } from 'app/constant/openSea'
 import { safeGet } from 'app/utils/get'
 import { createPromise } from 'app/utils/promise'
 
-import type { ChainId } from 'lib/protocol/chain/types'
+import type { ChainId } from 'lib/wallet/constant/chains'
 
 import type { AssetsBaseData } from './getAssetsBaseData'
 import { getAssetsBaseData } from './getAssetsBaseData'

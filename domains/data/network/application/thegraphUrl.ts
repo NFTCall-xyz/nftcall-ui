@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import { isStage } from 'app/constant/envs'
 
-import { ChainId } from 'lib/protocol/chain/types'
+import { ChainId } from 'lib/wallet/constant/chains'
 
 //   'https://gateway.testnet.thegraph.com/api/693f585e54ce023909dcce542bb2ef6a/subgraphs/id/8psvhQk9V2oy1FBh8hJ6eTCPth8ffaf2x18Vz3vU1nTN',
 

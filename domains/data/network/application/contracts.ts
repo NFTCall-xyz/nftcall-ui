@@ -1,13 +1,14 @@
+import { useWallet } from 'domains'
 import { useMemo } from 'react'
 
-import type { Provider } from 'lib/protocol/provider/common-static-json-rpc-provider'
 import { ERC20Service } from 'lib/protocol/typechain/erc20'
 import { ERC721Service } from 'lib/protocol/typechain/erc721-contract'
 import { CallPoolService } from 'lib/protocol/typechain/nftcall'
 import { MockNFTService } from 'lib/protocol/typechain/nftcall-mock-nft'
 import { NFTOracleService } from 'lib/protocol/typechain/nftcall/NFTOracleService'
 
-export const useContracts = (provider: Provider) => {
+export const useContracts = () => {
+  const { provider } = useWallet()
   const contracts = useMemo(() => {
     return {
       mockNFTService: new MockNFTService(provider),

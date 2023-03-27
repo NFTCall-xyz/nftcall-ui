@@ -1,6 +1,6 @@
 import { utils } from 'ethers'
 
-import { ChainId } from 'lib/protocol/chain/types'
+import { ChainId } from 'lib/wallet/constant/chains'
 
 const getBaseUrl = (chainId: ChainId) => {
   switch (chainId) {
