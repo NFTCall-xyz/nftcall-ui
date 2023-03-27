@@ -1,6 +1,7 @@
 import { useWallet } from 'domains'
 import Image from 'next/image'
 import type { FC } from 'react'
+import { useCallback } from 'react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,11 +10,16 @@ import DialogContent from '@mui/material/DialogContent'
 import Link from '@mui/material/Link'
 import { styled } from '@mui/material/styles'
 
+import { createToastifyPromise } from 'app/utils/promise/toastify'
+
 import { H3, H5 } from 'components/Typography'
 import RingLoading from 'components/loading/RingLoading'
 
+import { toast } from 'lib/toastify'
+import { coinbaseWallet } from 'lib/wallet/connectors/coinbaseWallet'
 import { metaMask } from 'lib/wallet/connectors/metaMask'
 import { walletConnectV2 } from 'lib/wallet/connectors/walletConnectV2'
+import { WalletStatus } from 'lib/wallet/constant'
 
 import Account from '../Account'
 import MetamaskImg from './images/metamask.svg'
@@ -29,13 +35,11 @@ const ConnectDialogContent: FC = () => {
   }))
   const content = useMemo(() => {
     switch (status) {
-      case 'connected':
+      case WalletStatus.connected:
         return <WalletConnected />
-      case 'disconnected':
+      case WalletStatus.disconnected:
         return <WalletDisconnected />
-      case 'error':
-        return <WalletError />
-      case 'connecting':
+      case WalletStatus.connecting:
         return <WalletConnecting />
     }
   }, [status])
@@ -101,34 +105,37 @@ const WalletDisconnected: FC = () => {
     font-size: 1.1rem;
     margin-left: 16px;
   `
+  const connect = useCallback(
+    (connector: any) => {
+      close()
+      return createToastifyPromise(connector.activate(chainId), {
+        position: toast.POSITION.TOP_LEFT,
+        pendingContent: 'Connecting to Wallet...',
+        resolveContent: 'Wallet Connected Successfully!',
+        rejectedContent: 'Unable to Connect to Wallet',
+      }).catch((e) => {
+        console.error(e)
+      })
+    },
+    [chainId, close]
+  )
+
   return (
     <ROOT>
-      <ConnectWallet
-        color="inherit"
-        onClick={async () => {
-          await metaMask.activate()
-          close()
-        }}
-      >
+      <ConnectWallet color="inherit" onClick={() => connect(metaMask)}>
         <Image src={MetamaskImg} alt="metamask" />
         <ConnectWalletName>Metamask</ConnectWalletName>
       </ConnectWallet>
-      <ConnectWallet
-        color="inherit"
-        onClick={async () => {
-          await walletConnectV2.activate(chainId)
-          close()
-        }}
-      >
+      <ConnectWallet color="inherit" onClick={() => connect(walletConnectV2)}>
         <Image src={WalletconnectImg} alt="walletconnect" />
         <ConnectWalletName>WalletConnect</ConnectWalletName>
       </ConnectWallet>
+      <ConnectWallet color="inherit" onClick={() => connect(coinbaseWallet)}>
+        <Image src={WalletconnectImg} alt="walletconnect" />
+        <ConnectWalletName>Coinbase</ConnectWalletName>
+      </ConnectWallet>
     </ROOT>
   )
-}
-
-const WalletError: FC = () => {
-  return <WalletDisconnected />
 }
 
 const WalletConnecting: FC = () => {
