@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next'
 import Button from '@mui/material/Button'
 import { useTheme } from '@mui/material/styles'
 
+import { WalletStatus } from 'lib/wallet/constant'
+
 import Account from '../Account'
 import { useConnectButton } from './useConnectButton'
 
@@ -13,13 +15,11 @@ export const ConnectButton: FC = () => {
 
   const content = useMemo(() => {
     switch (status) {
-      case 'connected':
+      case WalletStatus.connected:
         return <WalletConnected />
-      case 'disconnected':
+      case WalletStatus.disconnected:
         return <WalletDisconnected />
-      case 'error':
-        return <WalletConnected />
-      case 'connecting':
+      case WalletStatus.connecting:
         return <WalletConnecting />
     }
   }, [status])

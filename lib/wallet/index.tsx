@@ -1,6 +1,5 @@
 import { useWeb3React } from '@web3-react/core'
-import { useEffect, useMemo } from 'react'
-import { useImmer } from 'use-immer'
+import { useMemo } from 'react'
 
 import { useMount } from 'app/hooks/useMount'
 import { createContextWithProvider } from 'app/utils/createContext'
@@ -9,14 +8,33 @@ import { defaultMarket } from 'lib/protocol/market'
 
 import UseWalletProvider from './Provider'
 import { useWalletDialogs } from './application/dialogs'
+import { WalletStatus } from './constant'
 import { getChainInformationByChainId } from './constant/chains'
 
 const useWalletService = () => {
   const dialogs = useWalletDialogs()
-  const [error, setError] = useImmer(null)
-  const [status, setStatus] = useImmer('disconnected')
-  const { connector, chainId, accounts, isActivating, isActive, provider, ENSNames, ENSName, account } = useWeb3React()
+  const {
+    connector,
+    chainId: walletChainId,
+    accounts,
+    isActivating,
+    isActive,
+    provider,
+    ENSNames,
+    ENSName,
+    account,
+  } = useWeb3React()
 
+  const status = useMemo(() => {
+    if (isActivating) {
+      return WalletStatus.connecting
+    } else if (isActive) {
+      return WalletStatus.connected
+    }
+    return WalletStatus.disconnected
+  }, [isActivating, isActive])
+
+  const chainId = useMemo(() => walletChainId || defaultMarket.chainId, [walletChainId])
   const network = useMemo(() => {
     return getChainInformationByChainId(chainId)
   }, [chainId])
@@ -26,30 +44,14 @@ const useWalletService = () => {
     if (promise) {
       promise.catch((e) => {
         console.error('[wallet][connectEagerly]', e)
-        setError(e)
       })
     }
   })
 
-  useEffect(() => {
-    console.log('[Web3React]', {
-      connector,
-      chainId,
-      network,
-      accounts,
-      isActivating,
-      isActive,
-      provider,
-      ENSNames,
-      ENSName,
-      account,
-    })
-  }, [ENSName, ENSNames, account, accounts, chainId, connector, isActivating, isActive, network, provider])
-
   return {
     connector,
     dialogs,
-    chainId: chainId || defaultMarket.chainId,
+    chainId,
     network,
     accounts,
     isActivating,
@@ -58,7 +60,6 @@ const useWalletService = () => {
     ENSNames,
     ENSName,
     account,
-    error,
     status,
   }
 }
