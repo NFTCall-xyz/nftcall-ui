@@ -12,14 +12,14 @@ export const useBalanceOf = (callPools: CallPool[]) => {
     contracts: { callPoolService },
   } = useNetwork()
   const { callPool } = useControllers()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const query: BalanceOfProps = useMemo(
     () => ({
       callPoolService,
       callPools: callPools.map((callPool) => callPool.address.CallPool),
-      user: networkAccount,
+      user: account,
     }),
-    [callPoolService, callPools, networkAccount]
+    [callPoolService, callPools, account]
   )
 
   callPool.balanceOf.usePolling(query, (query) => !query.callPools.length || !query.user, 1000 * 60)

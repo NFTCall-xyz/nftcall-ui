@@ -30,7 +30,7 @@ const NFTCollectionCard: FC<React.PropsWithChildren<NFTCollectionCardProps>> = (
   } = callPool
   const theme = useTheme()
 
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const {
     contracts: { mockNFTService },
   } = useNetwork()
@@ -56,11 +56,11 @@ const NFTCollectionCard: FC<React.PropsWithChildren<NFTCollectionCardProps>> = (
           <H3>{name}</H3>
           <Button
             variant="contained"
-            disabled={!networkAccount}
+            disabled={!account}
             onClick={() => {
               return transaction({
                 createTransaction: mockNFTService.mint({
-                  userAddress: networkAccount,
+                  userAddress: account,
                   nftAddress: NFT,
                 }),
                 setStatus: () => {},

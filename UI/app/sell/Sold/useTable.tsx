@@ -27,7 +27,7 @@ export const useTable = (): BasicTableProps => {
   const dataFetcher = usePost(request)
   const [noMoreSourceData, setNoMoreSourceData] = useImmer(false)
   const [sourceData, setSourceData] = useImmer([])
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
 
   const columns = useMemo(
     () =>
@@ -87,7 +87,7 @@ export const useTable = (): BasicTableProps => {
           .post({
             skip,
             first: pageSize,
-            userAddress: networkAccount,
+            userAddress: account,
             thegraphUrl,
           })
           .then((data) => {
@@ -105,7 +105,7 @@ export const useTable = (): BasicTableProps => {
   }, [
     dataFetcher,
     end,
-    networkAccount,
+    account,
     noMoreSourceData,
     pageIndex,
     setNoMoreSourceData,

@@ -22,13 +22,13 @@ export const getProvider = (chainId: ChainId) => {
 
   if (network.publicJsonRPCUrl) {
     if (typeof network.publicJsonRPCUrl === 'string') {
-      provider = new CommonStaticJsonRpcProvider(createConnectionInfo(network.publicJsonRPCUrl))
+      provider = new CommonStaticJsonRpcProvider(createConnectionInfo(network.publicJsonRPCUrl)) as any
     } else {
       const providers: any[] = []
       network.publicJsonRPCUrl.map((url) => {
         providers.push(new CommonStaticJsonRpcProvider(createConnectionInfo(url)))
       })
-      provider = new FallbackProvider(providers)
+      provider = new FallbackProvider(providers) as any
     }
   } else {
     throw new Error(`${chainId} has no jsonRPCUrl configured`)

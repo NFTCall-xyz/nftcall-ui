@@ -10,7 +10,9 @@ import ChainDialogTitle from './ChainDialogTitle'
 
 const ChainDialog: FC = () => {
   const {
-    chainDialog: { visible, close },
+    dialogs: {
+      chainDialog: { visible, close },
+    },
   } = useWallet()
 
   return (

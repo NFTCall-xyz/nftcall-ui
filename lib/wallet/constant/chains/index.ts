@@ -4,6 +4,8 @@ import { ETH, GoerliETH } from '../currency'
 import type { ChainInformation } from './types'
 
 export const infuraId = 'd178bf7e1786465d9f22f733d8106552'
+export const walletconnectId = 'beb7948db9bda6e0d2316f7582d6b332'
+
 
 export const CHAIN_INFORMATION: ChainInformation[] = [
   {

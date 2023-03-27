@@ -1,4 +1,4 @@
-import WalletProvider, { createWalletContext } from 'lib/protocol/components/wallet'
+import WalletProvider, { createWalletContext } from 'lib/wallet'
 
 import ControllersProvider, { createControllersContext } from './controllers'
 import DataProvider from './data'

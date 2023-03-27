@@ -1,296 +1,80 @@
-import { UnsupportedChainIdError, Web3ReactProvider, useWeb3React } from '@web3-react/core'
-import type { Web3ReactContextInterface } from '@web3-react/core/dist/types'
-import * as PropTypes from 'prop-types'
-import type { ReactNode } from 'react'
-import * as React from 'react'
-import { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
+import { useWeb3React } from '@web3-react/core'
+import { useEffect, useMemo } from 'react'
 import { useImmer } from 'use-immer'
 
+import { useMount } from 'app/hooks/useMount'
+import { createContextWithProvider } from 'app/utils/createContext'
+
 import { defaultMarket } from 'lib/protocol/market'
-import { getNetwork } from 'lib/protocol/network'
 
-import * as chains from './chains'
-import { connectors } from './connectors'
-import { ChainUnsupportedError, ConnectorUnsupportedError } from './errors'
-import { getProviderFromUseWalletId, getProviderString } from './providers'
-import type { ProviderId } from './providers/types'
-import type { AccountType, Status, Wallet } from './types'
-import {
-  clearLastActiveAccount,
-  getAccountIsContract,
-  getLastActiveAccount,
-  getLastConnector,
-  setLastActiveAccount,
-  setLastConnector,
-} from './utils'
+import UseWalletProvider from './Provider'
+import { useWalletDialogs } from './application/dialogs'
+import { getChainInformationByChainId } from './constant/chains'
 
-type WalletContext = {
-  wallet: Wallet
-} | null
+const useWalletService = () => {
+  const dialogs = useWalletDialogs()
+  const [error, setError] = useImmer(null)
+  const [status, setStatus] = useImmer('disconnected')
+  const { connector, chainId, accounts, isActivating, isActive, provider, ENSNames, ENSName, account } = useWeb3React()
 
-const UseWalletContext = React.createContext<WalletContext>(null)
+  const network = useMemo(() => {
+    return getChainInformationByChainId(chainId)
+  }, [chainId])
 
-// CONTEXT CONSUMER ============================================================
-
-function useWallet(): Wallet {
-  const { wallet } = useContext(UseWalletContext)
-
-  return wallet
-}
-
-// CONTEXT PROVIDER ============================================================
-
-export type UseWalletProviderProps = {
-  children?: ReactNode
-  autoConnect: boolean
-  getLibrary: (provider?: any, connector?: Required<Web3ReactContextInterface>['connector']) => any
-}
-
-UseWalletProvider.propTypes = {
-  children: PropTypes.node,
-  autoConnect: PropTypes.bool,
-}
-
-UseWalletProvider.defaultProps = {
-  autoConnect: false,
-}
-
-function UseWalletProvider({ children, autoConnect }: UseWalletProviderProps) {
-  const [connector, setConnector] = useImmer<ProviderId | null>(null)
-  const [error, setError] = useImmer<Error | null>(null)
-  const [type, setType] = useImmer<AccountType | null>(null)
-  const [status, setStatus] = useImmer<Status>('disconnected')
-  const web3ReactContext = useWeb3React()
-  const activationId = useRef<number>(0)
-  const { account, chainId: web3ChainId, library, error: web3Error } = web3ReactContext
-  const [defaultChainId, setDefaultChainId] = useImmer(defaultMarket.chainId)
-  useEffect(() => {
-    if (__SERVER__ || !window.ethereum) return
-    const { ethereum } = window
-    const chainId = ethereum.chainId
-    let timer: ReturnType<typeof setTimeout>
-    if (chainId) {
-      setDefaultChainId(parseInt(chainId))
-    } else {
-      timer = setTimeout(() => {
-        const chainId = ethereum.chainId
-        if (chainId) {
-          setDefaultChainId(parseInt(chainId))
-        }
-      }, 1000)
+  useMount(() => {
+    const promise = connector.connectEagerly()
+    if (promise) {
+      promise.catch((e) => {
+        console.error('[wallet][connectEagerly]', e)
+        setError(e)
+      })
     }
-    const onchainChanged = (chainId: string) => {
-      setDefaultChainId(parseInt(chainId))
-    }
-    ethereum.on('chainChanged', onchainChanged)
-    return () => {
-      ethereum.removeListener('chainChanged', onchainChanged)
-      clearTimeout(timer)
-    }
-  }, [setDefaultChainId])
-
-  const chainId = useMemo(() => (web3ChainId ? web3ChainId : defaultChainId), [web3ChainId, defaultChainId])
-
-  const reset = useCallback(() => {
-    if (web3ReactContext.active) {
-      web3ReactContext.deactivate()
-    }
-    clearLastActiveAccount()
-    setConnector(null)
-    setError(null)
-    setStatus('disconnected')
-  }, [setConnector, setError, setStatus, web3ReactContext])
-
-  // if the user switched networks on the wallet itself
-  // return unsupported error.
-  useMemo(() => {
-    if (web3Error instanceof UnsupportedChainIdError) {
-      setStatus('error')
-      setError(new ChainUnsupportedError(web3Error.message))
-    }
-  }, [setError, setStatus, web3Error])
-
-  const connect = useCallback(
-    async (connectorId: ProviderId = 'injected') => {
-      // Prevent race conditions between connections by using an external ID.
-      const id = ++activationId.current
-
-      reset()
-
-      // Check if another connection has happened right after deactivate().
-      if (id !== activationId.current) {
-        return
-      }
-
-      const connectorInit = connectors[connectorId as 'injected']
-      if (!connectorInit) {
-        setStatus('error')
-        setError(new ConnectorUnsupportedError(connectorId))
-        return
-      }
-
-      // If no connection happens, we're in the right context and can safely update
-      // the connection stage status
-      setStatus('connecting')
-
-      // Initialize the (useWallet) connector if it exists.
-      const connector = await connectorInit?.()
-
-      // Initialize the web3-react connector if it exists.
-      const web3ReactConnector = connector?.web3ReactConnector?.({})
-
-      if (!web3ReactConnector) {
-        setStatus('error')
-        setError(new ConnectorUnsupportedError(connectorId))
-        return
-      }
-
-      try {
-        // TODO: there is no way to prevent an activation to complete, but we
-        // could reconnect to the last provider the user tried to connect to.
-        setConnector(connectorId)
-        await web3ReactContext.activate(web3ReactConnector, undefined, true)
-        setLastConnector(connectorId)
-        if (connectorId === 'injected') {
-          const account = await web3ReactConnector.getAccount()
-          account && setLastActiveAccount(account)
-          web3ReactConnector.getProvider().then((provider) => {
-            provider.on('accountsChanged', (accounts: string[]) => {
-              setLastActiveAccount(accounts[0])
-            })
-          })
-        }
-        setStatus('connected')
-      } catch (err) {
-        // Don’t throw if another connection has happened in the meantime.
-        if (id !== activationId.current) {
-          return
-        }
-
-        const throwError = (error: Error) => {
-          setConnector(null)
-          setStatus('error')
-          setError(error)
-        }
-
-        const ignoreError = () => {
-          setConnector(null)
-          setStatus('disconnected')
-        }
-
-        if (err instanceof UnsupportedChainIdError) return throwError(new ChainUnsupportedError(err.message))
-
-        // It might have thrown with an error known by the connector
-        if (connector.handleActivationError) {
-          const { error, ignore } = connector.handleActivationError(err as Error)
-          if (ignore) return ignoreError()
-          if (error) return throwError(error)
-        }
-
-        throwError(err as Error)
-      }
-    },
-    [reset, setConnector, setError, setStatus, web3ReactContext]
-  )
+  })
 
   useEffect(() => {
-    if (!autoConnect) {
-      return
-    }
-
-    const lastConnector = getLastConnector()
-    const lastActiveAccount = getLastActiveAccount()
-
-    if (lastActiveAccount && lastConnector === 'injected') {
-      const isInjectedAvailable = Object.keys(connectors).some((key) => key === 'injected')
-
-      if (isInjectedAvailable) {
-        connect()
-      }
-    }
-
-    //eslint-disable-next-line
-  }, [])
-
-  useEffect(() => {
-    if (!account || !library) {
-      return
-    }
-
-    let cancel = false
-
-    setType(null)
-
-    getAccountIsContract(library, account).then((isContract) => {
-      if (!cancel) {
-        setStatus('connected')
-        setType(isContract ? 'contract' : 'normal')
-      }
-    })
-
-    return () => {
-      cancel = true
-      setStatus('disconnected')
-      setType(null)
-    }
-  }, [account, library, setStatus, setType])
-
-  const wallet = useMemo(() => {
-    let chainInfo: any = getNetwork(chainId)
-    const e = error
-    try {
-      chainInfo = {
-        ...chains.getChainInformation(chainId),
-        ...chainInfo,
-      }
-    } catch (err) {}
-
-    return {
-      account: account || null,
-      chainId,
-      connect,
+    console.log('[Web3React]', {
       connector,
-      connectors,
-      error: e,
-      ethereum: library,
-      isConnected: () => status === 'connected',
-      network: chainInfo,
-      providerInfo: connector ? getProviderFromUseWalletId(connector) : getProviderFromUseWalletId('unknown'),
-      reset,
-      status,
-      type,
-    }
-  }, [account, chainId, connect, connector, error, library, type, reset, status])
+      chainId,
+      network,
+      accounts,
+      isActivating,
+      isActive,
+      provider,
+      ENSNames,
+      ENSName,
+      account,
+    })
+  }, [ENSName, ENSNames, account, accounts, chainId, connector, isActivating, isActive, network, provider])
 
+  return {
+    connector,
+    dialogs,
+    chainId: chainId || defaultMarket.chainId,
+    network,
+    accounts,
+    isActivating,
+    isActive,
+    provider,
+    ENSNames,
+    ENSName,
+    account,
+    error,
+    status,
+  }
+}
+
+export const {
+  Context,
+  Provider: WalletProvider,
+  createUseContext: createWalletContext,
+} = createContextWithProvider(useWalletService)
+
+export const Provider: FCC = (props) => {
   return (
-    <UseWalletContext.Provider
-      value={{
-        wallet,
-      }}
-    >
-      {children}
-    </UseWalletContext.Provider>
+    <UseWalletProvider>
+      <WalletProvider>{props.children}</WalletProvider>
+    </UseWalletProvider>
   )
 }
 
-UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
-UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
-
-function UseWalletProviderWrapper(props: UseWalletProviderProps) {
-  const getLibrary = props.getLibrary
-  return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <UseWalletProvider {...props} />
-    </Web3ReactProvider>
-  )
-}
-
-export {
-  ChainUnsupportedError,
-  ConnectorUnsupportedError,
-  UseWalletProviderWrapper as UseWalletProvider,
-  useWallet as useWalletBase,
-  getProviderString,
-  getProviderFromUseWalletId,
-  chains,
-}
+export default Provider

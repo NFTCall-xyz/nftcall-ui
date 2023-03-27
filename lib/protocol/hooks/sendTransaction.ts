@@ -15,7 +15,7 @@ export type transactionType = {
 }
 
 export const useSendTransaction = () => {
-  const { library: web3Provider } = useWeb3React<providers.Web3Provider>()
+  const { provider: web3Provider } = useWeb3React<providers.Web3Provider>()
 
   const send = useCallback(
     (extendedTxData: transactionType) => {

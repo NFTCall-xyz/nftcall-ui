@@ -19,7 +19,7 @@ export const useRequest = () => {
   const {
     contracts: { callPoolService },
   } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const sendTransaction = useSendTransaction()
 
   const requestSetting = useCallback(
@@ -46,7 +46,7 @@ export const useRequest = () => {
       return transaction({
         createTransaction: callPoolService.changePreference({
           callPool: CallPool,
-          user: networkAccount,
+          user: account,
           tokenIds,
           lowerLimitOfStrikePrices,
           lowerStrikePriceGapIdxs: minStrikePrices,
@@ -57,7 +57,7 @@ export const useRequest = () => {
         isOnlyApprove: false,
       })
     },
-    [callPoolService, networkAccount, sendTransaction]
+    [callPoolService, account, sendTransaction]
   )
 
   const requestWithdraw = useCallback(
@@ -81,7 +81,7 @@ export const useRequest = () => {
       return transaction({
         createTransaction: callPoolService.withdraw({
           callPool: CallPool,
-          user: networkAccount,
+          user: account,
           tokenIds,
         }),
         setStatus: () => {},
@@ -89,7 +89,7 @@ export const useRequest = () => {
         isOnlyApprove: false,
       })
     },
-    [callPoolService, networkAccount, sendTransaction]
+    [callPoolService, account, sendTransaction]
   )
 
   return {

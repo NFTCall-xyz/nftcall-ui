@@ -29,7 +29,7 @@ export const useTable = (): BasicTableProps => {
   const {
     contracts: { callPoolService },
   } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const sendTransaction = useSendTransaction()
   const fn = useCallback(
     (props: ClaimProps) => {
@@ -54,7 +54,7 @@ export const useTable = (): BasicTableProps => {
             onClick={() => {
               fn({
                 callPool: rowData.address.CallPool,
-                user: networkAccount,
+                user: account,
                 amount: '-1',
               }).then(() => balanceOf.updateBalanceOf())
             }}
@@ -65,7 +65,7 @@ export const useTable = (): BasicTableProps => {
         </TableCell>
       )
     },
-    [balanceOf, fn, networkAccount, t]
+    [balanceOf, fn, account, t]
   )
 
   const columns = useMemo(

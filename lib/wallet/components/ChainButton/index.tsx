@@ -54,7 +54,7 @@ export const ChainButton: FC = () => {
           color: theme.palette.text.secondary,
         }}
       >
-        {network.fullName}
+        {network.name}
       </Button>
     )
   }, [network, open, t, theme.palette, downSm])

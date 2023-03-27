@@ -34,7 +34,7 @@ export const useForm = () => {
   const {
     contracts: { callPoolService },
   } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const sendTransaction = useSendTransaction()
   const formik = useFormik({
     initialValues,
@@ -44,7 +44,7 @@ export const useForm = () => {
       return transaction({
         createTransaction: callPoolService.changePreference({
           callPool: callPoolAddress,
-          user: networkAccount,
+          user: account,
           tokenIds: [tokenId],
           lowerLimitOfStrikePrice: safeGet(() => valueToWei(values.lowerLimitOfStrikePrice).toString()) || '0',
           lowerStrikePriceGapIdx: values.minStrikePrice,

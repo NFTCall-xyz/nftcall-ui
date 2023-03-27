@@ -19,7 +19,7 @@ export const useRequest = () => {
   const {
     contracts: { callPoolService, erc721Service },
   } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const sendTransaction = useSendTransaction()
 
   const request = useCallback(
@@ -46,7 +46,7 @@ export const useRequest = () => {
       return transaction({
         createTransaction: callPoolService.deposit({
           callPool: CallPool,
-          user: networkAccount,
+          user: account,
           nft: NFT,
           tokenIds,
           approveService: erc721Service as any,
@@ -59,7 +59,7 @@ export const useRequest = () => {
         isOnlyApprove: false,
       })
     },
-    [callPoolService, erc721Service, networkAccount, sendTransaction]
+    [callPoolService, erc721Service, account, sendTransaction]
   )
 
   return {

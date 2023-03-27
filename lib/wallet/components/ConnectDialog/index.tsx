@@ -10,7 +10,9 @@ import ConnectDialogTitle from './ConnectDialogTitle'
 
 const ConnectDialog: FC = () => {
   const {
-    connectDialog: { visible, close },
+    dialogs: {
+      connectDialog: { visible, close },
+    },
   } = useWallet()
 
   return (

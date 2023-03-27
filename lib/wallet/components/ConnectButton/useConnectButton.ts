@@ -4,7 +4,9 @@ export function useConnectButton() {
   const {
     status,
     error,
-    connectDialog: { open },
+    dialogs: {
+      connectDialog: { open },
+    },
   } = useWallet()
 
   return { status, open, error }

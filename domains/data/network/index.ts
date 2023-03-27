@@ -11,7 +11,7 @@ import { useThegraphUrl } from './application/thegraphUrl'
 const useNetworkService = () => {
   const address = useAddress()
   const markets = useMemo(() => getMarkets(address), [address])
-  const provider = useProvider(address)
+  const provider = useProvider()
   const contracts = useContracts(provider)
   const thegraphUrl = useThegraphUrl()
 

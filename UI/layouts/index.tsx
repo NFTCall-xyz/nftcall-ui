@@ -11,8 +11,8 @@ import NFTSettingBatchDialog from 'domains/data/callPools/components/NFTSettingB
 import NFTSettingDialog from 'domains/data/callPools/components/NFTSettingDialog'
 
 import NProgress from 'lib/nprogress/components/NProgress'
-import ChainDialog from 'lib/protocol/components/wallet/ChainDialog'
-import ConnectDialog from 'lib/protocol/components/wallet/ConnectDialog'
+import ChainDialog from 'lib/wallet/components/ChainDialog'
+import ConnectDialog from 'lib/wallet/components/ConnectDialog'
 
 import AppLayout from './app'
 import HomeLayout from './home'

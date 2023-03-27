@@ -2,10 +2,11 @@ import { useWallet } from 'domains'
 
 export function useChainButton() {
   const {
-    status,
     network,
-    chainDialog: { open },
+    dialogs: {
+      chainDialog: { open },
+    },
   } = useWallet()
 
-  return { network, status, open }
+  return { network, open }
 }

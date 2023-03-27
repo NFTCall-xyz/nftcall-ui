@@ -49,7 +49,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   const [sourceData, setSourceData] = useImmer<Position[]>([])
 
   const { callPools } = useCallPools()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const {
     contracts: { callPoolService },
   } = useNetwork()
@@ -76,7 +76,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
             disabled={rowData.status !== PositionStatus.Exercisable}
             onClick={() => {
               fn({
-                user: networkAccount,
+                user: account,
                 callPool: rowData.callPoolAddress,
                 tokenId: rowData.tokenId,
                 strikePrice: valueToWei(rowData.strikePrice).toString(),
@@ -199,7 +199,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
         .post({
           skip: pageIndex * pageSize,
           first: pageSize,
-          userAddress: networkAccount,
+          userAddress: account,
           thegraphUrl,
           isActive,
         })
@@ -208,7 +208,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           setSourceData((data) => data.concat(rowData))
         })
     },
-    [dataFetcher, isActive, networkAccount, setNoMoreSourceData, setSourceData, thegraphUrl]
+    [dataFetcher, isActive, account, setNoMoreSourceData, setSourceData, thegraphUrl]
   )
 
   const loadMore = useMemo(() => {
@@ -224,12 +224,12 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   }, [dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex, setPageIndex])
 
   useEffect(() => {
-    if (!networkAccount) return
+    if (!account) return
     setSourceData([])
     setPageIndex(1)
     onFetch(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [networkAccount])
+  }, [account])
 
   return {
     loading: dataFetcher.loading,

@@ -17,8 +17,8 @@ import { styled, useTheme } from '@mui/material/styles'
 
 import { Small } from 'components/Typography'
 
-import ChainButton from 'lib/protocol/components/wallet/ChainButton'
-import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'
+import ChainButton from 'lib/wallet/components/ChainButton'
+import ConnectButton from 'lib/wallet/components/ConnectButton'
 
 import { useLinks } from '../../Footer/Links/useLinks'
 import Logo from '../Logo'

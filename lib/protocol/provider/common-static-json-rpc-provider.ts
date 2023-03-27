@@ -1,10 +1,10 @@
 import { deepCopy } from '@ethersproject/properties'
-import type { FallbackProvider } from '@ethersproject/providers'
+import type { Web3Provider } from '@ethersproject/providers'
 import { StaticJsonRpcProvider } from '@ethersproject/providers'
 import type { ConnectionInfo } from '@ethersproject/web'
 import { fetchJson } from '@ethersproject/web'
 
-export type Provider = CommonStaticJsonRpcProvider | FallbackProvider
+export type Provider = Web3Provider
 
 function getResult(payload: { error?: { code?: number; data?: any; message?: string }; result?: any }): any {
   if (payload.error) {

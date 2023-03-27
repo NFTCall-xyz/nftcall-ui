@@ -24,15 +24,15 @@ const ListOnMarket: FC<ListOnMarketProps> = ({ checked, loading, nft, nftActions
   const {
     contracts: { callPoolService },
   } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const sendTransaction = useSendTransaction()
   const query = useMemo(
     () => ({
       callPool: callPoolAddress,
-      user: networkAccount,
+      user: account,
       tokenIds: [tokenId],
     }),
-    [callPoolAddress, networkAccount, tokenId]
+    [callPoolAddress, account, tokenId]
   )
   const relistNFT = useCallback(() => {
     setLoading(true)

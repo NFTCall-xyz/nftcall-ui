@@ -47,18 +47,18 @@ const useAssetsData = (assetsSourceData: AssetsData[]) => {
 export const useTokendId = () => {
   const { assets: assetsSourceData, wallet } = useTokenIdStateData()
   const { address, markets } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const { tokenId } = useControllers()
   const updateWallet = useCallback(() => {
     const chainId = address.chainId
     const nfts = markets.map((market) => market.address.NFT)
-    if (!networkAccount || !chainId || !nfts.length) return Promise.resolve()
+    if (!account || !chainId || !nfts.length) return Promise.resolve()
     return tokenId.wallet.single.run({
       chainId,
-      user: networkAccount,
+      user: account,
       nfts,
     })
-  }, [address.chainId, markets, networkAccount, tokenId.wallet.single])
+  }, [address.chainId, markets, account, tokenId.wallet.single])
 
   const updateAssets = useCallback(
     (wallet: WalletData[]) => {

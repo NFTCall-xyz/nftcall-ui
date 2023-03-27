@@ -5,7 +5,9 @@ import { DialogCloseIconButton } from 'components/btn/IconButton'
 
 const ChainDialogCloseIconButton: FC = () => {
   const {
-    chainDialog: { close },
+    dialogs: {
+      chainDialog: { close },
+    },
   } = useWallet()
 
   return <DialogCloseIconButton onClick={close} />

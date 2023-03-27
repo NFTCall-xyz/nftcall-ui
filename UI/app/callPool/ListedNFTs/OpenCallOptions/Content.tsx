@@ -42,7 +42,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
   } = useUser()
   const [strikePriceGapIdxSource, setStrikePriceGapIdx] = useImmer(1)
   const [durationIdxSource, setDurationIdx] = useImmer(MAX_EXPRIY_TIME_MAP.length - 1)
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const { strikePriceSetting, durationSetting, limitOfStrikePriceSetting, nftOwnerIsUser } = useMemo(() => {
     const strikePriceSetting = {
       min: 0,
@@ -70,7 +70,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
         limitOfStrikePriceSetting.min = lowerLimitOfStrikePrice
         limitOfStrikePriceSetting.tokenId = id
       }
-      if (networkAccount && userAddress === networkAccount.toLocaleLowerCase()) {
+      if (account && userAddress === account.toLocaleLowerCase()) {
         nftOwnerIsUser.tokenId = id
       }
     })
@@ -80,7 +80,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
       limitOfStrikePriceSetting,
       nftOwnerIsUser,
     }
-  }, [ids, nfts, networkAccount])
+  }, [ids, nfts, account])
   const { strikePriceGapIdx, durationIdx } = useMemo(() => {
     let strikePriceGapIdx = strikePriceGapIdxSource
     let durationIdx = durationIdxSource
@@ -269,7 +269,7 @@ const OpenCallOptionsContent: FC<OpenCallOptionsProps> = ({
             tokenIds: ids,
             strikePriceGapIdx: strikePriceGapIdx,
             durationIdx: durationIdx,
-            user: networkAccount,
+            user: account,
           }).then(() => updateListedData())
         }}
       >

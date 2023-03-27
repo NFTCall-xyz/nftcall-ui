@@ -9,8 +9,8 @@ import ListItem from '@mui/material/ListItem'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 
-import ChainButton from 'lib/protocol/components/wallet/ChainButton'
-import ConnectButton from 'lib/protocol/components/wallet/ConnectButton'
+import ChainButton from 'lib/wallet/components/ChainButton'
+import ConnectButton from 'lib/wallet/components/ConnectButton'
 
 const ROOT = styled(Stack)``
 

@@ -26,7 +26,7 @@ const ChainDialogTitle: FC = () => {
           {t('wallet.chain.subTitle')}
           {network ? (
             <Typography key="wallet_chain_btn_text" component="span" color="primary">
-              {network.fullName}
+              {network.name}
             </Typography>
           ) : (
             <Typography key="wallet_chain_btn_text" component="span" color="error">

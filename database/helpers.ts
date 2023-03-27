@@ -79,7 +79,7 @@ export const getUseCacheMemo = <Q, T extends Table, P>(
         const data = await getCacheData(table, props)
         return BNSaveToBNArray(data) as Q[]
       } catch (error) {
-        console.error('[useCacheMemo][getCacheData]', getCacheData)
+        console.error('[useCacheMemo][getCacheData]', error, table, props)
         return
       }
     }, deps)

@@ -12,6 +12,9 @@ import { styled } from '@mui/material/styles'
 import { H3, H5 } from 'components/Typography'
 import RingLoading from 'components/loading/RingLoading'
 
+import { metaMask } from 'lib/wallet/connectors/metaMask'
+import { walletConnectV2 } from 'lib/wallet/connectors/walletConnectV2'
+
 import Account from '../Account'
 import MetamaskImg from './images/metamask.svg'
 import WalletconnectImg from './images/wallet-connect.svg'
@@ -46,7 +49,7 @@ const ConnectDialogContent: FC = () => {
 
 const WalletConnected: FC = () => {
   const { t } = useTranslation()
-  const { reset } = useWallet()
+  const { connector } = useWallet()
 
   const ROOT = styled('div')``
   const AccountDiv = styled(H3)(({ theme }) => ({
@@ -63,7 +66,7 @@ const WalletConnected: FC = () => {
       <AccountDiv>
         <Account />
       </AccountDiv>
-      <DisconnectBtn variant="outlined" onClick={reset}>
+      <DisconnectBtn variant="outlined" onClick={() => connector.resetState()}>
         {t('wallet.btn.disconnected')}
       </DisconnectBtn>
     </ROOT>
@@ -72,8 +75,10 @@ const WalletConnected: FC = () => {
 
 const WalletDisconnected: FC = () => {
   const {
-    connect,
-    connectDialog: { close },
+    chainId,
+    dialogs: {
+      connectDialog: { close },
+    },
   } = useWallet()
 
   const ConnectWallet = styled(Button)(({ theme }) => ({
@@ -101,7 +106,7 @@ const WalletDisconnected: FC = () => {
       <ConnectWallet
         color="inherit"
         onClick={async () => {
-          await connect()
+          await metaMask.activate()
           close()
         }}
       >
@@ -111,7 +116,7 @@ const WalletDisconnected: FC = () => {
       <ConnectWallet
         color="inherit"
         onClick={async () => {
-          await connect('walletconnect')
+          await walletConnectV2.activate(chainId)
           close()
         }}
       >

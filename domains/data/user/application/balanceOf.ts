@@ -8,12 +8,12 @@ import { useUserStateData } from 'store/user/useUserStateData'
 export const useBalanceOf = () => {
   const returnValue = useUserStateData()
   const { provider } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const {
     user: { balanceOf },
   } = useControllers()
 
-  const query = useMemo(() => ({ provider, user: networkAccount }), [networkAccount, provider])
+  const query = useMemo(() => ({ provider, user: account }), [account, provider])
   balanceOf.usePolling(query, (query) => !query.user || !query.provider, 1000 * 60)
 
   const updateBalanceOf = useCallback(() => {

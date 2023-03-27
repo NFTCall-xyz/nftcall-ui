@@ -33,7 +33,7 @@ export const useForm = () => {
   const {
     contracts: { callPoolService, erc721Service },
   } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const {
     tokenId: { updateWallet },
   } = useNFT()
@@ -46,7 +46,7 @@ export const useForm = () => {
       return transaction({
         createTransaction: callPoolService.deposit({
           callPool: callPoolAddress,
-          user: networkAccount,
+          user: account,
           nft: nftAddress,
           tokenIds: [tokenId],
           approveService: erc721Service as any,

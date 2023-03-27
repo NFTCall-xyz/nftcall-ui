@@ -8,14 +8,14 @@ import type { UserStatsProps } from 'store/callPool/userStats/adapter'
 export const useUserStats = () => {
   const { callPool } = useControllers()
   const { thegraphUrl } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
 
   const query: UserStatsProps = useMemo(
     () => ({
-      userAddress: networkAccount,
+      userAddress: account,
       thegraphUrl,
     }),
-    [networkAccount, thegraphUrl]
+    [account, thegraphUrl]
   )
 
   callPool.userStats.usePolling(query, (query) => !query.userAddress || !query.thegraphUrl, 1000 * 60)

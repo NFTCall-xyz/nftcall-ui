@@ -28,7 +28,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   const [sourceData, setSourceData] = useImmer([])
 
   const { callPools } = useCallPools()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
 
   const columns = useMemo(
     () =>
@@ -102,7 +102,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
         .post({
           skip: pageIndex * pageSize,
           first: pageSize,
-          nftOwnerAddress: networkAccount,
+          nftOwnerAddress: account,
           thegraphUrl,
           isActive,
         })
@@ -111,7 +111,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
           setSourceData((data) => data.concat(rowData))
         })
     },
-    [dataFetcher, isActive, networkAccount, setNoMoreSourceData, setSourceData, thegraphUrl]
+    [dataFetcher, isActive, account, setNoMoreSourceData, setSourceData, thegraphUrl]
   )
 
   const loadMore = useMemo(() => {
@@ -127,12 +127,12 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
   }, [dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex, setPageIndex])
 
   useEffect(() => {
-    if (!networkAccount) return
+    if (!account) return
     setSourceData([])
     setPageIndex(1)
     onFetch(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [networkAccount])
+  }, [account])
 
   return {
     loading: dataFetcher.loading,

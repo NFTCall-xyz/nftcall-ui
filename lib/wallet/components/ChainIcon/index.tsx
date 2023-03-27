@@ -1,7 +1,9 @@
 import type { FC } from 'react'
 
 import CircleIcon from '@mui/icons-material/FiberManualRecordRounded'
+
 import TokenIcon from 'lib/protocol/components/TokenIcon'
+
 interface ChainIconProps {
   chainName: string
 }

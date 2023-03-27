@@ -45,15 +45,16 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 const ChainButton: FC<{ chainId: ChainId }> = (props) => {
   const {
-    chainDialog: { close },
+    dialogs: {
+      chainDialog: { close },
+    },
   } = useWallet()
-  const { library } = useWeb3React()
+  const { provider } = useWeb3React()
   const onSwitchEthereumChain = useCallback(
     (chainId: ChainId) => {
-      const provider = library || window.ethereum
       if (provider) return switchEthereumChain(provider, chainId)
     },
-    [library]
+    [provider]
   )
   const network = useMemo(() => getNetwork(props.chainId), [props.chainId])
 

@@ -109,14 +109,14 @@ const NFTCard: FC<DepositedNFT> = (props) => {
   const {
     contracts: { callPoolService },
   } = useNetwork()
-  const { networkAccount } = useWallet()
+  const { account } = useWallet()
   const sendTransaction = useSendTransaction()
   const handleWithdraw = useCallback(() => {
     setLoading(true)
     return transaction({
       createTransaction: callPoolService.withdraw({
         callPool: callPoolAddress,
-        user: networkAccount,
+        user: account,
         tokenIds: [tokenId],
       }),
       setStatus: () => {},
@@ -128,7 +128,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
         close()
       })
       .finally(() => setLoading(false))
-  }, [callPoolAddress, callPoolService, networkAccount, sendTransaction, setLoading, setStatus, tokenId])
+  }, [callPoolAddress, callPoolService, account, sendTransaction, setLoading, setStatus, tokenId])
 
   const actions = useMemo(() => {
     switch (status) {
