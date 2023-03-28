@@ -216,12 +216,13 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
       end,
       disabled: dataFetcher.loading,
       onLoadMore: () => {
+        if (!account) return setNoMoreSourceData(true)
         if (noMoreSourceData) return Promise.resolve()
         setPageIndex(pageIndex + 1)
         return onFetch(pageIndex)
       },
     }
-  }, [dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex, setPageIndex])
+  }, [account, dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex, setNoMoreSourceData, setPageIndex])
 
   useEffect(() => {
     if (!account) return

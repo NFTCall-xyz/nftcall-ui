@@ -81,6 +81,7 @@ export const useTable = (): BasicTableProps => {
       end,
       disabled: dataFetcher.loading,
       onLoadMore: () => {
+        if (!account) return setNoMoreSourceData(true)
         setPageIndex(pageIndex + 1)
         if (noMoreSourceData) return Promise.resolve()
         return dataFetcher
