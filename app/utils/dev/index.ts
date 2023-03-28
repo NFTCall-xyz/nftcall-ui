@@ -1,15 +1,17 @@
-import { cloneDeep, noop } from 'lodash'
+import { cloneDeep, isEmpty, noop } from 'lodash'
 
 const BNArrToStrArr = (obj: any[]) => {
   const arr = cloneDeep(obj)
-  return arr.map((item) => BNObjToStrObj(item))
+  return arr.map((item) => getStringObj(item))
 }
 const BNObjToStrObj = (obj: any) => {
   if (typeof obj !== 'object') return obj
   const o: any = {}
   Object.keys(obj).forEach((k) => {
-    if (!obj[k]) return
-    if (obj[k]._isBigNumber && obj[k].toString) {
+    if (isEmpty(obj[k])) {
+      o[k] = undefined
+      return
+    } else if (obj[k]._isBigNumber && obj[k].toString) {
       o[k] = obj[k].toString()
     } else if (obj[k] instanceof Array) {
       o[k] = BNArrToStrArr(obj[k])
@@ -18,11 +20,14 @@ const BNObjToStrObj = (obj: any) => {
     } else {
       o[k] = obj[k]
     }
+
+    if (o[k] === 'NaN') debugger
+    if (o[k] === '[object Object]') debugger
   })
   return o
 }
 
-const getStringObj = (obj: any) => {
+const getStringObj = (obj: any): any => {
   if (obj instanceof Array) {
     return BNArrToStrArr(obj)
   } else {

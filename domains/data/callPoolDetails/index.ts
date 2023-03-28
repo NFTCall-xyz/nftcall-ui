@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { createContextWithProvider } from 'app/utils/createContext'
-import { log } from 'app/utils/dev'
+import { useWhyDidYouUpdate } from 'app/utils/dev/hooks/useWhyDidYouUpdate'
 import { safeGet } from 'app/utils/get'
 
 import type { PremiumData } from 'store/callPool/previewOpenCall/adapter/getPreviewOpenCallData'
@@ -19,8 +19,7 @@ const useCallPoolDetailsService = () => {
   const storeData = useCallPoolStateData()
   const { callPools } = useCallPools()
   const callPoolId = useCallPoolId()
-  const callPool = useMemo(() => {
-    let returnValue: CallPoolDetail = {} as any
+  const callPool: CallPoolDetail = useMemo(() => {
     if (!callPoolId.value) return undefined
     const callPool = callPools.find(
       (callPool) => callPool.address.CallPool.toLowerCase() === callPoolId.value.toLowerCase()
@@ -30,13 +29,13 @@ const useCallPoolDetailsService = () => {
       safeGet(() => storeData.previewOpenCall.find((i) => i.callPool === callPool.address.CallPool).premiums) ||
       ([] as undefined)
 
-    returnValue = {
+    return {
       ...callPool,
       premiums,
     }
-    log('[CallPoolDetailsService]', returnValue)
-    return returnValue
   }, [callPoolId.value, callPools, storeData.previewOpenCall])
+
+  useWhyDidYouUpdate('[CallPoolDetailsService]', callPool)
 
   return {
     callPool,

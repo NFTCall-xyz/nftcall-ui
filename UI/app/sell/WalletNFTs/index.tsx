@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid'
 import { Stack } from '@mui/system'
 
 import { useIds } from 'app/hooks/useIds'
-import { log } from 'app/utils/dev'
 import { safeGet } from 'app/utils/get'
 
 import { Paragraph } from 'components/Typography'
@@ -59,7 +58,6 @@ const WalletNFTs = () => {
       })
     })
     const key = getWalletDataKeyByNFTs(nfts)
-    log('[WalletNFTs]', nfts)
     return {
       key,
       nfts,

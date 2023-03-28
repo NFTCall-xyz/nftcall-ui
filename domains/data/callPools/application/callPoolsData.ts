@@ -1,7 +1,6 @@
 import { useWallet } from 'domains'
 import { useCallback, useMemo } from 'react'
 
-import { log } from 'app/utils/dev'
 import { useWhyDidYouUpdate } from 'app/utils/dev/hooks/useWhyDidYouUpdate'
 import { safeGet } from 'app/utils/get'
 
@@ -57,7 +56,6 @@ const useCallPoolsSouceData = () => {
         totalOpenInterest,
       } as CallPool
     })
-    // log('[CallPoolsService][callPoolsSouceData]', returnValue)
     return returnValue
   }, [
     collections,
@@ -68,7 +66,8 @@ const useCallPoolsSouceData = () => {
     storeData.totalOpenInterest,
     storeData.userStats.userCallPoolStat,
   ])
-  useWhyDidYouUpdate('[CallPoolsSouceData]', [
+
+  useWhyDidYouUpdate('[CallPools][CallPoolsSouceData]', [
     collections,
     markets,
     oracle.nftOracle,
@@ -120,9 +119,10 @@ export const useCallPoolsData = () => {
         ...cacheData,
       }
     })
-    log('[CallPools]', returnValue)
     return returnValue
   }, [callPoolsCacheData, callPoolsSouceData])
+
+  useWhyDidYouUpdate('[CallPools][callPools]', callPools)
 
   return callPools
 }

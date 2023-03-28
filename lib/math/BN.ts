@@ -9,11 +9,11 @@ export function toBN(amount: BNValue): BigNumber {
 
   if (!amount) {
     value = 0
-  } else if (amount instanceof BigNumber) {
+  } else if (amount instanceof BigNumber && !amount.isNaN()) {
     return amount
   } else if (typeof amount === 'string' || typeof amount === 'number') {
     value = amount
-  } else if (amount._hex) {
+  } else if ('_hex' in amount) {
     value = amount._hex
   } else {
     value = amount.toString()

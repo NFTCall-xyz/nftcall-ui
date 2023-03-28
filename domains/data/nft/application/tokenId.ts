@@ -2,7 +2,6 @@ import { useControllers, useWallet } from 'domains'
 import { useCallback, useEffect, useMemo } from 'react'
 
 import { getOpenSeaMainNetworkAddress } from 'app/constant/openSea'
-import { log } from 'app/utils/dev'
 
 import { useCacheData } from 'database/helpers'
 import { db } from 'database/nftcall'
@@ -39,7 +38,6 @@ const useAssetsData = (assetsSourceData: AssetsData[]) => {
   const assets: AssetsData[] = useMemo(() => {
     if (!assetsCacheData || !assetsCacheData.length) return assetsSourceData
     const returnValue = assetsCacheData
-    log('[Assets]', returnValue)
     return returnValue
   }, [assetsCacheData, assetsSourceData])
 

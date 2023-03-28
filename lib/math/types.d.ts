@@ -8,6 +8,6 @@ export type BNValue =
   | BN
   | EthersBN
   | {
-      _hex: string
+      _hex?: string
       _isBigNumber: true
     }
