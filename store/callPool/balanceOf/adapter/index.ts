@@ -20,7 +20,7 @@ export const balanceOfRequest = ({ callPoolService, user, callPools }: BalanceOf
         .then((value) => returnValue.push(getBalanceOfBaseData(callPool, user, value)))
     )
   })
-  return Promise.all(promises).then(() => returnValue)
+  return Promise.all(promises).then(() => returnValue.sort((a, b) => a.callPool.localeCompare(b.callPool)))
 }
 
 export type BalanceOfSliceState = Awaited<ReturnType<typeof balanceOfRequest>>

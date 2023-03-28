@@ -19,7 +19,7 @@ export const totalOpenInterestRequest = ({ callPoolService, callPools }: TotalOp
         .then((value) => returnValue.push(getTotalOpenInterestBaseData(callPool, value)))
     )
   })
-  return Promise.all(promises).then(() => returnValue)
+  return Promise.all(promises).then(() => returnValue.sort((a, b) => a.callPool.localeCompare(b.callPool)))
 }
 
 export type TotalOpenInterestSliceState = Awaited<ReturnType<typeof totalOpenInterestRequest>>
