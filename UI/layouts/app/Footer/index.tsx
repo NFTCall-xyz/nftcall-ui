@@ -26,6 +26,9 @@ const Content = styled(Container)`
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
+      ['.copy-right']: {
+        marginTop: '16px',
+      },
     },
   })}
 `
@@ -46,9 +49,11 @@ const Footer: FC = () => {
             <Logo imgSrc={LogoImgDark} />
             <Links />
           </Stack>
-          <Certik />
+          <Box display="flex" justifyContent="center">
+            <Certik />
+          </Box>
         </Stack>
-        <CopyRight variant="caption" color="grey.400">
+        <CopyRight className="copy-right" variant="caption" color="grey.400">
           © 2023, NFTCall. All Rights Reserved
         </CopyRight>
       </Content>
