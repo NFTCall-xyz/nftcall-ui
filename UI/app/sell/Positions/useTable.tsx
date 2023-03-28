@@ -125,7 +125,7 @@ export const useTable = ({ isActive }: PositionsProps): BasicTableProps => {
         return onFetch(pageIndex)
       },
     }
-  }, [dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex, setPageIndex])
+  }, [account, dataFetcher.loading, end, noMoreSourceData, onFetch, pageIndex, setNoMoreSourceData, setPageIndex])
 
   useEffect(() => {
     if (!account) return
