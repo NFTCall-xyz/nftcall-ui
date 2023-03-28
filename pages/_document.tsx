@@ -28,6 +28,17 @@ export default class MyDocument extends Document {
               }}
             ></script>
           )}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function hideEmblem() {
+                var el = document.createElement('style');
+                document.head.appendChild(el);
+                var styleSheet = el.sheet;
+                styleSheet.insertRule('.certik-emblem { display: none; }', 0);
+              })();`,
+            }}
+          ></script>
+          <script async src="https://emblem.certik-assets.com/script?pid=nftcall&vid=671fe7a0"></script>
         </Head>
         <body>
           {process.env.NEXT_PUBLIC_GTM_ID && (

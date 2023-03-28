@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 
 import Logo from '../Header/Logo'
+import Certik from './Certik'
 import Links from './Links'
 import LogoImgDark from './images/logo-black.svg'
 
@@ -40,9 +41,12 @@ const Footer: FC = () => {
   return (
     <ROOT component="footer">
       <Content>
-        <Stack spacing={4} direction={{ xs: 'column', sm: 'row' }} alignItems="center">
-          <Logo imgSrc={LogoImgDark} />
-          <Links />
+        <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+          <Stack spacing={4} direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Logo imgSrc={LogoImgDark} />
+            <Links />
+          </Stack>
+          <Certik />
         </Stack>
         <CopyRight variant="caption" color="grey.400">
           © 2023, NFTCall. All Rights Reserved
