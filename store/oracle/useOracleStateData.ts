@@ -6,8 +6,10 @@ import { getNFTOracleData } from './nftOracle/adapter/getNFTOracleData'
 
 export const useOracleStateData = () => {
   const nftOracleBaseData = useAppSelector(nftOracleSelect.selectData)
-  const returnValue = useMemo(() => {
-    return { nftOracle: getNFTOracleData(nftOracleBaseData) }
-  }, [nftOracleBaseData])
-  return returnValue
+
+  const nftOracle = useMemo(() => getNFTOracleData(nftOracleBaseData), [nftOracleBaseData])
+
+  return {
+    nftOracle,
+  }
 }

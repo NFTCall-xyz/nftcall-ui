@@ -9,8 +9,12 @@ import { getWalletData } from './wallet/adapter/getWalletData'
 export const useTokenIdStateData = () => {
   const assetsBaseData = useAppSelector(assetsSelect.selectData)
   const walletBaseData = useAppSelector(walletSelect.selectData)
-  const returnValue = useMemo(() => {
-    return { assets: getAssetsData(assetsBaseData), wallet: getWalletData(walletBaseData) }
-  }, [assetsBaseData, walletBaseData])
-  return returnValue
+
+  const assets = useMemo(() => getAssetsData(assetsBaseData), [assetsBaseData])
+  const wallet = useMemo(() => getWalletData(walletBaseData), [walletBaseData])
+
+  return {
+    assets,
+    wallet,
+  }
 }

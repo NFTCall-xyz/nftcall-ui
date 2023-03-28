@@ -18,14 +18,21 @@ export const useCallPoolStateData = () => {
   const statsBaseData = useAppSelector(statsSelect.selectData)
   const userStatsBaseData = useAppSelector(userStatsSelect.selectData)
   const totalOpenInterestBaseData = useAppSelector(totalOpenInterestSelect.selectData)
-  const returnValue = useMemo(() => {
-    return {
-      balanceOf: getBalanceOfData(balanceOfBaseData),
-      previewOpenCall: getPreviewOpenCallData(previewOpenCallBaseData),
-      stats: getStatsData(statsBaseData),
-      userStats: getUserStatsData(userStatsBaseData),
-      totalOpenInterest: getTotalOpenInterestData(totalOpenInterestBaseData),
-    }
-  }, [balanceOfBaseData, previewOpenCallBaseData, statsBaseData, totalOpenInterestBaseData, userStatsBaseData])
-  return returnValue
+
+  const balanceOf = useMemo(() => getBalanceOfData(balanceOfBaseData), [balanceOfBaseData])
+  const previewOpenCall = useMemo(() => getPreviewOpenCallData(previewOpenCallBaseData), [previewOpenCallBaseData])
+  const stats = useMemo(() => getStatsData(statsBaseData), [statsBaseData])
+  const userStats = useMemo(() => getUserStatsData(userStatsBaseData), [userStatsBaseData])
+  const totalOpenInterest = useMemo(
+    () => getTotalOpenInterestData(totalOpenInterestBaseData),
+    [totalOpenInterestBaseData]
+  )
+
+  return {
+    balanceOf,
+    previewOpenCall,
+    stats,
+    userStats,
+    totalOpenInterest,
+  }
 }
