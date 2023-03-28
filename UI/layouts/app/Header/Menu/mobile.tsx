@@ -51,21 +51,34 @@ const MenuMobile = () => {
         <Divider />
         {menu.list
           .filter((item) => !item.hide)
-          .map(({ label, linkTo, key }) => (
-            <Link href={linkTo} key={linkTo}>
-              <ListItemButton selected={menu.current.key === key} onClick={() => setOpenDrawer(false)}>
-                <ListItemText primary={label} />
-              </ListItemButton>
-            </Link>
+          .map(({ label, linkTo, key, target }) => (
+            <ListItemButton
+              key={linkTo}
+              selected={menu.current.key === key}
+              onClick={(e) => {
+                setOpenDrawer(false)
+                e.preventDefault()
+                e.stopPropagation()
+                menu.changeMenu(linkTo, target)
+              }}
+            >
+              <ListItemText primary={label} />
+            </ListItemButton>
           ))}
         <Divider />
-        {links.map(({ label, linkTo, icon }) => (
-          <Link href={linkTo} key={linkTo} passHref>
-            <ListItemButton>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={label} sx={{ color: theme.palette.text.secondary }} />
-            </ListItemButton>
-          </Link>
+        {links.map(({ label, linkTo, icon, target }) => (
+          <ListItemButton
+            key={linkTo}
+            onClick={(e) => {
+              setOpenDrawer(false)
+              e.preventDefault()
+              e.stopPropagation()
+              menu.changeMenu(linkTo, target)
+            }}
+          >
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText primary={label} sx={{ color: theme.palette.text.secondary }} />
+          </ListItemButton>
         ))}
         <Divider />
         <ListItem>

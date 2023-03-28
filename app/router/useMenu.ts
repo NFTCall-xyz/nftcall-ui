@@ -33,6 +33,11 @@ const MenuList = [
     linkTo: '/app/claim',
   },
   {
+    key: 'Audit',
+    linkTo: 'https://www.certik.com/projects/nftcall',
+    target: '_blank',
+  },
+  {
     key: 'NFTFaucets',
     linkTo: '/app/faucets/nft',
     network: ChainId.goerli,
@@ -62,7 +67,8 @@ export function useMenu() {
   }, [list, router.route])
 
   const changeMenu = useCallback(
-    (linkTo: string) => {
+    (linkTo: string, target?: string) => {
+      if (target) return window.open(linkTo, target)
       if (current.linkTo === linkTo) return
       router.push(linkTo)
     },

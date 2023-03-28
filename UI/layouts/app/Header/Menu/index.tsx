@@ -24,7 +24,7 @@ const Menu = () => {
     () =>
       list
         .filter((item) => !item.hide)
-        .map(({ label, linkTo }, index) => (
+        .map(({ label, linkTo, target }, index) => (
           <HeaderLink
             href={linkTo}
             key={index}
@@ -32,7 +32,7 @@ const Menu = () => {
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
-              changeMenu(linkTo)
+              changeMenu(linkTo, target)
             }}
           >
             {label}

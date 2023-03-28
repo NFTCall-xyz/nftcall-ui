@@ -35,25 +35,27 @@ const DiscordIcon = () => {
 }
 
 const links = [
-  { label: 'Twitter', linkTo: 'https://twitter.com/nftcall_xyz', icon: <TwitterIcon /> },
+  { label: 'Twitter', linkTo: 'https://twitter.com/nftcall_xyz', target: '_blank', icon: <TwitterIcon /> },
   // { label: 'Telegram', linkTo: '#', icon: <TelegramIcon /> },
   {
     label: 'Discord',
     linkTo: 'https://discord.gg/Evg6erexq9',
+    target: '_blank',
     icon: <DiscordIcon />,
   },
   {
     label: 'Medium',
     linkTo: 'https://medium.com/@nftcall',
+    target: '_blank',
     icon: (
       <MediumIcon>
         <MediumSVG />
       </MediumIcon>
     ),
   },
-  { label: 'Docs', linkTo: 'https://docs.nftcall.xyz/', icon: <MenuBookIcon /> },
-  { label: 'Github', linkTo: 'https://github.com/NFTCall-xyz', icon: <GitHubIcon /> },
-  { label: 'Email', linkTo: 'mailto:info@nftcall.xyz', icon: <EmailIcon /> },
+  { label: 'Docs', linkTo: 'https://docs.nftcall.xyz/', target: '_blank', icon: <MenuBookIcon /> },
+  { label: 'Github', linkTo: 'https://github.com/NFTCall-xyz', target: '_blank', icon: <GitHubIcon /> },
+  { label: 'Email', linkTo: 'mailto:info@nftcall.xyz', target: '_blank', icon: <EmailIcon /> },
 ]
 
 export const useLinks = () => {
