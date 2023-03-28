@@ -22,6 +22,7 @@ import { walletConnectV2 } from 'lib/wallet/connectors/walletConnectV2'
 import { WalletStatus } from 'lib/wallet/constant'
 
 import Account from '../Account'
+import CoinbaseImg from './images/coinbase.svg'
 import MetamaskImg from './images/metamask.svg'
 import WalletconnectImg from './images/wallet-connect.svg'
 
@@ -131,7 +132,7 @@ const WalletDisconnected: FC = () => {
         <ConnectWalletName>WalletConnect</ConnectWalletName>
       </ConnectWallet>
       <ConnectWallet color="inherit" onClick={() => connect(coinbaseWallet)}>
-        <Image src={WalletconnectImg} alt="walletconnect" />
+        <Image src={CoinbaseImg} alt="walletconnect" />
         <ConnectWalletName>Coinbase</ConnectWalletName>
       </ConnectWallet>
     </ROOT>
