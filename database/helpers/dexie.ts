@@ -31,7 +31,7 @@ const BNToBNSave = (obj: any) => {
   return o
 }
 
-const BNSaveToBNArray = (arr: any[]) => {
+export const BNSaveToBNArray = (arr: any[]) => {
   return arr.map((item) => BNSaveToBN(item))
 }
 

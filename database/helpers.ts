@@ -2,7 +2,7 @@ import type { Table } from 'dexie'
 import { useEffect } from 'react'
 import { useImmer } from 'use-immer'
 
-import { setItems } from './helpers/dexie'
+import { BNSaveToBNArray, setItems } from './helpers/dexie'
 
 type UseCacheDataProps<Q, T extends Table> = {
   getTable: () => T
@@ -19,7 +19,7 @@ export const useCacheData = <Q, T extends Table>(props: UseCacheDataProps<Q, T>)
     let stop = false
     getCacheData(table).then((data) => {
       if (stop) return
-      setCacheData(() => data)
+      setCacheData(() => BNSaveToBNArray(data))
     })
     return () => {
       stop = true
