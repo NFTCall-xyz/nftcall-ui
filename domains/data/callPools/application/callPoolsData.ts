@@ -1,10 +1,11 @@
 import { useWallet } from 'domains'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { log } from 'app/utils/dev'
+import { useWhyDidYouUpdate } from 'app/utils/dev/hooks/useWhyDidYouUpdate'
 import { safeGet } from 'app/utils/get'
 
-import { getUseCacheMemo } from 'database/helpers'
+import { useCacheData } from 'database/helpers'
 import { db } from 'database/nftcall'
 
 import { useNFT, useNetwork } from 'domains/data'
@@ -14,12 +15,6 @@ import { toBN } from 'lib/math'
 import { useCallPoolStateData } from 'store/callPool/useCallPoolStateData'
 
 import type { CallPool } from '..'
-
-type UseCacheMemoProps = { chainId: number }
-const { useCacheMemo, useCacheDataEffect } = getUseCacheMemo(
-  () => db.callPools,
-  (table, { chainId }: UseCacheMemoProps) => table.filter((callPool) => callPool.network === chainId).toArray()
-)
 
 const useCallPoolsSouceData = () => {
   const storeData = useCallPoolStateData()
@@ -73,6 +68,15 @@ const useCallPoolsSouceData = () => {
     storeData.totalOpenInterest,
     storeData.userStats.userCallPoolStat,
   ])
+  useWhyDidYouUpdate('[CallPoolsSouceData]', [
+    collections,
+    markets,
+    oracle.nftOracle,
+    storeData.balanceOf,
+    storeData.stats.callPools,
+    storeData.totalOpenInterest,
+    storeData.userStats.userCallPoolStat,
+  ])
   return callPoolsSouceData
 }
 
@@ -80,15 +84,37 @@ export const useCallPoolsData = () => {
   const { chainId } = useWallet()
   const callPoolsSouceData = useCallPoolsSouceData()
 
-  const callPoolsCacheData = useCacheMemo([callPoolsSouceData], {
-    chainId,
+  const getTable = useCallback(() => db.callPools, [])
+  const getCacheData = useCallback(
+    (table: ReturnType<typeof getTable>) => table.filter((callPool) => callPool.network === chainId).toArray(),
+    [chainId]
+  )
+  const callPoolsCacheData = useCacheData({
+    getTable,
+    getCacheData,
+    sourceData: callPoolsSouceData,
+    getSaveData: (data) => {
+      const network = chainId
+      const items = data
+        .filter((i) => i.stats.nfts)
+        .map((i) => {
+          const {
+            address: { CallPool: callPoolAddress },
+          } = i
+          const returnValue = { ...i, callPoolAddress, network }
+          delete returnValue.nftOracle
+          delete returnValue.userStats
+          return returnValue
+        })
+      return items
+    },
   })
 
   const callPools = useMemo(() => {
-    if (!callPoolsCacheData.length) return callPoolsSouceData
+    if (!callPoolsCacheData || !callPoolsCacheData.length) return callPoolsSouceData
     const returnValue = callPoolsSouceData.map((callPool) => {
       const callPoolAddress = callPool.address.CallPool
-      const cacheData = callPoolsCacheData.find((i) => i.callPoolAddress === callPoolAddress)
+      const cacheData = callPoolsCacheData.find((i) => i.address.CallPool === callPoolAddress)
       return {
         ...callPool,
         ...cacheData,
@@ -97,22 +123,6 @@ export const useCallPoolsData = () => {
     log('[CallPools]', returnValue)
     return returnValue
   }, [callPoolsCacheData, callPoolsSouceData])
-
-  useCacheDataEffect(callPoolsSouceData, (data) => {
-    const network = chainId
-    const items = data
-      .filter((i) => i.stats.nfts)
-      .map((i) => {
-        const {
-          address: { CallPool: callPoolAddress },
-        } = i
-        const returnValue = { ...i, callPoolAddress, network }
-        delete returnValue.nftOracle
-        delete returnValue.userStats
-        return returnValue
-      })
-    return items
-  })
 
   return callPools
 }

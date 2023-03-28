@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 import { getOpenSeaMainNetworkAddress } from 'app/constant/openSea'
 import { log } from 'app/utils/dev'
 
-import { getUseCacheMemo } from 'database/helpers'
+import { useCacheData } from 'database/helpers'
 import { db } from 'database/nftcall'
 
 import { useNetwork } from 'domains/data'
@@ -14,33 +14,35 @@ import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
 import { useTokenIdStateData } from 'store/nft/tokenId/useTokenIdStateData'
 import type { WalletData } from 'store/nft/tokenId/wallet/adapter/getWalletData'
 
-type UseCacheMemoProps = { chainId: number }
-const { useCacheMemo, useCacheDataEffect } = getUseCacheMemo(
-  () => db.nftAssets,
-  (table, { chainId }: UseCacheMemoProps) => table.filter((callPool) => callPool.network === chainId).toArray()
-)
-
 const useAssetsData = (assetsSourceData: AssetsData[]) => {
   const { chainId } = useWallet()
-  const assetsCacheData = useCacheMemo([assetsSourceData], {
-    chainId,
+
+  const getTable = useCallback(() => db.nftAssets, [])
+  const getCacheData = useCallback(
+    (table: ReturnType<typeof getTable>) => table.filter((callPool) => callPool.network === chainId).toArray(),
+    [chainId]
+  )
+  const assetsCacheData = useCacheData({
+    getTable,
+    getCacheData,
+    sourceData: assetsSourceData,
+    getSaveData: (data) => {
+      const network = chainId
+      const items = data.map((i) => {
+        const returnValue = { ...i, network, tokenId: i.token_id }
+        return returnValue
+      })
+      return items
+    },
   })
 
   const assets: AssetsData[] = useMemo(() => {
-    if (!assetsCacheData.length) return assetsSourceData
+    if (!assetsCacheData || !assetsCacheData.length) return assetsSourceData
     const returnValue = assetsCacheData
     log('[Assets]', returnValue)
     return returnValue
   }, [assetsCacheData, assetsSourceData])
 
-  useCacheDataEffect(assetsSourceData, (data) => {
-    const network = chainId
-    const items = data.map((i) => {
-      const returnValue = { ...i, network, tokenId: i.token_id }
-      return returnValue
-    })
-    return items
-  })
   return assets
 }
 

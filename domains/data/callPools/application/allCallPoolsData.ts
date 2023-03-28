@@ -1,10 +1,10 @@
 import { useWallet } from 'domains'
 import { merge } from 'lodash'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { log } from 'app/utils/dev'
 
-import { getUseCacheMemo } from 'database/helpers'
+import { useCacheData } from 'database/helpers'
 import { db } from 'database/nftcall'
 
 import { toBN } from 'lib/math'
@@ -14,12 +14,6 @@ import { useCallPoolStateData } from 'store/callPool/useCallPoolStateData'
 import type { UserStatsData } from 'store/callPool/userStats/adapter/getUserStatsData'
 
 import type { CallPool } from '..'
-
-type UseCacheMemoProps = { chainId: number }
-const { useCacheMemo, useCacheDataEffect } = getUseCacheMemo(
-  () => db.allCallPools,
-  (table, { chainId }: UseCacheMemoProps) => table.where('network').equals(chainId).toArray()
-)
 
 export type AllCallPools = {
   stats: CallPoolStats
@@ -57,27 +51,38 @@ export const useAllCallPoolsData = (callPools: CallPool[]) => {
   const { chainId } = useWallet()
   const allCallPoolsSouceData = useAllCallPoolsDataSouceData(callPools)
 
-  const allCallPoolsCacheData = useCacheMemo([allCallPoolsSouceData], {
-    chainId,
+  const getTable = useCallback(() => db.allCallPools, [])
+  const getCacheData = useCallback(
+    (table: ReturnType<typeof getTable>) => table.where('network').equals(chainId).toArray(),
+    [chainId]
+  )
+  const sourceData = useMemo(() => [allCallPoolsSouceData], [allCallPoolsSouceData])
+  const allCallPoolsCacheData = useCacheData({
+    getTable,
+    getCacheData,
+    sourceData,
+    getSaveData: (data) => {
+      const network = chainId
+      return data
+        .map((i) => {
+          if (!i.stats.totalDepositedNFTs) return
+          const item = {
+            ...i,
+            network,
+          }
+          delete item.userStats
+          return item
+        })
+        .filter(Boolean)
+    },
   })
 
   const allCallPools = useMemo(() => {
-    if (!allCallPoolsCacheData.length) return allCallPoolsSouceData
+    if (!allCallPoolsCacheData || !allCallPoolsCacheData.length) return allCallPoolsSouceData
     const returnValue = merge({}, allCallPoolsSouceData, allCallPoolsCacheData[0])
     log('[AllCallPoolsData]', returnValue)
     return returnValue
   }, [allCallPoolsCacheData, allCallPoolsSouceData])
-
-  useCacheDataEffect(allCallPoolsSouceData, (data) => {
-    const network = chainId
-    if (!data.stats.totalDepositedNFTs) return
-    const item = {
-      ...data,
-      network,
-    }
-    delete item.userStats
-    return item
-  })
 
   return allCallPools
 }
