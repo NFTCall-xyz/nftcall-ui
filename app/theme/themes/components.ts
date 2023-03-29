@@ -378,15 +378,15 @@ const components = (theme: Theme): any => {
             backgroundColor: theme.palette.primary.main,
             '&:hover': {
               backgroundColor: theme.palette.primary.main,
-            }
+            },
           },
-          '&:hover' : {
+          '&:hover': {
             color: theme.palette.background.default,
             backgroundColor: theme.palette.primary.main,
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   }
 }
 

@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import { Fragment, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CircularProgress } from '@mui/material'
 import Card from '@mui/material/Card'
 import Stack from '@mui/material/Stack'
 import ToggleButton from '@mui/material/ToggleButton'
@@ -20,7 +21,6 @@ import TokenIcon from 'lib/protocol/components/TokenIcon'
 import Chart from './Chart'
 import type { FloorPriceTrendsProps } from './types'
 import { useChart } from './useChart'
-import { CircularProgress } from '@mui/material'
 
 const ROOT = styled(Card)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -70,7 +70,12 @@ const FloorPriceTrends: FC<FloorPriceTrendsProps> = () => {
           <RiseOrFall value={chart.change24}>
             <Paragraph fontWeight={600} fontSize={24}>
               <Stack spacing={0.5} direction="row" alignItems="center">
-                <NumberDisplay value={chart.change24} abbreviate={{}} numberFormatOptions={{ signDisplay: 'always' }} options='percent' />
+                <NumberDisplay
+                  value={chart.change24}
+                  abbreviate={{}}
+                  numberFormatOptions={{ signDisplay: 'always' }}
+                  options="percent"
+                />
               </Stack>
             </Paragraph>
           </RiseOrFall>
