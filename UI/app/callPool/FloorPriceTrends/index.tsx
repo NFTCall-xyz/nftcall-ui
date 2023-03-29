@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-import { H5, H6, Paragraph } from 'components/Typography'
+import { H5, Paragraph } from 'components/Typography'
 import FlexRowAlign from 'components/flexbox/FlexRowAlign'
 
 import NumberDisplay from 'lib/math/components/NumberDisplay'
@@ -20,11 +20,15 @@ import TokenIcon from 'lib/protocol/components/TokenIcon'
 import Chart from './Chart'
 import type { FloorPriceTrendsProps } from './types'
 import { useChart } from './useChart'
+import { CircularProgress } from '@mui/material'
 
 const ROOT = styled(Card)(({ theme }) => ({
-  padding: theme.spacing(2),
+  padding: theme.spacing(4),
   borderRadius: '10px',
   flex: 8,
+  backgroundColor: 'transparent',
+  border: 'solid 1px',
+  borderColor: theme.palette.divider,
 }))
 const SubTitle = styled('div')`
   display: flex;
@@ -46,12 +50,12 @@ const FloorPriceTrends: FC<FloorPriceTrendsProps> = () => {
 
   const left = useMemo(
     () => (
-      <Left spacing={2} direction="row">
+      <Left spacing={4} direction="row">
         <Stack spacing={1}>
           <H5 color="text.secondary" fontWeight={400}>
             {t('floorPrice')}
           </H5>
-          <Paragraph fontWeight={600}>
+          <Paragraph fontWeight={600} fontSize={24}>
             <Stack spacing={0.5} direction="row" alignItems="center">
               <TokenIcon symbol="ETH" sx={{ width: 16, height: 16 }} />
               <NumberDisplay value={chart.currentFloorPrice} options="number" />
@@ -64,10 +68,9 @@ const FloorPriceTrends: FC<FloorPriceTrendsProps> = () => {
           </H5>
 
           <RiseOrFall value={chart.change24}>
-            <Paragraph fontWeight={600}>
+            <Paragraph fontWeight={600} fontSize={24}>
               <Stack spacing={0.5} direction="row" alignItems="center">
-                <TokenIcon symbol="ETH" sx={{ width: 16, height: 16 }} />
-                <NumberDisplay value={chart.change24} abbreviate={{}} numberFormatOptions={{ signDisplay: 'always' }} />
+                <NumberDisplay value={chart.change24} abbreviate={{}} numberFormatOptions={{ signDisplay: 'always' }} options='percent' />
               </Stack>
             </Paragraph>
           </RiseOrFall>
@@ -108,7 +111,7 @@ const FloorPriceTrends: FC<FloorPriceTrendsProps> = () => {
         )}
         {chart.loading ? (
           <FlexRowAlign paddingTop={2} height={100}>
-            <H6 color="text.disabled">{t('loading')}</H6>
+            <CircularProgress />
           </FlexRowAlign>
         ) : (
           <Chart {...chart.props} />

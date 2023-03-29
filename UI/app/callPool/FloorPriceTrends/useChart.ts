@@ -76,12 +76,13 @@ export const useChart = () => {
   const props = useMemo(
     () =>
       ({
-        height: 60,
+        height: 100,
         data: {
           datasets: [
             {
               label: callPool?.collection.name,
               data,
+              tension: 0.3,
               backgroundColor: (context) => {
                 const chart = context.chart
                 const { ctx, chartArea } = chart
@@ -106,6 +107,10 @@ export const useChart = () => {
               },
               fill: 'start',
               borderColor: theme.palette.primary.main,
+              pointBackgroundColor: theme.palette.primary.main,
+              pointHoverRadius: 6,
+              pointHoverBorderColor: '#fff',
+              pointHoverBorderWidth: 2,
             },
           ],
         },
@@ -132,25 +137,28 @@ export const useChart = () => {
                 unit: 'day',
               },
               ticks: {
-                display: true,
+                color: theme.palette.text.secondary,
               },
               grid: {
                 display: false,
               },
             },
             y: {
-              position: 'right',
+              position: 'left',
+              grace: '15%',
               grid: {
                 display: true,
+                color: theme.palette.grey[50],
               },
               ticks: {
                 color: theme.palette.text.secondary,
+                padding: 20,
               },
             },
           },
         },
       } as FloorPriceTrendsChartProps),
-    [callPool?.collection.name, data, theme.palette.primary.main, theme.palette.text.secondary]
+    [callPool?.collection.name, data, theme.palette]
   )
 
   return { props, loading, dayButton, change24, currentFloorPrice: callPool.nftOracle.price }
