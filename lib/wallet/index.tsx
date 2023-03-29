@@ -45,12 +45,11 @@ const useWalletService = () => {
   }, [chainId])
 
   useMount(() => {
-    const promise = connector.connectEagerly()
-    if (promise) {
-      promise.catch((e) => {
+    try {
+      ;(connector.connectEagerly() as Promise<any>).catch((e) => {
         console.error('[wallet][connectEagerly]', e)
       })
-    }
+    } catch (error) {}
   })
 
   return {
