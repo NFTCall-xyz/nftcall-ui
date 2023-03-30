@@ -29,7 +29,12 @@ const useWalletService = () => {
   } = useWeb3React()
 
   const chainId = useMemo(() => walletChainId || defalutChainId, [walletChainId, defalutChainId])
-  const provider = useMemo(() => walletProvider || getProvider(chainId), [chainId, walletProvider])
+
+  const provider = useMemo(() => {
+    if (!walletProvider || !walletChainId) return getProvider(chainId)
+    return walletProvider
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chainId, walletChainId, walletProvider])
 
   const status = useMemo(() => {
     if (isActivating) {

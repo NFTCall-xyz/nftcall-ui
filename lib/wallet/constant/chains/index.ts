@@ -15,14 +15,21 @@ export const CHAIN_INFORMATION: ChainInformation[] = [
     currency: ETH,
     name: 'Ethereum',
     explorerUrl: `https://etherscan.io`,
-    publicJsonRPCUrl: [`https://mainnet.infura.io/v3/${infuraId}`],
+    publicJsonRPCUrl: [
+      'https://rpc.ankr.com/eth',
+      'https://cloudflare-eth.com',
+      'https://rpc.flashbots.net',
+      'https://ethereum.publicnode.com',
+      'https://eth.llamarpc.com',
+      `https://mainnet.infura.io/v3/${infuraId}`,
+    ],
   },
   {
     id: ChainId.goerli,
     currency: GoerliETH,
     name: 'Goerli',
     explorerUrl: `https://goerli.etherscan.io`,
-    publicJsonRPCUrl: [`https://goerli.infura.io/v3/${infuraId}`],
+    publicJsonRPCUrl: ['https://rpc.ankr.com/eth_goerli', `https://goerli.infura.io/v3/${infuraId}`],
   },
 ]
 
