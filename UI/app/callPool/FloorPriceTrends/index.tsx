@@ -55,7 +55,7 @@ const FloorPriceTrends: FC<FloorPriceTrendsProps> = () => {
           <H5 color="text.secondary" fontWeight={400}>
             {t('floorPrice')}
           </H5>
-          <Paragraph fontWeight={600} fontSize={24}>
+          <Paragraph fontWeight={600} fontSize={24} component="div">
             <Stack spacing={0.5} direction="row" alignItems="center">
               <TokenIcon symbol="ETH" sx={{ width: 16, height: 16 }} />
               <NumberDisplay value={chart.currentFloorPrice} options="number" />
@@ -68,7 +68,7 @@ const FloorPriceTrends: FC<FloorPriceTrendsProps> = () => {
           </H5>
 
           <RiseOrFall value={chart.change24}>
-            <Paragraph fontWeight={600} fontSize={24}>
+            <Paragraph fontWeight={600} fontSize={24} component="div">
               <Stack spacing={0.5} direction="row" alignItems="center">
                 <NumberDisplay
                   value={chart.change24}
