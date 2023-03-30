@@ -6,6 +6,7 @@ import { useMemo, useRef, useState } from 'react'
 import { useImmer } from 'use-immer'
 
 import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { DAY, getCurrentTimestamp, getTimestamp } from 'app/constant'
 import { usePost } from 'app/hooks/request'
@@ -37,6 +38,7 @@ export const useChart = () => {
   const dayButton = useDayButton()
   const { callPool } = useCallPoolDetails()
   const { chainId } = useWallet()
+  const matches = useMediaQuery(theme.breakpoints.down('md'))
 
   const { post, cancel, loading } = usePost(getFloorPriceTrends)
   const [sourceData, setSourceData] = useImmer<FloorPriceTrends[]>([])
@@ -76,7 +78,7 @@ export const useChart = () => {
   const props = useMemo(
     () =>
       ({
-        height: 100,
+        height: matches ? 300 : 100,
         data: {
           datasets: [
             {
@@ -122,7 +124,7 @@ export const useChart = () => {
             tooltip: {
               callbacks: {
                 label: (context) => {
-                  return ` ${context.parsed.y} ETH`
+                  return ` ${context.parsed.y.toFixed(2)} ETH`
                 },
                 title: (context) => {
                   return `${context[0].label.split(',').slice(0, -1)}`
@@ -152,13 +154,13 @@ export const useChart = () => {
               },
               ticks: {
                 color: theme.palette.text.secondary,
-                padding: 20,
+                padding: matches ? 0 : 20,
               },
             },
           },
         },
       } as FloorPriceTrendsChartProps),
-    [callPool?.collection.name, data, theme.palette]
+    [callPool?.collection.name, data, theme.palette, matches]
   )
 
   return { props, loading, dayButton, change24, currentFloorPrice: callPool.nftOracle.price }
