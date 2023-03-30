@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import type { FC } from 'react'
 
+import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
@@ -15,6 +16,7 @@ import { H3, Paragraph } from 'components/Typography'
 import SocialLinks from '../../app/Footer/Links'
 import Logo from '../Header/Logo'
 import LogoImg from '../Header/Logo/images/logo.svg'
+import Certik from './Certik'
 import LogoImgDark from './images/logo-black.svg'
 
 const FooterLink = styled(Link)`
@@ -94,9 +96,14 @@ const Footer: FC = () => {
           sx={{ borderTop: 'solid 1px', borderColor: theme.palette.divider }}
           spacing={2}
         >
-          <Paragraph color="text.disabled" textAlign="center">
-            Copyright Ⓒ 2022 NFTCall. All Rights Reserved.
-          </Paragraph>
+          <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Paragraph color="text.disabled" textAlign="center">
+              Copyright Ⓒ 2022 NFTCall. All Rights Reserved.
+            </Paragraph>
+            <Box display="flex" justifyContent="center">
+              <Certik />
+            </Box>
+          </Stack>
           <SocialLinks />
         </Stack>
       </Container>
