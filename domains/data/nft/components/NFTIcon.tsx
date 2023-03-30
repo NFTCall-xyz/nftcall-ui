@@ -1,4 +1,3 @@
-import { m } from 'framer-motion'
 import { useMemo } from 'react'
 
 import type { BoxProps } from '@mui/material/Box'
@@ -6,6 +5,8 @@ import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import { styled } from '@mui/material/styles'
 import type { SxProps, Theme } from '@mui/material/styles'
+
+import MotionDiv from 'lib/framer-motion/components/MotionDiv'
 
 import { imagePlaceholder } from 'store/nft/tokenId/assets/adapter/getAssetsBaseData'
 import type { AssetsData } from 'store/nft/tokenId/assets/adapter/getAssetsData'
@@ -74,9 +75,9 @@ const NFTAssetsDataIcon = ({ nftAssetsData, sx }: NFTIconProps) => {
   return (
     <ROOT sx={sx}>
       <ImageWrap>
-        <m.div whileHover={{ scale: 1.2 }}>
+        <MotionDiv whileHover={{ scale: 1.2 }}>
           <ImageWrap>{image}</ImageWrap>
-        </m.div>
+        </MotionDiv>
       </ImageWrap>
     </ROOT>
   )

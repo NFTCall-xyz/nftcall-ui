@@ -1,6 +1,5 @@
 import type { MyAppProps } from 'app'
 import { useApp } from 'app'
-import { m } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
 import { Fragment, useMemo } from 'react'
@@ -10,6 +9,7 @@ import NFTDepositDialog from 'domains/data/callPools/components/NFTDepositDialog
 import NFTSettingBatchDialog from 'domains/data/callPools/components/NFTSettingBatchDialog'
 import NFTSettingDialog from 'domains/data/callPools/components/NFTSettingDialog'
 
+import MotionDiv from 'lib/framer-motion/components/MotionDiv'
 import NProgress from 'lib/nprogress/components/NProgress'
 import ChainDialog from 'lib/wallet/components/ChainDialog'
 import ConnectDialog from 'lib/wallet/components/ConnectDialog'
@@ -45,7 +45,7 @@ const Layout: FC<MyAppProps> = ({ Component, pageProps }) => {
 
   const Page = useMemo(() => {
     const PageTransition: FC = () => (
-      <m.div
+      <MotionDiv
         initial="hidden"
         animate="visible"
         variants={{
@@ -54,7 +54,7 @@ const Layout: FC<MyAppProps> = ({ Component, pageProps }) => {
         }}
       >
         <Component {...pageProps} />
-      </m.div>
+      </MotionDiv>
     )
     return PageTransition
   }, [Component, pageProps])
