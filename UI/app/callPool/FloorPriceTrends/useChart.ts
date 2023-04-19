@@ -201,7 +201,7 @@ export const useChart = () => {
               position: 'right',
               grace: '15%',
               grid: {
-                display: true,
+                display: false,
                 color: theme.palette.grey[50],
               },
               ticks: {
