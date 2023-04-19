@@ -8,15 +8,12 @@ import { useImmer } from 'use-immer'
 
 import SettingsIcon from '@mui/icons-material/Settings'
 import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import Checkbox from '@mui/material/Checkbox'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
 
 import type { UseIds } from 'app/hooks/useIds'
 import { safeGet } from 'app/utils/get'
@@ -27,6 +24,7 @@ import FlexBetween from 'components/flexbox/FlexBetween'
 import { transaction } from 'domains/controllers/adapter/transaction'
 import { useCallPools, useNetwork } from 'domains/data'
 import CollectionName from 'domains/data/nft/components/CollectionName'
+import NFTBaseCard from 'domains/data/nft/components/NFTBaseCard'
 import NFTIcon from 'domains/data/nft/components/NFTIcon'
 import { useNFTAssetsData } from 'domains/data/nft/hooks/useNFTAssetsData'
 import type { BaseNFT, NFTActions } from 'domains/data/nft/types'
@@ -52,35 +50,9 @@ export type DepositedNFT = BaseNFT & {
   }
 }
 
-const ROOT = styled(Card)(({ theme }) => ({
-  position: 'relative',
-  border: 'solid 1px',
-  borderColor: theme.palette.divider,
-  '&:hover': {
-    borderColor: theme.palette.primary.main,
-    backgroundColor: theme.palette.primary[200],
-    ['.MuiButton-autoHide']: {
-      opacity: 1,
-    },
-  },
-  '& .checkbox': {
-    position: 'absolute',
-    zIndex: 1,
-    right: '0.75rem',
-    top: '0.75rem',
-  },
-}))
-
 const NFTCard: FC<DepositedNFT> = (props) => {
   const { t } = useTranslation('app-sell')
-  const {
-    tokenId,
-    status: sourceStatus,
-    position,
-    restart,
-    callPoolAddress,
-    ids: { has, add, remove },
-  } = props
+  const { tokenId, status: sourceStatus, position, restart, callPoolAddress } = props
   const { endTime } = position || ({} as undefined)
   const [status, setStatus] = useImmer(sourceStatus)
   const [loading, setLoading] = useImmer(false)
@@ -176,19 +148,9 @@ const NFTCard: FC<DepositedNFT> = (props) => {
   const collection = safeGet(() => nftAssetsData.contractName) || ''
   const id = getNFTId(props)
 
-  const checked = has(id)
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      add(id)
-    } else {
-      remove(id)
-    }
-  }
-
   return (
     <Grid item xs={6} sm={3} md={2.5}>
-      <ROOT>
-        <Checkbox className="checkbox" checked={checked} onChange={handleChange} />
+      <NFTBaseCard {...props} id={id}>
         <NFTIcon nftAssetsData={nftAssetsData} sx={{ padding: 1.5 }} />
         <CardContent sx={{ padding: 2, paddingTop: 0 }}>
           <Stack>
@@ -205,7 +167,7 @@ const NFTCard: FC<DepositedNFT> = (props) => {
         >
           {actions}
         </CardActions>
-      </ROOT>
+      </NFTBaseCard>
     </Grid>
   )
 }
