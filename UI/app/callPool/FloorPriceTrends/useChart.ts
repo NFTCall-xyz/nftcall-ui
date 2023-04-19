@@ -1,3 +1,4 @@
+import { isSameDay } from 'date-fns'
 import { useWallet } from 'domains'
 import { cloneDeep } from 'lodash'
 import type { MouseEvent } from 'react'
@@ -13,6 +14,7 @@ import { usePost } from 'app/hooks/request'
 import { safeGet } from 'app/utils/get'
 
 import { useCallPoolDetails } from 'domains/data'
+import { useMath } from 'domains/utils'
 
 import { toBN } from 'lib/math'
 
@@ -33,6 +35,7 @@ const useDayButton = () => {
 }
 
 export const useChart = () => {
+  const { NF } = useMath()
   const lineChart = useRef({ width: 0, height: 0, gradient: undefined })
   const theme = useTheme()
   const dayButton = useDayButton()
@@ -68,11 +71,26 @@ export const useChart = () => {
       return returnValue.slice(startIndex, length)
     }
 
-    return getMapData().map((i) => ({ x: i.createTime, y: i.floorPrice }))
-  }, [dayButton.value, sourceData])
+    const returnValue = getMapData()
+
+    const targetDate = returnValue[returnValue.length - 1].createTime
+
+    if (isSameDay(targetDate, new Date())) {
+      returnValue[returnValue.length - 1].vol = toBN(callPool.nftOracle.vol)
+      returnValue[returnValue.length - 1].floorPrice = callPool.nftOracle.price
+    } else {
+      returnValue.push({
+        createTime: targetDate + DAY,
+        floorPrice: callPool.nftOracle.price,
+        vol: toBN(callPool.nftOracle.vol),
+      } as any)
+    }
+
+    return returnValue.map(({ createTime, floorPrice, vol }) => ({ x: createTime, floorPrice, vol }))
+  }, [callPool.nftOracle.price, callPool.nftOracle.vol, dayButton.value, sourceData])
 
   const change24 = useMemo(() => {
-    return safeGet(() => data[data.length - 1].y.div(data[data.length - 2].y).minus(1)) || toBN(0)
+    return safeGet(() => data[data.length - 1].floorPrice.div(data[data.length - 2].floorPrice).minus(1)) || toBN(0)
   }, [data])
 
   const props = useMemo(
@@ -82,8 +100,8 @@ export const useChart = () => {
         data: {
           datasets: [
             {
-              label: callPool?.collection.name,
-              data,
+              label: 'FloorPrice',
+              data: data.map((i) => ({ ...i, y: i.floorPrice })),
               tension: 0.3,
               backgroundColor: (context) => {
                 const chart = context.chart
@@ -113,10 +131,27 @@ export const useChart = () => {
               pointHoverRadius: 6,
               pointHoverBorderColor: '#fff',
               pointHoverBorderWidth: 2,
+              yAxisID: 'y',
+            },
+            {
+              label: 'Volatility',
+              data: data.map((i) => ({ ...i, y: i.vol })),
+              tension: 0.3,
+              fill: 'start',
+              borderColor: theme.palette.secondary.main,
+              pointBackgroundColor: theme.palette.secondary.main,
+              pointHoverRadius: 6,
+              pointHoverBorderColor: '#fff',
+              pointHoverBorderWidth: 2,
+              yAxisID: 'y1',
             },
           ],
         },
         options: {
+          interaction: {
+            intersect: false,
+            mode: 'index',
+          },
           plugins: {
             legend: {
               display: false,
@@ -124,7 +159,12 @@ export const useChart = () => {
             tooltip: {
               callbacks: {
                 label: (context) => {
-                  return ` ${context.parsed.y.toFixed(2)} ETH`
+                  switch (context.dataset.label) {
+                    case 'FloorPrice':
+                      return `${context.dataset.label}: ${context.parsed.y.toFixed(2)} ETH`
+                    case 'Volatility':
+                      return `${context.dataset.label}: ${NF.format(context.parsed.y, NF.options('percent'))}`
+                  }
                 },
                 title: (context) => {
                   return `${context[0].label.split(',').slice(0, -1)}`
@@ -157,10 +197,31 @@ export const useChart = () => {
                 padding: matches ? 0 : 20,
               },
             },
+            y1: {
+              position: 'right',
+              grace: '15%',
+              grid: {
+                display: true,
+                color: theme.palette.grey[50],
+              },
+              ticks: {
+                callback: (value) => NF.format(value, NF.options('percent')),
+                color: theme.palette.text.secondary,
+                padding: matches ? 0 : 20,
+              },
+            },
           },
         },
       } as FloorPriceTrendsChartProps),
-    [callPool?.collection.name, data, theme.palette, matches]
+    [
+      matches,
+      data,
+      theme.palette.primary.main,
+      theme.palette.secondary.main,
+      theme.palette.text.secondary,
+      theme.palette.grey,
+      NF,
+    ]
   )
 
   return { props, loading, dayButton, change24, currentFloorPrice: callPool.nftOracle.price }

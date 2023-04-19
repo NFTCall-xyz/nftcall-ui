@@ -12,6 +12,7 @@ export type FloorPriceTrends = {
   chainId: number
   NFTAddress: string
   floorPrice: BN
+  vol: BN
   createTime: number
 }
 export type FloorPriceTrendsChartProps = Omit<ChartProps<'line', any, any>, 'type'>
