@@ -47,3 +47,8 @@ dist
 lib/protocol/src
 
 test.graphql
+# Sentry
+.sentryclirc
+
+# Sentry
+next.config.original.js
