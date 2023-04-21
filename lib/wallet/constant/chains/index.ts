@@ -20,7 +20,6 @@ export const CHAIN_INFORMATION: ChainInformation[] = [
       'https://cloudflare-eth.com',
       'https://rpc.flashbots.net',
       'https://ethereum.publicnode.com',
-      'https://eth.llamarpc.com',
       `https://mainnet.infura.io/v3/${infuraId}`,
     ],
   },

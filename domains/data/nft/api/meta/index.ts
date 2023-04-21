@@ -24,7 +24,7 @@ const resloveCollectionId = (network: string, collectionId: string) => {
 
   if (isMainnet) {
     callPool = mainnet.markets[symbol as 'Doodles']
-    jsonRpcUrl = 'https://eth.llamarpc.com'
+    jsonRpcUrl = 'https://rpc.ankr.com/eth'
   } else if (isGoerli) {
     callPool = goerli.markets[symbol as 'Doodles']
     jsonRpcUrl = 'https://rpc.ankr.com/eth_goerli'

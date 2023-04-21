@@ -1,6 +1,6 @@
 function certikRender() {
   var pid = 'nftcall'
-  if (!fetchData) return
+  if (!window.fetchData) return
 
   fetchData()
     .then(function (data) {
