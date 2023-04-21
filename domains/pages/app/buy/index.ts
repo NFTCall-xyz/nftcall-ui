@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
+import { useImmer } from 'use-immer'
 
 import { createContextWithProvider } from 'app/utils/createContext'
+import { safeGet } from 'app/utils/get'
 
 import { useCallPools } from 'domains/data'
 import { useUpdateNFTAssets } from 'domains/data/nft/hooks/useUpdateNFTAssets'
@@ -29,16 +31,24 @@ const usePageEffect = () => {
 }
 
 const useBuyCallPools = () => {
-  const { callPools } = useCallPools()
-  return callPools
+  const { callPools: sourceData } = useCallPools()
+  const [collectionName, setCollectionName] = useImmer('')
+  const callPools = useMemo(() => {
+    if (!collectionName) return sourceData
+    return sourceData.filter(({ collection }) =>
+      safeGet(() => collection.name.toLowerCase().includes(collectionName.toLowerCase()))
+    )
+  }, [collectionName, sourceData])
+
+  return { callPools, collectionName, setCollectionName }
 }
 
 const useBuyService = () => {
   const stats = useBuyStats()
-  const callPools = useBuyCallPools()
+  const buyCallPools = useBuyCallPools()
   return {
     stats,
-    callPools,
+    ...buyCallPools,
     usePageEffect,
   }
 }
