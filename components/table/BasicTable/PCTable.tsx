@@ -36,7 +36,9 @@ const DataFetcher: FC<{
   return (
     <TableRow
       component={Tr}
-      className={clsx(['ReactVirtualized__Table__row'])}
+      className={clsx(['ReactVirtualized__Table__row'], {
+        clickable: !!onRowClick,
+      })}
       onClick={(e) =>
         onRowClick &&
         onRowClick({
@@ -100,7 +102,9 @@ const PCTable: FC<BasicTableProps> = (props) => {
     <ROOT className="table basic-table">
       <Table>
         <TableHead>
-          <TableRow className="ReactVirtualized__Table__headerRow">{table.head}</TableRow>
+          <TableRow className={clsx({ ReactVirtualized__Table__headerRow: true, clickable: !!onRowClick })}>
+            {table.head}
+          </TableRow>
         </TableHead>
         <Stack component={TableBody} spacing={2}>
           {table.body}
@@ -148,6 +152,9 @@ export const ROOT = styled('div')`
       ${({ theme }) => ({
         backgroundColor: theme.palette.action.hover,
       })}
+    }
+    &.clickable {
+      cursor: pointer;
     }
   }
 
