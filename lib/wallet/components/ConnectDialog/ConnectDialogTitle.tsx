@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import DialogTitle from '@mui/material/DialogTitle'
 import { styled } from '@mui/material/styles'
 
-import { H3, H5 } from 'components/Typography'
+import { H3, Paragraph } from 'components/Typography'
 
 const ROOT = styled('div')`
   ${({ theme }) => ({
@@ -21,7 +21,7 @@ const ConnectDialogTitle: FC = () => {
     <DialogTitle>
       <ROOT>
         <H3 textAlign="center">{t(`wallet.${status}.title`)}</H3>
-        <H5 textAlign="center">{t(`wallet.${status}.subTitle`)}</H5>
+        <Paragraph textAlign="center" color='text.secondary'>{t(`wallet.${status}.subTitle`)}</Paragraph>
       </ROOT>
     </DialogTitle>
   )
