@@ -1,9 +1,3 @@
-// This file sets a custom webpack configuration to use your Next.js app
-// with Sentry.
-// https://nextjs.org/docs/api-reference/next.config.js/introduction
-// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-const { withSentryConfig } = require('@sentry/nextjs')
-
 const path = require('path')
 const { i18n } = require('./next-i18next.config')
 const i18nWebpack = require('./app/i18n/dev/hmr/webpack.js')
@@ -60,4 +54,7 @@ const nextConfig = {
 
 module.exports = nextConfig
 
-module.exports = withSentryConfig(module.exports, { silent: true }, { hideSourceMaps: true })
+if (process.env.NODE_ENV === 'production') {
+  const { withSentryConfig } = require('@sentry/nextjs')
+  module.exports = withSentryConfig(module.exports, { silent: true }, { hideSourceMaps: true })
+}
