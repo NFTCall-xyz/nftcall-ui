@@ -23,11 +23,12 @@ const SearchInput: ForwardRefRenderFunction<HTMLFormElement, SearchInputProps> =
       ref={ref}
       elevation={1}
       sx={{
-        p: '2px 4px',
+        padding: '1px 3px',
         display: 'flex',
         alignItems: 'center',
         width: { xs: 1, sm: 240 },
         borderRadius: '8px',
+        border: '1px solid #323746',
       }}
     >
       <IconButton
@@ -52,8 +53,8 @@ const SearchInput: ForwardRefRenderFunction<HTMLFormElement, SearchInputProps> =
       />
       {props.value && (
         <IconButton
+          sx={{ p: '6px' }}
           type="button"
-          sx={{ p: '10px' }}
           aria-label="search"
           onClick={() => {
             const input = safeGet(() => inputRef.current)
