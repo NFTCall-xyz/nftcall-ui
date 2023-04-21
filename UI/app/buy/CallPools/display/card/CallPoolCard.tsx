@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useTheme } from '@mui/material'
@@ -21,6 +20,7 @@ import NumberDisplay from 'lib/math/components/NumberDisplay'
 import TokenIcon from 'lib/protocol/components/TokenIcon'
 
 import NFTList from './NFTList'
+import PoolStatus from '../PoolStatus'
 
 // root component interface
 interface CallPoolCardProps {
@@ -29,7 +29,6 @@ interface CallPoolCardProps {
 
 const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool }) => {
   const { t } = useTranslation('app-buy', { keyPrefix: 'callPools' })
-  const { t: tNFT } = useTranslation('domains', { keyPrefix: 'nft' })
   const {
     nftOracle: { price: floorPrice },
     collection: { name, bannerImageUrl, imageUrl },
@@ -39,20 +38,6 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
   } = callPool
   const router = useRouter()
   const theme = useTheme()
-  const poolStatus = useMemo(() => {
-    if (paused) {
-      return {
-        status: tNFT('paused'),
-        color: theme.palette.warning.main,
-      }
-    }
-    if (deactivate) {
-      return {
-        status: tNFT('deactivated'),
-        color: theme.palette.error.main,
-      }
-    }
-  }, [deactivate, paused, tNFT, theme.palette])
 
   return (
     <Card
@@ -69,23 +54,16 @@ const CallPoolCard: FC<React.PropsWithChildren<CallPoolCardProps>> = ({ callPool
         },
       }}
     >
-      {poolStatus && (
-        <Box
-          sx={{
-            position: 'absolute',
-            right: 10,
-            top: 10,
-            padding: '3px 7px',
-            backgroundColor: poolStatus.color,
-            borderRadius: '5px',
-            boxShadow: theme.shadows[1],
-          }}
-        >
-          <Tiny color="text.primary" fontSize={10} fontWeight="medium">
-            {poolStatus.status}
-          </Tiny>
-        </Box>
-      )}
+      <Box
+        sx={{
+          position: 'absolute',
+          right: 10,
+          top: 10,
+          boxShadow: theme.shadows[1],
+        }}      
+      >
+        <PoolStatus deactivate={deactivate} paused={paused} />
+      </Box>
       <CardMedia sx={{ height: 140 }} image={bannerImageUrl} title={name} />
       <Avatar alt={name} src={imageUrl} sx={{ marginTop: '-35px', marginLeft: 2, width: 70, height: 70, border: '' }}>
         {name}

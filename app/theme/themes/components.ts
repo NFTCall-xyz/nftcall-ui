@@ -372,18 +372,7 @@ const components = (theme: Theme): any => {
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          padding: '7px 15px',
-          '&.Mui-selected': {
-            color: theme.palette.background.default,
-            backgroundColor: theme.palette.primary.main,
-            '&:hover': {
-              backgroundColor: theme.palette.primary.main,
-            },
-          },
-          '&:hover': {
-            color: theme.palette.background.default,
-            backgroundColor: theme.palette.primary.main,
-          },
+          padding: '7px 10px',
         },
       },
     },

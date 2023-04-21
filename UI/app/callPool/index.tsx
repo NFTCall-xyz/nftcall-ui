@@ -19,6 +19,7 @@ import FloorPriceTrends from './FloorPriceTrends'
 import History from './History'
 import ListedNFTs from './ListedNFTs'
 import Stats from './Stats'
+import PoolStatus from '../buy/CallPools/display/PoolStatus'
 
 type TitleProps = {
   name?: string
@@ -67,6 +68,7 @@ const CallPoolDetails: FC = () => {
 
   const {
     collection: { name, imageUrl },
+    stats: { deactivate, paused }
   } = callPool
   return (
     <Stack spacing={2}>
@@ -80,6 +82,9 @@ const CallPoolDetails: FC = () => {
             {name}
           </Avatar>
           <H2>{name}</H2>
+          <Box marginLeft={3}>
+            <PoolStatus deactivate={deactivate} paused={paused} />
+          </Box>
         </Stack>
         <Stats />
       </Stack>

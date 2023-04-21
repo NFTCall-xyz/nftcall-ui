@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack'
 import TableCell from '@mui/material/TableCell'
 
 import type { CallPool } from 'domains/data/callPools'
+import PoolStatus from '../PoolStatus'
 
 export type TableCellProps = {
   cellData?: any
@@ -15,15 +16,16 @@ export type TableCellProps = {
   rowIndex: number
 }
 
-export const collectionNameCellRenderer = ({ rowData: { collection } }: TableCellProps) => {
+export const collectionNameCellRenderer = ({ rowData: { collection, stats } }: TableCellProps) => {
   const { name, imageUrl } = collection || ({} as undefined)
   return (
-    <TableCell align="center" component="div">
-      <Stack spacing={1} direction="row" alignItems="center">
+    <TableCell component="div">
+      <Stack spacing={1} direction="row" alignItems="center" paddingX={4}>
         <Avatar alt={name} src={imageUrl} sx={{ width: 40, height: 40, border: '' }}>
           {name}
         </Avatar>
         <p>{name}</p>
+        <PoolStatus deactivate={stats.deactivate} paused={stats.paused} />
       </Stack>
     </TableCell>
   )

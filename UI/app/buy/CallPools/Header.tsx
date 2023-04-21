@@ -28,7 +28,7 @@ const Header: FC = () => {
           onChange={(e) => setCollectionName(e.target.value)}
           placeholder={t('placeholder')}
         />
-        <ToggleButtonGroup value={displayMode} size="small" exclusive onChange={(e, value) => setDisplayMode(value)}>
+        <ToggleButtonGroup value={displayMode} size="small" exclusive onChange={(e, value) => setDisplayMode(value)} color='primary'>
           <ToggleButton value="list">
             <ViewListRoundedIcon />
           </ToggleButton>

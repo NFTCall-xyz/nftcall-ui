@@ -59,7 +59,7 @@ const Stats: FC = () => {
 
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={{ xs: 2, sm: 4 }}>
         {cardList.map((card, index) => (
           <Grid item lg={index === 2 ? 4 : 2.5} sm={6} xs={6} key={index}>
             <StatsCard card={card} />
