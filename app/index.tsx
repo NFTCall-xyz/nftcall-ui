@@ -10,13 +10,15 @@ import { useRouteChange } from 'lib/nprogress/router'
 import { ToastContainer } from 'lib/toastify'
 
 import { useMenu } from './router/useMenu'
+import { useSetting } from './setting'
 import ThemeProvider from './theme'
 import type { FCC } from './types'
 
 export function useAppService() {
   useRouteChange()
   const menu = useMenu()
-  return { menu }
+  const setting = useSetting()
+  return { menu, setting }
 }
 
 export const { Context, Provider: APP, createUseContext } = createContextWithProvider(useAppService)
