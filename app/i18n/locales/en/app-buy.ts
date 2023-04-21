@@ -17,6 +17,7 @@ const locale = {
       collectionName: 'Collection Name',
       floorPrice: 'Floor Price',
       tradingVolume: 'Trading Volume',
+      volatility: 'Volatility',
     },
     floorPrice: 'Floor Price',
     tradingVolume: 'Trading Volume',

@@ -16,7 +16,8 @@
     "table": {
       "collectionName": "Collection Name",
       "floorPrice": "Floor Price",
-      "tradingVolume": "Trading Volume"
+      "tradingVolume": "Trading Volume",
+      "volatility": "Volatility"
     },
     "floorPrice": "Floor Price",
     "tradingVolume": "Trading Volume",
