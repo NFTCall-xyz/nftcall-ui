@@ -13,13 +13,19 @@ type LinkToAddressProps = {
 }
 
 const LinkToAddress: FC<LinkToAddressProps> = ({ address, name }) => {
-  const { network } = useWallet()
+  const {
+    network,
+    ens: { useGetENSName },
+  } = useWallet()
   const linkTo = useMemo(() => {
     return safeGet(() => `${network.explorerUrl}/search?f=0&q=${address}`) || '#'
   }, [address, network?.explorerUrl])
+
+  const ensName = useGetENSName(address)
+
   return (
     <Button variant="text" href={linkTo} target="_blank" color="primary">
-      {name || textCenterEllipsis(address)}
+      {name || ensName || textCenterEllipsis(address)}
     </Button>
   )
 }

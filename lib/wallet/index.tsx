@@ -9,6 +9,7 @@ import { defaultMarket } from 'lib/protocol/market'
 
 import UseWalletProvider from './UseWalletProvider'
 import { useWalletDialogs } from './application/dialogs'
+import { useENS } from './application/ens'
 import { WalletStatus } from './constant'
 import { getChainInformationByChainId } from './constant/chains'
 import { getProvider } from './provider'
@@ -57,6 +58,8 @@ const useWalletService = () => {
     } catch (error) {}
   })
 
+  const ens = useENS(provider)
+
   return {
     connector,
     dialogs,
@@ -72,6 +75,8 @@ const useWalletService = () => {
     status,
 
     setDefalutChainId,
+
+    ens,
   }
 }
 

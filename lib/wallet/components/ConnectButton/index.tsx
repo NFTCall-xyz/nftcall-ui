@@ -41,7 +41,7 @@ const WalletConnected: FC = () => {
         color: theme.palette.text.secondary,
       }}
     >
-      <Account />
+      <Account onlyENSName />
     </Button>
   )
 }

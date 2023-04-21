@@ -4,10 +4,22 @@ import { Fragment } from 'react'
 
 import { textCenterEllipsis } from 'app/utils/string/text-center-ellipsis'
 
-export const Account: FC = () => {
-  const { account } = useWallet()
+type AccountProps = {
+  onlyENSName?: boolean
+}
+export const Account: FC<AccountProps> = ({ onlyENSName }) => {
+  const { account, ENSName } = useWallet()
 
-  return <Fragment>{textCenterEllipsis(account)}</Fragment>
+  if (onlyENSName) {
+    return <Fragment>{ENSName || textCenterEllipsis(account)}</Fragment>
+  }
+
+  return (
+    <Fragment>
+      {textCenterEllipsis(account)}
+      {ENSName && ` ${ENSName}`}
+    </Fragment>
+  )
 }
 
 export default Account
