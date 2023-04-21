@@ -9,6 +9,15 @@ const locale = {
     TotalOpenInterest: 'Total Open Interest',
   },
   callPools: {
+    header: {
+      title: 'Select NFT collection',
+      placeholder: 'Search by collection name',
+    },
+    table: {
+      collectionName: 'Collection Name',
+      floorPrice: 'Floor Price',
+      tradingVolume: 'Trading Volume',
+    },
     floorPrice: 'Floor Price',
     tradingVolume: 'Trading Volume',
     noNFT: 'No NFTs deposited yet.',
