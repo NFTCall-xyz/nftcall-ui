@@ -154,7 +154,11 @@ export const useChart = () => {
           },
           plugins: {
             legend: {
-              display: false,
+              display: true,
+              labels: {
+                usePointStyle: true,
+                pointStyle: 'line',
+              },
             },
             tooltip: {
               callbacks: {
