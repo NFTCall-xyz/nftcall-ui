@@ -3,6 +3,7 @@ import { Trans, useTranslation } from 'next-i18next'
 import Image from 'next/image'
 
 import ArrowForward from '@mui/icons-material/ArrowForward'
+import PlayCircle from '@mui/icons-material/PlayCircleOutline'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
@@ -35,11 +36,14 @@ const Hero: FC = () => {
               {t('subTitle')}
             </H3>
           </Stack>
-          <Box>
+          <Stack spacing={2} direction="row">
             <Button variant="contained" size="large" endIcon={<ArrowForward />} href="/app">
               {t('tradeNow')}
             </Button>
-          </Box>
+            <Button variant="outlined" size="large" startIcon={<PlayCircle />} href="https://youtu.be/nlgcXl5fpyw">
+              {t('watchVideo')}
+            </Button>
+          </Stack>
         </Stack>
         <Box flex={1} position="relative" textAlign="center">
           <Image

@@ -4,6 +4,7 @@ const locale = {
     subTitle:
       'NFTCall is a physically-settled, peer-to-peer NFT options trading platform that allows NFT holders to earn premiums and sell NFTs at a higher price while allowing NFT investors to buy NFTs with high leverage but with limited losses.',
     tradeNow: 'Trade Now',
+    watchVideo: 'Watch Video',
     NFTOptions: 'NFT Options',
   },
   footer: {
